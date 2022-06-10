@@ -5,11 +5,11 @@ This implementation uses the python-ethernetip library by
 Sebastian Block (https://codeberg.org/paperwork/python-ethernetip)
 """
 import logging
+import ethernetip
 
 from cmmt.cmmt_base import CmmtBase
 from boollist.boollist import bytes_to_boollist, boollist_to_bytes
 
-import ethernetip
 
 O_T_STD_PROCESS_DATA = 100  # Originator to Target
 T_O_STD_PROCESS_DATA = 101  # Target to Originator
@@ -30,7 +30,8 @@ class CmmtEthernetip(CmmtBase):
         # Read product name
         pkt = self.connection.listID()
         if pkt:
-            logging.info(f"Product name: {pkt.product_name.decode()}")
+            logging.info(
+                f"Product name: {pkt.product_name.decode()}")  # pylint: disable=no-member
 
         # read process data input size of CMMT from global system object
         # (obj 0x4, inst 100, attr 4)

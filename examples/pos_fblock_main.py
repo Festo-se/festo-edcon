@@ -41,7 +41,7 @@ def main():
         fblock.acknowledge_faults()
         fblock.enable_powerstage()
         fblock.homing_task()
-        fblock.position_task(position=1000, velocity=600000)
+        fblock.position_task(position=10000, velocity=600000)
 
     except KeyboardInterrupt:
         print("Killed by user!")

@@ -1,6 +1,7 @@
 """Contains code that is related to PROFIDRIVE telegram base class"""
 from dataclasses import fields
 
+
 class TelegramBase:
     """Holds the base implementation of PROFIDRIVE telegrams"""
 
@@ -15,7 +16,8 @@ class TelegramBase:
                 raise ValueError(f"Invalid value of {item.name}")
 
     def __len__(self):
-        return sum([len(getattr(self, item.name)) for item in fields(self)])
+        len_list = [len(getattr(self, item.name)) for item in fields(self)]
+        return sum(len_list)
 
     def __repr__(self):
         """Implements a nicer representation for TelegramBase class"""
