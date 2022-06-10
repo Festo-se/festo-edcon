@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 
-# Learn more: https://github.com/kennethreitz/setup.py
 
 from setuptools import setup, find_packages
 
@@ -18,5 +17,6 @@ setup(
     url='https://gitlab.festo.company/lrsch/pycmmt',
     package_dir={"": "src"},
     packages=find_packages(where="src", exclude="tests"),
-    python_requires=">= 3.7"
+    python_requires=">= 3.7",
+    install_requires=['pymodbus', 'ethernetip'],
 )

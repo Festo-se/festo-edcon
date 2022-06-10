@@ -1,2 +1,4 @@
 .coverage
 */__pycache__
+build/*
+*/pyCMMT.egg-info
