@@ -2,13 +2,15 @@
 from dataclasses import dataclass, field
 import struct
 
-from festo.profidrive.telegram_base import TelegramBase
-from festo.profidrive.telegram1 import Telegram1
-from festo.profidrive.telegram102 import Telegram102
-from festo.profidrive.telegram111 import Telegram111
-from festo.profidrive.words import BitwiseWordGeneric, IntDoubleWord
+from profidrive.telegram_base import TelegramBase
+from profidrive.telegram1 import Telegram1
+from profidrive.telegram102 import Telegram102
+from profidrive.telegram111 import Telegram111
+from profidrive.words import BitwiseWordGeneric, IntDoubleWord
 
 # Test TelegramBase
+
+
 @dataclass(repr=False)
 class TelegramBaseTester(TelegramBase):
     """This is a test derivative of TelegramBase to test it's methods"""
@@ -17,6 +19,7 @@ class TelegramBaseTester(TelegramBase):
     word3: BitwiseWordGeneric = field(default_factory=BitwiseWordGeneric)
     word4: BitwiseWordGeneric = field(default_factory=BitwiseWordGeneric)
     word5: BitwiseWordGeneric = field(default_factory=BitwiseWordGeneric)
+
 
 def test_telegram_base_repr():
     """Test for TelegramBase __repr__ method"""
@@ -33,14 +36,18 @@ def test_telegram_base_repr():
 
 def test_telegram_base_len():
     """Test for TelegramBase __len__ method"""
-    assert len(TelegramBaseTester(0xDEAD, 0xBEEF, 0xBAAD, 0xBAAD, 0xF00D)) == 12
+    assert len(TelegramBaseTester(
+        0xDEAD, 0xBEEF, 0xBAAD, 0xBAAD, 0xF00D)) == 12
 
 # Test Telegram1
+
+
 def test_telegram1_repr():
     """Test for Telegram1 __repr__ method"""
     tg1 = Telegram1(0xDEAD, 0xBEEF, 0xBAAD, 0xF00D)
     assert str(tg1) == \
         "Telegram1(STW1=0xDEAD, NSOLL_A=0xBEEF, ZSW1=0xBAAD, NIST_A=0xF00D)"
+
 
 def test_telegram1_init():
     """Test for Telegram1 __init__ method"""
@@ -50,10 +57,12 @@ def test_telegram1_init():
     assert int(tg1.zsw1) == 0xBAAD
     assert int(tg1.nist_a) == struct.unpack('>h', b'\xF0\x0D')[0]
 
+
 def test_telegram1_output_bytes():
     """Test for Telegram1 output_bytes method"""
     tg1 = Telegram1(0xDEAD, 0xBEEF, 0xBAAD, 0xF00D)
     assert tg1.output_bytes() == bytes([0xAD, 0xDE, 0xEF, 0xBE])
+
 
 def test_telegram1_input_bytes():
     """Test for Telegram1 input_bytes method"""
@@ -63,6 +72,8 @@ def test_telegram1_input_bytes():
     assert int(tg1.nist_a) == struct.unpack('>h', b'\x0D\xF0')[0]
 
 # Test Telegram102
+
+
 def test_telegram102_repr():
     """Test for Telegram102 __repr__ method"""
     t102 = Telegram102(0xDEAD, 0xBEEF, 0xBAAD, 0xBAAD, 0xF00D)
@@ -72,6 +83,8 @@ def test_telegram102_repr():
         "G1_ZSW=0x0000, G1_XIST1=0x00000000, G1_XIST2=0x00000000)"
 
 # Test Telegram111
+
+
 def test_telegram111_repr():
     """Test for Telegram111 __repr__ method"""
     t111 = Telegram111()

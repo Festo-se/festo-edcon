@@ -1,8 +1,10 @@
 """Contains code that is related to PROFIDRIVE words"""
 
-from festo.profidrive.words import BitwiseWordGeneric, IntWord, IntDoubleWord
+from profidrive.words import BitwiseWordGeneric, IntWord, IntDoubleWord
 
 # Test BitwiseWordGeneric
+
+
 def test_bitwise_word_repr():
     """Test for BitwiseWordGeneric __repr__ method"""
     bwg = BitwiseWordGeneric()
@@ -16,9 +18,11 @@ def test_bitwise_word_repr():
         "bit5=False, bit6=False, bit7=False, bit8=False, bit9=False, bit10=False, bit11=False, "\
         "bit12=False, bit13=False, bit14=False, bit15=False)"
 
+
 def test_bitwise_word_int():
     """Test for BitwiseWordGeneric __int__ method"""
     assert int(BitwiseWordGeneric.from_bytes(b'\xab\xcd')) == 52651
+
 
 def test_bitwise_word_generic_from_bytes():
     """Test for BitwiseWordGeneric from_bytes method"""
@@ -27,6 +31,7 @@ def test_bitwise_word_generic_from_bytes():
         "BitwiseWordGeneric(bit0=True, bit1=True, bit2=False, bit3=True, bit4=False, bit5=True, " \
         "bit6=False, bit7=True, bit8=True, bit9=False, bit10=True, bit11=True, bit12=False, " \
         "bit13=False, bit14=True, bit15=True)"
+
 
 def test_bitwise_word_to_bytes():
     """Test for BitwiseWordGeneric to_bytes method"""
@@ -40,6 +45,7 @@ def test_int_word_int():
     """Test for IntWord __int__ method"""
     assert int(IntWord(12345)) == 12345
 
+
 def test_int_word_from_bytes():
     """Test for IntWord from_bytes method"""
     intw = IntWord.from_bytes(b'\x00\x01')
@@ -48,9 +54,12 @@ def test_int_word_from_bytes():
     assert str(intw) == "IntWord(value=-12885, byte_size=2)"
 
 # Test IntDoubleWord
+
+
 def test_int_double_word_int():
     """Test for IntDoubleWord __int__ method"""
     assert int(IntDoubleWord(123456)) == 123456
+
 
 def test_int_double_word_from_bytes():
     """Test for IntDoubleWord from_bytes method"""

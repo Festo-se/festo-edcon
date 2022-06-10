@@ -1,5 +1,5 @@
 """Contains tests for CmmtPositionFunctionBlock"""
-from eip_cmmt.cmmt_position_function_block import CmmtPositionFunctionBlock
+from cmmt.cmmt_position_function_block import CmmtPositionFunctionBlock
 
 
 def test_cmmt_position_function_block_over_v():

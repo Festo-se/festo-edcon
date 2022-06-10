@@ -1,5 +1,5 @@
 """Contains tests for boollist"""
-from eip_cmmt.utils.boollist import bytes_to_boollist, boollist_to_bytes
+from boollist.boollist import bytes_to_boollist, boollist_to_bytes
 
 # Test bytes_to_boollist
 
