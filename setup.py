@@ -19,4 +19,13 @@ setup(
     packages=find_packages(where="src", exclude="tests"),
     python_requires=">= 3.7",
     install_requires=['pymodbus', 'ethernetip'],
+    entry_points={
+        'console_scripts': [
+            'pycmmt-pnu = pycmmt_tools.pnu:main',
+            'pycmmt-position = pycmmt_tools.position:main',
+            'pycmmt-test-tg1 = pycmmt_tools.telegram1:main',
+            'pycmmt-test-tg102 = pycmmt_tools.telegram102:main',
+            'pycmmt-test-tg111 = pycmmt_tools.telegram111:main',
+        ],
+    },
 )
