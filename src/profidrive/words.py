@@ -114,6 +114,31 @@ class STW1_PM(BitwiseWord):
 
 
 @dataclass
+class SATZANW(BitwiseWord):
+    """Implementation of SATZANW"""
+    # pylint: disable=invalid-name
+    # pylint: disable=too-many-instance-attributes
+    # Sixteen is needed here
+
+    satzanw_bit0: bool = False
+    satzanw_bit1: bool = False
+    satzanw_bit2: bool = False
+    satzanw_bit3: bool = False
+    satzanw_bit4: bool = False
+    satzanw_bit5: bool = False
+    satzanw_bit6: bool = False
+    reserved1: bool = False
+    reserved2: bool = False
+    reserved3: bool = False
+    reserved4: bool = False
+    reserved5: bool = False
+    reserved6: bool = False
+    reserved7: bool = False
+    reserved8: bool = False
+    mdi_active: bool = False
+
+
+@dataclass
 class STW2(BitwiseWord):
     """Implementation of STW2"""
     # pylint: disable=invalid-name
@@ -234,6 +259,31 @@ class ZSW1_PM(BitwiseWord):
     drive_stopped: bool = False
     axis_accelerates: bool = False
     axis_decelerates: bool = False
+
+
+@dataclass
+class AKTSATZ(BitwiseWord):
+    """Implementation of AKTSATZ"""
+    # pylint: disable=invalid-name
+    # pylint: disable=too-many-instance-attributes
+    # Sixteen is needed here
+
+    aktsatz_bit0: bool = False
+    aktsatz_bit1: bool = False
+    aktsatz_bit2: bool = False
+    aktsatz_bit3: bool = False
+    aktsatz_bit4: bool = False
+    aktsatz_bit5: bool = False
+    aktsatz_bit6: bool = False
+    reserved1: bool = False
+    reserved2: bool = False
+    reserved3: bool = False
+    reserved4: bool = False
+    reserved5: bool = False
+    reserved6: bool = False
+    reserved7: bool = False
+    reserved8: bool = False
+    mdi_active: bool = False
 
 
 @dataclass
@@ -384,6 +434,31 @@ class G1_ZSW(BitwiseWord):
     transmit_abs_value_cyc: bool = False
     park_sens_active: bool = False
     sens_error: bool = False
+
+
+@dataclass
+class MDI_MOD(BitwiseWord):
+    """Implementation of MDI_MOD"""
+    # pylint: disable=invalid-name
+    # pylint: disable=too-many-instance-attributes
+    # Sixteen is needed here
+
+    absolute_position: bool = False
+    modulo_direction_positive: bool = False
+    modulo_direction_negative: bool = False
+    reserved1: bool = False
+    reserved2: bool = False
+    reserved3: bool = False
+    reserved4: bool = False
+    reserved5: bool = False
+    reserved6: bool = False
+    reserved7: bool = False
+    reserved8: bool = False
+    reserved9: bool = False
+    reserved10: bool = False
+    reserved11: bool = False
+    reserved12: bool = False
+    reserved13: bool = False
 
 
 @dataclass
