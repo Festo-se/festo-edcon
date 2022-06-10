@@ -13,20 +13,23 @@
 #
 # For more information, see: https://docs.gitlab.com/ee/ci/yaml/index.html#stages
 
+image: "python:3.8.13-bullseye"
+
 stages:          # List of stages for jobs, and their order of execution
   - test
 
-
 unit-test-job:   # This job runs in the test stage.
   stage: test    # It only starts when the job in the build stage completes successfully.
+  before_script:
+    - python -m pip install .
+    - python -m pip install pytest pytest-cov
   script:
-    - echo "Running unit tests... This will take about 5 seconds."
-    - sleep 5
-    - echo "Code coverage is 90%"
+    - pytest tests -v --cov=cmmt --cov=profidrive --cov=boollist
 
 lint-test-job:   # This job also runs in the test stage.
   stage: test    # It can run at the same time as unit-test-job (in parallel).
+  before_script:
+    - python -m pip install .
+    - python -m pip install pylint
   script:
-    - echo "Linting code... This will take about 5 seconds."
-    - sleep 5
-    - echo "No lint issues found."
+    - pylint src -d=logging-fstring-interpolation
