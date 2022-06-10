@@ -24,6 +24,7 @@ setup(
             'pycmmt-pnu = pycmmt_tools.pnu:main',
             'pycmmt-position = pycmmt_tools.position:main',
             'pycmmt-test-tg1 = pycmmt_tools.telegram1:main',
+            'pycmmt-test-tg9 = pycmmt_tools.telegram9:main',
             'pycmmt-test-tg102 = pycmmt_tools.telegram102:main',
             'pycmmt-test-tg111 = pycmmt_tools.telegram111:main',
         ],
