@@ -6,10 +6,10 @@ Sebastian Block (https://codeberg.org/paperwork/python-ethernetip)
 """
 import logging
 
-import ethernetip
-
-from boollist.boollist import bytes_to_boollist, boollist_to_bytes
 from cmmt.cmmt_base import CmmtBase
+from boollist.boollist import bytes_to_boollist, boollist_to_bytes
+
+import ethernetip
 
 O_T_STD_PROCESS_DATA = 100  # Originator to Target
 T_O_STD_PROCESS_DATA = 101  # Target to Originator
