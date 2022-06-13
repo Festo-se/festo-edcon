@@ -9,16 +9,17 @@ with open('README.md') as f:
 
 setup(
     name='pyCMMT',
-    version='0.1.0',
     description='Library to issue profidrive tasks for the CMMT',
     long_description=readme,
     author='Elias Rosch',
     author_email='elias.rosch@festo.com',
     url='https://gitlab.festo.company/lrsch/pycmmt',
+    use_scm_version=True,
+    python_requires=">= 3.7",
+    setup_requires=["setuptools_scm"],
+    install_requires=['pymodbus', 'ethernetip'],
     package_dir={"": "src"},
     packages=find_packages(where="src", exclude="tests"),
-    python_requires=">= 3.7",
-    install_requires=['pymodbus', 'ethernetip'],
     entry_points={
         'console_scripts': [
             'pycmmt-pnu = pycmmt_tools.pnu:main',
