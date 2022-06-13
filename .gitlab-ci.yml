@@ -37,8 +37,8 @@ lint-test-job:   # This job also runs in the test stage.
 
 changelog-test-job:
   stage: changelogtest
+  rules:
+    - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
   script:
     - git fetch --all
     - if [ 0 -eq $(git diff --name-only origin/${CI_MERGE_REQUEST_TARGET_BRANCH_NAME}...${CI_COMMIT_SHA} CHANGELOG.md | wc -l) ]; then exit 1; fi
-  only:
-    - merge_requests
