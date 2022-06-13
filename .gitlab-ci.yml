@@ -17,6 +17,7 @@ image: "python:3.8.13-bullseye"
 
 stages:          # List of stages for jobs, and their order of execution
   - test
+  - changelogtest
   - deploy
 
 unit-test-job:   # This job runs in the test stage.
@@ -26,6 +27,9 @@ unit-test-job:   # This job runs in the test stage.
     - python -m pip install pytest pytest-cov
   script:
     - pytest tests -v --cov=cmmt --cov=profidrive --cov=boollist
+  only:
+    - branches
+    - merge_requests
 
 lint-test-job:   # This job also runs in the test stage.
   stage: test    # It can run at the same time as unit-test-job (in parallel).
@@ -34,6 +38,17 @@ lint-test-job:   # This job also runs in the test stage.
     - python -m pip install pylint
   script:
     - pylint src -d=logging-fstring-interpolation --ignore=pycmmt_tools # For now ignore
+  only:
+    - branches
+    - merge_requests
+
+changelog-test-job:
+  stage: changelogtest
+  script:
+    - git fetch --all
+    - if [ 0 -eq $(git diff --name-only origin/${CI_MERGE_REQUEST_TARGET_BRANCH_NAME}...${CI_COMMIT_SHA} CHANGELOG.md | wc -l) ]; then exit 1; fi
+  only:
+    - merge_requests
 
 deploy-job:
   stage: deploy
