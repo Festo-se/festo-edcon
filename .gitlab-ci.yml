@@ -17,6 +17,7 @@ image: "python:3.8.13-bullseye"
 
 stages:          # List of stages for jobs, and their order of execution
   - test
+  - changelogtest
 
 unit-test-job:   # This job runs in the test stage.
   stage: test    # It only starts when the job in the build stage completes successfully.
@@ -33,3 +34,11 @@ lint-test-job:   # This job also runs in the test stage.
     - python -m pip install pylint
   script:
     - pylint src -d=logging-fstring-interpolation --ignore=pycmmt_tools # For now ignore
+
+changelog-test-job:
+  stage: changelogtest
+  script:
+    - git fetch --all
+    - if [ 0 -eq $(git diff --name-only origin/${CI_MERGE_REQUEST_TARGET_BRANCH_NAME}...${CI_COMMIT_SHA} CHANGELOG.md | wc -l) ]; then exit 1; fi
+  only:
+    - merge_requests
