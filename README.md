@@ -1,3 +1,3 @@
-# pyCMMT
+# edcon
 
 TBD

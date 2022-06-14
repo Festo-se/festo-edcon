@@ -8,12 +8,12 @@ with open('README.md') as f:
     readme = f.read()
 
 setup(
-    name='pyCMMT',
-    description='Library to issue profidrive tasks for the CMMT',
+    name='edcon',
+    description='Library to issue profidrive tasks for Festo specific electrical drives',
     long_description=readme,
     author='Elias Rosch',
     author_email='elias.rosch@festo.com',
-    url='https://gitlab.festo.company/lrsch/pycmmt',
+    url='https://gitlab.festo.company/lrsch/edcon',
     use_scm_version=True,
     python_requires=">= 3.7",
     setup_requires=["setuptools_scm"],
@@ -22,12 +22,12 @@ setup(
     packages=find_packages(where="src", exclude="tests"),
     entry_points={
         'console_scripts': [
-            'pycmmt-pnu = pycmmt_tools.pnu:main',
-            'pycmmt-position = pycmmt_tools.position:main',
-            'pycmmt-test-tg1 = pycmmt_tools.telegram1:main',
-            'pycmmt-test-tg9 = pycmmt_tools.telegram9:main',
-            'pycmmt-test-tg102 = pycmmt_tools.telegram102:main',
-            'pycmmt-test-tg111 = pycmmt_tools.telegram111:main',
+            'edcon-pnu = edcon_tools.pnu:main',
+            'edcon-position = edcon_tools.position:main',
+            'edcon-test-tg1 = edcon_tools.telegram1:main',
+            'edcon-test-tg9 = edcon_tools.telegram9:main',
+            'edcon-test-tg102 = edcon_tools.telegram102:main',
+            'edcon-test-tg111 = edcon_tools.telegram111:main',
         ],
     },
 )

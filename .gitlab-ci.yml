@@ -37,7 +37,7 @@ lint-test-job:   # This job also runs in the test stage.
     - python -m pip install .
     - python -m pip install pylint
   script:
-    - pylint src -d=logging-fstring-interpolation --ignore=pycmmt_tools # For now ignore
+    - pylint src -d=logging-fstring-interpolation --ignore=edcon_tools # For now ignore
   only:
     - branches
     - merge_requests
@@ -52,12 +52,13 @@ changelog-test-job:
 
 deploy-job:
   stage: deploy
+  rules:
+    - if: '$CI_COMMIT_TAG =~ /^v\d+\.\d+\.\d+$/ && $CI_COMMIT_REF_PROTECTED == "true"'
+
   before_script:
     # - python -m pip install wheel
     - python -m pip install twine
   script:
     - python setup.py bdist_wheel --universal
-    - twine upload --repository-url https://adeartifactory1.de.festo.net/artifactory/api/pypi/electricdrives-python-dev-local -u"$ARTIFACTORY_PYPI_USER" -p"$ARTIFACTORY_PYPI_PASSWORD" dist/*
+    - twine upload --repository-url"$ARTIFACTORY_PYPI_URL" -u"$ARTIFACTORY_PYPI_USER" -p"$ARTIFACTORY_PYPI_PASSWORD" dist/*
     # Here we need to upload to artifactory
-  only:
-    - branches
