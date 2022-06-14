@@ -56,7 +56,7 @@ deploy-job:
     # - python -m pip install wheel
     - python -m pip install twine
   script:
-    # - python setup.py bdist_wheel upload -r local
+    - python setup.py bdist_wheel --universal
     - twine upload --repository-url https://adeartifactory1.de.festo.net/artifactory/api/pypi/electricdrives-python-dev-local -u"$ARTIFACTORY_PYPI_USER" -p"$ARTIFACTORY_PYPI_PASSWORD" dist/*
     # Here we need to upload to artifactory
   only:
