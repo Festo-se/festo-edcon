@@ -6,5 +6,8 @@ Please pick from the following sections when categorizing your entry:
 Before every entry put one of these to mark the severity of the change:
 `Major`, `Minor` or `Patch`
 
+## [v0.2.0] - 14.06.22
+- [Minor] Added deploy job to CI/CD
+
 ## [v0.1.0] - 13.06.22
 - [Minor] Initial release

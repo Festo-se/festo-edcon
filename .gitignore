@@ -1,5 +1,5 @@
 .coverage
 */__pycache__
 build/*
-*/pyCMMT.egg-info
+*/edcon.egg-info
 .eggs/*
