@@ -6,7 +6,12 @@ Please pick from the following sections when categorizing your entry:
 Before every entry put one of these to mark the severity of the change:
 `Major`, `Minor` or `Patch`
 
+## [v0.3.0] - 15.06.22
+### Changed
+- [Minor] Changed deploy job to release job CI/CD. Also creates release.
+ 
 ## [v0.2.0] - 14.06.22
+### Added
 - [Minor] Added deploy job to CI/CD
 
 ## [v0.1.0] - 13.06.22
