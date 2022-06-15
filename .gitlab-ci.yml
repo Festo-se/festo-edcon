@@ -18,7 +18,7 @@ image: "python:3.8.13-bullseye"
 stages:          # List of stages for jobs, and their order of execution
   - test
   - changelogtest
-  - deploy
+  - release
 
 unit-test-job:   # This job runs in the test stage.
   stage: test    # It only starts when the job in the build stage completes successfully.
@@ -53,15 +53,21 @@ changelog-test-job:
   only:
     - merge_requests
 
-deploy-job:
-  stage: deploy
+release-job:
+  stage: release
   rules:
     - if: '$CI_COMMIT_TAG =~ /^v\d+\.\d+\.\d+$/ && $CI_COMMIT_REF_PROTECTED == "true"'
 
   before_script:
     # - python -m pip install wheel
     - python -m pip install twine
+    - curl -fL https://install-cli.jfrog.io | sh
   script:
     - python setup.py bdist_wheel --universal
-    - twine upload --repository-url "$ARTIFACTORY_PYPI_URL" -u"$ARTIFACTORY_PYPI_USER" -p"$ARTIFACTORY_PYPI_PASSWORD" dist/*
-    # Here we need to upload to artifactory
+    - twine check dist/*
+    - cd dist
+    # - twine upload --repository-url "$ARTIFACTORY_PYPI_URL" -u"$ARTIFACTORY_PYPI_USER" -p"$ARTIFACTORY_PYPI_PASSWORD" dist/*
+    - jf rt u --url "$ARTIFACTORY_PYPI_URL" --access-token "$ARTIFACTORY_ACCESS_TOKEN" "*.whl" electricdrives-python-dev-local/edcon/$CI_COMMIT_TAG/
+  release:                               # See https://docs.gitlab.com/ee/ci/yaml/#release for available properties
+    tag_name: '$CI_COMMIT_TAG'
+    description: https://gitlab.festo.company/lrsch/edcon/-/blob/main/CHANGELOG.md
