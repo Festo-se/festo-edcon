@@ -68,6 +68,3 @@ release-job:
     - cd dist
     # - twine upload --repository-url "$ARTIFACTORY_PYPI_URL" -u"$ARTIFACTORY_PYPI_USER" -p"$ARTIFACTORY_PYPI_PASSWORD" dist/*
     - jf rt u --url "$ARTIFACTORY_PYPI_URL" --access-token "$ARTIFACTORY_ACCESS_TOKEN" "*.whl" electricdrives-python-dev-local/edcon/$CI_COMMIT_TAG/
-  release:                               # See https://docs.gitlab.com/ee/ci/yaml/#release for available properties
-    tag_name: '$CI_COMMIT_TAG'
-    description: https://gitlab.festo.company/lrsch/edcon/-/blob/main/CHANGELOG.md
