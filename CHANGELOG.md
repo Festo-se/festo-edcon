@@ -6,6 +6,10 @@ Please pick from the following sections when categorizing your entry:
 Before every entry put one of these to mark the severity of the change:
 `Major`, `Minor` or `Patch`
 
+## [v0.3.1] - 21.06.22
+### Changed
+- [Patch] Fixed gitlab-ci job dependencies.
+
 ## [v0.3.0] - 15.06.22
 ### Changed
 - [Minor] Changed deploy job to release job CI/CD. Also creates release.
