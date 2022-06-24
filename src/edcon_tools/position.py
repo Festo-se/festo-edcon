@@ -18,8 +18,16 @@ def main():
                        help='Use Modbus communication')
     group.add_argument('--ethernetip', action='store_true',
                        help='Use EtherNet/IP communication')
-    parser.add_argument(
-        '-i', '--ip-address', default="192.168.0.51", help='IP address to connect to.')
+    parser.add_argument('-i', '--ip-address', default="192.168.0.51",
+                        help='IP address to connect to.')
+    parser.add_argument('-p', '--position', default="10000",
+                        help='Target position to be reached')
+    parser.add_argument('-s', '--speed', default="600000",
+                        help='Speed used for positioning task')
+    parser.add_argument('-a', '--absolute', action='store_true',
+                        help='Use absolute positioning mode')
+    parser.add_argument('--homing', action='store_true',
+                        help='Peform homing before positioning task')
     parser.add_argument('-v', '--verbose', action='store_true',
                         help='Print additional information')
 
@@ -40,8 +48,12 @@ def main():
         fblock.request_plc_control()
         fblock.acknowledge_faults()
         fblock.enable_powerstage()
-        fblock.homing_task()
-        fblock.position_task(position=10000, velocity=600000)
+
+        if args.homing:
+            fblock.homing_task()
+
+        fblock.position_task(position=int(args.position),
+                             velocity=int(args.speed), absolute=args.absolute)
 
     except KeyboardInterrupt:
         print("Killed by user!")
