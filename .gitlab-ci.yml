@@ -69,3 +69,19 @@ release-job:
   needs:
     - unit-test-job
     - lint-test-job
+
+pages:
+  image: alpine:latest
+  stage: release
+
+  # rules:
+  #   - if: '$CI_COMMIT_TAG =~ /^v\d+\.\d+\.\d+$/ && $CI_COMMIT_REF_PROTECTED == "true"'
+  script:
+    - mkdir public
+    - mv test.html public
+  artifacts:
+    paths:
+        - public
+
+  # needs: ["sphinx-docs"]
+
