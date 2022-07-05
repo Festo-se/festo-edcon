@@ -32,7 +32,6 @@ extensions = [
     "sphinx.ext.autodoc",  # Generate Sphinx documentation from python docstrings
     "sphinx.ext.mathjax",  # Render latex formulas in the documentation using javascript
     "sphinx.ext.graphviz",  # Render graphviz graphs in the documentation
-    "sphinxcontrib.mermaid",  # Render mermaid graphs in the documentation
     "recommonmark",  # Use markdown files in the documentation along restructured text
     "sphinx_markdown_tables",  # Support tables in markdown
 ]
