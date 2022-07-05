@@ -55,7 +55,6 @@ lint-test-job:   # This job also runs in the test stage.
 
 sphinx-docs:
     stage: docs
-
     rules:
         # The following two rules make sure the job is always executed.
         - if: '$CI_COMMIT_BRANCH == "develop"'
@@ -66,7 +65,7 @@ sphinx-docs:
     before_script:
         - pip install -U pip recommonmark sphinx
         # - pip3 install -r docs-requirements.txt || echo "no additional requirements for docs specified"
-        - pip3 install .
+        - pip install .
     script:
         - mkdir public
         - sphinx-apidoc -f -o docs/source src
