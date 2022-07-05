@@ -55,15 +55,11 @@ lint-test-job:   # This job also runs in the test stage.
 
 sphinx-docs:
   stage: docs
-  # rules:
-    # The following two rules make sure the job is always executed.
-    # - if: '$CI_COMMIT_BRANCH == "main"'
-    # - if: $CI_COMMIT_TAG
-    # - if: $CI_MERGE_REQUEST_ID
-    # - if: '$CI_PIPELINE_SOURCE == "web"'
+  rules:
+    - if: $CI_PIPELINE_SOURCE == 'push'
+    - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
   before_script:
     - pip install -U pip recommonmark sphinx
-    # - pip3 install -r docs-requirements.txt || echo "no additional requirements for docs specified"
     - pip install .
   script:
     - mkdir public
@@ -80,7 +76,6 @@ sphinx-docs:
   artifacts:
     paths:
       - public
-    when: always
 
 release-job:
   stage: upload
@@ -103,7 +98,6 @@ release-job:
 pages:
   image: alpine:latest
   stage: upload
-
   # rules:
   #   - if: '$CI_COMMIT_TAG =~ /^v\d+\.\d+\.\d+$/ && $CI_COMMIT_REF_PROTECTED == "true"'
   script:
