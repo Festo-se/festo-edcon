@@ -33,7 +33,6 @@ extensions = [
     "sphinx.ext.mathjax",  # Render latex formulas in the documentation using javascript
     "sphinx.ext.graphviz",  # Render graphviz graphs in the documentation
     "recommonmark",  # Use markdown files in the documentation along restructured text
-    "sphinx_markdown_tables",  # Support tables in markdown
 ]
 
 # Add any paths that contain templates here, relative to this directory.
