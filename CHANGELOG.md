@@ -7,6 +7,8 @@ Before every entry put one of these to mark the severity of the change:
 `Major`, `Minor` or `Patch`
 
 ## Unreleased
+### Added
+- [Minor] Added sphinx docs.
 
 ## [v0.4.0] - 24.06.22
 ### Added
