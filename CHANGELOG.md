@@ -9,6 +9,7 @@ Before every entry put one of these to mark the severity of the change:
 ## Unreleased
 ### Added
 - [Minor] Added sphinx docs.
+- [Minor] Added `with` statement support to CmmtPositionFunctionBlock
 
 ## [v0.4.0] - 24.06.22
 ### Added

@@ -3,7 +3,7 @@ Contains CmmtPositionFunctionBlock class to configure and control
 CMMT devices in position mode.
 """
 import time
-
+import traceback
 from profidrive.telegram111 import Telegram111
 from profidrive.words import OVERRIDE, MDI_ACC, MDI_DEC
 from cmmt.cmmt_base import CmmtBase
@@ -51,6 +51,16 @@ class CmmtPositionFunctionBlock:
             self.cmmt_driver.send_io(self.tg111.output_bytes())
             time.sleep(0.1)
             self.cmmt_driver.stop_io()
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exc_type, exc_value, trc_bck):
+        if exc_type is not None:
+            traceback.print_exception(exc_type, exc_value, trc_bck)
+
+        self.__del__()
+        return True
 
     def scaled_velocity(self, raw_velocity: int) -> int:
         """Convert the raw velocity to a scaled velocity"""

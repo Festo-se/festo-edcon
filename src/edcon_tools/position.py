@@ -1,6 +1,5 @@
 """Example on how to use CmmtPositionFunctionBlock."""
 
-import sys
 import argparse
 import logging
 
@@ -42,9 +41,7 @@ def main():
     elif args.ethernetip:
         cmmt_driver = CmmtEthernetip(args.ip_address)
 
-    try:
-        fblock = CmmtPositionFunctionBlock(cmmt_driver)
-
+    with CmmtPositionFunctionBlock(cmmt_driver) as fblock:
         fblock.request_plc_control()
         fblock.acknowledge_faults()
         fblock.enable_powerstage()
@@ -54,11 +51,6 @@ def main():
 
         fblock.position_task(position=int(args.position),
                              velocity=int(args.speed), absolute=args.absolute)
-
-    except KeyboardInterrupt:
-        print("Killed by user!")
-        del fblock
-        sys.exit(1)
 
 
 if __name__ == "__main__":
