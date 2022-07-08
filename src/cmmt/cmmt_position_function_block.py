@@ -25,11 +25,6 @@ class CmmtPositionFunctionBlock:
         MDI_DEC(int(16384*(value/100.0)))), doc="Override deceleration in percent")
 
     def __init__(self, cmmt_driver: CmmtBase = None) -> None:
-        self.cmmt_driver = cmmt_driver
-        if cmmt_driver:
-            self.cmmt_driver.assert_selected_telegram(111)
-            self.cmmt_driver.configure_homing()
-            self.cmmt_driver.start_io()
 
         self.tg111 = Telegram111()
         # Configure default values of the telegram
@@ -44,6 +39,12 @@ class CmmtPositionFunctionBlock:
         self.over_dec = 100.0
 
         self.base_speed = 0
+
+        self.cmmt_driver = cmmt_driver
+        if cmmt_driver:
+            self.cmmt_driver.assert_selected_telegram(111)
+            self.cmmt_driver.configure_homing()
+            self.cmmt_driver.start_io()
 
     def __del__(self):
         if self.cmmt_driver is not None:

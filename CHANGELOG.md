@@ -9,8 +9,10 @@ Before every entry put one of these to mark the severity of the change:
 ## Unreleased
 ### Added
 - [Minor] Added sphinx docs.
-- [Minor] Added `with` statement support to CmmtPositionFunctionBlock
-
+- [Minor] Added `with` statement support to CmmtPositionFunctionBlock.
+### Fixed
+- [Patch] Corrected exception upon failing telegram assertion.
+ 
 ## [v0.4.0] - 24.06.22
 ### Added
 - [Minor] Added CLI options for edcon-position tool.
