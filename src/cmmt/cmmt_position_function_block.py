@@ -55,9 +55,9 @@ class CmmtPositionFunctionBlock:
     def __enter__(self):
         return self
 
-    def __exit__(self, exc_type, exc_value, tb):
+    def __exit__(self, exc_type, exc_value, trc_bck):
         if exc_type is not None:
-            traceback.print_exception(exc_type, exc_value, tb)
+            traceback.print_exception(exc_type, exc_value, trc_bck)
 
         self.__del__()
         return True
