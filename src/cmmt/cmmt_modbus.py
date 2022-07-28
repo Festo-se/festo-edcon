@@ -34,13 +34,18 @@ class CmmtModbus(CmmtBase):
         rreq = ReadDeviceInformationRequest(0x03, 0)
         rres = self.client.execute(rreq)
 
-        logging.info(f"Vendor Name: {rres.information[0][0].decode('ascii')}")
-        logging.info(f"Product Code: {rres.information[1][0].decode('ascii')}")
-        logging.info(
-            f"Firmware Version: {rres.information[2][0].decode('ascii')}")
+        if hasattr(rres, 'information'):
+            logging.info(
+                f"Vendor Name: {rres.information[0][0].decode('ascii')}")
+            logging.info(
+                f"Product Code: {rres.information[1][0].decode('ascii')}")
+            logging.info(
+                f"Firmware Version: {rres.information[2][0].decode('ascii')}")
 
-        logging.info(f"Vendor URL: {rres.information[3][0].decode('ascii')}")
-        logging.info(f"Product Name: {rres.information[4][0].decode('ascii')}")
+            logging.info(
+                f"Vendor URL: {rres.information[3][0].decode('ascii')}")
+            logging.info(
+                f"Product Name: {rres.information[4][0].decode('ascii')}")
 
         # How can we find out this information automatically?
         self.insize = 24  # Originator to Target
