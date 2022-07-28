@@ -13,6 +13,7 @@ Before every entry put one of these to mark the severity of the change:
 ### Fixed
 - [Patch] Corrected exception upon failing telegram assertion.
 - [Patch] Fixed exception caused by reading non-existing DeviceInformationRequest for older CMMT devices.
+- [Patch] Fixed bug causing some drives to not start traversing task because of missing delay.
 ## [v0.4.0] - 24.06.22
 ### Added
 - [Minor] Added CLI options for edcon-position tool.
