@@ -131,10 +131,11 @@ class CmmtPositionFunctionBlock:
         print("Start traversing task")
         self.tg111.mdi_tarpos.value = position
         self.tg111.mdi_velocity.value = self.raw_velocity(velocity)
-        # self.tg111.mdi_velocity.value = velocity
         self.tg111.pos_stw1.activate_mdi = True
         self.tg111.pos_stw1.absolute_position = absolute
         self.tg111.pos_stw1.activate_setup = setup
+        self.cmmt_driver.send_io(self.tg111.output_bytes())
+        time.sleep(0.1)
         self.tg111.stw1.activate_traversing_task = True
         self.cmmt_driver.send_io(self.tg111.output_bytes())
         time.sleep(0.1)
