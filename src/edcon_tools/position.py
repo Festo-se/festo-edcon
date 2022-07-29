@@ -1,17 +1,17 @@
-"""Example on how to use CmmtPositionFunctionBlock."""
+"""Example on how to use EDrivePositioning."""
 
 import argparse
 import logging
 
-from cmmt.cmmt_modbus import CmmtModbus
-from cmmt.cmmt_ethernetip import CmmtEthernetip
-from cmmt.cmmt_position_function_block import CmmtPositionFunctionBlock
+from edrive.edrive_modbus import EDriveModbus
+from edrive.edrive_ethernetip import EDriveEthernetip
+from edrive.edrive_positioning import EDrivePositioning
 
 
 def main():
     """Parses command line arguments and run the example."""
     parser = argparse.ArgumentParser(
-        description='Control CMMT device.')
+        description='Control EDrive device.')
     group = parser.add_mutually_exclusive_group(required=True)
     group.add_argument('--modbus', action='store_true',
                        help='Use Modbus communication')
@@ -37,20 +37,20 @@ def main():
 
     # Initialize driver
     if args.modbus:
-        cmmt_driver = CmmtModbus(args.ip_address)
+        edrive = EDriveModbus(args.ip_address)
     elif args.ethernetip:
-        cmmt_driver = CmmtEthernetip(args.ip_address)
+        edrive = EDriveEthernetip(args.ip_address)
 
-    with CmmtPositionFunctionBlock(cmmt_driver) as fblock:
-        fblock.request_plc_control()
-        fblock.acknowledge_faults()
-        fblock.enable_powerstage()
+    with EDrivePositioning(edrive) as edpos:
+        edpos.request_plc_control()
+        edpos.acknowledge_faults()
+        edpos.enable_powerstage()
 
         if args.homing:
-            fblock.homing_task()
+            edpos.homing_task()
 
-        fblock.position_task(position=int(args.position),
-                             velocity=int(args.speed), absolute=args.absolute)
+        edpos.position_task(position=int(args.position),
+                            velocity=int(args.speed), absolute=args.absolute)
 
 
 if __name__ == "__main__":

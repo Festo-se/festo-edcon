@@ -1,19 +1,19 @@
-"""Example on how to use Telegram101 and Cmmt classes."""
+"""Example on how to use Telegram101 and EDrive classes."""
 import sys
 import argparse
 import logging
 import time
 import math
 
-from cmmt.cmmt_modbus import CmmtModbus
-from cmmt.cmmt_ethernetip import CmmtEthernetip
+from edrive.edrive_modbus import EDriveModbus
+from edrive.edrive_ethernetip import EDriveEthernetip
 from profidrive.telegram1 import Telegram1
 
 
 def main():
     """Parses command line arguments and run the example."""
     parser = argparse.ArgumentParser(
-        description='Control CMMT device using telegram 1.')
+        description='Control EDrive device using telegram 1.')
     group = parser.add_mutually_exclusive_group(required=True)
     group.add_argument('--modbus', action='store_true',
                        help='Use Modbus communication')
@@ -42,25 +42,25 @@ def main():
 
     # Initialize driver
     if args.modbus:
-        cmmt_driver = CmmtModbus(args.ip_address)
+        edrive = EDriveModbus(args.ip_address)
     elif args.ethernetip:
-        cmmt_driver = CmmtEthernetip(args.ip_address)
+        edrive = EDriveEthernetip(args.ip_address)
 
-    cmmt_driver.assert_selected_telegram(1)
+    edrive.assert_selected_telegram(1)
 
     # Start process data
-    cmmt_driver.start_io()
+    edrive.start_io()
 
     tg1 = Telegram1()
 
     print("Enable plc control")
     tg1.stw1.control_by_plc = True
-    cmmt_driver.send_io(tg1.output_bytes())
+    edrive.send_io(tg1.output_bytes())
     time.sleep(0.1)
 
     print("Acknowledge any present faults")
     tg1.stw1.fault_ack = True
-    cmmt_driver.send_io(tg1.output_bytes())
+    edrive.send_io(tg1.output_bytes())
     time.sleep(0.1)
 
     print("Configure STW1")
@@ -70,32 +70,32 @@ def main():
     tg1.stw1.enable_ramp_generator = True
     tg1.stw1.unfreeze_ramp_generator = True
     tg1.stw1.fault_ack = False
-    cmmt_driver.send_io(tg1.output_bytes())
+    edrive.send_io(tg1.output_bytes())
     time.sleep(0.1)
 
     print("Check fault present bit", end='')
-    tg1.input_bytes(cmmt_driver.recv_io())
+    tg1.input_bytes(edrive.recv_io())
     if tg1.zsw1.fault_present:
         print(" -> is present")
-        cmmt_driver.stop_io()
+        edrive.stop_io()
         sys.exit(1)
     print(" -> cleared!")
 
     print("Enable Powerstage")
     tg1.stw1.on = True
-    cmmt_driver.send_io(tg1.output_bytes())
+    edrive.send_io(tg1.output_bytes())
     time.sleep(0.5)
 
     print("Enable Setpoint")
     tg1.stw1.setpoint_enable = True
-    cmmt_driver.send_io(tg1.output_bytes())
+    edrive.send_io(tg1.output_bytes())
     time.sleep(0.1)
 
     while True:
         try:
             tg1.nsoll_a.value = get_setpoint()
-            cmmt_driver.send_io(tg1.output_bytes())
-            tg1.input_bytes(cmmt_driver.recv_io())
+            edrive.send_io(tg1.output_bytes())
+            tg1.input_bytes(edrive.recv_io())
 
             print(f"Setpoint:{tg1.nsoll_a}, Current:{tg1.nist_a}")
 
@@ -103,7 +103,7 @@ def main():
         except KeyboardInterrupt:
             break
 
-    cmmt_driver.stop_io()
+    edrive.stop_io()
 
 
 if __name__ == "__main__":

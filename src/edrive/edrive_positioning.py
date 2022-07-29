@@ -1,18 +1,18 @@
 """
-Contains CmmtPositionFunctionBlock class to configure and control
-CMMT devices in position mode.
+Contains EDrivePositioning class to configure and control
+EDrive devices in position mode.
 """
 import time
 import traceback
 from profidrive.telegram111 import Telegram111
 from profidrive.words import OVERRIDE, MDI_ACC, MDI_DEC
-from cmmt.cmmt_base import CmmtBase
+from edrive.edrive_base import EDriveBase
 
 
-class CmmtPositionFunctionBlock:
+class EDrivePositioning:
     """
-    This class is used to control the CMMT devices in position mode (telegram 111).
-    It provides a set of functions to control the position of the CMMT using different modes.
+    This class is used to control the EDrive devices in position mode (telegram 111).
+    It provides a set of functions to control the position of the EDrive using different modes.
     """
     over_v = property(fset=lambda self, value: setattr(
         self.tg111, 'override',
@@ -24,7 +24,7 @@ class CmmtPositionFunctionBlock:
         self.tg111, 'mdi_dec',
         MDI_DEC(int(16384*(value/100.0)))), doc="Override deceleration in percent")
 
-    def __init__(self, cmmt_driver: CmmtBase = None) -> None:
+    def __init__(self, edrive: EDriveBase = None) -> None:
 
         self.tg111 = Telegram111()
         # Configure default values of the telegram
@@ -40,17 +40,17 @@ class CmmtPositionFunctionBlock:
 
         self.base_speed = 0
 
-        self.cmmt_driver = cmmt_driver
-        if cmmt_driver:
-            self.cmmt_driver.assert_selected_telegram(111)
-            self.cmmt_driver.start_io()
+        self.edrive = edrive
+        if edrive:
+            self.edrive.assert_selected_telegram(111)
+            self.edrive.start_io()
 
     def __del__(self):
-        if self.cmmt_driver is not None:
+        if self.edrive is not None:
             self.tg111.stw1.enable_operation = False
-            self.cmmt_driver.send_io(self.tg111.output_bytes())
+            self.edrive.send_io(self.tg111.output_bytes())
             time.sleep(0.1)
-            self.cmmt_driver.stop_io()
+            self.edrive.stop_io()
 
     def __enter__(self):
         return self
@@ -73,37 +73,37 @@ class CmmtPositionFunctionBlock:
             if self.base_speed > 0 else velocity
 
     def request_plc_control(self) -> bool:
-        """Send telegram to request the control of the CMMT"""
+        """Send telegram to request the control of the EDrive"""
         print("Request control by PLC")
         self.tg111.stw1.control_by_plc = True
-        self.cmmt_driver.send_io(self.tg111.output_bytes())
+        self.edrive.send_io(self.tg111.output_bytes())
         time.sleep(0.1)
 
         print("Check if PLC control is granted", end='')
-        self.tg111.input_bytes(self.cmmt_driver.recv_io())
+        self.tg111.input_bytes(self.edrive.recv_io())
         if not self.tg111.zsw1.control_requested:
             print(" -> failed")
-            self.cmmt_driver.stop_io()
+            self.edrive.stop_io()
             return False
         print(" -> success!")
         return True
 
     def acknowledge_faults(self) -> bool:
-        """Send telegram to request the control of the CMMT"""
+        """Send telegram to request the control of the EDrive"""
         print("Acknowledge any present faults")
         self.tg111.stw1.fault_ack = True
-        self.cmmt_driver.send_io(self.tg111.output_bytes())
+        self.edrive.send_io(self.tg111.output_bytes())
         time.sleep(0.1)
 
         self.tg111.stw1.fault_ack = False
-        self.cmmt_driver.send_io(self.tg111.output_bytes())
+        self.edrive.send_io(self.tg111.output_bytes())
         time.sleep(0.1)
 
         print("Check if fault bit is cleared", end='')
-        self.tg111.input_bytes(self.cmmt_driver.recv_io())
+        self.tg111.input_bytes(self.edrive.recv_io())
         if self.tg111.zsw1.fault_present:
             print(f" -> is present ({int(self.tg111.fault_code)})")
-            self.cmmt_driver.stop_io()
+            self.edrive.stop_io()
             return False
         print(" -> success!")
         return True
@@ -112,14 +112,14 @@ class CmmtPositionFunctionBlock:
         """Send telegram to enable the power stage"""
         print("Enable Powerstage")
         self.tg111.stw1.on = True
-        self.cmmt_driver.send_io(self.tg111.output_bytes())
+        self.edrive.send_io(self.tg111.output_bytes())
         time.sleep(0.5)
 
         print("Check if powerstage is enabled", end='')
-        self.tg111.input_bytes(self.cmmt_driver.recv_io())
+        self.tg111.input_bytes(self.edrive.recv_io())
         if not self.tg111.zsw1.ready_to_switch_on:
             print(" -> inhibited")
-            self.cmmt_driver.stop_io()
+            self.edrive.stop_io()
             return False
         print(" -> success!")
         return True
@@ -133,18 +133,18 @@ class CmmtPositionFunctionBlock:
         self.tg111.pos_stw1.activate_mdi = True
         self.tg111.pos_stw1.absolute_position = absolute
         self.tg111.pos_stw1.activate_setup = setup
-        self.cmmt_driver.send_io(self.tg111.output_bytes())
+        self.edrive.send_io(self.tg111.output_bytes())
         time.sleep(0.1)
         self.tg111.stw1.activate_traversing_task = True
-        self.cmmt_driver.send_io(self.tg111.output_bytes())
+        self.edrive.send_io(self.tg111.output_bytes())
         time.sleep(0.1)
 
         while self.tg111.zsw1.target_position_reached:
-            self.tg111.input_bytes(self.cmmt_driver.recv_io())
+            self.tg111.input_bytes(self.edrive.recv_io())
             time.sleep(0.1)
 
         while not self.tg111.zsw1.target_position_reached:
-            self.tg111.input_bytes(self.cmmt_driver.recv_io())
+            self.tg111.input_bytes(self.edrive.recv_io())
             print(
                 f"Target: {int(self.tg111.mdi_tarpos)}, Current: {int(self.tg111.xist_a)}")
             time.sleep(0.1)
@@ -153,7 +153,7 @@ class CmmtPositionFunctionBlock:
         self.tg111.pos_stw1.activate_mdi = False
         self.tg111.stw1.activate_traversing_task = False
         self.tg111.pos_stw1.activate_setup = False
-        self.cmmt_driver.send_io(self.tg111.output_bytes())
+        self.edrive.send_io(self.tg111.output_bytes())
         time.sleep(0.1)
         print("Target position reached")
 
@@ -161,20 +161,20 @@ class CmmtPositionFunctionBlock:
         """Perform the homing sequence"""
         print("Start homing task")
         self.tg111.stw1.start_homing_procedure = True
-        self.cmmt_driver.send_io(self.tg111.output_bytes())
+        self.edrive.send_io(self.tg111.output_bytes())
         time.sleep(0.1)
 
         while self.tg111.zsw1.home_position_set:
-            self.tg111.input_bytes(self.cmmt_driver.recv_io())
+            self.tg111.input_bytes(self.edrive.recv_io())
             time.sleep(0.1)
 
         while not self.tg111.zsw1.home_position_set:
-            self.tg111.input_bytes(self.cmmt_driver.recv_io())
+            self.tg111.input_bytes(self.edrive.recv_io())
             time.sleep(0.1)
 
         # Reset bits
         self.tg111.stw1.start_homing_procedure = False
-        self.cmmt_driver.send_io(self.tg111.output_bytes())
+        self.edrive.send_io(self.tg111.output_bytes())
         time.sleep(0.1)
         print("Finished homing")
 
@@ -182,12 +182,12 @@ class CmmtPositionFunctionBlock:
         """Perform the referencing"""
         print("Set reference position")
         self.tg111.pos_stw2.set_reference_point = True
-        self.cmmt_driver.send_io(self.tg111.output_bytes())
+        self.edrive.send_io(self.tg111.output_bytes())
         time.sleep(0.1)
 
         # Reset bits
         self.tg111.pos_stw2.set_reference_point = False
-        self.cmmt_driver.send_io(self.tg111.output_bytes())
+        self.edrive.send_io(self.tg111.output_bytes())
         time.sleep(0.1)
         print("Finished referencing")
 
@@ -202,20 +202,20 @@ class CmmtPositionFunctionBlock:
         self.tg111.pos_stw1.record_table_selection5 = record_number & 32 > 0
         self.tg111.pos_stw1.record_table_selection6 = record_number & 64 > 0
         self.tg111.stw1.activate_traversing_task = True
-        self.cmmt_driver.send_io(self.tg111.output_bytes())
+        self.edrive.send_io(self.tg111.output_bytes())
         time.sleep(0.1)
 
         while self.tg111.zsw1.target_position_reached:
-            self.tg111.input_bytes(self.cmmt_driver.recv_io())
+            self.tg111.input_bytes(self.edrive.recv_io())
             time.sleep(0.1)
 
         while not self.tg111.zsw1.target_position_reached:
-            self.tg111.input_bytes(self.cmmt_driver.recv_io())
+            self.tg111.input_bytes(self.edrive.recv_io())
             time.sleep(0.1)
 
         # Reset bits
         self.tg111.stw1.activate_traversing_task = False
-        self.cmmt_driver.send_io(self.tg111.output_bytes())
+        self.edrive.send_io(self.tg111.output_bytes())
         time.sleep(0.1)
         print("Finished record task")
 
@@ -225,13 +225,13 @@ class CmmtPositionFunctionBlock:
         self.tg111.stw1.jog1_on = jog1
         self.tg111.stw1.jog2_on = jog2
         self.tg111.pos_stw2.incremental_jogging = incremental
-        self.cmmt_driver.send_io(self.tg111.output_bytes())
+        self.edrive.send_io(self.tg111.output_bytes())
 
         time.sleep(duration)
 
         self.tg111.stw1.jog1_on = False
         self.tg111.stw1.jog2_on = False
-        self.cmmt_driver.send_io(self.tg111.output_bytes())
+        self.edrive.send_io(self.tg111.output_bytes())
         time.sleep(0.1)
         print("Finished jogging task")
 
