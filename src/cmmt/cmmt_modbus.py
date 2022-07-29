@@ -55,50 +55,66 @@ class CmmtModbus(CmmtBase):
 
     def read_pnu_raw(self, pnu: int, subindex: int = 0, num_elements: int = 1) -> bytes:
         """Reads a PNU from the CMMT without interpreting the data"""
-        self.client.write_register(REG_PNU_MAILBOX_PNU, pnu)
-        self.client.write_register(REG_PNU_MAILBOX_SUBINDEX, subindex)
-        self.client.write_register(REG_PNU_MAILBOX_NUM_ELEMENTS, num_elements)
+        try:
+            self.client.write_register(REG_PNU_MAILBOX_PNU, pnu)
+            self.client.write_register(REG_PNU_MAILBOX_SUBINDEX, subindex)
+            self.client.write_register(
+                REG_PNU_MAILBOX_NUM_ELEMENTS, num_elements)
 
-        # Execute
-        self.client.write_register(REG_PNU_MAILBOX_EXEC, PNU_MAILBOX_EXEC_READ)
-        status = self.client.read_holding_registers(
-            REG_PNU_MAILBOX_EXEC, 1).registers[0]
-        if status != PNU_MAILBOX_EXEC_DONE:
-            logging.error(f"Error reading PNU {pnu}, status: {status}")
+            # Execute
+            self.client.write_register(
+                REG_PNU_MAILBOX_EXEC, PNU_MAILBOX_EXEC_READ)
+            status = self.client.read_holding_registers(
+                REG_PNU_MAILBOX_EXEC, 1).registers[0]
+
+            if status != PNU_MAILBOX_EXEC_DONE:
+                logging.error(f"Error reading PNU {pnu}, status: {status}")
+                return None
+
+            # Read available data length
+            length = self.client.read_holding_registers(
+                REG_PNU_MAILBOX_DATA_LEN, 1).registers[0]
+
+            # Divide length by 2 because each register is 2 bytes
+            indata = self.client.read_holding_registers(510, int((length+1)/2))
+
+            # Convert to integer
+            data = b''.join(reg.to_bytes(2, 'little')
+                            for reg in indata.registers)
+            return data
+
+        except AttributeError:
+            logging.error(f"Could not access PNU register")
             return None
 
-        # Read available data length
-        length = self.client.read_holding_registers(
-            REG_PNU_MAILBOX_DATA_LEN, 1).registers[0]
-
-        # Divide length by 2 because each register is 2 bytes
-        indata = self.client.read_holding_registers(510, int((length+1)/2))
-
-        # Convert to integer
-        data = b''.join(reg.to_bytes(2, 'little') for reg in indata.registers)
-        return data
-
     def write_pnu_raw(self, pnu: int, subindex: int = 0, num_elements: int = 1,
-                      value: bytes = b'\x00'):
+                      value: bytes = b'\x00') -> bool:
         """Writes raw bytes to a PNU on the CMMT"""
-        self.client.write_register(REG_PNU_MAILBOX_PNU, pnu)
-        self.client.write_register(REG_PNU_MAILBOX_SUBINDEX, subindex)
-        self.client.write_register(REG_PNU_MAILBOX_NUM_ELEMENTS, num_elements)
-        self.client.write_register(REG_PNU_MAILBOX_DATA_LEN, len(value))
+        try:
+            self.client.write_register(REG_PNU_MAILBOX_PNU, pnu)
+            self.client.write_register(REG_PNU_MAILBOX_SUBINDEX, subindex)
+            self.client.write_register(
+                REG_PNU_MAILBOX_NUM_ELEMENTS, num_elements)
+            self.client.write_register(REG_PNU_MAILBOX_DATA_LEN, len(value))
 
-        # Convert to list of words
-        word_list = [int.from_bytes(value[i:i+2], 'little')
-                     for i in range(0, len(value), 2)]
-        # Write data
-        self.client.write_registers(510, word_list)
+            # Convert to list of words
+            word_list = [int.from_bytes(value[i:i+2], 'little')
+                         for i in range(0, len(value), 2)]
+            # Write data
+            self.client.write_registers(510, word_list)
 
-        # Execute
-        self.client.write_register(
-            REG_PNU_MAILBOX_EXEC, PNU_MAILBOX_EXEC_WRITE)
-        status = self.client.read_holding_registers(
-            REG_PNU_MAILBOX_EXEC, 1).registers[0]
-        if status != PNU_MAILBOX_EXEC_DONE:
-            logging.error(f"Error writing PNU {pnu}, status: {status}")
+            # Execute
+            self.client.write_register(
+                REG_PNU_MAILBOX_EXEC, PNU_MAILBOX_EXEC_WRITE)
+            status = self.client.read_holding_registers(
+                REG_PNU_MAILBOX_EXEC, 1).registers[0]
+            if status != PNU_MAILBOX_EXEC_DONE:
+                logging.error(f"Error writing PNU {pnu}, status: {status}")
+            return True
+
+        except AttributeError:
+            logging.error(f"Could not access PNU register")
+            return False
 
     def stop_io(self):
         """Stops i/o data process"""

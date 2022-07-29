@@ -43,7 +43,6 @@ class CmmtPositionFunctionBlock:
         self.cmmt_driver = cmmt_driver
         if cmmt_driver:
             self.cmmt_driver.assert_selected_telegram(111)
-            self.cmmt_driver.configure_homing()
             self.cmmt_driver.start_io()
 
     def __del__(self):

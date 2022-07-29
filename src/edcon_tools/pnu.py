@@ -11,8 +11,11 @@ def main():
     """Parses command line arguments and reads PNU accordingly."""
     parser = argparse.ArgumentParser(
         description='Read a PNU from a CMMT device.')
-    parser.add_argument('-c', '--com', choices=['modbus', 'ethernetip'], default='modbus',
-                        help='Communication mode to use (default: %(default)s)')
+    group = parser.add_mutually_exclusive_group(required=True)
+    group.add_argument('--modbus', action='store_true',
+                       help='Use Modbus communication')
+    group.add_argument('--ethernetip', action='store_true',
+                       help='Use EtherNet/IP communication')
     parser.add_argument('-i', '--ip-address', default="192.168.0.51",
                         help='IP address to connect to.')
     parser.add_argument("-p", "--pnu", default=3490,
@@ -62,9 +65,9 @@ def main():
         logging.basicConfig(format='%(message)s', level=logging.INFO)
 
     # Initialize driver
-    if args.com == 'modbus':
+    if args.modbus:
         cmmt_driver = CmmtModbus(args.ip_address)
-    elif args.com == 'ethernetip':
+    elif args.ethernetip:
         cmmt_driver = CmmtEthernetip(args.ip_address)
 
     pnu = int(args.pnu)
@@ -87,8 +90,8 @@ def main():
         elif args.r:
             value = cmmt_driver.read_pnu_raw(
                 pnu, subindex, num_elements=int(args.r))
-            print(int(args.r))
-            print(f"Length: {len(value)}")
+            if value:
+                print(f"Length: {len(value)}")
         print(f"Value: {value}")
 
     elif args.subcommand == 'write':
