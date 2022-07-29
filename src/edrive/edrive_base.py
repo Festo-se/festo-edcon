@@ -1,13 +1,13 @@
-"""Contains CmmtBase class which contains common code for CMMT communication drivers."""
+"""Contains EDriveBase class which contains common code for EDrive communication drivers."""
 import logging
 import struct
 
 
-class CmmtBase:
-    """Class that contains common functions for CMMT communication drivers."""
+class EDriveBase:
+    """Class that contains common functions for EDrive communication drivers."""
 
     def assert_selected_telegram(self, telegram_id: int):
-        """Asserts that the selected telegram is actually configured on the CMMT"""
+        """Asserts that the selected telegram is actually configured on the EDrive"""
         # read the currently selected telegram (PNU 3490)
         configured_telegram_id = self.read_pnu(3490)
 
@@ -20,11 +20,11 @@ class CmmtBase:
             logging.error("Could not verify correct telegram via PNU")
 
     def read_pnu_raw(self, pnu: int, subindex: int = 0, num_elements: int = 1) -> bytes:
-        """Reads a PNU from the CMMT without interpreting the data"""
+        """Reads a PNU from the EDrive without interpreting the data"""
         raise NotImplementedError
 
     def read_pnu(self, pnu: int, subindex: int = 0, format_char='h'):
-        """Reads a PNU from the CMMT"""
+        """Reads a PNU from the EDrive"""
         raw = self.read_pnu_raw(pnu, subindex)
         if raw:
             if format_char == 's':
@@ -47,11 +47,11 @@ class CmmtBase:
 
     def write_pnu_raw(self, pnu: int, subindex: int = 0, num_elements: int = 1,
                       value: bytes = b'\x00') -> bool:
-        """Writes raw bytes to a PNU on the CMMT"""
+        """Writes raw bytes to a PNU on the EDrive"""
         raise NotImplementedError
 
     def write_pnu(self, pnu: int, subindex: int = 0, value=0, format_char='h') -> bool:
-        """Writes a value to a PNU to the CMMT"""
+        """Writes a value to a PNU to the EDrive"""
         raw = struct.pack(format_char, value)
         if self.write_pnu_raw(pnu, subindex, value=raw):
             logging.info(

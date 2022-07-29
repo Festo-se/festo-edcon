@@ -1,5 +1,5 @@
 """
-Contains CmmtModbus class to configure and communicate with CMMT devices.
+Contains EDriveModbus class to configure and communicate with EDrive devices.
 
 This implementation uses the pymodbus library
 https://pymodbus.readthedocs.io/en/latest/index.html
@@ -8,7 +8,7 @@ import logging
 
 from pymodbus.client.sync import ModbusTcpClient as ModbusClient
 from pymodbus.mei_message import ReadDeviceInformationRequest
-from cmmt.cmmt_base import CmmtBase
+from edrive.edrive_base import EDriveBase
 
 PNU_MAILBOX_EXEC_READ = 0x01
 PNU_MAILBOX_EXEC_WRITE = 0x02
@@ -23,8 +23,8 @@ REG_PNU_MAILBOX_DATA_LEN = 504
 REG_PNU_MAILBOX_DATA = 510
 
 
-class CmmtModbus(CmmtBase):
-    """Class to configure and communicate with CMMT devices."""
+class EDriveModbus(EDriveBase):
+    """Class to configure and communicate with EDrive devices."""
 
     def __init__(self, ip_address):
         logging.info(f"Starting Modbus connection on {ip_address}")
@@ -54,7 +54,7 @@ class CmmtModbus(CmmtBase):
         self.epd_outsize = 32  # Target to Originator
 
     def read_pnu_raw(self, pnu: int, subindex: int = 0, num_elements: int = 1) -> bytes:
-        """Reads a PNU from the CMMT without interpreting the data"""
+        """Reads a PNU from the EDrive without interpreting the data"""
         try:
             self.client.write_register(REG_PNU_MAILBOX_PNU, pnu)
             self.client.write_register(REG_PNU_MAILBOX_SUBINDEX, subindex)
@@ -89,7 +89,7 @@ class CmmtModbus(CmmtBase):
 
     def write_pnu_raw(self, pnu: int, subindex: int = 0, num_elements: int = 1,
                       value: bytes = b'\x00') -> bool:
-        """Writes raw bytes to a PNU on the CMMT"""
+        """Writes raw bytes to a PNU on the EDrive"""
         try:
             self.client.write_register(REG_PNU_MAILBOX_PNU, pnu)
             self.client.write_register(REG_PNU_MAILBOX_SUBINDEX, subindex)

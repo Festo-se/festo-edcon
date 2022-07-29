@@ -1,16 +1,16 @@
-"""CLI Tool to read or write PNUs of a CMMT device."""
+"""CLI Tool to read or write PNUs of a EDrive device."""
 
 import argparse
 import logging
 
-from cmmt.cmmt_modbus import CmmtModbus
-from cmmt.cmmt_ethernetip import CmmtEthernetip
+from edrive.edrive_modbus import EDriveModbus
+from edrive.edrive_ethernetip import EDriveEthernetip
 
 
 def main():
     """Parses command line arguments and reads PNU accordingly."""
     parser = argparse.ArgumentParser(
-        description='Read a PNU from a CMMT device.')
+        description='Read a PNU from a EDrive device.')
     group = parser.add_mutually_exclusive_group(required=True)
     group.add_argument('--modbus', action='store_true',
                        help='Use Modbus communication')
@@ -66,29 +66,29 @@ def main():
 
     # Initialize driver
     if args.modbus:
-        cmmt_driver = CmmtModbus(args.ip_address)
+        edrive = EDriveModbus(args.ip_address)
     elif args.ethernetip:
-        cmmt_driver = CmmtEthernetip(args.ip_address)
+        edrive = EDriveEthernetip(args.ip_address)
 
     pnu = int(args.pnu)
     subindex = int(args.subindex)
     if args.subcommand == 'read':
         if args.b:
-            value = cmmt_driver.read_pnu(pnu, subindex, '?')
+            value = edrive.read_pnu(pnu, subindex, '?')
         if args.u8:
-            value = cmmt_driver.read_pnu(pnu, subindex, 'B')
+            value = edrive.read_pnu(pnu, subindex, 'B')
         if args.i8:
-            value = cmmt_driver.read_pnu(pnu, subindex, 'b')
+            value = edrive.read_pnu(pnu, subindex, 'b')
         if args.i16:
-            value = cmmt_driver.read_pnu(pnu, subindex, 'h')
+            value = edrive.read_pnu(pnu, subindex, 'h')
         if args.i32:
-            value = cmmt_driver.read_pnu(pnu, subindex, 'i')
+            value = edrive.read_pnu(pnu, subindex, 'i')
         if args.i64:
-            value = cmmt_driver.read_pnu(pnu, subindex, 'q')
+            value = edrive.read_pnu(pnu, subindex, 'q')
         elif args.f:
-            value = cmmt_driver.read_pnu(pnu, subindex, 'f')
+            value = edrive.read_pnu(pnu, subindex, 'f')
         elif args.r:
-            value = cmmt_driver.read_pnu_raw(
+            value = edrive.read_pnu_raw(
                 pnu, subindex, num_elements=int(args.r))
             if value:
                 print(f"Length: {len(value)}")
@@ -96,19 +96,19 @@ def main():
 
     elif args.subcommand == 'write':
         if args.b:
-            cmmt_driver.write_pnu(pnu, subindex, int(args.b), '?')
+            edrive.write_pnu(pnu, subindex, int(args.b), '?')
         if args.u8:
-            cmmt_driver.write_pnu(pnu, subindex, int(args.u8), 'B')
+            edrive.write_pnu(pnu, subindex, int(args.u8), 'B')
         if args.i8:
-            cmmt_driver.write_pnu(pnu, subindex, int(args.i8), 'b')
+            edrive.write_pnu(pnu, subindex, int(args.i8), 'b')
         if args.i16:
-            cmmt_driver.write_pnu(pnu, subindex, int(args.i16), 'h')
+            edrive.write_pnu(pnu, subindex, int(args.i16), 'h')
         if args.i32:
-            cmmt_driver.write_pnu(pnu, subindex, int(args.i32), 'i')
+            edrive.write_pnu(pnu, subindex, int(args.i32), 'i')
         if args.i64:
-            cmmt_driver.write_pnu(pnu, subindex, int(args.i64), 'q')
+            edrive.write_pnu(pnu, subindex, int(args.i64), 'q')
         elif args.f:
-            cmmt_driver.write_pnu(pnu, subindex, float(args.f), 'f')
+            edrive.write_pnu(pnu, subindex, float(args.f), 'f')
 
 
 if __name__ == "__main__":
