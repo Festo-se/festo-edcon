@@ -41,9 +41,9 @@ class CmmtBase:
                 f"Read PNU {pnu} (subindex: {subindex}): {param} "
                 f"(raw: {raw})")
             return param
-        else:
-            logging.error(f"PNU {pnu} read failed")
-            return None
+
+        logging.error(f"PNU {pnu} read failed")
+        return None
 
     def write_pnu_raw(self, pnu: int, subindex: int = 0, num_elements: int = 1,
                       value: bytes = b'\x00') -> bool:

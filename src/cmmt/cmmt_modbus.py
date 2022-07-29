@@ -84,7 +84,7 @@ class CmmtModbus(CmmtBase):
             return data
 
         except AttributeError:
-            logging.error(f"Could not access PNU register")
+            logging.error("Could not access PNU register")
             return None
 
     def write_pnu_raw(self, pnu: int, subindex: int = 0, num_elements: int = 1,
@@ -113,7 +113,7 @@ class CmmtModbus(CmmtBase):
             return True
 
         except AttributeError:
-            logging.error(f"Could not access PNU register")
+            logging.error("Could not access PNU register")
             return False
 
     def stop_io(self):
