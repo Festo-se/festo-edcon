@@ -115,7 +115,6 @@ class EDrivePositioning:
         self.update_inputs()
         if not self.tg111.zsw1.control_requested:
             print(" -> failed")
-            self.edrive.stop_io()
             return False
         print(" -> success!")
         return True
@@ -133,7 +132,6 @@ class EDrivePositioning:
         self.update_inputs()
         if self.tg111.zsw1.fault_present:
             print(f" -> is present ({int(self.tg111.fault_code)})")
-            self.edrive.stop_io()
             return False
         print(" -> success!")
         return True
@@ -141,6 +139,9 @@ class EDrivePositioning:
     def enable_powerstage(self) -> bool:
         """Send telegram to enable the power stage"""
         print("Enable Powerstage")
+        # Toggle (in case it is already True)
+        self.tg111.stw1.on = False
+        self.update_outputs(post_wait_ms=0.1)
         self.tg111.stw1.on = True
         self.update_outputs(post_wait_ms=0.5)
 
@@ -148,7 +149,6 @@ class EDrivePositioning:
         self.update_inputs()
         if not self.tg111.zsw1.ready_to_switch_on:
             print(" -> inhibited")
-            self.edrive.stop_io()
             return False
         print(" -> success!")
         return True
