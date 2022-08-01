@@ -25,7 +25,6 @@ class EDrivePositioning:
         MDI_DEC(int(16384*(value/100.0)))), doc="Override deceleration in percent")
 
     def __init__(self, edrive: EDriveBase = None) -> None:
-
         self.tg111 = Telegram111()
         # Configure default values of the telegram
         self.tg111.stw1.no_coast_stop = True

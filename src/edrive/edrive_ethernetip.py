@@ -69,6 +69,9 @@ class EDriveEthernetip(EDriveBase):
             logging.info(
                 f"Extended process data output size (data: {attribute}): {epd_outsize}")
 
+    def __del__(self):
+        self.connection.unregisterSession()
+
     def read_pnu_raw(self, pnu: int, subindex: int = 0, num_elements: int = 1) -> bytes:
         """Reads a PNU from the EDrive without interpreting the data"""
         # read the PNU (CIP obj 0x401, inst {pnu}, attr {subindex})

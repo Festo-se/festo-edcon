@@ -29,6 +29,7 @@ class EDriveModbus(EDriveBase):
     def __init__(self, ip_address):
         logging.info(f"Starting Modbus connection on {ip_address}")
         self.client = ModbusClient(ip_address)
+        self.client.connect()
 
         # Read device information
         rreq = ReadDeviceInformationRequest(0x03, 0)
@@ -52,6 +53,9 @@ class EDriveModbus(EDriveBase):
         self.outsize = 24   # Target to Originator
         self.epd_insize = 32  # Originator to Target
         self.epd_outsize = 32  # Target to Originator
+
+    def __del__(self):
+        self.client.close()
 
     def read_pnu_raw(self, pnu: int, subindex: int = 0, num_elements: int = 1) -> bytes:
         """Reads a PNU from the EDrive without interpreting the data"""
