@@ -10,6 +10,7 @@ Before every entry put one of these to mark the severity of the change:
 ### Added
 - [Minor] Added sphinx docs.
 - [Minor] Added `with` statement support to EDrivePositioning.
+- [Minor] Added method to `EDriveModbus` to configure the modbus timeout.
 - [Patch] Added graceful closing of ethernetip/modbus session when driver is destructed.
 ### Changed
 - [Minor] Renamed `CMMT` occurences to `EDrive`

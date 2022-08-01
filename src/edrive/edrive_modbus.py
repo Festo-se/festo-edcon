@@ -15,6 +15,7 @@ PNU_MAILBOX_EXEC_WRITE = 0x02
 PNU_MAILBOX_EXEC_ERROR = 0x03
 PNU_MAILBOX_EXEC_DONE = 0x10
 
+REG_MODBUS_TIMEOUT = 400
 REG_PNU_MAILBOX_PNU = 500
 REG_PNU_MAILBOX_SUBINDEX = 501
 REG_PNU_MAILBOX_NUM_ELEMENTS = 502
@@ -26,10 +27,12 @@ REG_PNU_MAILBOX_DATA = 510
 class EDriveModbus(EDriveBase):
     """Class to configure and communicate with EDrive devices."""
 
-    def __init__(self, ip_address):
+    def __init__(self, ip_address, timeout_ms=1000):
         logging.info(f"Starting Modbus connection on {ip_address}")
         self.client = ModbusClient(ip_address)
         self.client.connect()
+
+        self.set_timeout(timeout_ms)
 
         # Read device information
         rreq = ReadDeviceInformationRequest(0x03, 0)
@@ -56,6 +59,17 @@ class EDriveModbus(EDriveBase):
 
     def __del__(self):
         self.client.close()
+
+    def set_timeout(self, timeout_ms) -> bool:
+        """Sets the modbus timeout to the provided value"""
+        logging.info(f"Setting modbus timeout to {timeout_ms} ms")
+        self.client.write_registers(REG_MODBUS_TIMEOUT, [timeout_ms])
+        # Check if it actually succeeded
+        indata = self.client.read_holding_registers(REG_MODBUS_TIMEOUT, 1)
+        if indata.registers[0] != timeout_ms:
+            logging.error("Setting of modbus timeout was not successful")
+            return False
+        return True
 
     def read_pnu_raw(self, pnu: int, subindex: int = 0, num_elements: int = 1) -> bytes:
         """Reads a PNU from the EDrive without interpreting the data"""
