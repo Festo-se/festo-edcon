@@ -90,6 +90,11 @@ class EDrivePositioning:
         self.update_inputs()
         self.update_outputs()
 
+    def ready_for_motion(self):
+        """Gives information if motion tasks can be started"""
+        self.update_inputs()
+        return self.tg111.zsw1.ready_to_operate
+
     def current_position(self):
         """Read the current position"""
         self.update_inputs()
@@ -149,9 +154,14 @@ class EDrivePositioning:
         return True
 
     def position_task(self, position: int, velocity: int, absolute: bool = False,
-                      setup: bool = False):
+                      setup: bool = False) -> bool:
         """Perform a position task with the given parameters"""
-        print("Start traversing task")
+        print("Start traversing task", end='')
+        if not self.ready_for_motion():
+            print(" -> not ready for motion")
+            return False
+        print(" -> success!")
+
         self.tg111.mdi_tarpos.value = position
         self.tg111.mdi_velocity.value = self.raw_velocity(velocity)
         self.tg111.pos_stw1.activate_mdi = True
@@ -175,10 +185,16 @@ class EDrivePositioning:
         self.tg111.pos_stw1.activate_setup = False
         self.update_outputs(post_wait_ms=0.1)
         print("Target position reached")
+        return True
 
-    def homing_task(self):
+    def homing_task(self) -> bool:
         """Perform the homing sequence"""
-        print("Start homing task")
+        print("Start homing task", end='')
+        if not self.ready_for_motion():
+            print(" -> not ready for motion")
+            return False
+        print(" -> success!")
+
         self.tg111.stw1.start_homing_procedure = True
         # Wait for homing task to be started
         self.update_outputs(post_wait_ms=0.1)
@@ -192,6 +208,7 @@ class EDrivePositioning:
         self.tg111.stw1.start_homing_procedure = False
         self.update_outputs(post_wait_ms=0.1)
         print("Finished homing")
+        return True
 
     def referencing_task(self):
         """Perform the referencing"""
@@ -204,9 +221,14 @@ class EDrivePositioning:
         self.update_outputs(post_wait_ms=0.1)
         print("Finished referencing")
 
-    def record_task(self, record_number: int):
+    def record_task(self, record_number: int) -> bool:
         """Perform a record task"""
-        print("Start record task")
+        print("Start record task", end='')
+        if not self.ready_for_motion():
+            print(" -> not ready for motion")
+            return False
+        print(" -> success!")
+
         self.tg111.pos_stw1.record_table_selection0 = record_number & 1 > 0
         self.tg111.pos_stw1.record_table_selection1 = record_number & 2 > 0
         self.tg111.pos_stw1.record_table_selection2 = record_number & 4 > 0
@@ -228,10 +250,16 @@ class EDrivePositioning:
         self.tg111.stw1.activate_traversing_task = False
         self.update_outputs(post_wait_ms=0.1)
         print("Finished record task")
+        return True
 
-    def jog_task(self, jog1=True, jog2=False, incremental=False, duration=1.0):
+    def jog_task(self, jog1=True, jog2=False, incremental=False, duration=1.0) -> bool:
         """Perform a jogging task with a given duration"""
-        print("Start jogging task")
+        print("Start jogging task", end='')
+        if not self.ready_for_motion():
+            print(" -> not ready for motion")
+            return False
+        print(" -> success!")
+
         self.tg111.stw1.jog1_on = jog1
         self.tg111.stw1.jog2_on = jog2
         self.tg111.pos_stw2.incremental_jogging = incremental
@@ -241,6 +269,7 @@ class EDrivePositioning:
         self.tg111.stw1.jog2_on = False
         self.update_outputs(post_wait_ms=0.1)
         print("Finished jogging task")
+        return True
 
     def set_config_epos(self, config_epos: bytes):
         """

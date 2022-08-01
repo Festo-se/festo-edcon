@@ -12,7 +12,8 @@ Before every entry put one of these to mark the severity of the change:
 - [Minor] Added `with` statement support to EDrivePositioning.
 - [Minor] Added method to `EDriveModbus` to configure the modbus timeout.
 - [Minor] Added method to update I/O data.
-- [Minor] Added methods for reading current position and velocity
+- [Minor] Added methods for reading current position and velocity.
+- [Minor] Added ready_for_motion method to check if motion tasks are allowed.
 - [Patch] Added graceful closing of ethernetip/modbus session when driver is destructed.
 ### Changed
 - [Minor] Renamed `CMMT` occurences to `EDrive`
