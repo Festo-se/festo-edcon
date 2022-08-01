@@ -137,11 +137,9 @@ class EDrivePositioning:
         time.sleep(0.1)
         self.tg111.stw1.activate_traversing_task = True
         self.edrive.send_io(self.tg111.output_bytes())
+        # Wait for traversing task to be started
         time.sleep(0.1)
-
-        while self.tg111.zsw1.target_position_reached:
-            self.tg111.input_bytes(self.edrive.recv_io())
-            time.sleep(0.1)
+        self.tg111.input_bytes(self.edrive.recv_io())
 
         while not self.tg111.zsw1.target_position_reached:
             self.tg111.input_bytes(self.edrive.recv_io())
@@ -162,11 +160,9 @@ class EDrivePositioning:
         print("Start homing task")
         self.tg111.stw1.start_homing_procedure = True
         self.edrive.send_io(self.tg111.output_bytes())
+        # Wait for homing task to be started
         time.sleep(0.1)
-
-        while self.tg111.zsw1.home_position_set:
-            self.tg111.input_bytes(self.edrive.recv_io())
-            time.sleep(0.1)
+        self.tg111.input_bytes(self.edrive.recv_io())
 
         while not self.tg111.zsw1.home_position_set:
             self.tg111.input_bytes(self.edrive.recv_io())
@@ -201,13 +197,13 @@ class EDrivePositioning:
         self.tg111.pos_stw1.record_table_selection4 = record_number & 16 > 0
         self.tg111.pos_stw1.record_table_selection5 = record_number & 32 > 0
         self.tg111.pos_stw1.record_table_selection6 = record_number & 64 > 0
-        self.tg111.stw1.activate_traversing_task = True
         self.edrive.send_io(self.tg111.output_bytes())
         time.sleep(0.1)
-
-        while self.tg111.zsw1.target_position_reached:
-            self.tg111.input_bytes(self.edrive.recv_io())
-            time.sleep(0.1)
+        self.tg111.stw1.activate_traversing_task = True
+        self.edrive.send_io(self.tg111.output_bytes())
+        # Wait for record task to be started
+        time.sleep(0.1)
+        self.tg111.input_bytes(self.edrive.recv_io())
 
         while not self.tg111.zsw1.target_position_reached:
             self.tg111.input_bytes(self.edrive.recv_io())
