@@ -91,6 +91,7 @@ class EDrivePositioning:
         self.update_outputs()
 
     def ready_for_motion(self):
+        """Gives information if motion tasks can be started"""
         self.update_inputs()
         return self.tg111.zsw1.ready_to_operate
 
