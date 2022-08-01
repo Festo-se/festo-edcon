@@ -47,8 +47,7 @@ class EDrivePositioning:
     def __del__(self):
         if self.edrive is not None:
             self.tg111.stw1.enable_operation = False
-            self.edrive.send_io(self.tg111.output_bytes())
-            time.sleep(0.1)
+            self.update_outputs(post_wait_ms=0.1)
             self.edrive.stop_io()
 
     def __enter__(self):
@@ -71,15 +70,44 @@ class EDrivePositioning:
         return velocity * 1073741824.0 / self.base_speed \
             if self.base_speed > 0 else velocity
 
+    def update_inputs(self):
+        """Reads current input process data and updates telegram"""
+        self.tg111.input_bytes(self.edrive.recv_io())
+
+    def update_outputs(self, post_wait_ms=0):
+        """Writes current telegram value to output process data
+
+        Parameters:
+        ------------
+            post_wait_ms (int): Optional time in ms that should be waited after writing
+        """
+        self.edrive.send_io(self.tg111.output_bytes())
+        if post_wait_ms:
+            time.sleep(post_wait_ms)
+
+    def update_io(self):
+        """Updates process data in both directions (I/O)"""
+        self.update_inputs()
+        self.update_outputs()
+
+    def current_position(self):
+        """Read the current position"""
+        self.update_inputs()
+        return self.tg111.xist_a.value
+
+    def current_velocity(self):
+        """Read the current velocity"""
+        self.update_inputs()
+        return self.tg111.nist_b.value
+
     def request_plc_control(self) -> bool:
         """Send telegram to request the control of the EDrive"""
         print("Request control by PLC")
         self.tg111.stw1.control_by_plc = True
-        self.edrive.send_io(self.tg111.output_bytes())
-        time.sleep(0.1)
+        self.update_outputs(post_wait_ms=0.1)
 
         print("Check if PLC control is granted", end='')
-        self.tg111.input_bytes(self.edrive.recv_io())
+        self.update_inputs()
         if not self.tg111.zsw1.control_requested:
             print(" -> failed")
             self.edrive.stop_io()
@@ -91,15 +119,13 @@ class EDrivePositioning:
         """Send telegram to request the control of the EDrive"""
         print("Acknowledge any present faults")
         self.tg111.stw1.fault_ack = True
-        self.edrive.send_io(self.tg111.output_bytes())
-        time.sleep(0.1)
+        self.update_outputs(post_wait_ms=0.1)
 
         self.tg111.stw1.fault_ack = False
-        self.edrive.send_io(self.tg111.output_bytes())
-        time.sleep(0.1)
+        self.update_outputs(post_wait_ms=0.1)
 
         print("Check if fault bit is cleared", end='')
-        self.tg111.input_bytes(self.edrive.recv_io())
+        self.update_inputs()
         if self.tg111.zsw1.fault_present:
             print(f" -> is present ({int(self.tg111.fault_code)})")
             self.edrive.stop_io()
@@ -111,11 +137,10 @@ class EDrivePositioning:
         """Send telegram to enable the power stage"""
         print("Enable Powerstage")
         self.tg111.stw1.on = True
-        self.edrive.send_io(self.tg111.output_bytes())
-        time.sleep(0.5)
+        self.update_outputs(post_wait_ms=0.5)
 
         print("Check if powerstage is enabled", end='')
-        self.tg111.input_bytes(self.edrive.recv_io())
+        self.update_inputs()
         if not self.tg111.zsw1.ready_to_switch_on:
             print(" -> inhibited")
             self.edrive.stop_io()
@@ -132,16 +157,14 @@ class EDrivePositioning:
         self.tg111.pos_stw1.activate_mdi = True
         self.tg111.pos_stw1.absolute_position = absolute
         self.tg111.pos_stw1.activate_setup = setup
-        self.edrive.send_io(self.tg111.output_bytes())
-        time.sleep(0.1)
+        self.update_outputs(post_wait_ms=0.1)
         self.tg111.stw1.activate_traversing_task = True
-        self.edrive.send_io(self.tg111.output_bytes())
         # Wait for traversing task to be started
-        time.sleep(0.1)
-        self.tg111.input_bytes(self.edrive.recv_io())
+        self.update_outputs(post_wait_ms=0.1)
+        self.update_inputs()
 
         while not self.tg111.zsw1.target_position_reached:
-            self.tg111.input_bytes(self.edrive.recv_io())
+            self.update_inputs()
             print(
                 f"Target: {int(self.tg111.mdi_tarpos)}, Current: {int(self.tg111.xist_a)}")
             time.sleep(0.1)
@@ -150,40 +173,35 @@ class EDrivePositioning:
         self.tg111.pos_stw1.activate_mdi = False
         self.tg111.stw1.activate_traversing_task = False
         self.tg111.pos_stw1.activate_setup = False
-        self.edrive.send_io(self.tg111.output_bytes())
-        time.sleep(0.1)
+        self.update_outputs(post_wait_ms=0.1)
         print("Target position reached")
 
     def homing_task(self):
         """Perform the homing sequence"""
         print("Start homing task")
         self.tg111.stw1.start_homing_procedure = True
-        self.edrive.send_io(self.tg111.output_bytes())
         # Wait for homing task to be started
-        time.sleep(0.1)
-        self.tg111.input_bytes(self.edrive.recv_io())
+        self.update_outputs(post_wait_ms=0.1)
+        self.update_inputs()
 
         while not self.tg111.zsw1.home_position_set:
-            self.tg111.input_bytes(self.edrive.recv_io())
+            self.update_inputs()
             time.sleep(0.1)
 
         # Reset bits
         self.tg111.stw1.start_homing_procedure = False
-        self.edrive.send_io(self.tg111.output_bytes())
-        time.sleep(0.1)
+        self.update_outputs(post_wait_ms=0.1)
         print("Finished homing")
 
     def referencing_task(self):
         """Perform the referencing"""
         print("Set reference position")
         self.tg111.pos_stw2.set_reference_point = True
-        self.edrive.send_io(self.tg111.output_bytes())
-        time.sleep(0.1)
+        self.update_outputs(post_wait_ms=0.1)
 
         # Reset bits
         self.tg111.pos_stw2.set_reference_point = False
-        self.edrive.send_io(self.tg111.output_bytes())
-        time.sleep(0.1)
+        self.update_outputs(post_wait_ms=0.1)
         print("Finished referencing")
 
     def record_task(self, record_number: int):
@@ -196,22 +214,19 @@ class EDrivePositioning:
         self.tg111.pos_stw1.record_table_selection4 = record_number & 16 > 0
         self.tg111.pos_stw1.record_table_selection5 = record_number & 32 > 0
         self.tg111.pos_stw1.record_table_selection6 = record_number & 64 > 0
-        self.edrive.send_io(self.tg111.output_bytes())
-        time.sleep(0.1)
+        self.update_outputs(post_wait_ms=0.1)
         self.tg111.stw1.activate_traversing_task = True
-        self.edrive.send_io(self.tg111.output_bytes())
         # Wait for record task to be started
-        time.sleep(0.1)
-        self.tg111.input_bytes(self.edrive.recv_io())
+        self.update_outputs(post_wait_ms=0.1)
+        self.update_inputs()
 
         while not self.tg111.zsw1.target_position_reached:
-            self.tg111.input_bytes(self.edrive.recv_io())
+            self.update_inputs()
             time.sleep(0.1)
 
         # Reset bits
         self.tg111.stw1.activate_traversing_task = False
-        self.edrive.send_io(self.tg111.output_bytes())
-        time.sleep(0.1)
+        self.update_outputs(post_wait_ms=0.1)
         print("Finished record task")
 
     def jog_task(self, jog1=True, jog2=False, incremental=False, duration=1.0):
@@ -220,14 +235,11 @@ class EDrivePositioning:
         self.tg111.stw1.jog1_on = jog1
         self.tg111.stw1.jog2_on = jog2
         self.tg111.pos_stw2.incremental_jogging = incremental
-        self.edrive.send_io(self.tg111.output_bytes())
-
-        time.sleep(duration)
+        self.update_outputs(post_wait_ms=duration)
 
         self.tg111.stw1.jog1_on = False
         self.tg111.stw1.jog2_on = False
-        self.edrive.send_io(self.tg111.output_bytes())
-        time.sleep(0.1)
+        self.update_outputs(post_wait_ms=0.1)
         print("Finished jogging task")
 
     def set_config_epos(self, config_epos: bytes):
