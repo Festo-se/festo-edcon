@@ -7,6 +7,7 @@ Before every entry put one of these to mark the severity of the change:
 `Major`, `Minor` or `Patch`
 
 ## Unreleased
+## [v0.5.0] - 08.02.22
 ### Added
 - [Minor] Added sphinx docs.
 - [Minor] Added `with` statement support to EDrivePositioning.
