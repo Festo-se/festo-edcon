@@ -106,6 +106,7 @@ class EDrivePositioning:
         return self.tg111.nist_b.value
 
     def configure_hardware_limit_switch(self, active):
+        """Configures the hardware limit switch"""
         self.tg111.pos_stw2.activate_hardware_limit_switch = active
 
     def request_plc_control(self) -> bool:
