@@ -105,6 +105,10 @@ class EDrivePositioning:
         self.update_inputs()
         return self.tg111.nist_b.value
 
+    def configure_hardware_limit_switch(self, active):
+        """Configures the hardware limit switch"""
+        self.tg111.pos_stw2.activate_hardware_limit_switch = active
+
     def request_plc_control(self) -> bool:
         """Send telegram to request the control of the EDrive"""
         print("Request control by PLC")
@@ -175,6 +179,11 @@ class EDrivePositioning:
 
         while not self.tg111.zsw1.target_position_reached:
             self.update_inputs()
+            if self.tg111.zsw1.fault_present:
+                print(
+                    f"Cancelled task due to fault {int(self.tg111.fault_code)}")
+                return False
+
             print(
                 f"Target: {int(self.tg111.mdi_tarpos)}, Current: {int(self.tg111.xist_a)}")
             time.sleep(0.1)
@@ -202,6 +211,10 @@ class EDrivePositioning:
 
         while not self.tg111.zsw1.home_position_set:
             self.update_inputs()
+            if self.tg111.zsw1.fault_present:
+                print(
+                    f"Cancelled task due to fault {int(self.tg111.fault_code)}")
+                return False
             time.sleep(0.1)
 
         # Reset bits
@@ -244,6 +257,10 @@ class EDrivePositioning:
 
         while not self.tg111.zsw1.target_position_reached:
             self.update_inputs()
+            if self.tg111.zsw1.fault_present:
+                print(
+                    f"Cancelled task due to fault {int(self.tg111.fault_code)}")
+                return False
             time.sleep(0.1)
 
         # Reset bits
