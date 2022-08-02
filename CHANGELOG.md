@@ -7,12 +7,26 @@ Before every entry put one of these to mark the severity of the change:
 `Major`, `Minor` or `Patch`
 
 ## Unreleased
+### Fixed
+- [Patch] Fixed bug leading to infinite loop when an fault appears during motion task.
+## [v0.5.0] - 08.02.22
 ### Added
 - [Minor] Added sphinx docs.
-- [Minor] Added `with` statement support to CmmtPositionFunctionBlock.
+- [Minor] Added `with` statement support to EDrivePositioning.
+- [Minor] Added method to `EDriveModbus` to configure the modbus timeout.
+- [Minor] Added method to update I/O data.
+- [Minor] Added methods for reading current position and velocity.
+- [Minor] Added ready_for_motion method to check if motion tasks are allowed.
+- [Patch] Added graceful closing of ethernetip/modbus session when driver is destructed.
+### Changed
+- [Minor] Renamed `CMMT` occurences to `EDrive`
 ### Fixed
 - [Patch] Corrected exception upon failing telegram assertion.
- 
+- [Patch] Fixed exception caused by reading non-existing DeviceInformationRequest for older EDrive devices.
+- [Patch] Fixed bug causing some drives to not start traversing task because of missing delay.
+- [Patch] Fixed exception caused when PNU was accessed via Modbus on legacy devices.
+- [Patch] Fixed bug that sometimes caused infinite waiting for (homing, position, record) tasks to be finished.
+- [Patch] Fixed bug causing a failing powerstage enable in case it has already been enabled once.
 ## [v0.4.0] - 24.06.22
 ### Added
 - [Minor] Added CLI options for edcon-position tool.

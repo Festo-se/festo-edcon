@@ -1,5 +1,5 @@
 """
-Contains CmmtEthernetip class to configure and communicate with CMMT devices.
+Contains EDriveEthernetip class to configure and communicate with EDrive devices.
 
 This implementation uses the python-ethernetip library by
 Sebastian Block (https://codeberg.org/paperwork/python-ethernetip)
@@ -7,7 +7,7 @@ Sebastian Block (https://codeberg.org/paperwork/python-ethernetip)
 import logging
 import ethernetip
 
-from cmmt.cmmt_base import CmmtBase
+from edrive.edrive_base import EDriveBase
 from boollist.boollist import bytes_to_boollist, boollist_to_bytes
 
 
@@ -17,8 +17,8 @@ O_T_EXT_PROCESS_DATA = 110  # Originator to Target
 T_O_EXT_PROCESS_DATA = 111  # Target to Originator
 
 
-class CmmtEthernetip(CmmtBase):
-    """Class to configure and communicate with CMMT devices."""
+class EDriveEthernetip(EDriveBase):
+    """Class to configure and communicate with EDrive devices."""
 
     def __init__(self, ip_address):
         logging.info(f"Starting EtherNet/IP connection on {ip_address}")
@@ -33,7 +33,7 @@ class CmmtEthernetip(CmmtBase):
             logging.info(
                 f"Product name: {pkt.product_name.decode()}")  # pylint: disable=no-member
 
-        # read process data input size of CMMT from global system object
+        # read process data input size of EDrive from global system object
         # (obj 0x4, inst 100, attr 4)
         status, attribute = self.connection.getAttrSingle(
             0x4, O_T_STD_PROCESS_DATA, 4)
@@ -42,7 +42,7 @@ class CmmtEthernetip(CmmtBase):
             logging.info(
                 f"Process data input size (data: {attribute}): {self.insize}")
 
-        # read process data output size of CMMT from global system object
+        # read process data output size of EDrive from global system object
         # (obj 0x4, inst 101, attr 4)
         status, attribute = self.connection.getAttrSingle(
             0x4, T_O_STD_PROCESS_DATA, 4)
@@ -51,7 +51,7 @@ class CmmtEthernetip(CmmtBase):
             logging.info(
                 f"Process data output size (data: {attribute}): {self.outsize}")
 
-        # read extended process data input size of CMMT from global system object
+        # read extended process data input size of EDrive from global system object
         # (obj 0x4, inst 110, attr 4)
         status, attribute = self.connection.getAttrSingle(
             0x4, O_T_EXT_PROCESS_DATA, 4)
@@ -60,7 +60,7 @@ class CmmtEthernetip(CmmtBase):
             logging.info(
                 f"Extended process data input size (data: {attribute}): {epd_insize}")
 
-        # read extended process data output size of CMMT from global system object
+        # read extended process data output size of EDrive from global system object
         # (obj 0x4, inst 111, attr 4)
         status, attribute = self.connection.getAttrSingle(
             0x4, T_O_EXT_PROCESS_DATA, 4)
@@ -69,8 +69,11 @@ class CmmtEthernetip(CmmtBase):
             logging.info(
                 f"Extended process data output size (data: {attribute}): {epd_outsize}")
 
+    def __del__(self):
+        self.connection.unregisterSession()
+
     def read_pnu_raw(self, pnu: int, subindex: int = 0, num_elements: int = 1) -> bytes:
-        """Reads a PNU from the CMMT without interpreting the data"""
+        """Reads a PNU from the EDrive without interpreting the data"""
         # read the PNU (CIP obj 0x401, inst {pnu}, attr {subindex})
         status, data = self.connection.getAttrSingle(0x401, pnu, subindex)
         if status != 0:
@@ -80,7 +83,7 @@ class CmmtEthernetip(CmmtBase):
 
     def write_pnu_raw(self, pnu: int, subindex: int = 0, num_elements: int = 1,
                       value: bytes = b'\x00'):
-        """Writes raw bytes to a PNU on the CMMT"""
+        """Writes raw bytes to a PNU on the EDrive"""
         # write the PNU (CIP obj 0x401, inst {pnu}, attr {subindex})
         status, data = self.connection.setAttrSingle(
             0x401, pnu, subindex, value)
