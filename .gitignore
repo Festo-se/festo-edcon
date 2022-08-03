@@ -4,3 +4,4 @@ build/*
 */edcon.egg-info
 .eggs/*
 *.pyc
+docs/build/*

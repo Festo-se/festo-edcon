@@ -10,11 +10,8 @@ from pymodbus.client.sync import ModbusTcpClient as ModbusClient
 from pymodbus.mei_message import ReadDeviceInformationRequest
 from edrive.edrive_base import EDriveBase
 
-PNU_MAILBOX_EXEC_READ = 0x01
-PNU_MAILBOX_EXEC_WRITE = 0x02
-PNU_MAILBOX_EXEC_ERROR = 0x03
-PNU_MAILBOX_EXEC_DONE = 0x10
-
+REG_SLAVE_INPUT_DATA = 0
+REG_SLAVE_OUTPUT_DATA = 100
 REG_MODBUS_TIMEOUT = 400
 REG_PNU_MAILBOX_PNU = 500
 REG_PNU_MAILBOX_SUBINDEX = 501
@@ -22,6 +19,11 @@ REG_PNU_MAILBOX_NUM_ELEMENTS = 502
 REG_PNU_MAILBOX_EXEC = 503
 REG_PNU_MAILBOX_DATA_LEN = 504
 REG_PNU_MAILBOX_DATA = 510
+
+PNU_MAILBOX_EXEC_READ = 0x01
+PNU_MAILBOX_EXEC_WRITE = 0x02
+PNU_MAILBOX_EXEC_ERROR = 0x03
+PNU_MAILBOX_EXEC_DONE = 0x10
 
 
 class EDriveModbus(EDriveBase):
@@ -143,11 +145,12 @@ class EDriveModbus(EDriveBase):
         # Convert to list of words
         word_list = [int.from_bytes(data[i:i+2], 'little')
                      for i in range(0, len(data), 2)]
-        self.client.write_registers(0, word_list)
+        self.client.write_registers(REG_SLAVE_INPUT_DATA, word_list)
 
     def recv_io(self) -> bytes:
         """Receives data from the input"""
-        indata = self.client.read_holding_registers(100, int(self.outsize/2))
+        indata = self.client.read_holding_registers(
+            REG_SLAVE_OUTPUT_DATA, int(self.outsize/2))
         # Convert to bytes
         data = b''.join(reg.to_bytes(2, 'little') for reg in indata.registers)
         return data

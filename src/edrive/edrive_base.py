@@ -61,7 +61,7 @@ class EDriveBase:
         logging.error(f"PNU {pnu} write failed")
         return False
 
-    def start_io(self, cycle_time: int = 10):
+    def start_io(self):
         """Configures and starts i/o data process"""
 
     def stop_io(self):

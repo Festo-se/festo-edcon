@@ -14,7 +14,6 @@
 import os
 import sys
 sys.path.insert(0, os.path.abspath('../../src/'))
-from recommonmark.transform import AutoStructify
 
 # -- Project information -----------------------------------------------------
 
@@ -30,10 +29,10 @@ author = 'Elias Rosch'
 # ones.
 extensions = [
     "sphinx.ext.autodoc",  # Generate Sphinx documentation from python docstrings
-    "sphinx.ext.mathjax",  # Render latex formulas in the documentation using javascript
-    "sphinx.ext.graphviz",  # Render graphviz graphs in the documentation
-    "recommonmark",  # Use markdown files in the documentation along restructured text
+    "sphinx_rtd_theme",  # Use Read-the-Docs theme
+    "myst_parser",  # Use markdown files in the documentation along restructured text
 ]
+source_suffix = ['.rst', '.md']
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -49,11 +48,9 @@ exclude_patterns = []
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme = 'classic'
+html_theme = 'sphinx_rtd_theme'
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
-html_static_path = ['_static']
-
-graphviz_output_format = 'svg'
+# html_static_path = ['_static']
