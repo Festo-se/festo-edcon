@@ -7,6 +7,8 @@ Before every entry put one of these to mark the severity of the change:
 `Major`, `Minor` or `Patch`
 
 ## Unreleased
+### Added
+- [Patch] Added proper README, docu and examples.
 ### Fixed
 - [Patch] Fixed bug leading to infinite loop when an fault appears during motion task.
 ## [v0.5.0] - 08.02.22
