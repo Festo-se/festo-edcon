@@ -22,12 +22,12 @@ setup(
     packages=find_packages(where="src", exclude="tests"),
     entry_points={
         'console_scripts': [
-            'edcon-pnu = edcon_tools.pnu:main',
             'edcon-position = edcon_tools.position:main',
-            'edcon-test-tg1 = edcon_tools.telegram1:main',
-            'edcon-test-tg9 = edcon_tools.telegram9:main',
-            'edcon-test-tg102 = edcon_tools.telegram102:main',
-            'edcon-test-tg111 = edcon_tools.telegram111:main',
+            'edcon-pnu = edcon_tools.pnu:main',
+            'edcon-test-tg1 = edcon_tools.test_tg1:main',
+            'edcon-test-tg9 = edcon_tools.test_tg9:main',
+            'edcon-test-tg102 = edcon_tools.test_tg102:main',
+            'edcon-test-tg111 = edcon_tools.test_tg111:main',
         ],
     },
 )

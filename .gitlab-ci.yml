@@ -59,7 +59,7 @@ sphinx-docs:
     - if: $CI_PIPELINE_SOURCE == 'push'
     - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
   before_script:
-    - pip install -U pip recommonmark sphinx
+    - pip install -U pip sphinx sphinx-rtd-theme myst-parser
     - pip install .
   script:
     - mkdir public

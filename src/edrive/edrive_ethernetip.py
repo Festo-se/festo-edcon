@@ -20,7 +20,8 @@ T_O_EXT_PROCESS_DATA = 111  # Target to Originator
 class EDriveEthernetip(EDriveBase):
     """Class to configure and communicate with EDrive devices."""
 
-    def __init__(self, ip_address):
+    def __init__(self, ip_address, cycle_time: int = 10):
+        self.cycle_time = cycle_time
         logging.info(f"Starting EtherNet/IP connection on {ip_address}")
         self.eip = ethernetip.EtherNetIP(ip_address)
 
@@ -92,9 +93,8 @@ class EDriveEthernetip(EDriveBase):
             logging.error(
                 f"Error writing PNU {pnu}, status: {status}, data: {data}")
 
-    def start_io(self, cycle_time: int = 10):
+    def start_io(self):
         """Configures and starts i/o data process"""
-
         logging.info(
             f"Configure i/o data with {self.insize} input bytes and {self.outsize} output bytes")
         self.eip.registerAssembly(
@@ -109,7 +109,8 @@ class EDriveEthernetip(EDriveBase):
         # torpi = device to python
         # otrpi = python to device
         status = self.connection.sendFwdOpenReq(
-            T_O_STD_PROCESS_DATA, O_T_STD_PROCESS_DATA, 1, torpi=cycle_time, otrpi=cycle_time)
+            T_O_STD_PROCESS_DATA, O_T_STD_PROCESS_DATA, 1,
+            torpi=self.cycle_time, otrpi=self.cycle_time)
         if status != 0:
             logging.error(f"Could not open connection: {status}")
         self.connection.produce()
