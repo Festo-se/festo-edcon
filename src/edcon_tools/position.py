@@ -35,7 +35,7 @@ def main():
     parser.add_argument('-a', '--absolute', action='store_true',
                         help='Use absolute positioning mode')
     parser.add_argument('--homing', action='store_true',
-                        help='Peform homing before positioning task')
+                        help='Perform homing before positioning task')
     parser.add_argument('-v', '--verbose', action='store_true',
                         help='Print additional information')
 
