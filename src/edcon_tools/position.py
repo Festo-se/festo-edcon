@@ -13,10 +13,19 @@ def main():
     parser = argparse.ArgumentParser(
         description='Control EDrive device.')
     group = parser.add_mutually_exclusive_group(required=True)
+    
     group.add_argument('--modbus', action='store_true',
                        help='Use Modbus communication')
+    parser.add_argument('--modbus_reg_timeout', default=400, type=int,
+                       help='Modbus timeout holding register address (default: 14000)')
+    parser.add_argument('--modbus_reg_pd_in_offset', default=100, type=int,
+                       help='Modbus processdata in (PLC <- Drive) holding register start address offset for the adressed drive (default: 100)')
+    parser.add_argument('--modbus_reg_pd_out_offset', default=0, type=int,
+                       help='Modbus processdata out (PLC -> Drive) holding register start address offset for the adressed drive (default: 0)')
+
     group.add_argument('--ethernetip', action='store_true',
                        help='Use EtherNet/IP communication')
+    
     parser.add_argument('-i', '--ip-address', default="192.168.0.51",
                         help='IP address to connect to.')
     parser.add_argument('-p', '--position', default="10000",
@@ -37,7 +46,7 @@ def main():
 
     # Initialize driver
     if args.modbus:
-        edrive = EDriveModbus(args.ip_address)
+        edrive = EDriveModbus(args.ip_address, args.modbus_reg_timeout, args.modbus_reg_pd_in_offset, args.modbus_reg_pd_out_offset)
     elif args.ethernetip:
         edrive = EDriveEthernetip(args.ip_address)
 
