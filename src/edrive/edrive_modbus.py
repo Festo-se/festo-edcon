@@ -26,12 +26,13 @@ PNU_MAILBOX_EXEC_DONE = 0x10
 class EDriveModbus(EDriveBase):
     """Class to configure and communicate with EDrive devices."""
 
-    def __init__(self, ip_address, reg_modbus_timeout, reg_pd_in_offset, reg_pd_out_offset, timeout_ms=1000):
-        
+    def __init__(self, ip_address, reg_modbus_timeout, reg_pd_in_offset, reg_pd_out_offset,
+                 timeout_ms=1000):
+
         self.reg_modbus_timeout = reg_modbus_timeout
         self.reg_pd_in_offset = reg_pd_in_offset
         self.reg_pd_out_offset = reg_pd_out_offset
-        
+
         logging.info(f"Starting Modbus connection on {ip_address}")
         self.client = ModbusClient(ip_address)
         self.client.connect()
