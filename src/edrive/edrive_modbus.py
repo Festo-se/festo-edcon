@@ -10,9 +10,6 @@ from pymodbus.client.sync import ModbusTcpClient as ModbusClient
 from pymodbus.mei_message import ReadDeviceInformationRequest
 from edrive.edrive_base import EDriveBase
 
-REG_SLAVE_INPUT_DATA = 0
-REG_SLAVE_OUTPUT_DATA = 100
-REG_MODBUS_TIMEOUT = 400
 REG_PNU_MAILBOX_PNU = 500
 REG_PNU_MAILBOX_SUBINDEX = 501
 REG_PNU_MAILBOX_NUM_ELEMENTS = 502
@@ -29,7 +26,12 @@ PNU_MAILBOX_EXEC_DONE = 0x10
 class EDriveModbus(EDriveBase):
     """Class to configure and communicate with EDrive devices."""
 
-    def __init__(self, ip_address, timeout_ms=1000):
+    def __init__(self, ip_address, reg_modbus_timeout, reg_pd_in_offset, reg_pd_out_offset, timeout_ms=1000):
+        
+        self.reg_modbus_timeout = reg_modbus_timeout
+        self.reg_pd_in_offset = reg_pd_in_offset
+        self.reg_pd_out_offset = reg_pd_out_offset
+        
         logging.info(f"Starting Modbus connection on {ip_address}")
         self.client = ModbusClient(ip_address)
         self.client.connect()
@@ -65,9 +67,9 @@ class EDriveModbus(EDriveBase):
     def set_timeout(self, timeout_ms) -> bool:
         """Sets the modbus timeout to the provided value"""
         logging.info(f"Setting modbus timeout to {timeout_ms} ms")
-        self.client.write_registers(REG_MODBUS_TIMEOUT, [timeout_ms])
+        self.client.write_registers(self.reg_modbus_timeout, [timeout_ms, 0])
         # Check if it actually succeeded
-        indata = self.client.read_holding_registers(REG_MODBUS_TIMEOUT, 1)
+        indata = self.client.read_holding_registers(self.reg_modbus_timeout, 1)
         if indata.registers[0] != timeout_ms:
             logging.error("Setting of modbus timeout was not successful")
             return False
@@ -145,12 +147,11 @@ class EDriveModbus(EDriveBase):
         # Convert to list of words
         word_list = [int.from_bytes(data[i:i+2], 'little')
                      for i in range(0, len(data), 2)]
-        self.client.write_registers(REG_SLAVE_INPUT_DATA, word_list)
+        self.client.write_registers(self.reg_pd_out_offset, word_list)
 
     def recv_io(self) -> bytes:
         """Receives data from the input"""
-        indata = self.client.read_holding_registers(
-            REG_SLAVE_OUTPUT_DATA, int(self.outsize/2))
+        indata = self.client.read_holding_registers(self.reg_pd_in_offset, int(self.outsize/2))
         # Convert to bytes
         data = b''.join(reg.to_bytes(2, 'little') for reg in indata.registers)
         return data
