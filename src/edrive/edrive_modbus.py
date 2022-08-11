@@ -33,6 +33,19 @@ class EDriveModbus(EDriveBase):
     """Class to configure and communicate with EDrive devices."""
 
     def __init__(self, ip_address, timeout_ms=1000, flavour="CMMT-AS"):
+        """Constructor of the EDriveModbus class.
+
+            Parameters:
+            ------------
+                ip_address: str
+                            Required IP address as string e.g. ('192.168.0.1')
+                timeout_ms: int
+                            Modbus timeout (in ms) that should be configured on the slave
+                flavour: str/dict
+                         Optional device flavour. May either be one of the built-in flavours as str
+                         or a custom flavour as dict.
+                         Currently built-in flavours: ['CMMT-AS','CPX-AP']
+        """
         if isinstance(flavour, str):
             self.reg_addr = flavours[flavour]["registers"]
         elif isinstance(flavour, dict):
