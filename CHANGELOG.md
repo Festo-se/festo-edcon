@@ -7,11 +7,13 @@ Before every entry put one of these to mark the severity of the change:
 `Major`, `Minor` or `Patch`
 
 ## Unreleased
+## [v0.5.1] - 10.08.22
 ### Added
 - [Patch] Added proper README, docu and examples.
 ### Fixed
 - [Patch] Fixed bug leading to infinite loop when an fault appears during motion task.
-## [v0.5.0] - 08.02.22
+
+## [v0.5.0] - 02.08.22
 ### Added
 - [Minor] Added sphinx docs.
 - [Minor] Added `with` statement support to EDrivePositioning.
@@ -29,6 +31,7 @@ Before every entry put one of these to mark the severity of the change:
 - [Patch] Fixed exception caused when PNU was accessed via Modbus on legacy devices.
 - [Patch] Fixed bug that sometimes caused infinite waiting for (homing, position, record) tasks to be finished.
 - [Patch] Fixed bug causing a failing powerstage enable in case it has already been enabled once.
+
 ## [v0.4.0] - 24.06.22
 ### Added
 - [Minor] Added CLI options for edcon-position tool.
