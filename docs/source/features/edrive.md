@@ -34,6 +34,23 @@ Optionally the modbus timeout which should be configured on the endpoint can be 
 edrive = EDriveModbus('192.168.0.1', timeout_ms=500)
 ```
 
+Another option that can be provided optionally is the `flavour` which determines device specific behaviors.
+The default `flavour` is `CMMT-AS`.
+If the device is supported, the simplest method is to provide the flavour as a device string.
+
+```
+edrive = EDriveModbus('192.168.0.1', flavour='CPX-AP')
+```
+
+In case there is no matching flavour, a custom flavour dict can be provided.
+```
+my_flavour = {"registers": {"pd_in": 0, "pd_out": 160, "timeout": 500}}
+edrive = EDriveModbus('192.168.0.1', flavour=my_flavour)
+```
+
+The dict should contain a field `"registers"` which contains a dict with register addresses (`"pd_in"`,`"pd_out"` and `"timeout"`).
+
+
 ## EDrivePositioning
 The `EDrivePositioning` class can be used to start different motion tasks.
 Under the hood it uses PROFIDRIVE telegram 111.
