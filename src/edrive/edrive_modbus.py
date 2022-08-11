@@ -10,6 +10,12 @@ from pymodbus.client.sync import ModbusTcpClient as ModbusClient
 from pymodbus.mei_message import ReadDeviceInformationRequest
 from edrive.edrive_base import EDriveBase
 
+reg_cmmt_as = {"pd_in": 0, "pd_out": 100, "timeout": 400}
+reg_cpx_ap = {"pd_in": 0, "pd_out": 5000, "timeout": 14000}
+
+flavours = {"CMMT-AS": {"registers": reg_cmmt_as},
+            "CPX-AP": {"registers": reg_cpx_ap}}
+
 REG_PNU_MAILBOX_PNU = 500
 REG_PNU_MAILBOX_SUBINDEX = 501
 REG_PNU_MAILBOX_NUM_ELEMENTS = 502
@@ -26,12 +32,11 @@ PNU_MAILBOX_EXEC_DONE = 0x10
 class EDriveModbus(EDriveBase):
     """Class to configure and communicate with EDrive devices."""
 
-    def __init__(self, ip_address, reg_modbus_timeout, reg_pd_in_offset, reg_pd_out_offset,
-                 timeout_ms=1000):
-
-        self.reg_modbus_timeout = reg_modbus_timeout
-        self.reg_pd_in_offset = reg_pd_in_offset
-        self.reg_pd_out_offset = reg_pd_out_offset
+    def __init__(self, ip_address, timeout_ms=1000, flavour="CMMT-AS"):
+        if isinstance(flavour, str):
+            self.reg_addr = flavours[flavour]["registers"]
+        elif isinstance(flavour, dict):
+            self.reg_addr = flavour["registers"]
 
         logging.info(f"Starting Modbus connection on {ip_address}")
         self.client = ModbusClient(ip_address)
@@ -63,14 +68,16 @@ class EDriveModbus(EDriveBase):
         self.epd_outsize = 32  # Target to Originator
 
     def __del__(self):
-        self.client.close()
+        if hasattr(self, "client"):
+            self.client.close()
 
     def set_timeout(self, timeout_ms) -> bool:
         """Sets the modbus timeout to the provided value"""
         logging.info(f"Setting modbus timeout to {timeout_ms} ms")
-        self.client.write_registers(self.reg_modbus_timeout, [timeout_ms, 0])
+        self.client.write_registers(self.reg_addr["timeout"], [timeout_ms, 0])
         # Check if it actually succeeded
-        indata = self.client.read_holding_registers(self.reg_modbus_timeout, 1)
+        indata = self.client.read_holding_registers(
+            self.reg_addr["timeout"], 1)
         if indata.registers[0] != timeout_ms:
             logging.error("Setting of modbus timeout was not successful")
             return False
@@ -148,11 +155,12 @@ class EDriveModbus(EDriveBase):
         # Convert to list of words
         word_list = [int.from_bytes(data[i:i+2], 'little')
                      for i in range(0, len(data), 2)]
-        self.client.write_registers(self.reg_pd_out_offset, word_list)
+        self.client.write_registers(self.reg_addr["pd_in"], word_list)
 
     def recv_io(self) -> bytes:
         """Receives data from the input"""
-        indata = self.client.read_holding_registers(self.reg_pd_in_offset, int(self.outsize/2))
+        indata = self.client.read_holding_registers(
+            self.reg_addr["pd_out"], int(self.outsize/2))
         # Convert to bytes
         data = b''.join(reg.to_bytes(2, 'little') for reg in indata.registers)
         return data
