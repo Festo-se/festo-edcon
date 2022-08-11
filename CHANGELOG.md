@@ -7,6 +7,8 @@ Before every entry put one of these to mark the severity of the change:
 `Major`, `Minor` or `Patch`
 
 ## Unreleased
+### Added
+- [Minor] Added modbus flavour feature e.g. to specify device specific options.
 ## [v0.5.1] - 10.08.22
 ### Added
 - [Patch] Added proper README, docu and examples.
