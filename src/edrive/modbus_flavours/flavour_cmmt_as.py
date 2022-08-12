@@ -1,9 +1,10 @@
 """
-Contains BehaviorCmmtAs class which contains the specific behavior for CMMT-AS drives.
+Contains FlavourCmmtAs class which contains the specific flavour for CMMT-AS drives.
 """
 import logging
 
-from edrive.modbus_flavours.behavior_base import BehaviorBase
+from pymodbus.mei_message import ReadDeviceInformationRequest
+from edrive.modbus_flavours.flavour_base import FlavourBase
 
 REG_PNU_MAILBOX_PNU = 500
 REG_PNU_MAILBOX_SUBINDEX = 501
@@ -18,8 +19,40 @@ PNU_MAILBOX_EXEC_ERROR = 0x03
 PNU_MAILBOX_EXEC_DONE = 0x10
 
 
-class BehaviorCmmtAs(BehaviorBase):
+class FlavourCmmtAs(FlavourBase):
     """Class that contains the device specific access sequences for CMMT-AS drives."""
+
+    def device_info(self):
+        if self.dev_info_dict:
+            return self.dev_info_dict
+
+        self.dev_info_dict = {"pd_in_addr": 100,
+                              "pd_out_addr": 0,
+                              "timeout_addr": 400,
+                              "pd_size": 56
+                              }
+
+        # Read device information
+        rreq = ReadDeviceInformationRequest(0x1, 0)
+        rres = self.modbus_client.execute(rreq)
+        self.dev_info_dict["vendor_name"] = rres.information[0].decode('ascii')
+        self.dev_info_dict["product_code"] = rres.information[1].decode(
+            'ascii')
+        self.dev_info_dict["revision"] = rres.information[2].decode('ascii')
+        logging.info(f"Vendor Name: {self.dev_info_dict['vendor_name']}")
+        logging.info(f"Product Code: {self.dev_info_dict['product_code']}")
+        logging.info(f"Firmware Version: {self.dev_info_dict['revision']}")
+        rreq = ReadDeviceInformationRequest(0x2, 0)
+        rres = self.modbus_client.execute(rreq)
+        self.dev_info_dict["vendor_url"] = rres.information[3].decode('ascii')
+        self.dev_info_dict["product_name"] = rres.information[4].decode(
+            'ascii')
+        self.dev_info_dict["model_name"] = rres.information[5].decode('ascii')
+        logging.info(f"Vendor URL: {self.dev_info_dict['vendor_url']}")
+        logging.info(f"Product Name: {self.dev_info_dict['product_name']}")
+        logging.info(f"Model Name: {self.dev_info_dict['model_name']}")
+
+        return self.dev_info_dict
 
     def read_pnu(self, pnu: int, subindex: int = 0, num_elements: int = 1):
         try:

@@ -29,6 +29,7 @@ author = 'Elias Rosch'
 # ones.
 extensions = [
     "sphinx.ext.autodoc",  # Generate Sphinx documentation from python docstrings
+    "sphinx.ext.napoleon",  # Support Google style docstring
     "sphinx_rtd_theme",  # Use Read-the-Docs theme
     "myst_parser",  # Use markdown files in the documentation along restructured text
 ]
