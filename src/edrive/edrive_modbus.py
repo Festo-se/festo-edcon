@@ -9,24 +9,7 @@ import logging
 from pymodbus.client.sync import ModbusTcpClient as ModbusClient
 from pymodbus.mei_message import ReadDeviceInformationRequest
 from edrive.edrive_base import EDriveBase
-
-reg_cmmt_as = {"pd_in": 0, "pd_out": 100, "timeout": 400}
-reg_cpx_ap = {"pd_in": 0, "pd_out": 5000, "timeout": 14000}
-
-flavours = {"CMMT-AS": {"registers": reg_cmmt_as},
-            "CPX-AP": {"registers": reg_cpx_ap}}
-
-REG_PNU_MAILBOX_PNU = 500
-REG_PNU_MAILBOX_SUBINDEX = 501
-REG_PNU_MAILBOX_NUM_ELEMENTS = 502
-REG_PNU_MAILBOX_EXEC = 503
-REG_PNU_MAILBOX_DATA_LEN = 504
-REG_PNU_MAILBOX_DATA = 510
-
-PNU_MAILBOX_EXEC_READ = 0x01
-PNU_MAILBOX_EXEC_WRITE = 0x02
-PNU_MAILBOX_EXEC_ERROR = 0x03
-PNU_MAILBOX_EXEC_DONE = 0x10
+from edrive.modbus_flavours.modbus_flavours import flavours
 
 
 class EDriveModbus(EDriveBase):
@@ -46,14 +29,19 @@ class EDriveModbus(EDriveBase):
                          or a custom flavour as dict.
                          Currently built-in flavours: ['CMMT-AS','CPX-AP']
         """
-        if isinstance(flavour, str):
-            self.reg_addr = flavours[flavour]["registers"]
-        elif isinstance(flavour, dict):
-            self.reg_addr = flavour["registers"]
-
         logging.info(f"Starting Modbus connection on {ip_address}")
         self.client = ModbusClient(ip_address)
         self.client.connect()
+
+        if isinstance(flavour, str):
+            flavour = flavours[flavour]
+
+        self.reg_addr = flavour["registers"]
+        try:
+            self.behavior = flavour["behavior"](self.client)
+        except KeyError:
+            logging.warning(
+                "No device behavior defined. PNU access is disqualified.")
 
         self.set_timeout(timeout_ms)
 
@@ -96,68 +84,16 @@ class EDriveModbus(EDriveBase):
             return False
         return True
 
-    def read_pnu_raw(self, pnu: int, subindex: int = 0, num_elements: int = 1) -> bytes:
-        """Reads a PNU from the EDrive without interpreting the data"""
-        try:
-            self.client.write_register(REG_PNU_MAILBOX_PNU, pnu)
-            self.client.write_register(REG_PNU_MAILBOX_SUBINDEX, subindex)
-            self.client.write_register(
-                REG_PNU_MAILBOX_NUM_ELEMENTS, num_elements)
-
-            # Execute
-            self.client.write_register(
-                REG_PNU_MAILBOX_EXEC, PNU_MAILBOX_EXEC_READ)
-            status = self.client.read_holding_registers(
-                REG_PNU_MAILBOX_EXEC, 1).registers[0]
-
-            if status != PNU_MAILBOX_EXEC_DONE:
-                logging.error(f"Error reading PNU {pnu}, status: {status}")
-                return None
-
-            # Read available data length
-            length = self.client.read_holding_registers(
-                REG_PNU_MAILBOX_DATA_LEN, 1).registers[0]
-
-            # Divide length by 2 because each register is 2 bytes
-            indata = self.client.read_holding_registers(510, int((length+1)/2))
-
-            # Convert to integer
-            data = b''.join(reg.to_bytes(2, 'little')
-                            for reg in indata.registers)
-            return data
-
-        except AttributeError:
-            logging.error("Could not access PNU register")
-            return None
+    def read_pnu_raw(self, pnu: int, subindex: int = 0, num_elements: int = 1) -> bool:
+        if hasattr(self, "behavior"):
+            return self.behavior.read_pnu(pnu, subindex, num_elements)
+        return None
 
     def write_pnu_raw(self, pnu: int, subindex: int = 0, num_elements: int = 1,
                       value: bytes = b'\x00') -> bool:
-        """Writes raw bytes to a PNU on the EDrive"""
-        try:
-            self.client.write_register(REG_PNU_MAILBOX_PNU, pnu)
-            self.client.write_register(REG_PNU_MAILBOX_SUBINDEX, subindex)
-            self.client.write_register(
-                REG_PNU_MAILBOX_NUM_ELEMENTS, num_elements)
-            self.client.write_register(REG_PNU_MAILBOX_DATA_LEN, len(value))
-
-            # Convert to list of words
-            word_list = [int.from_bytes(value[i:i+2], 'little')
-                         for i in range(0, len(value), 2)]
-            # Write data
-            self.client.write_registers(510, word_list)
-
-            # Execute
-            self.client.write_register(
-                REG_PNU_MAILBOX_EXEC, PNU_MAILBOX_EXEC_WRITE)
-            status = self.client.read_holding_registers(
-                REG_PNU_MAILBOX_EXEC, 1).registers[0]
-            if status != PNU_MAILBOX_EXEC_DONE:
-                logging.error(f"Error writing PNU {pnu}, status: {status}")
-            return True
-
-        except AttributeError:
-            logging.error("Could not access PNU register")
-            return False
+        if hasattr(self, "behavior"):
+            return self.behavior.write_pnu(pnu, subindex, num_elements, value)
+        return None
 
     def stop_io(self):
         """Stops i/o data process"""
@@ -168,12 +104,12 @@ class EDriveModbus(EDriveBase):
         # Convert to list of words
         word_list = [int.from_bytes(data[i:i+2], 'little')
                      for i in range(0, len(data), 2)]
-        self.client.write_registers(self.reg_addr["pd_in"], word_list)
+        self.client.write_registers(self.reg_addr["pd_out"], word_list)
 
     def recv_io(self) -> bytes:
         """Receives data from the input"""
         indata = self.client.read_holding_registers(
-            self.reg_addr["pd_out"], int(self.outsize/2))
+            self.reg_addr["pd_in"], int(self.outsize/2))
         # Convert to bytes
         data = b''.join(reg.to_bytes(2, 'little') for reg in indata.registers)
         return data
