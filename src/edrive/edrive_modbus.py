@@ -20,9 +20,9 @@ class EDriveModbus(EDriveBase):
         Parameters:
             ip_address (str): Required IP address as string e.g. ('192.168.0.1')
             timeout_ms (int): Modbus timeout (in ms) that should be configured on the slave
-            flavour (str/dict/FlavourBase): May either be one of the built-in flavours as ``str``, 
+            flavour (str/dict/FlavourBase): May either be one of the built-in flavours as ``str``,
                 a custom flavour as ``dict`` or ``FlavourBase`` deduced object.
-                See :mod:`ModbusFlavours <edrive.modbus_flavours.modbus_flavours>` 
+                See :mod:`ModbusFlavours <edrive.modbus_flavours.modbus_flavours>`
                 for built-in flavours
         """
         logging.info(f"Starting Modbus connection on {ip_address}")
