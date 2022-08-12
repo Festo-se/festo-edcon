@@ -1,33 +1,20 @@
 """CLI Tool to read or write PNUs of a EDrive device."""
-
-import argparse
-import logging
-
+from edcon_tools.generic_bus_argparser import GenericBusArgParser
 from edrive.edrive_modbus import EDriveModbus
 from edrive.edrive_ethernetip import EDriveEthernetip
 
 
 def main():
     """Parses command line arguments and reads PNU accordingly."""
-    parser = argparse.ArgumentParser(
-        description='Read a PNU from a EDrive device.')
-    group = parser.add_mutually_exclusive_group(required=True)
-    group.add_argument('--modbus', action='store_true',
-                       help='Use Modbus communication')
-    group.add_argument('--ethernetip', action='store_true',
-                       help='Use EtherNet/IP communication')
-    parser.add_argument('-i', '--ip-address', default="192.168.0.51",
-                        help='IP address to connect to.')
-    parser.add_argument("-p", "--pnu", default=3490,
-                        help="PNU to use for read/write")
-    parser.add_argument("-s", "--subindex", default=0,
-                        help="Subindex to use for read/write")
-    parser.add_argument('-v', '--verbose', action='store_true',
-                        help='Print additional information')
+    gparser = GenericBusArgParser('Access PNU on an EDrive device.')
+    gparser.add_argument("-p", "--pnu", default=3490,
+                         help="PNU to use for read/write")
+    gparser.add_argument("-s", "--subindex", default=0,
+                         help="Subindex to use for read/write")
 
-    subparsers = parser.add_subparsers(dest='subcommand', required=True,
-                                       description="Action to perform",
-                                       help="Action to perform on the PNU")
+    subparsers = gparser.add_subparsers(dest='subcommand', required=True,
+                                        title='action commands',
+                                        description="Action to perform on the PNU")
 
     # Options for reading PNU
     parser_read = subparsers.add_parser('read')
@@ -59,15 +46,12 @@ def main():
     group_dtype.add_argument('-i64', help='int64 data to write')
     group_dtype.add_argument('-f', help='float data to write')
 
-    args = parser.parse_args()
-
-    if args.verbose:
-        logging.basicConfig(format='%(message)s', level=logging.INFO)
+    args = gparser.create()
 
     # Initialize driver
-    if args.modbus:
-        edrive = EDriveModbus(args.ip_address)
-    elif args.ethernetip:
+    if args.com_type == 'modbus':
+        edrive = EDriveModbus(args.ip_address, flavour=args.flavour)
+    elif args.com_type == 'ethernetip':
         edrive = EDriveEthernetip(args.ip_address)
 
     pnu = int(args.pnu)

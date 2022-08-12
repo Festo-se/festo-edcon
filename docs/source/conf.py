@@ -29,6 +29,7 @@ author = 'Elias Rosch'
 # ones.
 extensions = [
     "sphinx.ext.autodoc",  # Generate Sphinx documentation from python docstrings
+    "sphinx.ext.napoleon",  # Support Google style docstring
     "sphinx_rtd_theme",  # Use Read-the-Docs theme
     "myst_parser",  # Use markdown files in the documentation along restructured text
 ]
@@ -54,3 +55,5 @@ html_theme = 'sphinx_rtd_theme'
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
 # html_static_path = ['_static']
+
+autoclass_content = 'both'

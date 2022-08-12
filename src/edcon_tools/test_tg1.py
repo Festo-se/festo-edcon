@@ -1,10 +1,9 @@
 """Example on how to use Telegram101 and EDrive classes."""
 import sys
-import argparse
-import logging
 import time
 import math
 
+from edcon_tools.generic_bus_argparser import GenericBusArgParser
 from edrive.edrive_modbus import EDriveModbus
 from edrive.edrive_ethernetip import EDriveEthernetip
 from profidrive.telegram1 import Telegram1
@@ -12,26 +11,13 @@ from profidrive.telegram1 import Telegram1
 
 def main():
     """Parses command line arguments and run the example."""
-    parser = argparse.ArgumentParser(
-        description='Control EDrive device using telegram 1.')
-    group = parser.add_mutually_exclusive_group(required=True)
-    group.add_argument('--modbus', action='store_true',
-                       help='Use Modbus communication')
-    group.add_argument('--ethernetip', action='store_true',
-                       help='Use EtherNet/IP communication')
-    parser.add_argument(
-        '-i', '--ip-address', default="192.168.0.51", help='IP address to connect to.')
-    parser.add_argument(
+    gparser = GenericBusArgParser('Control EDrive device using telegram 1.')
+    gparser.add_argument(
         '-s', '--speed-setpoint', default="8192", help='Speed setpoint to use')
-    parser.add_argument('--sinusoidal', action="store_true",
-                        help='Apply sinusoidal setpoint')
-    parser.add_argument('-v', '--verbose', action='store_true',
-                        help='Print additional information')
+    gparser.add_argument('--sinusoidal', action="store_true",
+                         help='Apply sinusoidal setpoint')
 
-    args = parser.parse_args()
-
-    if args.verbose:
-        logging.basicConfig(format='%(message)s', level=logging.INFO)
+    args = gparser.create()
 
     if args.sinusoidal:
         def get_setpoint():
@@ -41,9 +27,9 @@ def main():
             return int(args.speed_setpoint)
 
     # Initialize driver
-    if args.modbus:
-        edrive = EDriveModbus(args.ip_address)
-    elif args.ethernetip:
+    if args.com_type == 'modbus':
+        edrive = EDriveModbus(args.ip_address, flavour=args.flavour)
+    elif args.com_type == 'ethernetip':
         edrive = EDriveEthernetip(args.ip_address)
 
     edrive.assert_selected_telegram(1)
