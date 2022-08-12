@@ -78,9 +78,7 @@ class EDrivePositioning:
         """Writes current telegram value to output process data
 
         Parameters:
-        ------------
-            post_wait_ms: int
-                          Optional time in ms that should be waited after writing
+            post_wait_ms (int): Optional time in ms that should be waited after writing
         """
         self.edrive.send_io(self.tg111.output_bytes())
         if post_wait_ms:
