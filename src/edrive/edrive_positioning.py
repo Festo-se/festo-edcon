@@ -14,6 +14,8 @@ class EDrivePositioning:
     This class is used to control the EDrive devices in position mode (telegram 111).
     It provides a set of functions to control the position of the EDrive using different modes.
     """
+    # pylint: disable=too-many-public-methods
+
     over_v = property(fset=lambda self, value: setattr(
         self.tg111, 'override',
         OVERRIDE(int(16384*(value/100.0)))), doc="Override velocity in percent")
@@ -61,12 +63,21 @@ class EDrivePositioning:
         return True
 
     def scaled_velocity(self, raw_velocity: int) -> int:
-        """Convert the raw velocity to a scaled velocity"""
+        """Convert the raw velocity to a scaled velocity
+
+        Parameters:
+            raw_velocity (int): raw velocity to convert to scaled
+        """
         return raw_velocity * self.base_speed / 1073741824.0 \
             if self.base_speed > 0 else raw_velocity
 
     def raw_velocity(self, velocity: int) -> int:
-        """Convert the scaled velocity to a raw velocity"""
+        """
+        Convert the scaled velocity to a raw velocity
+
+        Parameters:
+            velocity (int): scaled velocity to convert to raw
+        """
         return velocity * 1073741824.0 / self.base_speed \
             if self.base_speed > 0 else velocity
 
@@ -89,27 +100,137 @@ class EDrivePositioning:
         self.update_inputs()
         self.update_outputs()
 
+# Configuration of options
+
+    def configure_coast_stop(self, active: bool):
+        """Configures the coast stop option
+
+        Parameters:
+            active (bool): True => activate coasting, False => deactivate coasting
+        """
+        self.tg111.stw1.no_coast_stop = not active
+
+    def configure_quick_stop(self, active: bool):
+        """Configures the quick stop option
+
+        Parameters:
+            active (bool): True => activate quick stop, False => deactivate quick stop
+        """
+        self.tg111.stw1.no_quick_stop = not active
+
+    def configure_hardware_limit_switch(self, active: bool):
+        """Configures the hardware limit switch
+
+        Parameters:
+            active (bool): True => activate limit, False => deactivate limit
+        """
+        self.tg111.pos_stw2.activate_hardware_limit_switch = active
+
+    def configure_software_limit_switch(self, active: bool):
+        """Configures the software limit switch
+
+        Parameters:
+            active (bool): True => activate limit, False => deactivate limit
+        """
+        self.tg111.pos_stw2.activate_software_limit_switch = active
+
+    def configure_measuring_probe(self, falling_edge: bool = False, measuring_probe: str = 'first'):
+        """
+        Configures the measuring probes.
+        Be aware that only one probe is configurable simultaneously.
+        In order to configure both probes:
+        1. Configure probe 'first'
+        2. Send using update_outputs()
+        3. Configure probe 'second'
+
+        Parameters:
+            falling_edge (bool): Determines whether to trigger on rising or falling edge
+            measuring_probe (str): One of ['first', 'second'], determines the probe to configure
+        """
+        assert measuring_probe in ['first', 'second']
+        self.tg111.pos_stw2.falling_edge_of_measuring_probe = falling_edge
+        self.tg111.pos_stw2.measuring_probe2_is_activated = measuring_probe == 'second'
+
+    def configure_continuous_update(self, active: bool):
+        """
+        Configures the continuous update option i.e. setpoints are immediately updated without need
+        of starting a new traversing task
+
+        Parameters:
+            active (bool): True => activate continuous update, False => deactivate continuous update
+        """
+        self.tg111.pos_stw1.continuous_update = active
+
+    def configure_brake(self, active: bool):
+        """Configures the holding brake
+
+        Parameters:
+            active (bool): True => activate brake, False => release brake
+        """
+        self.tg111.stw1.open_holding_brake = not active
+
+    def configure_tracking_mode(self, active: bool):
+        """Configures the tracking mode i.e. setpoint continuously tracks the current value
+
+        Parameters:
+            active (bool): True => activate tracking mode, False => deactivate tracking mode
+        """
+        self.tg111.pos_stw2.activate_tracking_mode = active
+
+    def configure_traversing_to_fixed_stop(self, active: bool):
+        """Configures the traversing to fixed stop option (drive maintains parametrized torque)
+
+        Parameters:
+            active (bool): True => activate fixed stop traveling, False => deactivate
+        """
+        self.tg111.stw2.traversing_fixed_stop = active
+
+# Reading current values
+
     def ready_for_motion(self):
-        """Gives information if motion tasks can be started"""
+        """Gives information if motion tasks can be started
+
+        Returns:
+            bool: True if ready to operate, False otherwise
+        """
         self.update_inputs()
         return self.tg111.zsw1.ready_to_operate
 
     def current_position(self):
-        """Read the current position"""
+        """Read the current position
+
+        Returns:
+            int: Current position in user units
+        """
         self.update_inputs()
         return self.tg111.xist_a.value
 
     def current_velocity(self):
-        """Read the current velocity"""
-        self.update_inputs()
-        return self.tg111.nist_b.value
+        """Read the current velocity
 
-    def configure_hardware_limit_switch(self, active):
-        """Configures the hardware limit switch"""
-        self.tg111.pos_stw2.activate_hardware_limit_switch = active
+        Returns:
+            int: Current velocity unit is in percent of base speed if given.
+                 If no base_speed is given, value is in user units scaled by the parametrized
+                 base speed / 0x4000.
+        """
+        self.update_inputs()
+        return self.scaled_velocity(self.tg111.nist_b.value)
+
+# Telegram Sequences
+
+    def trigger_record_change(self):
+        """Triggers the change to the next record of the record sequence"""
+        self.tg111.stw1.change_record_no = False
+        self.update_outputs(post_wait_ms=0.1)
+        self.tg111.stw1.change_record_no = True
+        self.update_outputs(post_wait_ms=0.1)
 
     def request_plc_control(self) -> bool:
-        """Send telegram to request the control of the EDrive"""
+        """Send telegram to request the control of the EDrive
+
+        Returns:
+            bool: True if succesful, False otherwise
+        """
         print("Request control by PLC")
         self.tg111.stw1.control_by_plc = True
         self.update_outputs(post_wait_ms=0.1)
@@ -123,7 +244,11 @@ class EDrivePositioning:
         return True
 
     def acknowledge_faults(self) -> bool:
-        """Send telegram to request the control of the EDrive"""
+        """Send telegram to request the control of the EDrive
+
+        Returns:
+            bool: True if succesful, False otherwise
+        """
         print("Acknowledge any present faults")
         self.tg111.stw1.fault_ack = True
         self.update_outputs(post_wait_ms=0.1)
@@ -140,7 +265,11 @@ class EDrivePositioning:
         return True
 
     def enable_powerstage(self) -> bool:
-        """Send telegram to enable the power stage"""
+        """Send telegram to enable the power stage
+
+        Returns:
+            bool: True if succesful, False otherwise
+        """
         print("Enable Powerstage")
         # Toggle (in case it is already True)
         self.tg111.stw1.on = False
@@ -156,9 +285,18 @@ class EDrivePositioning:
         print(" -> success!")
         return True
 
-    def position_task(self, position: int, velocity: int, absolute: bool = False,
-                      setup: bool = False) -> bool:
-        """Perform a position task with the given parameters"""
+    def position_task(self, position: int, velocity: int, absolute: bool = False) -> bool:
+        """Perform a position task with the given parameters
+
+        Parameters:
+            position (int): position setpoint in user units (depends on parametrization)
+            velocity (int): velocity setpoint in user units (depends on parametrization)
+            absolute (bool): If true, position is considered absolute,
+                             otherwise relative to starting position
+
+        Returns:
+            bool: True if succesful, False otherwise
+        """
         print("Start traversing task", end='')
         if not self.ready_for_motion():
             print(" -> not ready for motion")
@@ -169,7 +307,6 @@ class EDrivePositioning:
         self.tg111.mdi_velocity.value = self.raw_velocity(velocity)
         self.tg111.pos_stw1.activate_mdi = True
         self.tg111.pos_stw1.absolute_position = absolute
-        self.tg111.pos_stw1.activate_setup = setup
         self.update_outputs(post_wait_ms=0.1)
         self.tg111.stw1.activate_traversing_task = True
         # Wait for traversing task to be started
@@ -190,13 +327,81 @@ class EDrivePositioning:
         # Reset bits
         self.tg111.pos_stw1.activate_mdi = False
         self.tg111.stw1.activate_traversing_task = False
-        self.tg111.pos_stw1.activate_setup = False
         self.update_outputs(post_wait_ms=0.1)
         print("Target position reached")
         return True
 
+    def velocity_task(self, velocity: int, duration: float = 1.0) -> bool:
+        """Perform a velocity task with the given parameters using setup mode.
+
+        Parameters:
+            velocity (int): velocity setpoint in user units (depends on parametrization).
+                            The sign determines the direction of the motion.
+            duration (float): Duration in seconds
+
+        Returns:
+            bool: True if succesful, False otherwise
+        """
+        print("Start velocity task", end='')
+        if not self.ready_for_motion():
+            print(" -> not ready for motion")
+            return False
+        print(" -> success!")
+
+        self.tg111.mdi_velocity.value = self.raw_velocity(abs(velocity))
+        self.tg111.pos_stw1.activate_mdi = True
+        self.tg111.pos_stw1.absolute_position = True
+        self.tg111.pos_stw1.activate_setup = True
+        self.tg111.pos_stw1.positioning_direction0 = velocity > 0
+        self.tg111.pos_stw1.positioning_direction1 = velocity < 0
+
+        self.update_outputs(post_wait_ms=0.1)
+        self.tg111.stw1.activate_traversing_task = True
+        # Wait for traversing task to be started
+        self.update_outputs(post_wait_ms=0.1)
+        self.update_inputs()
+
+        start_time = time.time()
+        while not time.time() - start_time > duration:
+            self.update_inputs()
+            if self.tg111.zsw1.fault_present:
+                print(
+                    f"Cancelled task due to fault {int(self.tg111.fault_code)}")
+                return False
+
+            print(
+                f"Target: {int(self.scaled_velocity(self.tg111.mdi_velocity))}, "
+                f"Current: {self.current_velocity()}")
+            time.sleep(0.1)
+
+        # Reset bits
+        self.tg111.pos_stw1.activate_mdi = False
+        self.tg111.pos_stw1.absolute_position = False
+        self.tg111.pos_stw1.activate_setup = False
+        self.tg111.pos_stw1.positioning_direction0 = False
+        self.tg111.pos_stw1.positioning_direction1 = False
+        self.tg111.stw1.activate_traversing_task = False
+        self.update_outputs(post_wait_ms=0.1)
+
+        while not self.tg111.zsw1.drive_stopped:
+            self.update_inputs()
+            if self.tg111.zsw1.fault_present:
+                print(
+                    f"Cancelled task due to fault {int(self.tg111.fault_code)}")
+                return False
+            print(
+                f"Target: {int(self.tg111.mdi_velocity)}, Current: {self.current_velocity()}")
+            time.sleep(0.1)
+
+        print("Finished velocity task")
+        return True
+
     def homing_task(self) -> bool:
-        """Perform the homing sequence"""
+        """Perform the homing sequence. If successful, the drive should be referenced afterwards.
+
+        Returns:
+            bool: True if succesful, False otherwise
+        """
         print("Start homing task", end='')
         if not self.ready_for_motion():
             print(" -> not ready for motion")
@@ -223,7 +428,7 @@ class EDrivePositioning:
         return True
 
     def referencing_task(self):
-        """Perform the referencing"""
+        """Perform referencing i.e. set the zero position to the current position"""
         print("Set reference position")
         self.tg111.pos_stw2.set_reference_point = True
         self.update_outputs(post_wait_ms=0.1)
@@ -234,7 +439,15 @@ class EDrivePositioning:
         print("Finished referencing")
 
     def record_task(self, record_number: int) -> bool:
-        """Perform a record task"""
+        """Perform a preconfigured record task by providing the corresponding record number
+
+        Parameters:
+            record_number (int): The record number determining the record table entry that should be
+                                 executed.
+
+        Returns:
+            bool: True if succesful, False otherwise
+        """
         print("Start record task", end='')
         if not self.ready_for_motion():
             print(" -> not ready for motion")
@@ -268,16 +481,28 @@ class EDrivePositioning:
         print("Finished record task")
         return True
 
-    def jog_task(self, jog1=True, jog2=False, incremental=False, duration=1.0) -> bool:
-        """Perform a jogging task with a given duration"""
+    def jog_task(self, jog_positive=True, jog_negative=False,
+                 incremental=False, duration=1.0) -> bool:
+        """Perform a jogging task with a given duration.
+            Please note that the jogging motion stops if jog_positive and jog_negative are equal.
+
+        Parameters:
+            jog_positive (bool): If true, jog in positive direction.
+            jog_negative (bool): If true, jog in negative direction.
+
+            duration (float): Optional duration in seconds.
+
+        Returns:
+            bool: True if succesful, False otherwise
+        """
         print("Start jogging task", end='')
         if not self.ready_for_motion():
             print(" -> not ready for motion")
             return False
         print(" -> success!")
 
-        self.tg111.stw1.jog1_on = jog1
-        self.tg111.stw1.jog2_on = jog2
+        self.tg111.stw1.jog1_on = jog_positive
+        self.tg111.stw1.jog2_on = jog_negative
         self.tg111.pos_stw2.incremental_jogging = incremental
         self.update_outputs(post_wait_ms=duration)
 
@@ -286,41 +511,3 @@ class EDrivePositioning:
         self.update_outputs(post_wait_ms=0.1)
         print("Finished jogging task")
         return True
-
-    def set_config_epos(self, config_epos: bytes):
-        """
-        Apply the configuration of the EPOS word to the internal telegram
-        (ref. SINA_POS by Siemens)
-        """
-        self.tg111.stw1.no_coast_stop = config_epos[0] & 1 > 0
-        self.tg111.stw1.no_quick_stop = config_epos[0] & 2 > 0
-        self.tg111.pos_stw2.activate_software_limit_switch = config_epos[0] & 4 > 0
-        self.tg111.pos_stw2.activate_hardware_limit_switch = config_epos[0] & 8 > 0
-        self.tg111.pos_stw2.falling_edge_of_measuring_probe = config_epos[0] & 16 > 0
-        self.tg111.pos_stw2.measuring_probe2_is_activated = config_epos[0] & 32 > 0
-        self.tg111.stw1.change_record_no = config_epos[0] & 64 > 0
-        self.tg111.pos_stw2.reserved1 = config_epos[0] & 128 > 0
-        self.tg111.pos_stw1.continuous_update = config_epos[1] & 1 > 0
-        self.tg111.stw2.reserved1 = config_epos[1] & 2 > 0
-        self.tg111.stw2.reserved2 = config_epos[1] & 4 > 0
-        self.tg111.stw2.reserved3 = config_epos[1] & 8 > 0
-        self.tg111.stw2.reserved4 = config_epos[1] & 16 > 0
-        self.tg111.stw2.reserved5 = config_epos[1] & 32 > 0
-        self.tg111.stw2.parking_axis = config_epos[1] & 64 > 0
-        self.tg111.stw1.open_holding_brake = config_epos[1] & 128 > 0
-        self.tg111.stw1.reserved1 = config_epos[2] & 1 > 0
-        self.tg111.stw1.reserved2 = config_epos[2] & 2 > 0
-        self.tg111.pos_stw2.activate_tracking_mode = config_epos[2] & 4 > 0
-        self.tg111.pos_stw1.reserved1 = config_epos[2] & 8 > 0
-        self.tg111.pos_stw1.reserved2 = config_epos[2] & 16 > 0
-        self.tg111.pos_stw1.reserved3 = config_epos[2] & 32 > 0
-        self.tg111.pos_stw2.reserved9 = config_epos[2] & 64 > 0
-        self.tg111.pos_stw2.reserved3 = config_epos[2] & 128 > 0
-        self.tg111.pos_stw2.reserved4 = config_epos[3] & 1 > 0
-        self.tg111.pos_stw2.reserved5 = config_epos[3] & 2 > 0
-        self.tg111.pos_stw2.reserved8 = config_epos[3] & 4 > 0
-        self.tg111.pos_stw2.reserved9 = config_epos[3] & 8 > 0
-        self.tg111.stw2.reserved6 = config_epos[3] & 16 > 0
-        self.tg111.stw2.reserved7 = config_epos[3] & 32 > 0
-        self.tg111.stw2.traversing_fixed_stop = config_epos[3] & 64 > 0
-        self.tg111.stw2.reserved8 = config_epos[3] & 128 > 0
