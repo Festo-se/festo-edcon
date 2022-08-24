@@ -10,6 +10,9 @@ Before every entry put one of these to mark the severity of the change:
 ### Added
 - [Minor] Added modbus flavour feature e.g. to specify device specific options.
 - [Minor] Added public API methods to EDrivePositioning for configuring various options (SINAPOS functionality).
+
+### Changed
+- [Minor] EDriveModbus performs I/O data transfer in a separate thread (EDriveEthernetip did this already).
 ## [v0.5.1] - 10.08.22
 ### Added
 - [Patch] Added proper README, docu and examples.
