@@ -1,8 +1,8 @@
 from edrive.edrive_modbus import EDriveModbus
-from edrive.edrive_positioning import EDrivePositioning
+from edrive.edrive_motion import EDriveMotion
 
 edrive = EDriveModbus('192.168.0.51')
-with EDrivePositioning(edrive) as pos:
+with EDriveMotion(edrive) as pos:
     pos.request_plc_control()
     pos.acknowledge_faults()
     pos.enable_powerstage()

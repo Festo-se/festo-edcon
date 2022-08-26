@@ -1,4 +1,4 @@
-"""Example on how to use Telegram102 and EDrive classes."""
+"""CLI tool that performs a sequence on Telegram102 and EDrive classes."""
 import sys
 import time
 import math

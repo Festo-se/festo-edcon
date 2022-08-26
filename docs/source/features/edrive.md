@@ -85,15 +85,15 @@ This can then simply be provided:
 edrive = EDriveModbus('192.168.0.1', flavour=MyFancyFlavour)
 ```
 
-## EDrivePositioning
-The [`EDrivePositioning`](edrive.edrive_positioning.EDrivePositioning) class can be used to start different motion tasks.
+## EDriveMotion
+The [`EDriveMotion`](edrive.edrive_motion.EDriveMotion) class can be used to start different motion tasks.
 Under the hood it uses PROFIDRIVE telegram 111.
 The intention of the class is to provide an abstraction from telegram 111 to the user, thus providing a simpler interface.
 
-The positioning class is instantiated by providing a edrive communication instance that is used to transfer the telegram (e.g. [`EDriveEthernetip`](edrive.edrive_ethernetip.EDriveEthernetip) or [`EDriveModbus`](edrive.edrive_modbus.EDriveModbus)).
+The motion class is instantiated by providing a edrive communication instance that is used to transfer the telegram (e.g. [`EDriveEthernetip`](edrive.edrive_ethernetip.EDriveEthernetip) or [`EDriveModbus`](edrive.edrive_modbus.EDriveModbus)).
 
 ```python
-with EDrivePositioning(edrive) as pos:
+with EDriveMotion(edrive) as pos:
 ```
 
 The instance is then able of handling basic setup sequences.

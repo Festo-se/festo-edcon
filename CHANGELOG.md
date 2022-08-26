@@ -9,10 +9,13 @@ Before every entry put one of these to mark the severity of the change:
 ## Unreleased
 ### Added
 - [Minor] Added modbus flavour feature e.g. to specify device specific options.
-- [Minor] Added public API methods to EDrivePositioning for configuring various options (SINAPOS functionality).
+- [Minor] Added public API methods to EDriveMotion for configuring various options (SINAPOS functionality).
+- [Minor] Added non-blocking semantics to motion tasks in EDriveMotion.
 
 ### Changed
+- [Minor] Renamed EDrivePositioning to EDriveMotion.
 - [Minor] EDriveModbus performs I/O data transfer in a separate thread (EDriveEthernetip did this already).
+
 ## [v0.5.1] - 10.08.22
 ### Added
 - [Patch] Added proper README, docu and examples.

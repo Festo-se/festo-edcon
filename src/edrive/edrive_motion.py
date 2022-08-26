@@ -1,5 +1,5 @@
 """
-Contains EDrivePositioning class to configure and control
+Contains EDriveMotion class to configure and control
 EDrive devices in position mode.
 """
 import time
@@ -9,7 +9,7 @@ from profidrive.words import OVERRIDE, MDI_ACC, MDI_DEC
 from edrive.edrive_base import EDriveBase
 
 
-class EDrivePositioning:
+class EDriveMotion:
     """
     This class is used to control the EDrive devices in position mode (telegram 111).
     It provides a set of functions to control the position of the EDrive using different modes.
