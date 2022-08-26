@@ -16,3 +16,9 @@
   Index <genindex.html#http://>
   Module Index <py-modindex.html#http://>
   Module Sources <modules.rst>
+
+  .. toctree::
+  :maxdepth: 2
+  :caption: Reference:
+
+  changelog.rst
