@@ -1,8 +1,8 @@
-"""Example on how to use EDrivePositioning."""
+"""CLI tool to execute positioning tasks using EDriveMotion."""
 from edcon_tools.generic_bus_argparser import GenericBusArgParser
 from edrive.edrive_modbus import EDriveModbus
 from edrive.edrive_ethernetip import EDriveEthernetip
-from edrive.edrive_positioning import EDrivePositioning
+from edrive.edrive_motion import EDriveMotion
 
 
 def main():
@@ -25,7 +25,7 @@ def main():
     elif args.com_type == 'ethernetip':
         edrive = EDriveEthernetip(args.ip_address)
 
-    with EDrivePositioning(edrive) as edpos:
+    with EDriveMotion(edrive) as edpos:
         edpos.request_plc_control()
         edpos.acknowledge_faults()
         edpos.enable_powerstage()

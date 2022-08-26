@@ -11,7 +11,7 @@ There are two main modules which contribute to the package:
 
 2. Driver modules (`edrive`):
     1. EDrive: EtherNet/IP and Modbus
-    2. Positioning Module based on Siemens SinaPos (using Telegram 111)
+    2. Motion Module based on Siemens SinaPos functionality (using Telegram 111)
 
 ## Tools
 

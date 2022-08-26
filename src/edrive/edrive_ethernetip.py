@@ -18,9 +18,15 @@ T_O_EXT_PROCESS_DATA = 111  # Target to Originator
 
 
 class EDriveEthernetip(EDriveBase):
-    """Class to configure and communicate with EDrive devices."""
+    """Class to configure and communicate with EDrive devices via EtherNet/IP."""
 
     def __init__(self, ip_address, cycle_time: int = 10):
+        """Constructor of the EDriveEthernetip class.
+
+        Parameters:
+            ip_address (str): Required IP address as string e.g. ('192.168.0.1')
+            cycle_time (int): Cycle time (in ms) that should be used for I/O transfers
+        """
         self.cycle_time = cycle_time
         logging.info(f"Starting EtherNet/IP connection on {ip_address}")
         self.eip = ethernetip.EtherNetIP(ip_address)
