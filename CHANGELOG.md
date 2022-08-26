@@ -7,6 +7,8 @@ Before every entry put one of these to mark the severity of the change:
 `Major`, `Minor` or `Patch`
 
 ## Unreleased
+
+## [v0.6.0] - 26.08.22
 ### Added
 - [Minor] Added modbus flavour feature e.g. to specify device specific options.
 - [Minor] Added public API methods to EDriveMotion for configuring various options (SINAPOS functionality).
