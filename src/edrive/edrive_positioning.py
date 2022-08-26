@@ -139,9 +139,9 @@ class EDrivePositioning:
         Configures the measuring probes.
         Be aware that only one probe is configurable simultaneously.
         In order to configure both probes:
-        1. Configure probe 'first'
-        2. Send using update_outputs()
-        3. Configure probe 'second'
+            1. Configure probe 'first'
+            2. Send using update_outputs()
+            3. Configure probe 'second'
 
         Parameters:
             falling_edge (bool): Determines whether to trigger on rising or falling edge
@@ -220,10 +220,14 @@ class EDrivePositioning:
 
     def trigger_record_change(self):
         """Triggers the change to the next record of the record sequence"""
-        self.tg111.stw1.change_record_no = False
-        self.update_outputs(post_wait_ms=0.1)
+        print("Set record change bit")
         self.tg111.stw1.change_record_no = True
         self.update_outputs(post_wait_ms=0.1)
+
+        # Reset bits
+        self.tg111.stw1.change_record_no = False
+        self.update_outputs(post_wait_ms=0.1)
+        print("Finished record change")
 
     def request_plc_control(self) -> bool:
         """Send telegram to request the control of the EDrive
@@ -285,7 +289,22 @@ class EDrivePositioning:
         print(" -> success!")
         return True
 
-    def position_task(self, position: int, velocity: int, absolute: bool = False) -> bool:
+    def stop_motion_task(self):
+        """Stops any currently active motion task"""
+
+        # Reset bits
+        self.tg111.pos_stw1.activate_mdi = False
+        self.tg111.pos_stw1.absolute_position = False
+        self.tg111.pos_stw1.activate_setup = False
+        self.tg111.pos_stw1.positioning_direction0 = False
+        self.tg111.pos_stw1.positioning_direction1 = False
+        self.tg111.stw1.activate_traversing_task = False
+        self.update_outputs(post_wait_ms=0.1)
+
+# Motion tasks
+
+    def position_task(self, position: int, velocity: int, absolute: bool = False,
+                      nonblocking: bool = False) -> bool:
         """Perform a position task with the given parameters
 
         Parameters:
@@ -293,6 +312,8 @@ class EDrivePositioning:
             velocity (int): velocity setpoint in user units (depends on parametrization)
             absolute (bool): If true, position is considered absolute,
                              otherwise relative to starting position
+            nonblocking (bool): If True, tasks returns immediately after starting the task.
+                                Otherwise function awaits for finish (or fault).
 
         Returns:
             bool: True if succesful, False otherwise
@@ -307,10 +328,14 @@ class EDrivePositioning:
         self.tg111.mdi_velocity.value = self.raw_velocity(velocity)
         self.tg111.pos_stw1.activate_mdi = True
         self.tg111.pos_stw1.absolute_position = absolute
-        self.update_outputs(post_wait_ms=0.1)
         self.tg111.stw1.activate_traversing_task = True
+        self.update_outputs()
+
+        if nonblocking:
+            return True
+
         # Wait for traversing task to be started
-        self.update_outputs(post_wait_ms=0.1)
+        time.sleep(0.1)
         self.update_inputs()
 
         while not self.tg111.zsw1.target_position_reached:
@@ -331,13 +356,14 @@ class EDrivePositioning:
         print("Target position reached")
         return True
 
-    def velocity_task(self, velocity: int, duration: float = 1.0) -> bool:
+    def velocity_task(self, velocity: int, duration: float = 0.0) -> bool:
         """Perform a velocity task with the given parameters using setup mode.
 
         Parameters:
             velocity (int): velocity setpoint in user units (depends on parametrization).
                             The sign determines the direction of the motion.
-            duration (float): Duration in seconds
+            duration (float): Optional duration in seconds.
+                              A duration of 0 starts the task and returns immediately.
 
         Returns:
             bool: True if succesful, False otherwise
@@ -354,11 +380,14 @@ class EDrivePositioning:
         self.tg111.pos_stw1.activate_setup = True
         self.tg111.pos_stw1.positioning_direction0 = velocity > 0
         self.tg111.pos_stw1.positioning_direction1 = velocity < 0
-
-        self.update_outputs(post_wait_ms=0.1)
         self.tg111.stw1.activate_traversing_task = True
+        self.update_outputs()
+
+        if duration == 0:
+            return True
+
         # Wait for traversing task to be started
-        self.update_outputs(post_wait_ms=0.1)
+        time.sleep(0.1)
         self.update_inputs()
 
         start_time = time.time()
@@ -383,6 +412,7 @@ class EDrivePositioning:
         self.tg111.stw1.activate_traversing_task = False
         self.update_outputs(post_wait_ms=0.1)
 
+        # Wait for drive to finish motion
         while not self.tg111.zsw1.drive_stopped:
             self.update_inputs()
             if self.tg111.zsw1.fault_present:
@@ -396,21 +426,35 @@ class EDrivePositioning:
         print("Finished velocity task")
         return True
 
-    def homing_task(self) -> bool:
-        """Perform the homing sequence. If successful, the drive should be referenced afterwards.
+    def referencing_task(self, use_homing_method: bool = False, nonblocking: bool = False) -> bool:
+        """Perform the referencing sequence. If successful, the drive is referenced afterwards.
 
+        Parameters:
+            use_homing_method (bool): If True, the configured homing method is executed.
+            nonblocking (bool): If True, tasks returns immediately after starting the task.
+                                Otherwise function awaits for finish (or fault).
         Returns:
             bool: True if succesful, False otherwise
         """
-        print("Start homing task", end='')
-        if not self.ready_for_motion():
-            print(" -> not ready for motion")
-            return False
-        print(" -> success!")
 
-        self.tg111.stw1.start_homing_procedure = True
+        if use_homing_method:
+            print("Start homing task using the homing method", end='')
+            if not self.ready_for_motion():
+                print(" -> not ready for motion")
+                return False
+            print(" -> success!")
+            self.tg111.stw1.start_homing_procedure = True
+        else:
+            print("Start homing task using current position -> success!")
+            self.tg111.pos_stw2.set_reference_point = True
+
+        self.update_outputs()
+
+        if nonblocking:
+            return True
+
         # Wait for homing task to be started
-        self.update_outputs(post_wait_ms=0.1)
+        time.sleep(0.1)
         self.update_inputs()
 
         while not self.tg111.zsw1.home_position_set:
@@ -423,27 +467,19 @@ class EDrivePositioning:
 
         # Reset bits
         self.tg111.stw1.start_homing_procedure = False
+        self.tg111.pos_stw2.set_reference_point = False
         self.update_outputs(post_wait_ms=0.1)
         print("Finished homing")
         return True
 
-    def referencing_task(self):
-        """Perform referencing i.e. set the zero position to the current position"""
-        print("Set reference position")
-        self.tg111.pos_stw2.set_reference_point = True
-        self.update_outputs(post_wait_ms=0.1)
-
-        # Reset bits
-        self.tg111.pos_stw2.set_reference_point = False
-        self.update_outputs(post_wait_ms=0.1)
-        print("Finished referencing")
-
-    def record_task(self, record_number: int) -> bool:
+    def record_task(self, record_number: int, nonblocking: bool = True) -> bool:
         """Perform a preconfigured record task by providing the corresponding record number
 
         Parameters:
             record_number (int): The record number determining the record table entry that should be
                                  executed.
+            nonblocking (bool): If True, tasks returns immediately after starting the task.
+                                Otherwise function awaits for finish (or fault).
 
         Returns:
             bool: True if succesful, False otherwise
@@ -461,10 +497,14 @@ class EDrivePositioning:
         self.tg111.pos_stw1.record_table_selection4 = record_number & 16 > 0
         self.tg111.pos_stw1.record_table_selection5 = record_number & 32 > 0
         self.tg111.pos_stw1.record_table_selection6 = record_number & 64 > 0
-        self.update_outputs(post_wait_ms=0.1)
         self.tg111.stw1.activate_traversing_task = True
+        self.update_outputs()
+
+        if nonblocking:
+            return True
+
         # Wait for record task to be started
-        self.update_outputs(post_wait_ms=0.1)
+        time.sleep(0.1)
         self.update_inputs()
 
         while not self.tg111.zsw1.target_position_reached:
@@ -481,8 +521,8 @@ class EDrivePositioning:
         print("Finished record task")
         return True
 
-    def jog_task(self, jog_positive=True, jog_negative=False,
-                 incremental=False, duration=1.0) -> bool:
+    def jog_task(self, jog_positive: bool = True, jog_negative: bool = False,
+                 incremental: bool = False, duration: float = 0.0) -> bool:
         """Perform a jogging task with a given duration.
             Please note that the jogging motion stops if jog_positive and jog_negative are equal.
 
@@ -491,6 +531,7 @@ class EDrivePositioning:
             jog_negative (bool): If true, jog in negative direction.
 
             duration (float): Optional duration in seconds.
+                              A duration of 0 starts the task and returns immediately.
 
         Returns:
             bool: True if succesful, False otherwise
@@ -504,7 +545,12 @@ class EDrivePositioning:
         self.tg111.stw1.jog1_on = jog_positive
         self.tg111.stw1.jog2_on = jog_negative
         self.tg111.pos_stw2.incremental_jogging = incremental
-        self.update_outputs(post_wait_ms=duration)
+        self.update_outputs()
+
+        if duration == 0:
+            return True
+
+        time.sleep(duration)
 
         self.tg111.stw1.jog1_on = False
         self.tg111.stw1.jog2_on = False
