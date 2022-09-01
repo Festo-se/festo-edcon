@@ -7,9 +7,12 @@ Before every entry put one of these to mark the severity of the change:
 `Major`, `Minor` or `Patch`
 
 ## Unreleased
+## [v0.6.1] - 01.09.22
 ### Added
 - [Patch] Added CHANGELOG to sphinx page.
-- 
+### Fixed
+- [Patch] Fixed bug that caused a crash if `homing` option of position tool was used. Option is now called `reference`.
+
 ## [v0.6.0] - 26.08.22
 ### Added
 - [Minor] Added modbus flavour feature e.g. to specify device specific options.
