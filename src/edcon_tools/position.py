@@ -14,8 +14,8 @@ def main():
                          help='Speed used for positioning task')
     gparser.add_argument('-a', '--absolute', action='store_true',
                          help='Use absolute positioning mode')
-    gparser.add_argument('--homing', action='store_true',
-                         help='Perform homing before positioning task')
+    gparser.add_argument('-r', '--reference', action='store_true',
+                         help='Perform a referencing task before positioning task')
 
     args = gparser.create()
 
@@ -30,8 +30,8 @@ def main():
         edpos.acknowledge_faults()
         edpos.enable_powerstage()
 
-        if args.homing:
-            edpos.homing_task()
+        if args.reference:
+            edpos.referencing_task()
 
         edpos.position_task(position=int(args.position),
                             velocity=int(args.speed), absolute=args.absolute)
