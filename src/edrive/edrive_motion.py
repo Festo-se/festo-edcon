@@ -221,7 +221,7 @@ class EDriveMotion:
 
         Returns:
             int/float: In order to get the correct velocity, base_velocity needs to be provided.
-                 If no base_velocity is given, returned value is raw and can be converted using 
+                 If no base_velocity is given, returned value is raw and can be converted using
                  the following formula:
 
                  base_value_velocity = Base Value Velocity (parameterized on device)
@@ -230,6 +230,83 @@ class EDriveMotion:
         """
         self.update_inputs()
         return self.scaled_velocity(self.tg111.nist_b.value)
+
+    def wait_for_duration(self, duration: float) -> bool:
+        """Waits for provided duration
+
+        Parameter:
+            duration (float): time that should be waited for
+        Returns:
+            bool: True if succesful, False otherwise
+        """
+        start_time = time.time()
+        while not time.time() - start_time > duration:
+            self.update_inputs()
+            if self.tg111.zsw1.fault_present:
+                print(
+                    f"Cancelled task due to fault {int(self.tg111.fault_code)}")
+                return False
+
+            print(
+                f"Target: {int(self.tg111.mdi_tarpos)}, Current: {int(self.tg111.xist_a)}")
+            time.sleep(0.1)
+        print(f"Duration of {duration} seconds passed")
+        return True
+
+    def wait_for_reference(self) -> bool:
+        """Waits for drive to be referenced
+
+        Returns:
+            bool: True if succesful, False otherwise
+        """
+        self.update_inputs()
+        while not self.tg111.zsw1.home_position_set:
+            self.update_inputs()
+            if self.tg111.zsw1.fault_present:
+                print(
+                    f"Cancelled task due to fault {int(self.tg111.fault_code)}")
+                return False
+            time.sleep(0.1)
+        print("Reference position set")
+        return True
+
+    def wait_for_target_position(self) -> bool:
+        """Waits for target position to be reached
+
+        Returns:
+            bool: True if succesful, False otherwise
+        """
+        self.update_inputs()
+        while not self.tg111.zsw1.target_position_reached:
+            self.update_inputs()
+            if self.tg111.zsw1.fault_present:
+                print(
+                    f"Cancelled task due to fault {int(self.tg111.fault_code)}")
+                return False
+            print(
+                f"Target: {int(self.tg111.mdi_tarpos)}, Current: {int(self.tg111.xist_a)}")
+            time.sleep(0.1)
+        print("Target position reached")
+        return True
+
+    def wait_for_stop(self) -> bool:
+        """Waits for target position to be reached
+
+        Returns:
+            bool: True if succesful, False otherwise
+        """
+        self.update_inputs()
+        while not self.tg111.zsw1.drive_stopped:
+            self.update_inputs()
+            if self.tg111.zsw1.fault_present:
+                print(
+                    f"Cancelled task due to fault {int(self.tg111.fault_code)}")
+                return False
+            print(
+                f"Target: {int(self.tg111.mdi_tarpos)}, Current: {int(self.tg111.xist_a)}")
+            time.sleep(0.1)
+        print("Drive stopped")
+        return True
 
 # Telegram Sequences
 
@@ -298,14 +375,41 @@ class EDriveMotion:
 
     def stop_motion_task(self):
         """Stops any currently active motion task"""
-
-        # Reset bits
-        self.tg111.pos_stw1.activate_mdi = False
-        self.tg111.pos_stw1.absolute_position = False
-        self.tg111.pos_stw1.activate_setup = False
-        self.tg111.pos_stw1.positioning_direction0 = False
-        self.tg111.pos_stw1.positioning_direction1 = False
+        print("Stopping motion")
+        # Reset activate_traversing_task bit to prepare for next time
         self.tg111.stw1.activate_traversing_task = False
+
+        # Reset jog bits (in case jogging motion was performed)
+        self.tg111.stw1.jog1_on = False
+        self.tg111.stw1.jog2_on = False
+
+        # Reset referencing bits (in case referencing motion was performed)
+        self.tg111.stw1.start_homing_procedure = False
+        self.tg111.pos_stw2.set_reference_point = False
+
+        # Actual stop command
+        self.tg111.stw1.do_not_reject_traversing_task = False
+        self.update_outputs(post_wait_ms=0.1)
+        self.tg111.stw1.do_not_reject_traversing_task = True
+
+        self.wait_for_stop()
+
+    def pause_motion_task(self):
+        """Pauses any currently active motion task"""
+        print("Pausing motion")
+        # Reset activate_traversing_task bit to prepare for next time
+        self.tg111.stw1.activate_traversing_task = False
+
+        # Actual pause command
+        self.tg111.stw1.no_intermediate_stop = False
+        self.update_outputs(post_wait_ms=0.1)
+
+        self.wait_for_stop()
+
+    def resume_motion_task(self):
+        """Resumes any currently active motion task"""
+        print("Resuming motion")
+        self.tg111.stw1.no_intermediate_stop = True
         self.update_outputs(post_wait_ms=0.1)
 
 # Motion tasks
@@ -339,26 +443,13 @@ class EDriveMotion:
         if nonblocking:
             return True
 
-        # Wait for traversing task to be started
+        # Wait for task to be started
         time.sleep(0.1)
-        self.update_inputs()
 
-        while not self.tg111.zsw1.target_position_reached:
-            self.update_inputs()
-            if self.tg111.zsw1.fault_present:
-                print(
-                    f"Cancelled task due to fault {int(self.tg111.fault_code)}")
-                return False
-
-            print(
-                f"Target: {int(self.tg111.mdi_tarpos)}, Current: {int(self.tg111.xist_a)}")
-            time.sleep(0.1)
-
-        # Reset bits
-        self.tg111.pos_stw1.activate_mdi = False
-        self.tg111.stw1.activate_traversing_task = False
-        self.update_outputs(post_wait_ms=0.1)
-        print("Target position reached")
+        if not self.wait_for_target_position():
+            return False
+        self.stop_motion_task()
+        print("Finished position task")
         return True
 
     def velocity_task(self, velocity: int, duration: float = 0.0) -> bool:
@@ -389,43 +480,12 @@ class EDriveMotion:
         if duration == 0:
             return True
 
-        # Wait for traversing task to be started
+        # Wait for task to be started
         time.sleep(0.1)
-        self.update_inputs()
 
-        start_time = time.time()
-        while not time.time() - start_time > duration:
-            self.update_inputs()
-            if self.tg111.zsw1.fault_present:
-                print(
-                    f"Cancelled task due to fault {int(self.tg111.fault_code)}")
-                return False
-
-            print(
-                f"Target: {int(self.tg111.mdi_velocity.value)}, "
-                f"Current: {self.current_velocity()}")
-            time.sleep(0.1)
-
-        # Reset bits
-        self.tg111.pos_stw1.activate_mdi = False
-        self.tg111.pos_stw1.absolute_position = False
-        self.tg111.pos_stw1.activate_setup = False
-        self.tg111.pos_stw1.positioning_direction0 = False
-        self.tg111.pos_stw1.positioning_direction1 = False
-        self.tg111.stw1.activate_traversing_task = False
-        self.update_outputs(post_wait_ms=0.1)
-
-        # Wait for drive to finish motion
-        while not self.tg111.zsw1.drive_stopped:
-            self.update_inputs()
-            if self.tg111.zsw1.fault_present:
-                print(
-                    f"Cancelled task due to fault {int(self.tg111.fault_code)}")
-                return False
-            print(
-                f"Target: {int(self.tg111.mdi_velocity)}, Current: {self.current_velocity()}")
-            time.sleep(0.1)
-
+        if not self.wait_for_duration(duration):
+            return False
+        self.stop_motion_task()
         print("Finished velocity task")
         return True
 
@@ -454,23 +514,13 @@ class EDriveMotion:
         if nonblocking:
             return True
 
-        # Wait for homing task to be started
+        # Wait for task to be started
         time.sleep(0.1)
-        self.update_inputs()
 
-        while not self.tg111.zsw1.home_position_set:
-            self.update_inputs()
-            if self.tg111.zsw1.fault_present:
-                print(
-                    f"Cancelled task due to fault {int(self.tg111.fault_code)}")
-                return False
-            time.sleep(0.1)
-
-        # Reset bits
-        self.tg111.stw1.start_homing_procedure = False
-        self.tg111.pos_stw2.set_reference_point = False
-        self.update_outputs(post_wait_ms=0.1)
-        print("Finished homing")
+        if not self.wait_for_reference():
+            return False
+        self.stop_motion_task()
+        print("Finished referencing task")
         return True
 
     def record_task(self, record_number: int, nonblocking: bool = True) -> bool:
@@ -502,21 +552,12 @@ class EDriveMotion:
         if nonblocking:
             return True
 
-        # Wait for record task to be started
+        # Wait for task to be started
         time.sleep(0.1)
-        self.update_inputs()
 
-        while not self.tg111.zsw1.target_position_reached:
-            self.update_inputs()
-            if self.tg111.zsw1.fault_present:
-                print(
-                    f"Cancelled task due to fault {int(self.tg111.fault_code)}")
-                return False
-            time.sleep(0.1)
-
-        # Reset bits
-        self.tg111.stw1.activate_traversing_task = False
-        self.update_outputs(post_wait_ms=0.1)
+        if not self.wait_for_target_position():
+            return False
+        self.stop_motion_task()
         print("Finished record task")
         return True
 
@@ -547,10 +588,8 @@ class EDriveMotion:
         if duration == 0:
             return True
 
-        time.sleep(duration)
-
-        self.tg111.stw1.jog1_on = False
-        self.tg111.stw1.jog2_on = False
-        self.update_outputs(post_wait_ms=0.1)
+        if not self.wait_for_duration(duration):
+            return False
+        self.stop_motion_task()
         print("Finished jogging task")
         return True

@@ -8,6 +8,8 @@ Before every entry put one of these to mark the severity of the change:
 
 ## Unreleased
 ### Added
+- [Minor] EDriveMotion: Added methods for pausing and resuming motion tasks.
+- [Minor] EDriveMotion: Added methods for waiting on specific conditions.
 - [Patch] EDriveMotion: Added `timeout` parameter to `acknowledge_faults`.
 ### Changed
 - [Minor] EDriveMotion: Removed `request_plc_control()` which is now done implicit.
