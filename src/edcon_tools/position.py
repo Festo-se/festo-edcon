@@ -25,16 +25,15 @@ def main():
     elif args.com_type == 'ethernetip':
         edrive = EDriveEthernetip(args.ip_address)
 
-    with EDriveMotion(edrive) as edpos:
-        edpos.request_plc_control()
-        edpos.acknowledge_faults()
-        edpos.enable_powerstage()
+    with EDriveMotion(edrive) as mot:
+        mot.acknowledge_faults()
+        mot.enable_powerstage()
 
         if args.reference:
-            edpos.referencing_task()
+            mot.referencing_task()
 
-        edpos.position_task(position=int(args.position),
-                            velocity=int(args.speed), absolute=args.absolute)
+        mot.position_task(position=int(args.position),
+                          velocity=int(args.speed), absolute=args.absolute)
 
 
 if __name__ == "__main__":

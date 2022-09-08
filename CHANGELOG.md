@@ -7,6 +7,17 @@ Before every entry put one of these to mark the severity of the change:
 `Major`, `Minor` or `Patch`
 
 ## Unreleased
+### Added
+- [Minor] EDriveMotion: Added methods for pausing and resuming motion tasks.
+- [Minor] EDriveMotion: Added methods for waiting on specific conditions.
+- [Patch] EDriveMotion: Added `timeout` parameter to `acknowledge_faults`.
+### Changed
+- [Minor] EDriveMotion: Removed `request_plc_control()` which is now done implicit.
+- [Minor] Replaced standard logging format handler with `Rich` logging handler.
+### Fixed
+- [Patch] EDriveMotion: Fixed incorrect scaling of velocity.
+- [Patch] EDriveMotion: Checking correct bit after enabling of powerstage.
+
 ## [v0.6.1] - 01.09.22
 ### Added
 - [Patch] Added CHANGELOG to sphinx page.

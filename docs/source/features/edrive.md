@@ -93,19 +93,18 @@ The intention of the class is to provide an abstraction from telegram 111 to the
 The motion class is instantiated by providing a edrive communication instance that is used to transfer the telegram (e.g. [`EDriveEthernetip`](edrive.edrive_ethernetip.EDriveEthernetip) or [`EDriveModbus`](edrive.edrive_modbus.EDriveModbus)).
 
 ```python
-with EDriveMotion(edrive) as pos:
+with EDriveMotion(edrive) as mot:
 ```
 
 The instance is then able of handling basic setup sequences.
 
 ```python
-    pos.request_plc_control()
-    pos.acknkwoledge_faults()
-    pos.enable_powerstage()
+    mot.acknkwoledge_faults()
+    mot.enable_powerstage()
 ```
 
 And start motion tasks:
 
 ```python
-    pos.position_task(position=1000, velocity=5000)
+    mot.position_task(position=1000, velocity=5000)
 ```
