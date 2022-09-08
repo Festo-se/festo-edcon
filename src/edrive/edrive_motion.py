@@ -2,6 +2,7 @@
 Contains EDriveMotion class to configure and control
 EDrive devices in position mode.
 """
+import logging
 import time
 import traceback
 from profidrive.telegram111 import Telegram111
@@ -183,12 +184,12 @@ class EDriveMotion:
         Returns:
             bool: True if succesful, False otherwise
         """
-        print("Check if PLC control is granted", end='')
+        logging.info("Check if PLC control is granted")
         self.update_inputs()
         if not self.tg111.zsw1.control_requested:
-            print(" -> failed")
+            logging.error("PLC control denied")
             return False
-        print(" -> success!")
+        logging.info("[bold green]    -> success!", extra={"markup": True})
         return True
 
     def ready_for_motion(self):
@@ -199,12 +200,12 @@ class EDriveMotion:
         """
         if not self.plc_control_granted():
             return False
-        print("Check if drive is ready for motion", end='')
+        logging.info("Check if drive is ready for motion")
         self.update_inputs()
         if not self.tg111.zsw1.operation_enabled:
-            print(" -> failed")
+            logging.error("Drive not ready for motion")
             return False
-        print(" -> success!")
+        logging.info("[bold green]    -> success!", extra={"markup": True})
         return True
 
     def current_position(self):
@@ -243,11 +244,11 @@ class EDriveMotion:
         while not condition():
             self.update_inputs()
             if self.tg111.zsw1.fault_present:
-                print(
-                    f"Cancelled task due to fault {int(self.tg111.fault_code)}")
+                logging.error(
+                    f"Cancelled due to fault {int(self.tg111.fault_code)}")
                 return False
 
-            print(
+            logging.info(
                 f"Target: {int(self.tg111.mdi_tarpos)}, Current: {int(self.tg111.xist_a)}")
             time.sleep(0.1)
         return True
@@ -266,7 +267,7 @@ class EDriveMotion:
             return time.time() - start_time > duration
         if not self.wait_for_condition(cond):
             return False
-        print(f"Duration of {duration} seconds passed")
+        logging.info(f"Duration of {duration} seconds passed")
         return True
 
     def wait_for_reference(self) -> bool:
@@ -279,7 +280,7 @@ class EDriveMotion:
             return self.tg111.zsw1.home_position_set
         if not self.wait_for_condition(cond):
             return False
-        print("Reference position set")
+        logging.info("Reference position set")
         return True
 
     def wait_for_target_position(self) -> bool:
@@ -292,7 +293,7 @@ class EDriveMotion:
             return self.tg111.zsw1.target_position_reached
         if not self.wait_for_condition(cond):
             return False
-        print("Target position reached")
+        logging.info("Target position reached")
         return True
 
     def wait_for_stop(self) -> bool:
@@ -305,21 +306,21 @@ class EDriveMotion:
             return self.tg111.zsw1.drive_stopped
         if not self.wait_for_condition(cond):
             return False
-        print("Drive stopped")
+        logging.info("Drive stopped")
         return True
 
 # Telegram Sequences
 
     def trigger_record_change(self):
         """Triggers the change to the next record of the record sequence"""
-        print("Set record change bit")
+        logging.info("Set record change bit")
         self.tg111.stw1.change_record_no = True
         self.update_outputs(post_wait_ms=0.1)
 
         # Reset bits
         self.tg111.stw1.change_record_no = False
         self.update_outputs(post_wait_ms=0.1)
-        print("Finished record change")
+        logging.info("Finished record change")
 
     def acknowledge_faults(self, timeout: float = 5.0) -> bool:
         """Send telegram to request the control of the EDrive
@@ -329,21 +330,22 @@ class EDriveMotion:
         Returns:
             bool: True if succesful, False otherwise
         """
-        print("Acknowledge any present faults")
+        logging.info("Acknowledge any present faults")
         self.tg111.stw1.fault_ack = True
         self.update_outputs(post_wait_ms=0.1)
 
         self.tg111.stw1.fault_ack = False
         self.update_outputs(post_wait_ms=0.1)
 
-        print("Wait for fault bit to be cleared", end='')
+        logging.info("Wait for fault bit to be cleared")
         start_time = time.time()
         while not time.time() - start_time > timeout:
             self.update_inputs()
             if not self.tg111.zsw1.fault_present:
-                print(" -> success!")
+                logging.info("[bold green]    -> success!",
+                             extra={"markup": True})
                 return True
-        print(f" -> is still present ({int(self.tg111.fault_code)})")
+        logging.error(f"Fault is still present ({int(self.tg111.fault_code)})")
         return False
 
     def enable_powerstage(self) -> bool:
@@ -354,7 +356,7 @@ class EDriveMotion:
         """
         if not self.plc_control_granted():
             return False
-        print("Enable Powerstage")
+        logging.info("Enable Powerstage")
 
         self.update_inputs()
         if self.tg111.zsw1.operation_enabled:
@@ -365,17 +367,17 @@ class EDriveMotion:
         self.tg111.stw1.on = True
         self.update_outputs(post_wait_ms=0.5)
 
-        print("Check if powerstage is enabled", end='')
+        logging.info("Check if powerstage is enabled")
         self.update_inputs()
         if not self.tg111.zsw1.operation_enabled:
-            print(" -> inhibited")
+            logging.error("Enabling of powerstage is inhibited")
             return False
-        print(" -> success!")
+        logging.info("[bold green]    -> success!", extra={"markup": True})
         return True
 
     def stop_motion_task(self):
         """Stops any currently active motion task"""
-        print("Stopping motion")
+        logging.info("Stopping motion")
         # Reset activate_traversing_task bit to prepare for next time
         self.tg111.stw1.activate_traversing_task = False
 
@@ -396,7 +398,7 @@ class EDriveMotion:
 
     def pause_motion_task(self):
         """Pauses any currently active motion task"""
-        print("Pausing motion")
+        logging.info("Pausing motion")
         # Reset activate_traversing_task bit to prepare for next time
         self.tg111.stw1.activate_traversing_task = False
 
@@ -408,7 +410,7 @@ class EDriveMotion:
 
     def resume_motion_task(self):
         """Resumes any currently active motion task"""
-        print("Resuming motion")
+        logging.info("Resuming motion")
         self.tg111.stw1.no_intermediate_stop = True
         self.update_outputs(post_wait_ms=0.1)
 
@@ -431,7 +433,7 @@ class EDriveMotion:
         """
         if not self.ready_for_motion():
             return False
-        print("Start traversing task")
+        logging.info("Start traversing task")
 
         self.tg111.mdi_tarpos.value = position
         self.tg111.mdi_velocity.value = velocity
@@ -449,7 +451,7 @@ class EDriveMotion:
         if not self.wait_for_target_position():
             return False
         self.stop_motion_task()
-        print("Finished position task")
+        logging.info("Finished position task")
         return True
 
     def velocity_task(self, velocity: int, duration: float = 0.0) -> bool:
@@ -466,7 +468,7 @@ class EDriveMotion:
         """
         if not self.ready_for_motion():
             return False
-        print("Start velocity task")
+        logging.info("Start velocity task")
 
         self.tg111.mdi_velocity.value = abs(velocity)
         self.tg111.pos_stw1.activate_mdi = True
@@ -486,7 +488,7 @@ class EDriveMotion:
         if not self.wait_for_duration(duration):
             return False
         self.stop_motion_task()
-        print("Finished velocity task")
+        logging.info("Finished velocity task")
         return True
 
     def referencing_task(self, use_homing_method: bool = False, nonblocking: bool = False) -> bool:
@@ -503,10 +505,11 @@ class EDriveMotion:
         if use_homing_method:
             if not self.ready_for_motion():
                 return False
-            print("Start homing task using the homing method")
+            logging.info("Start homing task using the homing method")
             self.tg111.stw1.start_homing_procedure = True
         else:
-            print("Start homing task using current position -> success!")
+            logging.info(
+                "Start homing task using current position")
             self.tg111.pos_stw2.set_reference_point = True
 
         self.update_outputs()
@@ -520,7 +523,7 @@ class EDriveMotion:
         if not self.wait_for_reference():
             return False
         self.stop_motion_task()
-        print("Finished referencing task")
+        logging.info("Finished referencing task")
         return True
 
     def record_task(self, record_number: int, nonblocking: bool = True) -> bool:
@@ -537,7 +540,7 @@ class EDriveMotion:
         """
         if not self.ready_for_motion():
             return False
-        print("Start record task")
+        logging.info("Start record task")
 
         self.tg111.pos_stw1.record_table_selection0 = record_number & 1 > 0
         self.tg111.pos_stw1.record_table_selection1 = record_number & 2 > 0
@@ -558,7 +561,7 @@ class EDriveMotion:
         if not self.wait_for_target_position():
             return False
         self.stop_motion_task()
-        print("Finished record task")
+        logging.info("Finished record task")
         return True
 
     def jog_task(self, jog_positive: bool = True, jog_negative: bool = False,
@@ -578,7 +581,7 @@ class EDriveMotion:
         """
         if not self.ready_for_motion():
             return False
-        print("Start jogging task")
+        logging.info("Start jogging task")
 
         self.tg111.stw1.jog1_on = jog_positive
         self.tg111.stw1.jog2_on = jog_negative
@@ -591,5 +594,5 @@ class EDriveMotion:
         if not self.wait_for_duration(duration):
             return False
         self.stop_motion_task()
-        print("Finished jogging task")
+        logging.info("Finished jogging task")
         return True

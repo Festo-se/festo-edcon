@@ -13,6 +13,7 @@ Before every entry put one of these to mark the severity of the change:
 - [Patch] EDriveMotion: Added `timeout` parameter to `acknowledge_faults`.
 ### Changed
 - [Minor] EDriveMotion: Removed `request_plc_control()` which is now done implicit.
+- [Minor] Replaced standard logging format handler with `Rich` logging handler.
 ### Fixed
 - [Patch] EDriveMotion: Fixed incorrect scaling of velocity.
 - [Patch] EDriveMotion: Checking correct bit after enabling of powerstage.
