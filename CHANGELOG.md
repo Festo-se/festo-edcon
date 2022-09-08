@@ -11,6 +11,8 @@ Before every entry put one of these to mark the severity of the change:
 - [Patch] EDriveMotion: Added `timeout` parameter to `acknowledge_faults`.
 ### Changed
 - [Minor] EDriveMotion: Removed `request_plc_control()` which is now done implicit.
+### Fixed
+- [Patch] EDriveMotion: Fixed incorrect scaling of velocity.
 
 ## [v0.6.1] - 01.09.22
 ### Added

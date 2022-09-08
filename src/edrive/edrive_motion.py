@@ -40,7 +40,7 @@ class EDriveMotion:
         self.over_acc = 100.0
         self.over_dec = 100.0
 
-        self.base_speed = 0
+        self.base_velocity = 0
 
         self.edrive = edrive
         if edrive:
@@ -69,18 +69,8 @@ class EDriveMotion:
         Parameters:
             raw_velocity (int): raw velocity to convert to scaled
         """
-        return raw_velocity * self.base_speed / 1073741824.0 \
-            if self.base_speed > 0 else raw_velocity
-
-    def raw_velocity(self, velocity: int) -> int:
-        """
-        Convert the scaled velocity to a raw velocity
-
-        Parameters:
-            velocity (int): scaled velocity to convert to raw
-        """
-        return velocity * 1073741824.0 / self.base_speed \
-            if self.base_speed > 0 else velocity
+        return raw_velocity * self.base_velocity / 1073741824.0 \
+            if self.base_velocity > 0 else raw_velocity
 
     def update_inputs(self):
         """Reads current input process data and updates telegram"""
@@ -205,13 +195,17 @@ class EDriveMotion:
         """Gives information if motion tasks can be started
 
         Returns:
-            bool: True if ready to operate, False otherwise
+            bool: True if drive is ready for motion tasks, False otherwise
         """
         if not self.plc_control_granted():
             return False
         print("Check if drive is ready for motion", end='')
         self.update_inputs()
-        return self.tg111.zsw1.ready_to_operate
+        if not self.tg111.zsw1.operation_enabled:
+            print(" -> failed")
+            return False
+        print(" -> success!")
+        return True
 
     def current_position(self):
         """Read the current position
@@ -226,9 +220,13 @@ class EDriveMotion:
         """Read the current velocity
 
         Returns:
-            int: Current velocity unit is in percent of base speed if given.
-                 If no base_speed is given, value is in user units scaled by the parametrized
-                 base speed / 0x4000.
+            int/float: In order to get the correct velocity, base_velocity needs to be provided.
+                 If no base_velocity is given, returned value is raw and can be converted using 
+                 the following formula:
+
+                 base_value_velocity = Base Value Velocity (parameterized on device)
+
+                 current_velocity = raw_value * base_value_velocity / 0x40000000.
         """
         self.update_inputs()
         return self.scaled_velocity(self.tg111.nist_b.value)
@@ -323,14 +321,12 @@ class EDriveMotion:
         Returns:
             bool: True if succesful, False otherwise
         """
-        print("Start traversing task", end='')
         if not self.ready_for_motion():
-            print(" -> not ready for motion")
             return False
-        print(" -> success!")
+        print("Start traversing task")
 
         self.tg111.mdi_tarpos.value = position
-        self.tg111.mdi_velocity.value = self.raw_velocity(velocity)
+        self.tg111.mdi_velocity.value = velocity
         self.tg111.pos_stw1.activate_mdi = True
         self.tg111.pos_stw1.absolute_position = absolute
         self.tg111.stw1.activate_traversing_task = True
@@ -373,13 +369,11 @@ class EDriveMotion:
         Returns:
             bool: True if succesful, False otherwise
         """
-        print("Start velocity task", end='')
         if not self.ready_for_motion():
-            print(" -> not ready for motion")
             return False
-        print(" -> success!")
+        print("Start velocity task")
 
-        self.tg111.mdi_velocity.value = self.raw_velocity(abs(velocity))
+        self.tg111.mdi_velocity.value = abs(velocity)
         self.tg111.pos_stw1.activate_mdi = True
         self.tg111.pos_stw1.absolute_position = True
         self.tg111.pos_stw1.activate_setup = True
@@ -404,7 +398,7 @@ class EDriveMotion:
                 return False
 
             print(
-                f"Target: {int(self.scaled_velocity(self.tg111.mdi_velocity))}, "
+                f"Target: {int(self.tg111.mdi_velocity.value)}, "
                 f"Current: {self.current_velocity()}")
             time.sleep(0.1)
 
@@ -443,11 +437,9 @@ class EDriveMotion:
         """
 
         if use_homing_method:
-            print("Start homing task using the homing method", end='')
             if not self.ready_for_motion():
-                print(" -> not ready for motion")
                 return False
-            print(" -> success!")
+            print("Start homing task using the homing method")
             self.tg111.stw1.start_homing_procedure = True
         else:
             print("Start homing task using current position -> success!")
@@ -489,11 +481,9 @@ class EDriveMotion:
         Returns:
             bool: True if succesful, False otherwise
         """
-        print("Start record task", end='')
         if not self.ready_for_motion():
-            print(" -> not ready for motion")
             return False
-        print(" -> success!")
+        print("Start record task")
 
         self.tg111.pos_stw1.record_table_selection0 = record_number & 1 > 0
         self.tg111.pos_stw1.record_table_selection1 = record_number & 2 > 0
@@ -541,11 +531,9 @@ class EDriveMotion:
         Returns:
             bool: True if succesful, False otherwise
         """
-        print("Start jogging task", end='')
         if not self.ready_for_motion():
-            print(" -> not ready for motion")
             return False
-        print(" -> success!")
+        print("Start jogging task")
 
         self.tg111.stw1.jog1_on = jog_positive
         self.tg111.stw1.jog2_on = jog_negative
