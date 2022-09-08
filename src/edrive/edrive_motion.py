@@ -278,15 +278,19 @@ class EDriveMotion:
         if not self.plc_control_granted():
             return False
         print("Enable Powerstage")
-        # Toggle (in case it is already True)
-        self.tg111.stw1.on = False
-        self.update_outputs(post_wait_ms=0.1)
+
+        self.update_inputs()
+        if self.tg111.zsw1.operation_enabled:
+            # Toggle (in case it is already True)
+            self.tg111.stw1.on = False
+            self.update_outputs(post_wait_ms=0.1)
+
         self.tg111.stw1.on = True
         self.update_outputs(post_wait_ms=0.5)
 
         print("Check if powerstage is enabled", end='')
         self.update_inputs()
-        if not self.tg111.zsw1.ready_to_switch_on:
+        if not self.tg111.zsw1.operation_enabled:
             print(" -> inhibited")
             return False
         print(" -> success!")

@@ -13,6 +13,7 @@ Before every entry put one of these to mark the severity of the change:
 - [Minor] EDriveMotion: Removed `request_plc_control()` which is now done implicit.
 ### Fixed
 - [Patch] EDriveMotion: Fixed incorrect scaling of velocity.
+- [Patch] EDriveMotion: Checking correct bit after enabling of powerstage.
 
 ## [v0.6.1] - 01.09.22
 ### Added
