@@ -231,6 +231,27 @@ class EDriveMotion:
         self.update_inputs()
         return self.scaled_velocity(self.tg111.nist_b.value)
 
+    def wait_for_condition(self, condition) -> bool:
+        """Waits for provided condition to be satisfied
+
+        Parameter:
+            condition (function): boolean condition function
+        Returns:
+            bool: True if succesful, False otherwise
+        """
+        self.update_inputs()
+        while not condition():
+            self.update_inputs()
+            if self.tg111.zsw1.fault_present:
+                print(
+                    f"Cancelled task due to fault {int(self.tg111.fault_code)}")
+                return False
+
+            print(
+                f"Target: {int(self.tg111.mdi_tarpos)}, Current: {int(self.tg111.xist_a)}")
+            time.sleep(0.1)
+        return True
+
     def wait_for_duration(self, duration: float) -> bool:
         """Waits for provided duration
 
@@ -240,16 +261,11 @@ class EDriveMotion:
             bool: True if succesful, False otherwise
         """
         start_time = time.time()
-        while not time.time() - start_time > duration:
-            self.update_inputs()
-            if self.tg111.zsw1.fault_present:
-                print(
-                    f"Cancelled task due to fault {int(self.tg111.fault_code)}")
-                return False
 
-            print(
-                f"Target: {int(self.tg111.mdi_tarpos)}, Current: {int(self.tg111.xist_a)}")
-            time.sleep(0.1)
+        def cond():
+            return time.time() - start_time > duration
+        if not self.wait_for_condition(cond):
+            return False
         print(f"Duration of {duration} seconds passed")
         return True
 
@@ -259,14 +275,10 @@ class EDriveMotion:
         Returns:
             bool: True if succesful, False otherwise
         """
-        self.update_inputs()
-        while not self.tg111.zsw1.home_position_set:
-            self.update_inputs()
-            if self.tg111.zsw1.fault_present:
-                print(
-                    f"Cancelled task due to fault {int(self.tg111.fault_code)}")
-                return False
-            time.sleep(0.1)
+        def cond():
+            return self.tg111.zsw1.home_position_set
+        if not self.wait_for_condition(cond):
+            return False
         print("Reference position set")
         return True
 
@@ -276,16 +288,10 @@ class EDriveMotion:
         Returns:
             bool: True if succesful, False otherwise
         """
-        self.update_inputs()
-        while not self.tg111.zsw1.target_position_reached:
-            self.update_inputs()
-            if self.tg111.zsw1.fault_present:
-                print(
-                    f"Cancelled task due to fault {int(self.tg111.fault_code)}")
-                return False
-            print(
-                f"Target: {int(self.tg111.mdi_tarpos)}, Current: {int(self.tg111.xist_a)}")
-            time.sleep(0.1)
+        def cond():
+            return self.tg111.zsw1.target_position_reached
+        if not self.wait_for_condition(cond):
+            return False
         print("Target position reached")
         return True
 
@@ -295,16 +301,10 @@ class EDriveMotion:
         Returns:
             bool: True if succesful, False otherwise
         """
-        self.update_inputs()
-        while not self.tg111.zsw1.drive_stopped:
-            self.update_inputs()
-            if self.tg111.zsw1.fault_present:
-                print(
-                    f"Cancelled task due to fault {int(self.tg111.fault_code)}")
-                return False
-            print(
-                f"Target: {int(self.tg111.mdi_tarpos)}, Current: {int(self.tg111.xist_a)}")
-            time.sleep(0.1)
+        def cond():
+            return self.tg111.zsw1.drive_stopped
+        if not self.wait_for_condition(cond):
+            return False
         print("Drive stopped")
         return True
 
