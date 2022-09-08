@@ -29,6 +29,7 @@ class EDriveMotion:
     def __init__(self, edrive: EDriveBase = None) -> None:
         self.tg111 = Telegram111()
         # Configure default values of the telegram
+        self.tg111.stw1.control_by_plc = True
         self.tg111.stw1.no_coast_stop = True
         self.tg111.stw1.no_quick_stop = True
         self.tg111.stw1.enable_operation = True
@@ -186,6 +187,19 @@ class EDriveMotion:
         self.tg111.stw2.traversing_fixed_stop = active
 
 # Reading current values
+    def plc_control_granted(self) -> bool:
+        """Gives information in PLC control is granted
+
+        Returns:
+            bool: True if succesful, False otherwise
+        """
+        print("Check if PLC control is granted", end='')
+        self.update_inputs()
+        if not self.tg111.zsw1.control_requested:
+            print(" -> failed")
+            return False
+        print(" -> success!")
+        return True
 
     def ready_for_motion(self):
         """Gives information if motion tasks can be started
@@ -193,6 +207,9 @@ class EDriveMotion:
         Returns:
             bool: True if ready to operate, False otherwise
         """
+        if not self.plc_control_granted():
+            return False
+        print("Check if drive is ready for motion", end='')
         self.update_inputs()
         return self.tg111.zsw1.ready_to_operate
 
@@ -229,27 +246,11 @@ class EDriveMotion:
         self.update_outputs(post_wait_ms=0.1)
         print("Finished record change")
 
-    def request_plc_control(self) -> bool:
+    def acknowledge_faults(self, timeout: float = 5.0) -> bool:
         """Send telegram to request the control of the EDrive
 
-        Returns:
-            bool: True if succesful, False otherwise
-        """
-        print("Request control by PLC")
-        self.tg111.stw1.control_by_plc = True
-        self.update_outputs(post_wait_ms=0.1)
-
-        print("Check if PLC control is granted", end='')
-        self.update_inputs()
-        if not self.tg111.zsw1.control_requested:
-            print(" -> failed")
-            return False
-        print(" -> success!")
-        return True
-
-    def acknowledge_faults(self) -> bool:
-        """Send telegram to request the control of the EDrive
-
+        Parameter:
+            timeout (float): time that should be waited for acknowledgement
         Returns:
             bool: True if succesful, False otherwise
         """
@@ -260,13 +261,15 @@ class EDriveMotion:
         self.tg111.stw1.fault_ack = False
         self.update_outputs(post_wait_ms=0.1)
 
-        print("Check if fault bit is cleared", end='')
-        self.update_inputs()
-        if self.tg111.zsw1.fault_present:
-            print(f" -> is present ({int(self.tg111.fault_code)})")
-            return False
-        print(" -> success!")
-        return True
+        print("Wait for fault bit to be cleared", end='')
+        start_time = time.time()
+        while not time.time() - start_time > timeout:
+            self.update_inputs()
+            if not self.tg111.zsw1.fault_present:
+                print(" -> success!")
+                return True
+        print(f" -> is still present ({int(self.tg111.fault_code)})")
+        return False
 
     def enable_powerstage(self) -> bool:
         """Send telegram to enable the power stage
@@ -274,6 +277,8 @@ class EDriveMotion:
         Returns:
             bool: True if succesful, False otherwise
         """
+        if not self.plc_control_granted():
+            return False
         print("Enable Powerstage")
         # Toggle (in case it is already True)
         self.tg111.stw1.on = False

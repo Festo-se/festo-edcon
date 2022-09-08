@@ -26,7 +26,6 @@ def main():
         edrive = EDriveEthernetip(args.ip_address)
 
     with EDriveMotion(edrive) as edpos:
-        edpos.request_plc_control()
         edpos.acknowledge_faults()
         edpos.enable_powerstage()
 

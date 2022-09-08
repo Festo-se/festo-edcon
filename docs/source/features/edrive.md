@@ -99,7 +99,6 @@ with EDriveMotion(edrive) as pos:
 The instance is then able of handling basic setup sequences.
 
 ```python
-    pos.request_plc_control()
     pos.acknkwoledge_faults()
     pos.enable_powerstage()
 ```
