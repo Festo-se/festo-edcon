@@ -129,7 +129,7 @@ class EDriveModbus(EDriveBase):
         """Writes raw bytes to a PNU on the EDrive"""
         if hasattr(self, 'flavour'):
             return self.flavour.write_pnu(pnu, subindex, num_elements, value)
-        return None
+        return False
 
     def start_io(self):
         """Starts i/o data process"""

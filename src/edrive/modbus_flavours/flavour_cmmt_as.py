@@ -113,6 +113,7 @@ class FlavourCmmtAs(FlavourBase):
                 REG_PNU_MAILBOX_EXEC, 1).registers[0]
             if status != PNU_MAILBOX_EXEC_DONE:
                 logging.error(f"Error writing PNU {pnu}, status: {status}")
+                return False
             return True
 
         except AttributeError:
