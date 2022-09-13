@@ -54,7 +54,7 @@ class FlavourCmmtAs(FlavourBase):
 
         return self.dev_info_dict
 
-    def read_pnu(self, pnu: int, subindex: int = 0, num_elements: int = 1):
+    def read_pnu(self, pnu: int, subindex: int = 0, num_elements: int = 1) -> bytes:
         try:
             self.modbus_client.write_register(REG_PNU_MAILBOX_PNU, pnu)
             self.modbus_client.write_register(
@@ -90,7 +90,7 @@ class FlavourCmmtAs(FlavourBase):
             return None
 
     def write_pnu(self, pnu: int, subindex: int = 0, num_elements: int = 1,
-                  value: bytes = b'\x00'):
+                  value: bytes = b'\x00') -> bool:
         try:
             self.modbus_client.write_register(REG_PNU_MAILBOX_PNU, pnu)
             self.modbus_client.write_register(
@@ -113,6 +113,7 @@ class FlavourCmmtAs(FlavourBase):
                 REG_PNU_MAILBOX_EXEC, 1).registers[0]
             if status != PNU_MAILBOX_EXEC_DONE:
                 logging.error(f"Error writing PNU {pnu}, status: {status}")
+                return False
             return True
 
         except AttributeError:
