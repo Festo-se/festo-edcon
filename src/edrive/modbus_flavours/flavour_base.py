@@ -14,11 +14,11 @@ class FlavourBase():
         """Executes the device specific sequence to read device info"""
         raise NotImplementedError
 
-    def read_pnu(self, pnu: int, subindex: int = 0, num_elements: int = 1):
+    def read_pnu(self, pnu: int, subindex: int = 0, num_elements: int = 1) -> bytes:
         """Executes the device specific sequence to read a PNU"""
         raise NotImplementedError
 
     def write_pnu(self, pnu: int, subindex: int = 0, num_elements: int = 1,
-                  value: bytes = b'\x00'):
+                  value: bytes = b'\x00') -> bool:
         """Executes the device specific sequence to write a PNU"""
         raise NotImplementedError

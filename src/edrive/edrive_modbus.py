@@ -118,7 +118,7 @@ class EDriveModbus(EDriveBase):
         self.client.write_registers(self.device_info[
             "pd_out_addr"], word_list)
 
-    def read_pnu_raw(self, pnu: int, subindex: int = 0, num_elements: int = 1) -> bool:
+    def read_pnu_raw(self, pnu: int, subindex: int = 0, num_elements: int = 1) -> bytes:
         """Reads a PNU from the EDrive without interpreting the data"""
         if hasattr(self, 'flavour'):
             return self.flavour.read_pnu(pnu, subindex, num_elements)

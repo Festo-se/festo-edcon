@@ -23,10 +23,11 @@ class FlavourCpxAp(FlavourBase):
 
         return self.dev_info_dict
 
-    def read_pnu(self, pnu: int, subindex: int = 0, num_elements: int = 1):
+    def read_pnu(self, pnu: int, subindex: int = 0, num_elements: int = 1) -> bytes:
         logging.error("Could not access PNU register")
+        return None
 
     def write_pnu(self, pnu: int, subindex: int = 0, num_elements: int = 1,
-                  value: bytes = b'\x00'):
+                  value: bytes = b'\x00') -> bool:
         logging.error("Could not access PNU register")
         return False
