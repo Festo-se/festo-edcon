@@ -24,6 +24,7 @@ setup(
         'console_scripts': [
             'edcon-position = edcon_tools.position:main',
             'edcon-pnu = edcon_tools.pnu:main',
+            'edcon-parameter-set = edcon_tools.parameter_set:main',
             'edcon-test-tg1 = edcon_tools.test_tg1:main',
             'edcon-test-tg9 = edcon_tools.test_tg9:main',
             'edcon-test-tg102 = edcon_tools.test_tg102:main',
