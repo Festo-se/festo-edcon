@@ -11,13 +11,20 @@
 
 .. toctree::
   :maxdepth: 2
+  :caption: Examples:
+  
+  examples/modbus.rst
+  examples/ethernetip.rst
+
+.. toctree::
+  :maxdepth: 2
   :caption: Indices and tables:
   
   Index <genindex.html#http://>
   Module Index <py-modindex.html#http://>
   Module Sources <modules.rst>
 
-  .. toctree::
+.. toctree::
   :maxdepth: 2
   :caption: Reference:
 
