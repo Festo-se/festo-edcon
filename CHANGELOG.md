@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - [Patch] Added a few status checking functions. 
 - [Patch] Added example for multiple axes.
+- [Patch] Added examples to docu page.
 ### Fixed
 - [Patch] Fixed return type of pnu_write/read_raw methods.
   
