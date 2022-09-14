@@ -208,6 +208,33 @@ class EDriveMotion:
         logging.info("[bold green]    -> success!", extra={"markup": True})
         return True
 
+    def referenced(self):
+        """Gives information if drive is referenced
+
+        Returns:
+            bool: True if drive home position is set, False otherwise
+        """
+        self.update_inputs()
+        return self.tg111.zsw1.home_position_set
+
+    def target_position_reached(self):
+        """Gives information if drive has reached target position
+
+        Returns:
+            bool: True if drive target position is set, False otherwise
+        """
+        self.update_inputs()
+        return self.tg111.zsw1.target_position_reached
+
+    def stopped(self):
+        """Gives information if drive is stopped
+
+        Returns:
+            bool: True if drive is stopped, False otherwise
+        """
+        self.update_inputs()
+        return self.tg111.zsw1.drive_stopped
+
     def current_position(self):
         """Read the current position
 

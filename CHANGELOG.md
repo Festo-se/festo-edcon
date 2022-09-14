@@ -6,6 +6,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## v0.7.1 - 13.09.22
+### Added
+- [Patch] Added a few status checking functions. 
+- [Patch] Added example for multiple axes.
+- [Patch] Added examples to docu page.
+### Fixed
+- [Patch] Fixed return type of pnu_write/read_raw methods.
+  
 ## v0.7.0 - 08.09.22
 ### Added
 - [Minor] EDriveMotion: Added methods for pausing and resuming motion tasks.

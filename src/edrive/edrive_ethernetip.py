@@ -89,7 +89,7 @@ class EDriveEthernetip(EDriveBase):
         return data
 
     def write_pnu_raw(self, pnu: int, subindex: int = 0, num_elements: int = 1,
-                      value: bytes = b'\x00'):
+                      value: bytes = b'\x00') -> bool:
         """Writes raw bytes to a PNU on the EDrive"""
         # write the PNU (CIP obj 0x401, inst {pnu}, attr {subindex})
         status, data = self.connection.setAttrSingle(
@@ -98,6 +98,8 @@ class EDriveEthernetip(EDriveBase):
         if status != 0:
             logging.error(
                 f"Error writing PNU {pnu}, status: {status}, data: {data}")
+            return False
+        return True
 
     def start_io(self):
         """Configures and starts i/o data process"""
