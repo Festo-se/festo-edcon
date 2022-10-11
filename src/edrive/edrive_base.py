@@ -11,13 +11,15 @@ class EDriveBase:
         # read the currently selected telegram (PNU 3490)
         configured_telegram_id = self.read_pnu(3490)
 
-        if configured_telegram_id:
-            assert configured_telegram_id == telegram_id, f"Incorrect telegram selected -> " \
-                f"Expected: {telegram_id}, Actual: {configured_telegram_id}"
-            logging.info(
-                f"Correct telegram selected: {configured_telegram_id}")
-        else:
-            logging.error("Could not verify correct telegram via PNU")
+        if not configured_telegram_id:
+            logging.warning("Could not verify correct telegram via PNU")
+            return False
+
+        assert configured_telegram_id == telegram_id, f"Incorrect telegram selected -> " \
+            f"Expected: {telegram_id}, Actual: {configured_telegram_id}"
+        logging.info(
+            f"Correct telegram selected: {configured_telegram_id}")
+        return True
 
     def read_pnu_raw(self, pnu: int, subindex: int = 0, num_elements: int = 1) -> bytes:
         """Reads a PNU from the EDrive without interpreting the data"""
