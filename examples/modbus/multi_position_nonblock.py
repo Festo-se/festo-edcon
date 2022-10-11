@@ -1,15 +1,12 @@
 import time
 from contextlib import ExitStack
 import logging
-from rich.logging import RichHandler
 from edrive.edrive_modbus import EDriveModbus
 from edrive.edrive_motion import EDriveMotion
+from edrive.edrive_logging import EDriveLogging
 
 # Enable loglevel info
-logging.basicConfig(level=logging.INFO,
-                    format='%(message)s',
-                    datefmt="[%X]",
-                    handlers=[RichHandler()])
+EDriveLogging()
 
 # Create a list of all Modbus targets
 edrives = [EDriveModbus(ip_address='192.168.0.1'),
