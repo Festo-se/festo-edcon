@@ -5,7 +5,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## Unreleased
-
+## v0.7.2 - 11.10.22
+### Added
+- [Patch] Added a EDriveLogging class to enable easy logging. 
+### Changed
+- [Patch] Moved correct telegram assertion from constructor to separate method.
 ## v0.7.1 - 13.09.22
 ### Added
 - [Patch] Added a few status checking functions. 
