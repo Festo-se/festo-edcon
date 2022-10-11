@@ -45,7 +45,6 @@ class EDriveMotion:
 
         self.edrive = edrive
         if edrive:
-            self.edrive.assert_selected_telegram(111)
             self.edrive.start_io()
 
     def __del__(self):
@@ -63,6 +62,12 @@ class EDriveMotion:
 
         self.__del__()
         return True
+
+    def assert_pnu_integrity(self):
+        """Asserts that crucial PNUs have values needed for operability with the motion module."""
+        if self.edrive:
+            return self.edrive.assert_selected_telegram(111)
+        return False
 
     def scaled_velocity(self, raw_velocity: int) -> int:
         """Convert the raw velocity to a scaled velocity

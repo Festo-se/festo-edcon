@@ -1,6 +1,6 @@
 import argparse
 import logging
-from rich.logging import RichHandler
+from edrive.edrive_logging import EDriveLogging
 
 
 class GenericBusArgParser():
@@ -39,8 +39,7 @@ class GenericBusArgParser():
         args = parser.parse_args()
 
         if args.verbose:
-            logging.basicConfig(level=logging.INFO,
-                                format='%(message)s',
-                                datefmt="[%X]",
-                                handlers=[RichHandler()])
+            EDriveLogging(logging.INFO)
+        else:
+            EDriveLogging(logging.WARNING)
         return args
