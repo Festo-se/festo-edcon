@@ -1,4 +1,5 @@
 """CLI tool to execute positioning tasks using EDriveMotion."""
+import sys
 from edcon_tools.generic_bus_argparser import GenericBusArgParser
 from edrive.edrive_modbus import EDriveModbus
 from edrive.edrive_ethernetip import EDriveEthernetip
@@ -26,11 +27,14 @@ def main():
         edrive = EDriveEthernetip(args.ip_address)
 
     with EDriveMotion(edrive) as mot:
-        mot.acknowledge_faults()
-        mot.enable_powerstage()
+        if not mot.acknowledge_faults():
+            sys.exit(1)
+        if not mot.enable_powerstage():
+            sys.exit(1)
 
         if args.reference:
-            mot.referencing_task()
+            if not mot.referencing_task():
+                sys.exit(1)
 
         mot.position_task(position=int(args.position),
                           velocity=int(args.speed), absolute=args.absolute)
