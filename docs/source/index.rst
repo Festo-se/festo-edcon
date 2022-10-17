@@ -20,8 +20,8 @@
   :maxdepth: 2
   :caption: Indices and tables:
   
-  Index <genindex.html#http://>
-  Module Index <py-modindex.html#http://>
+  Index <genindex.html>
+  Module Index <py-modindex.html>
   Module Sources <modules.rst>
 
 .. toctree::
