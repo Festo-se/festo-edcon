@@ -14,7 +14,7 @@ setup(
     author='Elias Rosch',
     author_email='elias.rosch@festo.com',
     url='https://gitlab.festo.company/lrsch/festo-edcon',
-    license='MIT'
+    license='MIT',
     use_scm_version=True,
     python_requires=">= 3.7",
     setup_requires=["setuptools_scm"],
