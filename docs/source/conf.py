@@ -17,7 +17,7 @@ sys.path.insert(0, os.path.abspath('../../src/'))
 
 # -- Project information -----------------------------------------------------
 
-project = 'edcon'
+project = 'festo-edcon'
 copyright = '2022, Festo SE & Co. KG'
 author = 'Elias Rosch'
 
