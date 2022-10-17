@@ -18,7 +18,7 @@ setup(
     use_scm_version=True,
     python_requires=">= 3.7",
     setup_requires=["setuptools_scm"],
-    install_requires=['pymodbus', 'ethernetip', 'rich'],
+    install_requires=['pymodbus<3.0.0', 'ethernetip', 'rich'],
     package_dir={"": "src"},
     packages=find_packages(where="src", exclude="tests"),
     entry_points={
