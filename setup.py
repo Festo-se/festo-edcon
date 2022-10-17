@@ -13,7 +13,7 @@ setup(
     long_description=readme,
     author='Elias Rosch',
     author_email='elias.rosch@festo.com',
-    url='https://gitlab.festo.company/lrsch/festo-edcon',
+    url='https://gitlab.com/EvilEli/festo-edcon',
     license='MIT',
     use_scm_version=True,
     python_requires=">= 3.7",
