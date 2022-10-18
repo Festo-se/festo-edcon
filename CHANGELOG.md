@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 ### Added
-- [Patch] Updated URLs to new project location
+- [Patch] Updated URLs to new project location.
 ### Fixed
 - [Patch] Fixed issue where position tool would continue operation after error instead of exiting.
 
