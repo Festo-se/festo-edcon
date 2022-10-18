@@ -13,7 +13,7 @@ setup(
     long_description=readme,
     author='Elias Rosch',
     author_email='elias.rosch@festo.com',
-    url='https://gitlab.com/EvilEli/festo-edcon',
+    url='https://gitlab.com/festo-research/teiresias/electric-automation/festo-edcon',
     license='MIT',
     use_scm_version=True,
     python_requires=">= 3.7",
