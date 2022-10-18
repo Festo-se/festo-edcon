@@ -1,5 +1,5 @@
 # festo-edcon
-`festo-edcon` is a python package which bundles modules to facilitate operation of Festo electric drives (currently via EtherNet/IP and Modbus) using PROFIDRIVE. Documentation can be found [here](https://evileli.gitlab.io/festo-edcon) and in the [examples](./examples) directory
+`festo-edcon` is a python package which bundles modules to facilitate operation of Festo electric drives (currently via EtherNet/IP and Modbus) using PROFIDRIVE. Documentation can be found [here](https://festo-research.gitlab.io/teiresias/electric-automation/festo-edcon) and in the [examples](./examples) directory
 ## Modules
 There are two main modules which contribute to the package:
 
