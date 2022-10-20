@@ -5,6 +5,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## Unreleased
+## v0.7.5 - 20.10.22
+### Fixed
+- [Patch] Fixed LICENSE.
+
 ## v0.7.4 - 18.10.22
 ### Added
 - [Patch] Updated URLs to new project location.
