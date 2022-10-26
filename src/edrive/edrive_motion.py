@@ -226,10 +226,28 @@ class EDriveMotion:
         """Gives information if drive has reached target position
 
         Returns:
-            bool: True if drive target position is set, False otherwise
+            bool: True if drive target position is reached, False otherwise
         """
         self.update_inputs()
         return self.tg111.zsw1.target_position_reached
+
+    def fix_stop_reached(self):
+        """Gives information if drive has reached fix stop
+
+        Returns:
+            bool: True if drive is at fix stop, False otherwise
+        """
+        self.update_inputs()
+        return self.tg111.pos_zsw2.fixed_stop_reached
+
+    def clamping_torque_reached(self):
+        """Gives information if drive has reached clamping torque
+
+        Returns:
+            bool: True if drive torque reached the clamping torque, False otherwise
+        """
+        self.update_inputs()
+        return self.tg111.pos_zsw2.fixed_stop_clamping_torque_reached
 
     def stopped(self):
         """Gives information if drive is stopped
