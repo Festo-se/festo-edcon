@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Unreleased
 ### Added
 - [Patch] EDriveMotion: Added methods to check if fix stop and/or clamping torque has been reached.
+### Fixed
+- [Patch] Fixed setup.py.
 ## v0.7.5 - 20.10.22
 ### Fixed
 - [Patch] Fixed LICENSE.
