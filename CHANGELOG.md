@@ -5,10 +5,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## Unreleased
+## v0.7.6 - 03.11.22
 ### Added
 - [Patch] EDriveMotion: Added methods to check if fix stop and/or clamping torque has been reached.
 ### Fixed
 - [Patch] Fixed setup.py.
+
 ## v0.7.5 - 20.10.22
 ### Fixed
 - [Patch] Fixed LICENSE.
