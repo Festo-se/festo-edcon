@@ -1,5 +1,6 @@
 """CLI tool to execute positioning tasks using EDriveMotion."""
 import sys
+import traceback
 from edcon_tools.generic_bus_argparser import GenericBusArgParser
 from edrive.edrive_modbus import EDriveModbus
 from edrive.edrive_ethernetip import EDriveEthernetip
@@ -22,22 +23,26 @@ def main():
 
     # Initialize driver
     if args.com_type == 'modbus':
-        edrive = EDriveModbus(args.ip_address, flavour=args.flavour)
+        edrive = EDriveModbus(
+            args.ip_address, flavour=args.flavour)
     elif args.com_type == 'ethernetip':
         edrive = EDriveEthernetip(args.ip_address)
 
-    with EDriveMotion(edrive) as mot:
-        if not mot.acknowledge_faults():
-            sys.exit(1)
-        if not mot.enable_powerstage():
-            sys.exit(1)
-
-        if args.reference:
-            if not mot.referencing_task():
+    try:
+        with EDriveMotion(edrive) as mot:
+            if not mot.acknowledge_faults():
+                sys.exit(1)
+            if not mot.enable_powerstage():
                 sys.exit(1)
 
-        mot.position_task(position=int(args.position),
-                          velocity=int(args.speed), absolute=args.absolute)
+            if args.reference:
+                if not mot.referencing_task():
+                    sys.exit(1)
+
+            mot.position_task(position=int(args.position),
+                              velocity=int(args.speed), absolute=args.absolute)
+    except ConnectionError:
+        print(traceback.format_exc())
 
 
 if __name__ == "__main__":
