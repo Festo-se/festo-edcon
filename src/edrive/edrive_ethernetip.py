@@ -121,6 +121,7 @@ class EDriveEthernetip(EDriveBase):
             torpi=self.cycle_time, otrpi=self.cycle_time)
         if status != 0:
             logging.error(f"Could not open connection: {status}")
+            raise ConnectionError
         self.connection.produce()
 
     def stop_io(self):
