@@ -541,7 +541,7 @@ class EDriveMotion:
         logging.info("Finished velocity task")
         return True
 
-    def referencing_task(self, use_homing_method: bool = False, nonblocking: bool = False) -> bool:
+    def referencing_task(self, use_homing_method: bool = True, nonblocking: bool = False) -> bool:
         """Perform the referencing sequence. If successful, the drive is referenced afterwards.
 
         Parameters:
