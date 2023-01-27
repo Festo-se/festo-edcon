@@ -431,7 +431,7 @@ class EDriveMotion:
                 logging.info("[bold green]    -> success!",
                              extra={"markup": True})
                 return True
-        logging.error(f"Timeout during powerstage enable (may be inhibited)")
+        logging.error("Timeout during powerstage enable (may be inhibited)")
         return False
 
     def stop_motion_task(self):

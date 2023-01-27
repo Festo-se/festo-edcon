@@ -151,7 +151,7 @@ class EDriveModbus(EDriveBase):
                                 Otherwise function awaits I/O thread to be executed.
         """
         if not self.io_thread.active:
-            return None
+            return
         self.out_data = data
         if not nonblocking:
             self.io_thread.exe_event.wait()
