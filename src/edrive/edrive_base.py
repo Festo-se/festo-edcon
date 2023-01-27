@@ -69,10 +69,20 @@ class EDriveBase:
     def stop_io(self):
         """Stops i/o data process"""
 
-    def send_io(self, data: bytes):
-        """Sends data to the output"""
+    def send_io(self, data: bytes, nonblocking: bool = False):
+        """Sends data to the output
+
+        Parameters:
+            nonblocking (bool): If True, tasks returns immediately after starting the task.
+                                Otherwise function awaits for finish (or fault).
+        """
         raise NotImplementedError
 
-    def recv_io(self) -> bytes:
-        """Receives data from the input"""
+    def recv_io(self, nonblocking: bool = False) -> bytes:
+        """Receives data from the input
+
+        Parameters:
+            nonblocking (bool): If True, tasks returns immediately after starting the task.
+                                Otherwise function awaits for finish (or fault).
+        """
         raise NotImplementedError

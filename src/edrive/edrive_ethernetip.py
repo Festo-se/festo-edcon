@@ -5,6 +5,7 @@ This implementation uses the python-ethernetip library by
 Sebastian Block (https://codeberg.org/paperwork/python-ethernetip)
 """
 import logging
+import time
 import ethernetip
 
 from edrive.edrive_base import EDriveBase
@@ -131,10 +132,28 @@ class EDriveEthernetip(EDriveBase):
             T_O_STD_PROCESS_DATA, O_T_STD_PROCESS_DATA, 1)
         self.eip.stopIO()
 
-    def send_io(self, data: bytes):
-        """Sends data to the output"""
-        self.connection.outAssem = bytes_to_boollist(data, self.outsize)
+    def send_io(self, data: bytes, nonblocking: bool = False):
+        """Sends data to the output
 
-    def recv_io(self) -> bytes:
-        """Receives data from the input"""
+        Parameters:
+            nonblocking (bool): If True, function returns immediately.
+                                Otherwise function awaits I/O thread to be executed.
+        """
+        self.connection.outAssem = bytes_to_boollist(data, self.outsize)
+        if not nonblocking:
+            # Unfortunately we have no event
+            #   -> wait for worst case cycle time
+            time.sleep(self.cycle_time * 0.001)
+
+    def recv_io(self, nonblocking: bool = False) -> bytes:
+        """Receives data from the input
+
+        Parameters:
+            nonblocking (bool): If True, function returns immediately.
+                                Otherwise function awaits I/O thread to be executed.
+        """
+        if not nonblocking:
+            # Unfortunately we have no event
+            #   -> wait for worst case cycle time
+            time.sleep(self.cycle_time * 0.001)
         return boollist_to_bytes(self.connection.inAssem)

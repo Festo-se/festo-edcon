@@ -50,7 +50,7 @@ class EDriveMotion:
     def __del__(self):
         if self.edrive is not None:
             self.tg111.stw1.enable_operation = False
-            self.update_outputs(post_wait_ms=0.1)
+            self.update_outputs()
             self.edrive.stop_io()
 
     def __enter__(self):
@@ -82,15 +82,10 @@ class EDriveMotion:
         """Reads current input process data and updates telegram"""
         self.tg111.input_bytes(self.edrive.recv_io())
 
-    def update_outputs(self, post_wait_ms=0):
+    def update_outputs(self):
         """Writes current telegram value to output process data
-
-        Parameters:
-            post_wait_ms (int): Optional time in ms that should be waited after writing
         """
         self.edrive.send_io(self.tg111.output_bytes())
-        if post_wait_ms:
-            time.sleep(post_wait_ms)
 
     def update_io(self):
         """Updates process data in both directions (I/O)"""
@@ -365,11 +360,14 @@ class EDriveMotion:
         """Triggers the change to the next record of the record sequence"""
         logging.info("Set record change bit")
         self.tg111.stw1.change_record_no = True
-        self.update_outputs(post_wait_ms=0.1)
+        self.update_outputs()
+
+        # Wait for trigger
+        time.sleep(0.1)
 
         # Reset bits
         self.tg111.stw1.change_record_no = False
-        self.update_outputs(post_wait_ms=0.1)
+        self.update_outputs()
         logging.info("Finished record change")
 
     def acknowledge_faults(self, timeout: float = 5.0) -> bool:
@@ -382,10 +380,13 @@ class EDriveMotion:
         """
         logging.info("Acknowledge any present faults")
         self.tg111.stw1.fault_ack = True
-        self.update_outputs(post_wait_ms=0.1)
+        self.update_outputs()
+
+        # Wait for trigger
+        time.sleep(0.1)
 
         self.tg111.stw1.fault_ack = False
-        self.update_outputs(post_wait_ms=0.1)
+        self.update_outputs()
 
         logging.info("Wait for fault bit to be cleared")
         start_time = time.time()
@@ -395,12 +396,15 @@ class EDriveMotion:
                 logging.info("[bold green]    -> success!",
                              extra={"markup": True})
                 return True
-        logging.error(f"Fault is still present ({int(self.tg111.fault_code)})")
+        logging.error(
+            f"Timeout while fault acknowledge ({int(self.tg111.fault_code)})")
         return False
 
-    def enable_powerstage(self) -> bool:
+    def enable_powerstage(self, timeout: float = 1.0) -> bool:
         """Send telegram to enable the power stage
 
+        Parameter:
+            timeout (float): time that should be waited for enabling
         Returns:
             bool: True if succesful, False otherwise
         """
@@ -412,18 +416,23 @@ class EDriveMotion:
         if self.tg111.zsw1.operation_enabled:
             # Toggle (in case it is already True)
             self.tg111.stw1.on = False
-            self.update_outputs(post_wait_ms=0.1)
+            self.update_outputs()
+            # Wait for trigger
+            time.sleep(0.1)
 
         self.tg111.stw1.on = True
-        self.update_outputs(post_wait_ms=0.5)
+        self.update_outputs()
 
-        logging.info("Check if powerstage is enabled")
-        self.update_inputs()
-        if not self.tg111.zsw1.operation_enabled:
-            logging.error("Enabling of powerstage is inhibited")
-            return False
-        logging.info("[bold green]    -> success!", extra={"markup": True})
-        return True
+        logging.info("Wait for powerstage to be enabled")
+        start_time = time.time()
+        while not time.time() - start_time > timeout:
+            self.update_inputs()
+            if self.tg111.zsw1.operation_enabled:
+                logging.info("[bold green]    -> success!",
+                             extra={"markup": True})
+                return True
+        logging.error(f"Timeout during powerstage enable (may be inhibited)")
+        return False
 
     def stop_motion_task(self):
         """Stops any currently active motion task"""
@@ -441,7 +450,8 @@ class EDriveMotion:
 
         # Actual stop command
         self.tg111.stw1.do_not_reject_traversing_task = False
-        self.update_outputs(post_wait_ms=0.1)
+        self.update_outputs()
+
         self.tg111.stw1.do_not_reject_traversing_task = True
 
         self.wait_for_stop()
@@ -454,7 +464,7 @@ class EDriveMotion:
 
         # Actual pause command
         self.tg111.stw1.no_intermediate_stop = False
-        self.update_outputs(post_wait_ms=0.1)
+        self.update_outputs()
 
         self.wait_for_stop()
 
@@ -462,7 +472,7 @@ class EDriveMotion:
         """Resumes any currently active motion task"""
         logging.info("Resuming motion")
         self.tg111.stw1.no_intermediate_stop = True
-        self.update_outputs(post_wait_ms=0.1)
+        self.update_outputs()
 
 # Motion tasks
 
