@@ -27,6 +27,7 @@ class IOThread(threading.Thread):
         self.perform_io = perform_io
         self.cycle_time = cycle_time
         self.active = False
+        self.exe_event = threading.Event()
         threading.Thread.__init__(self)
 
     def run(self):
@@ -34,6 +35,8 @@ class IOThread(threading.Thread):
         while self.active:
             try:
                 self.perform_io()
+                self.exe_event.set()
+                self.exe_event.clear()
             except:
                 self.stop()
                 raise
@@ -140,12 +143,28 @@ class EDriveModbus(EDriveBase):
         self.send_io(b'\x00' * self.device_info["pd_size"])
         self.io_thread.stop()
 
-    def send_io(self, data: bytes):
-        """Sends data to the output"""
-        self.out_data = data
+    def send_io(self, data: bytes, nonblocking: bool = False):
+        """Sends data to the output
 
-    def recv_io(self) -> bytes:
-        """Receives data from the input"""
+        Parameters:
+            nonblocking (bool): If True, function returns immediately.
+                                Otherwise function awaits I/O thread to be executed.
+        """
+        if not self.io_thread.active:
+            return
+        self.out_data = data
+        if not nonblocking:
+            self.io_thread.exe_event.wait()
+
+    def recv_io(self, nonblocking: bool = False) -> bytes:
+        """Receives data from the input
+
+        Parameters:
+            nonblocking (bool): If True, function returns immediately.
+                                Otherwise function awaits I/O thread to be executed.
+        """
         if not self.io_thread.active:
             return None
+        if not nonblocking:
+            self.io_thread.exe_event.wait()
         return self.in_data

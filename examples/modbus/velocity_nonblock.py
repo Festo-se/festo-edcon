@@ -1,6 +1,10 @@
 import time
 from edrive.edrive_modbus import EDriveModbus
 from edrive.edrive_motion import EDriveMotion
+from edrive.edrive_logging import EDriveLogging
+
+# Enable loglevel info
+EDriveLogging()
 
 edrive = EDriveModbus('192.168.0.51')
 with EDriveMotion(edrive) as mot:
@@ -18,6 +22,5 @@ with EDriveMotion(edrive) as mot:
     # Be aware that only changing the absolute velocity value update the ongoing task
     mot.velocity_task(100001)
 
-    print("Wait for some time ...", end='')
     mot.wait_for_duration(3)
-    print("done!")
+    mot.stop_motion_task()
