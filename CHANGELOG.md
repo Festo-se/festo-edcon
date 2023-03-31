@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - [Minor] EDriveMotion: Added wait_for_traversing_task_ack method
 ### Changed
+- [Minor] Moved to python version 3.10
 - [Minor] EDriveModbus/EDriveEthernetip: added nonblocking/blocking behavior to I/O methods.
 - [Minor] EDriveMotion: enhanced wait_for_condition and adapted motion tasks to new behavior.
 - [Patch] EDriveMotion: referencing task now uses homing method as per default.
