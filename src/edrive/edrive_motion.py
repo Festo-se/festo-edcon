@@ -5,6 +5,7 @@ EDrive devices in position mode.
 import logging
 import time
 import traceback
+from collections.abc import Callable
 from profidrive.telegram111 import Telegram111
 from profidrive.words import OVERRIDE, MDI_ACC, MDI_DEC
 from edrive.edrive_base import EDriveBase
@@ -185,6 +186,7 @@ class EDriveMotion:
             bool: True if succesful, False otherwise
         """
         logging.info("Check if PLC control is granted")
+
         self.update_inputs()
         if not self.tg111.zsw1.control_requested:
             logging.error("PLC control denied")
@@ -277,41 +279,49 @@ class EDriveMotion:
         self.update_inputs()
         return self.scaled_velocity(self.tg111.nist_b.value)
 
-    def wait_for_condition(self, condition) -> bool:
+    def wait_for_condition(self, condition: Callable[[], bool] = None, timeout: float = 0.0,
+                           info_string: Callable[[], str] = None) -> bool:
         """Waits for provided condition to be satisfied
 
         Parameter:
-            condition (function): boolean condition function
+            condition (Callable): boolean condition function
+            timeout (float): Time that should be waited for condition to be satisfied (in seconds)
+            info_string (Callable): optional callback for string to print during wait process
         Returns:
             bool: True if succesful, False otherwise
         """
-        self.update_inputs()
-        while not condition():
+        start_time = time.time()
+        while timeout == 0.0 or not time.time() - start_time > timeout:
+            self.update_inputs()
+            if condition and condition():
+                return True
+            if self.tg111.zsw1.fault_present:
+                logging.error(
+                    f"Cancelled due to fault {int(self.tg111.fault_code)}")
+                return False
+            if info_string:
+                logging.info(info_string())
+        logging.error(f"Cancelled due to timeout after {timeout} s")
+        return False
+
+    def wait_for_duration(self, duration: float, info_string: Callable[[], str] = None) -> bool:
+        """Waits for provided duration
+
+        Parameter:
+            duration (float): time that should be waited for
+            info_string (Callable): optional callback for string to print during wait process
+        Returns:
+            bool: True if succesful, False otherwise
+        """
+        start_time = time.time()
+        while duration == 0.0 or not time.time() - start_time > duration:
             self.update_inputs()
             if self.tg111.zsw1.fault_present:
                 logging.error(
                     f"Cancelled due to fault {int(self.tg111.fault_code)}")
                 return False
-
-            logging.info(
-                f"Target: {int(self.tg111.mdi_tarpos)}, Current: {int(self.tg111.xist_a)}")
-            time.sleep(0.1)
-        return True
-
-    def wait_for_duration(self, duration: float) -> bool:
-        """Waits for provided duration
-
-        Parameter:
-            duration (float): time that should be waited for
-        Returns:
-            bool: True if succesful, False otherwise
-        """
-        start_time = time.time()
-
-        def cond():
-            return time.time() - start_time > duration
-        if not self.wait_for_condition(cond):
-            return False
+            if info_string:
+                logging.info(info_string())
         logging.info(f"Duration of {duration} seconds passed")
         return True
 
@@ -321,11 +331,32 @@ class EDriveMotion:
         Returns:
             bool: True if succesful, False otherwise
         """
+        logging.info("Wait for reference")
+
         def cond():
             return self.tg111.zsw1.home_position_set
-        if not self.wait_for_condition(cond):
+
+        def info():
+            return f"Position [Target, Current]: " \
+                   f"[{int(self.tg111.mdi_tarpos)}, {int(self.tg111.xist_a)}]"
+        if not self.wait_for_condition(cond, info_string=info):
             return False
         logging.info("Reference position set")
+        return True
+
+    def wait_for_traversing_task_ack(self) -> bool:
+        """Waits for drive to be referenced
+
+        Returns:
+            bool: True if succesful, False otherwise
+        """
+        logging.info("Wait for traversing task to be acknowledged")
+
+        def cond():
+            return self.tg111.zsw1.traversing_task_ack
+        if not self.wait_for_condition(cond):
+            return False
+        logging.info("Traversing task acknowledged")
         return True
 
     def wait_for_target_position(self) -> bool:
@@ -334,9 +365,15 @@ class EDriveMotion:
         Returns:
             bool: True if succesful, False otherwise
         """
+        logging.info("Wait for target position to be reached")
+
         def cond():
             return self.tg111.zsw1.target_position_reached
-        if not self.wait_for_condition(cond):
+
+        def info():
+            return f"Position [Target, Current]: " \
+                   f"[{int(self.tg111.mdi_tarpos)}, {int(self.tg111.xist_a)}]"
+        if not self.wait_for_condition(cond, info_string=info):
             return False
         logging.info("Target position reached")
         return True
@@ -347,27 +384,48 @@ class EDriveMotion:
         Returns:
             bool: True if succesful, False otherwise
         """
+        logging.info("Wait for drive to stop")
+
         def cond():
             return self.tg111.zsw1.drive_stopped
-        if not self.wait_for_condition(cond):
+
+        def info():
+            return f"Velocity [Target, Current]: [0, {int(self.tg111.nist_b)}]"
+        if not self.wait_for_condition(cond, info_string=info):
             return False
         logging.info("Drive stopped")
         return True
 
-# Telegram Sequences
+# Telegram Sequences (this includes blocking calls)
+
+    def pulse_bit(self, toggle_func: Callable[[bool], None],
+                  active_high: bool = True, pulse_width: float = 0.1):
+        """Performs a toggling sequence on a provided toggle function
+
+        Parameter:
+            toggle_func (Callable): toggle function that changes a boolean value
+            active_high (bool): Determines the direction of the pulse (positive or negative)
+            active_high (float): Determines the width of the pulse in seconds
+        """
+        toggle_func(active_high)
+        self.update_outputs()
+
+        # Wait for trigger
+        time.sleep(pulse_width)
+
+        # Reset bits
+        toggle_func(not active_high)
+        self.update_outputs()
 
     def trigger_record_change(self):
         """Triggers the change to the next record of the record sequence"""
         logging.info("Set record change bit")
-        self.tg111.stw1.change_record_no = True
-        self.update_outputs()
 
-        # Wait for trigger
-        time.sleep(0.1)
+        def toggle_func(value):
+            self.tg111.stw1.change_record_no = value
 
-        # Reset bits
-        self.tg111.stw1.change_record_no = False
-        self.update_outputs()
+        self.pulse_bit(toggle_func)
+
         logging.info("Finished record change")
 
     def acknowledge_faults(self, timeout: float = 5.0) -> bool:
@@ -379,26 +437,22 @@ class EDriveMotion:
             bool: True if succesful, False otherwise
         """
         logging.info("Acknowledge any present faults")
-        self.tg111.stw1.fault_ack = True
-        self.update_outputs()
 
-        # Wait for trigger
-        time.sleep(0.1)
+        def toggle_func(value):
+            self.tg111.stw1.fault_ack = value
 
-        self.tg111.stw1.fault_ack = False
-        self.update_outputs()
+        self.pulse_bit(toggle_func)
 
-        logging.info("Wait for fault bit to be cleared")
-        start_time = time.time()
-        while not time.time() - start_time > timeout:
-            self.update_inputs()
-            if not self.tg111.zsw1.fault_present:
-                logging.info("[bold green]    -> success!",
-                             extra={"markup": True})
-                return True
-        logging.error(
-            f"Timeout while fault acknowledge ({int(self.tg111.fault_code)})")
-        return False
+        def cond():
+            return not self.tg111.zsw1.fault_present
+
+        if not self.wait_for_condition(cond, timeout):
+            logging.error(
+                f"Fault code: ({int(self.tg111.fault_code)})")
+            return False
+
+        logging.info("[bold green]    -> success!", extra={"markup": True})
+        return True
 
     def enable_powerstage(self, timeout: float = 1.0) -> bool:
         """Send telegram to enable the power stage
@@ -412,27 +466,21 @@ class EDriveMotion:
             return False
         logging.info("Enable Powerstage")
 
-        self.update_inputs()
-        if self.tg111.zsw1.operation_enabled:
-            # Toggle (in case it is already True)
-            self.tg111.stw1.on = False
-            self.update_outputs()
-            # Wait for trigger
-            time.sleep(0.1)
+        # Toggle to low (in case it is already True)
+        def toggle_func(value):
+            self.tg111.stw1.on = value
 
-        self.tg111.stw1.on = True
-        self.update_outputs()
+        self.pulse_bit(toggle_func, active_high=False)
 
-        logging.info("Wait for powerstage to be enabled")
-        start_time = time.time()
-        while not time.time() - start_time > timeout:
-            self.update_inputs()
-            if self.tg111.zsw1.operation_enabled:
-                logging.info("[bold green]    -> success!",
-                             extra={"markup": True})
-                return True
-        logging.error("Timeout during powerstage enable (may be inhibited)")
-        return False
+        def cond():
+            return self.tg111.zsw1.operation_enabled
+
+        if not self.wait_for_condition(cond, timeout):
+            logging.error("Operation inhibited")
+            return False
+
+        logging.info("[bold green]    -> success!", extra={"markup": True})
+        return True
 
     def stop_motion_task(self):
         """Stops any currently active motion task"""
@@ -505,8 +553,8 @@ class EDriveMotion:
         if nonblocking:
             return True
 
-        # Wait for task to be started
-        time.sleep(0.1)
+        if not self.wait_for_traversing_task_ack():
+            return False
 
         if not self.wait_for_target_position():
             return False
@@ -542,11 +590,16 @@ class EDriveMotion:
         if duration == 0:
             return True
 
-        # Wait for task to be started
-        time.sleep(0.1)
-
-        if not self.wait_for_duration(duration):
+        if not self.wait_for_traversing_task_ack():
             return False
+
+        # Wait for predefined amount of time
+        def info():
+            return f"Velocity [Target, Current]: " \
+                   f"[{int(self.tg111.mdi_velocity)}, {int(self.tg111.nist_b)}]"
+        if not self.wait_for_duration(duration, info):
+            return False
+
         self.stop_motion_task()
         logging.info("Finished velocity task")
         return True
@@ -576,9 +629,6 @@ class EDriveMotion:
 
         if nonblocking:
             return True
-
-        # Wait for task to be started
-        time.sleep(0.1)
 
         if not self.wait_for_reference():
             return False
@@ -615,8 +665,8 @@ class EDriveMotion:
         if nonblocking:
             return True
 
-        # Wait for task to be started
-        time.sleep(0.1)
+        if not self.wait_for_traversing_task_ack():
+            return False
 
         if not self.wait_for_target_position():
             return False
@@ -651,8 +701,12 @@ class EDriveMotion:
         if duration == 0:
             return True
 
-        if not self.wait_for_duration(duration):
+        # Wait for predefined amount of time
+        def info():
+            return f"Current Position: [{int(self.tg111.xist_a)}]"
+        if not self.wait_for_duration(duration, info):
             return False
+
         self.stop_motion_task()
         logging.info("Finished jogging task")
         return True
