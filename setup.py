@@ -22,7 +22,7 @@ setup(
         "Operating System :: OS Independent",
     ],
     use_scm_version=True,
-    python_requires=">= 3.7",
+    python_requires=">= 3.10",
     setup_requires=["setuptools_scm"],
     install_requires=['pymodbus<3.0.0', 'ethernetip', 'rich'],
     package_dir={"": "src"},
