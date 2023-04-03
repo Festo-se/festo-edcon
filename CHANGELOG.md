@@ -8,7 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - [Minor] EDriveMotion: Added function to disable powerstage.
 - [Patch] Added example for PNU access.
-- 
+- [Patch] Added missing data types to  `festo-edcon-pnu` tool.
 ### Changed
 - [Patch] Restructured README.md and sphinx docs.
 
