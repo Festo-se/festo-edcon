@@ -5,9 +5,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## Unreleased
+### Added
+- [Minor] EDriveMotion: Added function to disable powerstage.
+- 
 ## v0.8.0 - 31.03.22
 ### Added
-- [Minor] EDriveMotion: Added wait_for_traversing_task_ack method
+- [Minor] EDriveMotion: Added wait_for_traversing_task_ack method.
 ### Changed
 - [Minor] Moved to python version 3.10
 - [Minor] EDriveModbus/EDriveEthernetip: added nonblocking/blocking behavior to I/O methods.

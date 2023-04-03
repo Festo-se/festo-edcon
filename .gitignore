@@ -2,6 +2,7 @@
 */__pycache__
 build/*
 */edcon.egg-info
+*/festo_edcon.egg-info
 .eggs/*
 *.pyc
 docs/build/*

@@ -464,7 +464,7 @@ class EDriveMotion:
         """
         if not self.plc_control_granted():
             return False
-        logging.info("Enable Powerstage")
+        logging.info("Enable powerstage")
 
         # Toggle to low (in case it is already True)
         def toggle_func(value):
@@ -481,6 +481,12 @@ class EDriveMotion:
 
         logging.info("[bold green]    -> success!", extra={"markup": True})
         return True
+
+    def disable_powerstage(self) -> bool:
+        """Send telegram to disable the power stage"""
+        logging.info("Disable powerstage")
+        self.tg111.stw1.on = False
+        self.update_outputs()
 
     def stop_motion_task(self):
         """Stops any currently active motion task"""
