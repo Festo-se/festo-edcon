@@ -1,6 +1,6 @@
 """Contains tests for EDriveMotion class"""
 from edrive.edrive_motion import EDriveMotion
-from unittest.mock import Mock
+from unittest.mock import Mock, call
 
 
 class TestEDriveMotion:
@@ -12,29 +12,25 @@ class TestEDriveMotion:
         assert mot.tg111.override.value == 8192
 
     def test_pulse_bit_active_high(self):
-        """Tests over_v property"""
+        """Tests high pulse bit toggling"""
         edrive = Mock()
         mot = EDriveMotion(edrive)
 
-        set_bit_values = []
+        toggle_func = Mock()
+        active_high = True
+        mot.pulse_bit(toggle_func, active_high)
 
-        def set_bit(value):
-            set_bit_values.append(value)
-
-        mot.pulse_bit(set_bit)
-
-        assert set_bit_values == [True, False]
+        # Check if toggle function was called with correct value
+        toggle_func.assert_has_calls([call(True), call(False)])
 
     def test_pulse_bit_active_low(self):
-        """Tests over_v property"""
+        """Tests low pulse bit toggling"""
         edrive = Mock()
         mot = EDriveMotion(edrive)
 
-        set_bit_values = []
+        toggle_func = Mock()
+        active_high = False
+        mot.pulse_bit(toggle_func, active_high)
 
-        def set_bit(value):
-            set_bit_values.append(value)
-
-        mot.pulse_bit(set_bit, active_high=False)
-
-        assert set_bit_values == [False, True]
+        # Check if toggle function was called with correct value
+        toggle_func.assert_has_calls([call(False), call(True)])

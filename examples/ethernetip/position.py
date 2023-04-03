@@ -1,5 +1,9 @@
 from edrive.edrive_ethernetip import EDriveEthernetip
 from edrive.edrive_motion import EDriveMotion
+from edrive.edrive_logging import EDriveLogging
+
+# Enable loglevel info
+EDriveLogging()
 
 edrive = EDriveEthernetip('192.168.0.51')
 with EDriveMotion(edrive) as pos:

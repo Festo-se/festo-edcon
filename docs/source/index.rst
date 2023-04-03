@@ -5,9 +5,10 @@
   :maxdepth: 2
   :caption: Features:
   
-  features/profidrive
+  features/motion
   features/edrive
-  features/tools
+  features/profidrive
+  features/cli-tools
 
 .. toctree::
   :maxdepth: 2
@@ -20,8 +21,6 @@
   :maxdepth: 2
   :caption: Indices and tables:
   
-  Index <genindex.html>
-  Module Index <py-modindex.html>
   Module Sources <modules.rst>
 
 .. toctree::

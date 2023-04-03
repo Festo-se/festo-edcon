@@ -12,3 +12,4 @@ docs/source/edrive.rst
 docs/source/modules.rst
 docs/source/profidrive.rst
 docs/source/edrive.modbus_flavours.rst
+.vscode/*

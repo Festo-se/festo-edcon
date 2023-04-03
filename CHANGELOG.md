@@ -7,7 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Unreleased
 ### Added
 - [Minor] EDriveMotion: Added function to disable powerstage.
+- [Patch] Added example for PNU access.
 - 
+### Changed
+- [Patch] Restructured README.md and sphinx docs.
+
 ## v0.8.0 - 31.03.22
 ### Added
 - [Minor] EDriveMotion: Added wait_for_traversing_task_ack method.

@@ -287,6 +287,7 @@ class EDriveMotion:
             condition (Callable): boolean condition function
             timeout (float): Time that should be waited for condition to be satisfied (in seconds)
             info_string (Callable): optional callback for string to print during wait process
+
         Returns:
             bool: True if succesful, False otherwise
         """
@@ -310,6 +311,7 @@ class EDriveMotion:
         Parameter:
             duration (float): time that should be waited for
             info_string (Callable): optional callback for string to print during wait process
+
         Returns:
             bool: True if succesful, False otherwise
         """
@@ -433,6 +435,7 @@ class EDriveMotion:
 
         Parameter:
             timeout (float): time that should be waited for acknowledgement
+
         Returns:
             bool: True if succesful, False otherwise
         """
@@ -459,6 +462,7 @@ class EDriveMotion:
 
         Parameter:
             timeout (float): time that should be waited for enabling
+
         Returns:
             bool: True if succesful, False otherwise
         """
