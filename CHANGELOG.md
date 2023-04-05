@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Unreleased
 ### Added
 - [Minor] EDriveMotion: Added function to disable powerstage.
-- [Minor] Added current LUT for PNU types to skip manual search for data types in manual.
+- [Minor] Added LUT for PNU types to skip manual search for data types in manual.
 - [Patch] Added example for PNU access.
 - [Patch] Added missing data types to  `festo-edcon-pnu` tool.
 ### Changed
