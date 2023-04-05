@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## Unreleased
+
+## v0.9.0 - 05.04.23
 ### Added
 - [Minor] EDriveMotion: Added function to disable powerstage.
 - [Minor] Added LUT for PNU types to skip manual search for data types in manual.
@@ -12,10 +14,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [Patch] Added missing data types to  `festo-edcon-pnu` tool.
 ### Changed
 - [Patch] Restructured README.md and sphinx docs.
-- 
 ### Removed
 - [Minor] Removed modbus flavour feature due to simplification reasons.
-## v0.8.0 - 31.03.22
+
+## v0.8.0 - 31.03.23
 ### Added
 - [Minor] EDriveMotion: Added wait_for_traversing_task_ack method.
 ### Changed
