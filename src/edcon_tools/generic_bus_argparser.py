@@ -33,8 +33,6 @@ class GenericBusArgParser():
             "modbus", add_help=False,
             description='Use Modbus communication',
             parents=[self.common])
-        modbus_parser.add_argument(
-            "--flavour", choices=['CMMT-AS', 'CPX-AP'], default='CMMT-AS', required=False)
 
         args = parser.parse_args()
 

@@ -16,7 +16,7 @@ def main():
 
     # Initialize driver
     if args.com_type == 'modbus':
-        edrive = EDriveModbus(args.ip_address, flavour=args.flavour)
+        edrive = EDriveModbus(args.ip_address)
     elif args.com_type == 'ethernetip':
         edrive = EDriveEthernetip(args.ip_address)
 
