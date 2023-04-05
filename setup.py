@@ -25,8 +25,10 @@ setup(
     python_requires=">= 3.10",
     setup_requires=["setuptools_scm"],
     install_requires=['pymodbus<3.0.0', 'ethernetip', 'rich'],
-    package_dir={"": "src"},
     packages=find_packages(where="src", exclude="tests"),
+    package_dir={"": "src"},
+    package_data={"edrive.data": ["pnu_type_map.csv"]},
+    include_package_data=True,
     entry_points={
         'console_scripts': [
             'festo-edcon-position = edcon_tools.position:main',
