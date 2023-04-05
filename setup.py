@@ -28,6 +28,7 @@ setup(
     packages=find_packages(where="src", exclude="tests"),
     package_dir={"": "src"},
     package_data={"edrive.data": ["pnu_type_map.csv"]},
+    include_package_data=True,
     entry_points={
         'console_scripts': [
             'festo-edcon-position = edcon_tools.position:main',
