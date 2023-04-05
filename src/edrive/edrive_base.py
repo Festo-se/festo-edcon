@@ -1,6 +1,6 @@
 """Contains EDriveBase class which contains common code for EDrive communication drivers."""
 import logging
-import struct
+from edrive.edrive_pnu_packing import pnu_pack, pnu_unpack
 
 
 class EDriveBase:
@@ -25,20 +25,11 @@ class EDriveBase:
         """Reads a PNU from the EDrive without interpreting the data"""
         raise NotImplementedError
 
-    def read_pnu(self, pnu: int, subindex: int = 0, format_char='h'):
+    def read_pnu(self, pnu: int, subindex: int = 0, forced_format=None):
         """Reads a PNU from the EDrive"""
         raw = self.read_pnu_raw(pnu, subindex)
         if raw:
-            if format_char == 's':
-                param = struct.unpack(f"{len(raw)}s", raw)[0]
-            elif format_char == '?':
-                param = struct.unpack('b', raw[0:1])[0]
-            elif format_char == 'B':
-                param = struct.unpack('B', raw[0:1])[0]
-            elif format_char == 'b':
-                param = struct.unpack('b', raw[0:1])[0]
-            else:
-                param = struct.unpack(format_char, raw)[0]
+            param = pnu_unpack(pnu, raw, forced_format)
             logging.info(
                 f"Read PNU {pnu} (subindex: {subindex}): {param} "
                 f"(raw: {raw})")
@@ -52,9 +43,9 @@ class EDriveBase:
         """Writes raw bytes to a PNU on the EDrive"""
         raise NotImplementedError
 
-    def write_pnu(self, pnu: int, subindex: int = 0, value=0, format_char='h') -> bool:
+    def write_pnu(self, pnu: int, subindex: int = 0, value=0, forced_format=None) -> bool:
         """Writes a value to a PNU to the EDrive"""
-        raw = struct.pack(format_char, value)
+        raw = pnu_pack(pnu, value, forced_format)
         if self.write_pnu_raw(pnu, subindex, value=raw):
             logging.info(
                 f"Written PNU {pnu} (subindex: {subindex}): {value} "

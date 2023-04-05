@@ -17,35 +17,14 @@ def main():
                                         title='action commands',
                                         description="Action to perform on the PNU")
 
-    Type = namedtuple('Type', ['verbose_type', 'struct_char'])
-    supported_types = {
-        'b': Type('bool', '?'),
-        'u8': Type('uint8', 'B'),
-        'i8': Type('int8', 'b'),
-        'u16': Type('uint16', 'H'),
-        'i16': Type('int16', 'h'),
-        'u32': Type('uint32', 'I'),
-        'i32': Type('int32', 'i'),
-        'u64': Type('uint64', 'Q'),
-        'i64': Type('int64', 'q'),
-        'f': Type('float', 'f'),
-        'd': Type('double', 'd'),
-    }
     # Options for reading PNU
     parser_read = subparsers.add_parser('read')
-    group_dtype = parser_read.add_mutually_exclusive_group(required=True)
-    for key, value in supported_types.items():
-        group_dtype.add_argument(
-            f'-{key}', f'--{value.verbose_type}', action='store_true', help=f'read {value.verbose_type} data')
-    group_dtype.add_argument(
+    parser_read.add_argument(
         '-r', '--raw', help='Raw read of provided number of items')
 
     # Options for writing PNU
     parser_write = subparsers.add_parser('write')
-    group_dtype = parser_write.add_mutually_exclusive_group(required=True)
-    for key, value in supported_types.items():
-        group_dtype.add_argument(
-            f'-{key}', f'--{value.verbose_type}', help=f'{value.verbose_type} data to write')
+    parser_write.add_argument('value', help='Value to be written')
 
     args = gparser.create()
 
@@ -58,22 +37,17 @@ def main():
     pnu = int(args.pnu)
     subindex = int(args.subindex)
     if args.subcommand == 'read':
-        for key, value in supported_types.items():
-            if getattr(args, value.verbose_type):
-                pnu_value = edrive.read_pnu(pnu, subindex, value.struct_char)
         if args.raw:
             pnu_value = edrive.read_pnu_raw(
                 pnu, subindex, num_elements=int(args.raw))
             if value:
                 print(f"Length: {len(value)}")
+        else:
+            pnu_value = edrive.read_pnu(pnu, subindex)
         print(f"Value: {pnu_value}")
 
     elif args.subcommand == 'write':
-        for key, value in supported_types.items():
-            type_arg = getattr(args, value.verbose_type)
-            if type_arg:
-                edrive.write_pnu(pnu, subindex, int(
-                    type_arg), value.struct_char)
+        edrive.write_pnu(pnu, subindex, args.value)
 
 
 if __name__ == "__main__":
