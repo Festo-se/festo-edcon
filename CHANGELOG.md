@@ -7,7 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Unreleased
 ### Added
 - [Minor] Added LUT for ICP names to skip manual search for fault names and remedies in manual.
- 
+ ### Changed
+- [Patch] Updated examples/multi_position_nonblock.py.
 ## v0.9.0 - 05.04.23
 ### Added
 - [Minor] EDriveMotion: Added function to disable powerstage.
