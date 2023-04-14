@@ -1,8 +1,8 @@
-"""Contains EDrivePnuTypeMap class which contains mapping of PNU types."""
+"""Contains functions which provide mapping of PNU types."""
 from collections import namedtuple
 from importlib.resources import files
-import csv
 from functools import lru_cache
+import csv
 import struct
 import logging
 
@@ -28,7 +28,7 @@ def read_pnu_type_map_file(pnu_type_map_file: str = None):
         pnu_type_map_file (str): Optional file to use for mapping. 
                                  If nothing provided try to load mapping shipped with package.
     Returns:
-        dict: Whith the first column values as keys and namedtuple values
+        dict: With the first column values as keys and namedtuple values
     """
     if not pnu_type_map_file:
         pnu_type_map_file = files('edrive.data').joinpath('pnu_type_map.csv')
