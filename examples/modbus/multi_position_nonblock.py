@@ -24,9 +24,6 @@ with ExitStack() as stack:
     time.sleep(0.1)
 
     while True:
-        for mot in mots:
-            mot.update_inputs()
-
         target_positions_reached = [
             mot.target_position_reached() for mot in mots]
         logging.info(f"Target positions reached: {target_positions_reached}")
