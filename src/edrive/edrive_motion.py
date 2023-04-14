@@ -417,7 +417,7 @@ class EDriveMotion:
         while not fault_code:
             fault_code = self.current_fault_code()
             time.sleep(0.01)
-            if (time.time() - start_time > timeout):
+            if time.time() - start_time > timeout:
                 logging.fatal(
                     f"Fault reason could not be determined within {timeout} s")
                 return False
