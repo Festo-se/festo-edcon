@@ -1752,6 +1752,7 @@ pnu;name;data_type
 4840;P0.170019.0.0_sdo1017_ProducerHeartbeatTime;UINT
 4841;P0.173001.0.0_sdo60C2_01_InterpolationTimePeriodValue;USINT
 4842;P0.173002.0.0_sdo60C2_02_InterpolationTimeIndex;SINT
+4843;P0.102030.0.0_safetyHardwareCompatibilityIndex;UINT
 11000;P1.11.0.0_multiturns;DINT
 11001;P1.14.0.0_useUserMotorConfig;BOOL
 11002;P1.20.0.0_brakeOneOpeningDelayTime;REAL
@@ -3350,6 +3351,8 @@ pnu;name;data_type
 13051;P1.102008.0.0_recordCoggingTable;UDINT
 13052;P1.102017.0.0_recordCoggingDiagnostic_LogSettings;USINT
 13053;P1.102019.0.0_recordCoggingDiagnostic_DiagnosisLevels;UINT
+13058;P1.102034.0.0_useVirtualEncoder;BOOL
+13059;P1.102038.0.0_mdiActualTargetPosition;DINT
 60000;velocityReferenceValue;REAL
 60100;modularTelegramConfig;UINT
 60104;telegramSelectionExtension1;UINT
