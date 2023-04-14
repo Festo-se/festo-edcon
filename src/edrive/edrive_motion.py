@@ -9,6 +9,7 @@ from collections.abc import Callable
 from profidrive.telegram111 import Telegram111
 from profidrive.words import OVERRIDE, MDI_ACC, MDI_DEC
 from edrive.edrive_base import EDriveBase
+from edrive.edrive_diagnosis import diagnosis_name, diagnosis_remedy
 
 
 class EDriveMotion:
@@ -279,6 +280,15 @@ class EDriveMotion:
         self.update_inputs()
         return self.scaled_velocity(self.tg111.nist_b.value)
 
+    def current_fault_code(self) -> int:
+        """Read the current fault code position
+
+        Returns:
+            int: Current fault code
+        """
+        self.update_inputs()
+        return int(self.tg111.fault_code)
+
     def wait_for_condition(self, condition: Callable[[], bool] = None, timeout: float = 0.0,
                            info_string: Callable[[], str] = None) -> bool:
         """Waits for provided condition to be satisfied
@@ -297,8 +307,7 @@ class EDriveMotion:
             if condition and condition():
                 return True
             if self.tg111.zsw1.fault_present:
-                logging.error(
-                    f"Cancelled due to fault {int(self.tg111.fault_code)}")
+                self.await_fault_code()
                 return False
             if info_string:
                 logging.info(info_string())
@@ -319,8 +328,7 @@ class EDriveMotion:
         while duration == 0.0 or not time.time() - start_time > duration:
             self.update_inputs()
             if self.tg111.zsw1.fault_present:
-                logging.error(
-                    f"Cancelled due to fault {int(self.tg111.fault_code)}")
+                self.await_fault_code()
                 return False
             if info_string:
                 logging.info(info_string())
@@ -396,6 +404,28 @@ class EDriveMotion:
         if not self.wait_for_condition(cond, info_string=info):
             return False
         logging.info("Drive stopped")
+        return True
+
+    def await_fault_code(self, timeout=0.5):
+        """Waits for fault code to be available and produces log afterwards.
+
+        Returns:
+            bool: True if succesful, False otherwise
+        """
+        fault_code = 0
+        start_time = time.time()
+        while not fault_code:
+            fault_code = self.current_fault_code()
+            time.sleep(0.01)
+            if time.time() - start_time > timeout:
+                logging.fatal(
+                    f"Fault reason could not be determined within {timeout} s")
+                return False
+
+        logging.error(
+            f"Cancelled due to fault: {diagnosis_name(fault_code)} ({fault_code})")
+        for i, remedy in enumerate(diagnosis_remedy(fault_code)):
+            logging.error(f"Possible remedy {str(i+1)}: {remedy}")
         return True
 
 # Telegram Sequences (this includes blocking calls)
