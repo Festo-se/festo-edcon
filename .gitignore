@@ -7,7 +7,7 @@ build/*
 *.pyc
 docs/build/*
 docs/source/boollist.rst
-docs/source/edcon_tools.rst
+docs/source/edcon_cli.rst
 docs/source/edrive.rst
 docs/source/modules.rst
 docs/source/profidrive.rst

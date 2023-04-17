@@ -3,34 +3,28 @@ import sys
 import time
 import math
 
-from edcon_tools.generic_bus_argparser import GenericBusArgParser
-from edrive.edrive_modbus import EDriveModbus
-from edrive.edrive_ethernetip import EDriveEthernetip
 from profidrive.telegram1 import Telegram1
 
 
-def main():
-    """Parses command line arguments and run the example."""
-    gparser = GenericBusArgParser('Control EDrive device using telegram 1.')
-    gparser.add_argument(
+def add_tg1_args(subparsers):
+    """Adds arguments to a provided subparsers instance"""
+    parser_tg1 = subparsers.add_parser('tg1')
+    parser_tg1.set_defaults(func=tg1_func)
+
+    parser_tg1.add_argument(
         '-s', '--speed-setpoint', default="8192", help='Speed setpoint to use')
-    gparser.add_argument('--sinusoidal', action="store_true",
-                         help='Apply sinusoidal setpoint')
+    parser_tg1.add_argument('--sinusoidal', action="store_true",
+                            help='Apply sinusoidal setpoint')
 
-    args = gparser.create()
 
+def tg1_func(edrive, args):
+    """Executes subcommand based on provided arguments"""
     if args.sinusoidal:
         def get_setpoint():
             return round(int(args.speed_setpoint) * math.sin(time.time()))
     else:
         def get_setpoint():
             return int(args.speed_setpoint)
-
-    # Initialize driver
-    if args.com_type == 'modbus':
-        edrive = EDriveModbus(args.ip_address)
-    elif args.com_type == 'ethernetip':
-        edrive = EDriveEthernetip(args.ip_address)
 
     edrive.assert_selected_telegram(1)
 
@@ -90,7 +84,3 @@ def main():
             break
 
     edrive.stop_io()
-
-
-if __name__ == "__main__":
-    main()

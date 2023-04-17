@@ -30,13 +30,6 @@ setup(
     package_data={"edrive.data": ["pnu_type_map.csv", "icp_name_map.csv"]},
     include_package_data=True,
     entry_points={
-        'console_scripts': [
-            'festo-edcon-position = edcon_tools.position:main',
-            'festo-edcon-pnu = edcon_tools.pnu:main',
-            'festo-edcon-test-tg1 = edcon_tools.test_tg1:main',
-            'festo-edcon-test-tg9 = edcon_tools.test_tg9:main',
-            'festo-edcon-test-tg102 = edcon_tools.test_tg102:main',
-            'festo-edcon-test-tg111 = edcon_tools.test_tg111:main',
-        ],
+        'console_scripts': ['festo-edcon = edcon_cli.cli:main']
     },
 )

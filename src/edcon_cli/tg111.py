@@ -2,24 +2,17 @@
 import time
 import sys
 
-from edcon_tools.generic_bus_argparser import GenericBusArgParser
-from edrive.edrive_ethernetip import EDriveEthernetip
-from edrive.edrive_modbus import EDriveModbus
 from profidrive.telegram111 import Telegram111
 
 
-def main():
-    """Parses command line arguments and run the example."""
-    gparser = GenericBusArgParser('Control EDrive device using telegram 111.')
+def add_tg111_args(subparsers):
+    """Adds arguments to a provided subparsers instance"""
+    parser_tg111 = subparsers.add_parser('tg111')
+    parser_tg111.set_defaults(func=tg111_func)
 
-    args = gparser.create()
 
-    # Initialize driver
-    if args.com_type == 'modbus':
-        edrive = EDriveModbus(args.ip_address)
-    elif args.com_type == 'ethernetip':
-        edrive = EDriveEthernetip(args.ip_address)
-
+def tg111_func(edrive, args):
+    """Executes subcommand based on provided arguments"""
     edrive.assert_selected_telegram(111)
     # Start process data
     edrive.start_io()
@@ -130,7 +123,3 @@ def main():
     time.sleep(0.1)
 
     edrive.stop_io()
-
-
-if __name__ == "__main__":
-    main()
