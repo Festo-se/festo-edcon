@@ -43,14 +43,17 @@ Contains telegram definitions that are currently supported by EDrives running PR
    3. Telegram 102
    4. Telegram 111
 
-### [CLI-Tools](https://festo-research.gitlab.io/electric-automation/festo-edcon/features/cli-tools.html) - [`edcon_tools`](https://festo-research.gitlab.io/electric-automation/festo-edcon/edcon_tools.html#module-edcon_tools)
-
-- `festo-edcon-position` is a CLI tool to execute very basic positioning tasks.
-- `festo-edcon-pnu` is a CLI tool to read or write PNUs.
-- `festo-edcon-test-tg1` is a CLI tool to run a test sequence using telegram 1.
-- `festo-edcon-test-tg9` is a CLI tool to run a test sequence using telegram 9.
-- `festo-edcon-test-tg102` is a CLI tool to run a test sequence using telegram 102.
-- `festo-edcon-test-tg111` is a CLI tool to run a test sequence using telegram 111.
+### [CLI](https://festo-research.gitlab.io/electric-automation/festo-edcon/features/cli.html) - [`edcon_cli`](https://festo-research.gitlab.io/electric-automation/festo-edcon/edcon_cli.html#module-edcon_cli)
+`festo-edcon` is the main entry point to the CLI.
+It supports various subcommands which execute some basic functions.
+For more information use the help flag  (`festo-edcon -h`).
+#### Subcommands
+- `position` is a subcommand to execute very basic positioning tasks.
+- `pnu` is subcommnad to read or write PNUs.
+- `tg1` is subcommnad to run a test sequence using telegram 1.
+- `tg9` is subcommnad to run a test sequence using telegram 9.
+- `tg102` is subcommnad to run a test sequence using telegram 102.
+- `tg111` is subcommnad to run a test sequence using telegram 111.
 
 
 
