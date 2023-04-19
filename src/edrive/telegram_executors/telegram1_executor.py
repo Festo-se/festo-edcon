@@ -7,7 +7,7 @@ class Telegram1Executor(VelocityTelegramExecutor):
 
     def __init__(self, edrive) -> None:
         super().__init__(Telegram1(), edrive)
-        self.edrive.assert_selected_telegram(1)
+        self.edrive.validate_selected_telegram(1)
 
     def prepare_velocity_task(self, velocity: int):
         self.telegram.nsoll_a.value = velocity

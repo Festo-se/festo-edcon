@@ -46,7 +46,7 @@ class PositionTelegramExecutor(TelegramExecutor):
         self.update_inputs()
         return self.telegram.zsw1.drive_stopped
 
-    def wait_for_reference(self) -> bool:
+    def wait_for_home_position_set(self) -> bool:
         """Waits for drive to be referenced
 
         Returns:
@@ -115,6 +115,23 @@ class PositionTelegramExecutor(TelegramExecutor):
         if not self.wait_for_condition(cond, info_string=info):
             return False
         logging.info("Drive stopped")
+        return True
+
+    def wait_for_referencing_execution(self) -> bool:
+        if not self.wait_for_home_position_set():
+            return False
+        self.stop_motion_task()
+        logging.info("Finished referencing task")
+        return True
+
+    def wait_for_position_motion_execution(self) -> bool:
+        if not self.wait_for_traversing_task_ack():
+            return False
+
+        if not self.wait_for_target_position():
+            return False
+        self.stop_motion_task()
+        logging.info("Finished position motion task")
         return True
 
     def trigger_record_change(self):
@@ -189,11 +206,7 @@ class PositionTelegramExecutor(TelegramExecutor):
         if nonblocking:
             return True
 
-        if not self.wait_for_reference():
-            return False
-        self.stop_motion_task()
-        logging.info("Finished referencing task")
-        return True
+        return self.wait_for_referencing_execution()
 
     def prepare_position_task_bits(self, position: int, velocity: int, absolute: bool = False):
         self.telegram.mdi_tarpos.value = position
@@ -225,14 +238,7 @@ class PositionTelegramExecutor(TelegramExecutor):
         if nonblocking:
             return True
 
-        if not self.wait_for_traversing_task_ack():
-            return False
-
-        if not self.wait_for_target_position():
-            return False
-        self.stop_motion_task()
-        logging.info("Finished position task")
-        return True
+        return self.wait_for_motion_execution()
 
     def prepare_jog_task_bits(self, jog_positive: bool = True, jog_negative: bool = False,
                               incremental: bool = False):

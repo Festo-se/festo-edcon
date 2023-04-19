@@ -10,7 +10,7 @@ class Telegram111Executor(PositionTelegramExecutor):
 
     def __init__(self, edrive) -> None:
         super().__init__(Telegram111(), edrive)
-        self.edrive.assert_selected_telegram(111)
+        self.edrive.validate_selected_telegram(111)
 
     def fault_string(self):
         return self.await_fault_code()
@@ -152,11 +152,7 @@ class Telegram111Executor(PositionTelegramExecutor):
         if nonblocking:
             return True
 
-        if not self.wait_for_reference():
-            return False
-        self.stop_motion_task()
-        logging.info("Finished referencing task")
-        return True
+        return self.wait_for_referencing_execution()
 
     def velocity_task(self, velocity: int, duration: float = 0.0) -> bool:
         """Perform a velocity task with the given parameters using setup mode.
@@ -229,11 +225,4 @@ class Telegram111Executor(PositionTelegramExecutor):
         if nonblocking:
             return True
 
-        if not self.wait_for_traversing_task_ack():
-            return False
-
-        if not self.wait_for_target_position():
-            return False
-        self.stop_motion_task()
-        logging.info("Finished record task")
-        return True
+        return self.wait_for_motion_execution()

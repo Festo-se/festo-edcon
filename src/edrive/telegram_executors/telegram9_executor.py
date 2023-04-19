@@ -7,7 +7,7 @@ class Telegram9Executor(PositionTelegramExecutor):
 
     def __init__(self, edrive) -> None:
         super().__init__(Telegram9(), edrive)
-        self.edrive.assert_selected_telegram(9)
+        self.edrive.validate_selected_telegram(9)
 
     def prepare_position_task_bits(self, position: int, velocity: int, absolute: bool = False):
         super().prepare_position_task_bits(position, velocity, absolute)

@@ -6,10 +6,11 @@ from unittest.mock import Mock, call
 class TestEDriveMotion:
     def test_over_v(self):
         """Tests over_v property"""
-        mot = EDriveMotion()
-        assert mot.tg111.override.value == 16384
+        edrive = Mock()
+        mot = EDriveMotion(edrive)
+        assert mot.telegram.override.value == 16384
         mot.over_v = 50.0
-        assert mot.tg111.override.value == 8192
+        assert mot.telegram.override.value == 8192
 
     def test_pulse_bit_active_high(self):
         """Tests high pulse bit toggling"""
