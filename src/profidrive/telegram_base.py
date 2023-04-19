@@ -7,13 +7,7 @@ class TelegramBase:
 
     def __post_init__(self):
         """Post initialization hook"""
-        for item in fields(self):
-            if isinstance(getattr(self, item.name), int):
-                setattr(self, item.name, item.default_factory().from_int(
-                    getattr(self, item.name)))
-
-            if not isinstance(getattr(self, item.name), type(item.default_factory())):
-                raise ValueError(f"Invalid value of {item.name}")
+        self.reset()
 
     def __len__(self):
         len_list = [len(getattr(self, item.name)) for item in fields(self)]
@@ -29,3 +23,12 @@ class TelegramBase:
              for n, v in attrs])
 
         return f"{type(self).__name__}({val_str})"
+
+    def reset(self):
+        for item in fields(self):
+            if isinstance(getattr(self, item.name), int):
+                setattr(self, item.name, item.default_factory().from_int(
+                    getattr(self, item.name)))
+
+            if not isinstance(getattr(self, item.name), type(item.default_factory())):
+                raise ValueError(f"Invalid value type of {item.name}")
