@@ -27,13 +27,13 @@ cd <destination>
 pip install .
 ```
 ## Usage
-### [EDriveMotion](https://festo-research.gitlab.io/electric-automation/festo-edcon/features/motion.html) - [`edrive.edrive_motion.EDriveMotion`](https://festo-research.gitlab.io/electric-automation/festo-edcon/edrive.html#module-edrive.edrive_motion)
+### [MotionExecutor](https://festo-research.gitlab.io/electric-automation/festo-edcon/features/motion.html) - [`edrive.motion.MotionExecutor`](https://festo-research.gitlab.io/electric-automation/festo-edcon/edrive.html#module-edrive.motion)
 The motion module which aims to replicate the function set of the Siemens SinaPos function block (both using telegram 111).
 
-### [EDriveModbus](https://festo-research.gitlab.io/electric-automation/festo-edcon/features/edrive.html#edrivemodbus) - [`edrive.edrive_modbus.EDriveModbus`)](https://festo-research.gitlab.io/electric-automation/festo-edcon/edrive.html#module-edrive.edrive_modbus)
+### [ComModbus](https://festo-research.gitlab.io/electric-automation/festo-edcon/features/edrive.html#edrivemodbus) - [`edrive.com_modbus.ComModbus`)](https://festo-research.gitlab.io/electric-automation/festo-edcon/edrive.html#module-edrive.com_modbus)
 The Modbus/TCP communication driver used for transmitting modbus traffic between host and drive.
 
-### [EDriveEthernetip](https://festo-research.gitlab.io/electric-automation/festo-edcon/features/edrive.html#edriveethernetip) - [`edrive.edrive_modbus.EDriveEthernetip`](https://festo-research.gitlab.io/electric-automation/festo-edcon/edrive.html#module-edrive.edrive_ethernetip)
+### [ComEthernetip](https://festo-research.gitlab.io/electric-automation/festo-edcon/features/edrive.html#edriveethernetip) - [`edrive.com_modbus.ComEthernetip`](https://festo-research.gitlab.io/electric-automation/festo-edcon/edrive.html#module-edrive.com_ethernetip)
 The EtherNet/IP communication driver used for transmitting EtherNet/IP traffic between host and drive.
 
 ### [Profidrive](https://festo-research.gitlab.io/electric-automation/festo-edcon/features/profidrive.html) - [`profidrive`](https://festo-research.gitlab.io/electric-automation/festo-edcon/profidrive.html#module-profidrive)

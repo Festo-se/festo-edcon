@@ -51,7 +51,7 @@ lint-test-job:   # This job also runs in the test stage.
     - python -m pip install .
     - python -m pip install pylint
   script:
-    - pylint src --ignore=edcon_cli # For now ignore
+    - pylint src
 
 sphinx-docs:
   stage: docs

@@ -1,10 +1,10 @@
-from edrive.edrive_modbus import EDriveModbus
-from edrive.edrive_logging import EDriveLogging
+from edcon.edrive.com_modbus import ComModbus
+from edcon.utils.logging import Logging
 
 # Enable loglevel info
-EDriveLogging()
+Logging()
 
-edrive = EDriveModbus('192.168.0.51')
+edrive = ComModbus('192.168.0.51')
 
 # Read currently selected telegram
 original_value = edrive.read_pnu(3490, 0)

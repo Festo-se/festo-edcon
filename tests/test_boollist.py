@@ -1,5 +1,5 @@
 """Contains tests for boollist"""
-from boollist.boollist import bytes_to_boollist, boollist_to_bytes
+from edcon.utils.boollist import bytes_to_boollist, boollist_to_bytes
 
 
 class TestBytesToBoollist:

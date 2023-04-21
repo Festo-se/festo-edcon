@@ -1,6 +1,6 @@
 """Contains code that is related to PROFIDRIVE words"""
 
-from profidrive.words import BitwiseWordGeneric, IntWord, IntDoubleWord
+from edcon.profidrive.words import BitwiseWordGeneric, IntWord, IntDoubleWord
 
 # Test BitwiseWordGeneric
 

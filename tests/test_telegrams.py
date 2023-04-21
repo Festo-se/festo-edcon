@@ -2,11 +2,11 @@
 from dataclasses import dataclass, field
 import struct
 
-from profidrive.telegram_base import TelegramBase
-from profidrive.telegram1 import Telegram1
-from profidrive.telegram102 import Telegram102
-from profidrive.telegram111 import Telegram111
-from profidrive.words import BitwiseWordGeneric, IntDoubleWord
+from edcon.profidrive.telegram_base import TelegramBase
+from edcon.profidrive.telegram1 import Telegram1
+from edcon.profidrive.telegram102 import Telegram102
+from edcon.profidrive.telegram111 import Telegram111
+from edcon.profidrive.words import BitwiseWordGeneric, IntDoubleWord
 
 
 @dataclass(repr=False)

@@ -1,12 +1,12 @@
-from edrive.edrive_ethernetip import EDriveEthernetip
-from edrive.edrive_motion import EDriveMotion
-from edrive.edrive_logging import EDriveLogging
+from edcon.edrive.com_ethernetip import ComEthernetip
+from edcon.edrive.motion import MotionExecutor
+from edcon.utils.logging import Logging
 
 # Enable loglevel info
-EDriveLogging()
+Logging()
 
-edrive = EDriveEthernetip('192.168.0.51')
-with EDriveMotion(edrive) as pos:
+edrive = ComEthernetip('192.168.0.51')
+with MotionExecutor(edrive) as pos:
     pos.acknowledge_faults()
     pos.enable_powerstage()
     pos.referencing_task()
