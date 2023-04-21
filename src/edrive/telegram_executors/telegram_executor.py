@@ -26,7 +26,7 @@ class TelegramExecutor:
 
     def __del__(self):
         if self.edrive is not None:
-            self.telegram.reset()
+            self.telegram.stw1.enable_operation = False
             self.edrive.send_io(self.telegram.output_bytes())
             time.sleep(0.1)
             self.edrive.stop_io()

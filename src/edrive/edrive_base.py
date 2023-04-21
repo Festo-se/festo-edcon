@@ -6,7 +6,7 @@ from edrive.edrive_pnu_packing import pnu_pack, pnu_unpack
 class EDriveBase:
     """Class that contains common functions for EDrive communication drivers."""
 
-    def assert_selected_telegram(self, telegram_id: int):
+    def validate_selected_telegram(self, telegram_id: int):
         """Asserts that the selected telegram is actually configured on the EDrive"""
         # read the currently selected telegram (PNU 3490)
         configured_telegram_id = self.read_pnu(3490)

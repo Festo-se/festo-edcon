@@ -238,7 +238,7 @@ class PositionTelegramExecutor(TelegramExecutor):
         if nonblocking:
             return True
 
-        return self.wait_for_motion_execution()
+        return self.wait_for_position_motion_execution()
 
     def prepare_jog_task_bits(self, jog_positive: bool = True, jog_negative: bool = False,
                               incremental: bool = False):

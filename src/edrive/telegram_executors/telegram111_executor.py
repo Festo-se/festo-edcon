@@ -225,4 +225,4 @@ class Telegram111Executor(PositionTelegramExecutor):
         if nonblocking:
             return True
 
-        return self.wait_for_motion_execution()
+        return self.wait_for_position_motion_execution()
