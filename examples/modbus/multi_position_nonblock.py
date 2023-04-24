@@ -1,19 +1,19 @@
 import time
 from contextlib import ExitStack
 import logging
-from edrive.edrive_modbus import EDriveModbus
-from edrive.edrive_motion import EDriveMotion
-from edrive.edrive_logging import EDriveLogging
+from edcon.edrive.com_modbus import ComModbus
+from edcon.edrive.motion_handler import MotionHandler
+from edcon.utils.logging import Logging
 
 # Enable loglevel info
-EDriveLogging()
+Logging()
 
 # Create a list of all Modbus targets
-edrives = [EDriveModbus(ip_address='192.168.0.1'),
-           EDriveModbus(ip_address='192.168.0.119')]
+edrives = [ComModbus(ip_address='192.168.0.1'),
+           ComModbus(ip_address='192.168.0.119')]
 
 with ExitStack() as stack:
-    mots = [stack.enter_context(EDriveMotion(edrive)) for edrive in edrives]
+    mots = [stack.enter_context(MotionHandler(edrive)) for edrive in edrives]
 
     for mot in mots:
         mot.acknowledge_faults()

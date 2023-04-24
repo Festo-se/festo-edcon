@@ -5,10 +5,9 @@
   :maxdepth: 2
   :caption: Features:
   
-  features/motion
   features/edrive
   features/profidrive
-  features/cli-tools
+  features/cli
 
 .. toctree::
   :maxdepth: 2

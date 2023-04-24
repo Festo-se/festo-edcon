@@ -8,6 +8,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - [Minor] Added LUT for ICP names to skip manual search for fault names and remedies in manual.
  ### Changed
+- [Minor] Overhauled complete project structure to recommended pattern.
+- [Minor] Separated EDriveMotion into subclasses also used for other telegam modes.
 - [Patch] Updated examples/multi_position_nonblock.py.
 - [Patch] Changed CLI tools to use a central entry point with subcommands.
   
