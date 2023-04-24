@@ -2,7 +2,7 @@ import time
 from contextlib import ExitStack
 import logging
 from edcon.edrive.com_modbus import ComModbus
-from edcon.edrive.motion import MotionExecutor
+from edcon.edrive.motion_handler import MotionHandler
 from edcon.utils.logging import Logging
 
 # Enable loglevel info
@@ -13,7 +13,7 @@ edrives = [ComModbus(ip_address='192.168.0.1'),
            ComModbus(ip_address='192.168.0.119')]
 
 with ExitStack() as stack:
-    mots = [stack.enter_context(MotionExecutor(edrive)) for edrive in edrives]
+    mots = [stack.enter_context(MotionHandler(edrive)) for edrive in edrives]
 
     for mot in mots:
         mot.acknowledge_faults()

@@ -1,4 +1,4 @@
-"""Contains tests for MotionExecutor class"""
+"""Contains tests for MotionHandler class"""
 from edcon.utils.func_helpers import func_sequence
 from unittest.mock import Mock, call
 

@@ -7,7 +7,7 @@ from collections.abc import Callable
 from edcon.utils.func_helpers import func_sequence
 
 
-class TelegramExecutor:
+class TelegramHandler:
     """Basic class for executing telegrams."""
 
     def __init__(self, telegram, edrive) -> None:

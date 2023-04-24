@@ -1,10 +1,10 @@
 """Class definition containing telegram 102 execution functions."""
 
 from edcon.profidrive.telegram102 import Telegram102
-from edcon.edrive.telegram_executors.velocity_telegram_executor import VelocityTelegramExecutor
+from edcon.edrive.velocity_telegram_handler import VelocityTelegramHandler
 
 
-class Telegram102Executor(VelocityTelegramExecutor):
+class Telegram102Handler(VelocityTelegramHandler):
     """Basic class for executing telegram 1."""
 
     def __init__(self, edrive) -> None:

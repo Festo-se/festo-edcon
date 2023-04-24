@@ -1,13 +1,13 @@
 """
-Contains MotionExecutor class to configure and control
+Contains MotionHandler class to configure and control
 EDrive devices in position mode.
 """
 from edcon.profidrive.words import OVERRIDE, MDI_ACC, MDI_DEC
 from edcon.edrive.com_base import ComBase
-from edcon.edrive.telegram_executors.telegram111_executor import Telegram111Executor
+from edcon.edrive.telegram111_handler import Telegram111Handler
 
 
-class MotionExecutor(Telegram111Executor):
+class MotionHandler(Telegram111Handler):
     """
     This class is used to control the EDrive devices in position mode (telegram 111).
     It provides a set of functions to control the position of the EDrive using different modes.

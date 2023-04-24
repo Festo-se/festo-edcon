@@ -1,6 +1,6 @@
 """CLI tool that performs a sequence on Telegram1 and EDrive classes."""
 import sys
-from edcon.edrive.telegram_executors.telegram1_executor import Telegram1Executor
+from edcon.edrive.telegram1_handler import Telegram1Handler
 
 
 def add_tg1_args(subparsers):
@@ -8,12 +8,13 @@ def add_tg1_args(subparsers):
     parser_tg1 = subparsers.add_parser('tg1')
     parser_tg1.set_defaults(func=tg1_func)
     parser_tg1.add_argument(
-        '-s', '--speed-setpoint', default="2000", help='Speed setpoint to use')
+        '-s', '--speed-setpoint', default="2000",
+        help='Speed setpoint to use (default: %(default)s).')
 
 
 def tg1_func(edrive, args):
     """Executes subcommand based on provided arguments"""
-    with Telegram1Executor(edrive) as tg1:
+    with Telegram1Handler(edrive) as tg1:
         if not tg1.acknowledge_faults():
             sys.exit(1)
         if not tg1.enable_powerstage():

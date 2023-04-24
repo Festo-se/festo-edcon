@@ -1,6 +1,6 @@
 """CLI tool that performs a sequence on Telegram9 and EDrive classes."""
 import sys
-from edcon.edrive.telegram_executors.telegram9_executor import Telegram9Executor
+from edcon.edrive.telegram9_handler import Telegram9Handler
 
 
 def add_tg9_args(subparsers):
@@ -9,12 +9,12 @@ def add_tg9_args(subparsers):
     parser_tg9.set_defaults(func=tg9_func)
 
     parser_tg9.add_argument('-p', '--position', default="10000",
-                            help='Target position to be reached')
+                            help='Target position to be reached (default: %(default)s).')
 
 
 def tg9_func(edrive, args):
     """Executes subcommand based on provided arguments"""
-    with Telegram9Executor(edrive) as tg9:
+    with Telegram9Handler(edrive) as tg9:
         if not tg9.acknowledge_faults():
             sys.exit(1)
         if not tg9.enable_powerstage():

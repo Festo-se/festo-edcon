@@ -6,10 +6,10 @@ def add_pnu_args(subparsers):
     parser_pnu = subparsers.add_parser('pnu')
     parser_pnu.set_defaults(func=pnu_func)
 
-    parser_pnu.add_argument("-p", "--pnu", default=3490,
-                            help="PNU to use for read/write")
-    parser_pnu.add_argument("-s", "--subindex", default=0,
-                            help="Subindex to use for read/write")
+    parser_pnu.add_argument("-p", "--pnu", default="3490",
+                            help="PNU to use for read/write (default: %(default)s).")
+    parser_pnu.add_argument("-s", "--subindex", default="0",
+                            help="Subindex to use for read/write (default: %(default)s).")
 
     subparsers_pnu = parser_pnu.add_subparsers(dest='subcommand', required=True,
                                                title='action commands',

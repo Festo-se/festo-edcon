@@ -1,4 +1,4 @@
-# EDrive
+# EDrive - Communication
 
 There are different communication protocols which transfer telegrams between devices.
 The [`ComBase`](edrive.com_base.ComBase) class aims to bundle common parts of the protocol classes.
@@ -31,4 +31,28 @@ Optionally the modbus timeout which should be configured on the endpoint can be 
 
 ```python
 edrive = ComModbus('192.168.0.1', timeout_ms=500)
+```
+
+# EDrive - MotionHandler
+The [`MotionHandler`](edrive.motion_handler.MotionHandler) class can be used to start different motion tasks.
+Under the hood it uses PROFIDRIVE telegram 111.
+The intention of the class is to provide an abstraction from telegram 111 to the user, thus providing a simpler interface.
+
+The motion class is instantiated by providing a edrive communication instance that is used to transfer the telegram (e.g. [`ComEthernetip`](edrive.com_ethernetip.ComEthernetip) or [`ComModbus`](edrive.com_modbus.ComModbus)).
+
+```python
+with MotionHandler(edrive) as mot:
+```
+
+The instance is then able of handling basic setup sequences.
+
+```python
+    mot.acknkwoledge_faults()
+    mot.enable_powerstage()
+```
+
+And start motion tasks:
+
+```python
+    mot.position_task(position=1000, velocity=5000)
 ```

@@ -1,6 +1,6 @@
 """CLI tool that performs a sequence on Telegram111 and EDrive classes."""
 import sys
-from edcon.edrive.telegram_executors.telegram111_executor import Telegram111Executor
+from edcon.edrive.telegram111_handler import Telegram111Handler
 
 
 def add_tg111_args(subparsers):
@@ -9,12 +9,12 @@ def add_tg111_args(subparsers):
     parser_tg111.set_defaults(func=tg111_func)
 
     parser_tg111.add_argument('-o', '--over_v', default="100.0",
-                              help='Target position to be reached')
+                              help='Target position to be reached (default: %(default)s).')
 
 
 def tg111_func(edrive, args):
     """Executes subcommand based on provided arguments"""
-    with Telegram111Executor(edrive) as tg111:
+    with Telegram111Handler(edrive) as tg111:
         tg111.telegram.override.value = int(16384*(float(args.over_v)/100.0))
         tg111.telegram.mdi_acc.value = 16384
         tg111.telegram.mdi_dec.value = 16384

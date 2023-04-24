@@ -3,11 +3,11 @@
 import time
 import logging
 from edcon.edrive.diagnosis import diagnosis_name, diagnosis_remedy
-from edcon.edrive.telegram_executors.position_telegram_executor import PositionTelegramExecutor
+from edcon.edrive.position_telegram_handler import PositionTelegramHandler
 from edcon.profidrive.telegram111 import Telegram111
 
 
-class Telegram111Executor(PositionTelegramExecutor):
+class Telegram111Handler(PositionTelegramHandler):
     """Basic class for executing telegram 111."""
 
     def __init__(self, edrive) -> None:

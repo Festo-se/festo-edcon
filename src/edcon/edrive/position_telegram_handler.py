@@ -1,11 +1,11 @@
 """Class definition containing position telegram execution functions."""
 
 import logging
-from edcon.edrive.telegram_executors.telegram_executor import TelegramExecutor
+from edcon.edrive.telegram_handler import TelegramHandler
 from edcon.utils.func_helpers import func_sequence
 
 
-class PositionTelegramExecutor(TelegramExecutor):
+class PositionTelegramHandler(TelegramHandler):
     """Basic class for executing position telegrams."""
 
     def __init__(self, telegram, edrive) -> None:

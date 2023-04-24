@@ -1,10 +1,10 @@
 """Class definition containing telegram 9 execution functions."""
 
-from edcon.edrive.telegram_executors.position_telegram_executor import PositionTelegramExecutor
+from edcon.edrive.position_telegram_handler import PositionTelegramHandler
 from edcon.profidrive.telegram9 import Telegram9
 
 
-class Telegram9Executor(PositionTelegramExecutor):
+class Telegram9Handler(PositionTelegramHandler):
     """Basic class for executing telegram 9."""
 
     def __init__(self, edrive) -> None:

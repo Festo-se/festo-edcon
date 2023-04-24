@@ -27,13 +27,13 @@ cd <destination>
 pip install .
 ```
 ## Usage
-### [MotionExecutor](https://festo-research.gitlab.io/electric-automation/festo-edcon/features/motion.html) - [`edrive.motion.MotionExecutor`](https://festo-research.gitlab.io/electric-automation/festo-edcon/edrive.html#module-edrive.motion)
+### [MotionHandler](https://festo-research.gitlab.io/electric-automation/festo-edcon/features/edrive.html#edrive-motionhandler) - [`edrive.motion.MotionHandler`](https://festo-research.gitlab.io/electric-automation/festo-edcon/edrive.html#module-edrive.motion)
 The motion module which aims to replicate the function set of the Siemens SinaPos function block (both using telegram 111).
 
-### [ComModbus](https://festo-research.gitlab.io/electric-automation/festo-edcon/features/edrive.html#edrivemodbus) - [`edrive.com_modbus.ComModbus`)](https://festo-research.gitlab.io/electric-automation/festo-edcon/edrive.html#module-edrive.com_modbus)
+### [ComModbus](https://festo-research.gitlab.io/electric-automation/festo-edcon/features/edrive.html#commodbus) - [`edrive.com_modbus.ComModbus`)](https://festo-research.gitlab.io/electric-automation/festo-edcon/edrive.html#module-edrive.com_modbus)
 The Modbus/TCP communication driver used for transmitting modbus traffic between host and drive.
 
-### [ComEthernetip](https://festo-research.gitlab.io/electric-automation/festo-edcon/features/edrive.html#edriveethernetip) - [`edrive.com_modbus.ComEthernetip`](https://festo-research.gitlab.io/electric-automation/festo-edcon/edrive.html#module-edrive.com_ethernetip)
+### [ComEthernetip](https://festo-research.gitlab.io/electric-automation/festo-edcon/features/edrive.html#comethernetip) - [`edrive.com_modbus.ComEthernetip`](https://festo-research.gitlab.io/electric-automation/festo-edcon/edrive.html#module-edrive.com_ethernetip)
 The EtherNet/IP communication driver used for transmitting EtherNet/IP traffic between host and drive.
 
 ### [Profidrive](https://festo-research.gitlab.io/electric-automation/festo-edcon/features/profidrive.html) - [`profidrive`](https://festo-research.gitlab.io/electric-automation/festo-edcon/profidrive.html#module-profidrive)
@@ -43,7 +43,7 @@ Contains telegram definitions that are currently supported by EDrives running PR
    3. Telegram 102
    4. Telegram 111
 
-### [CLI](https://festo-research.gitlab.io/electric-automation/festo-edcon/features/cli.html) - [`edcon_cli`](https://festo-research.gitlab.io/electric-automation/festo-edcon/edcon_cli.html#module-edcon_cli)
+### [CLI](https://festo-research.gitlab.io/electric-automation/festo-edcon/features/cli.html) - [`cli`](https://festo-research.gitlab.io/electric-automation/festo-edcon/cli.html#module-cli)
 `festo-edcon` is the main entry point to the CLI.
 It supports various subcommands which execute some basic functions.
 For more information use the help flag  (`festo-edcon -h`).
