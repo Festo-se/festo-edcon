@@ -1,7 +1,7 @@
 """CLI Tool to read or write PNUs of a EDrive device."""
 
 
-def add_pnu_args(subparsers):
+def add_pnu_parser(subparsers):
     """Adds arguments to a provided subparsers instance"""
     parser_pnu = subparsers.add_parser('pnu')
     parser_pnu.set_defaults(func=pnu_func)

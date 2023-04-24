@@ -1,12 +1,12 @@
 """CLI Tool that distributes subcommands"""
 import argparse
 import logging
-from edcon.cli.position import add_position_args
-from edcon.cli.pnu import add_pnu_args
-from edcon.cli.tg1 import add_tg1_args
-from edcon.cli.tg9 import add_tg9_args
-from edcon.cli.tg102 import add_tg102_args
-from edcon.cli.tg111 import add_tg111_args
+from edcon.cli.position import add_position_parser
+from edcon.cli.pnu import add_pnu_parser
+from edcon.cli.tg1 import add_tg1_parser
+from edcon.cli.tg9 import add_tg9_parser
+from edcon.cli.tg102 import add_tg102_parser
+from edcon.cli.tg111 import add_tg111_parser
 from edcon.utils.logging import Logging
 from edcon.edrive.com_modbus import ComModbus
 from edcon.edrive.com_ethernetip import ComEthernetip
@@ -31,22 +31,22 @@ def main():
                                        help="Subcommand that should be called")
 
     # Options for position
-    add_position_args(subparsers)
+    add_position_parser(subparsers)
 
     # Options for pnu
-    add_pnu_args(subparsers)
+    add_pnu_parser(subparsers)
 
     # Options for tg1
-    add_tg1_args(subparsers)
+    add_tg1_parser(subparsers)
 
     # Options for tg9
-    add_tg9_args(subparsers)
+    add_tg9_parser(subparsers)
 
     # Options for tg102
-    add_tg102_args(subparsers)
+    add_tg102_parser(subparsers)
 
     # Options for tg111
-    add_tg111_args(subparsers)
+    add_tg111_parser(subparsers)
 
     args = parser.parse_args()
     if args.verbose:

@@ -1,10 +1,11 @@
 """Contains tests for MotionHandler class"""
 from edcon.edrive.motion_handler import MotionHandler
-from unittest.mock import Mock
+from unittest.mock import Mock, MagicMock
+from edcon.profidrive.words import NIST_B
 
 
 class TestMotionHandler:
-    def test_over_v(self):
+    def test_over_v_set(self):
         """Tests over_v property"""
         edrive = Mock()
         mot = MotionHandler(edrive)
@@ -12,7 +13,14 @@ class TestMotionHandler:
         mot.over_v = 50.0
         assert mot.telegram.override.value == 8192
 
-    def test_over_v_multiple_instances(self):
+    def test_over_v_get(self):
+        """Tests over_v property"""
+        edrive = Mock()
+        mot = MotionHandler(edrive)
+        mot.telegram.override.value = 8192
+        assert mot.over_v == 50.0
+
+    def test_over_v_set_multiple_instances(self):
         """Tests over_v property"""
         edrive = Mock()
         mot = MotionHandler(edrive)
@@ -47,6 +55,6 @@ class TestMotionHandler:
         edrive = Mock()
         mot = MotionHandler(edrive)
         mot.base_velocity = 1000
-        mot.telegram.nist_b = 2000
+        mot.telegram.nist_b = NIST_B(2000)
 
-        assert mot.scaled_velocity() == 2000 * (1000 / 0x40000000)
+        assert mot.scaled_velocity == 2000 * (1000 / 0x40000000)

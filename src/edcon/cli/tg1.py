@@ -3,7 +3,7 @@ import sys
 from edcon.edrive.telegram1_handler import Telegram1Handler
 
 
-def add_tg1_args(subparsers):
+def add_tg1_parser(subparsers):
     """Adds arguments to a provided subparsers instance"""
     parser_tg1 = subparsers.add_parser('tg1')
     parser_tg1.set_defaults(func=tg1_func)

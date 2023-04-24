@@ -4,7 +4,7 @@ import traceback
 from edcon.edrive.motion_handler import MotionHandler
 
 
-def add_position_args(subparsers):
+def add_position_parser(subparsers):
     """Adds arguments to a provided subparsers instance"""
     parser_position = subparsers.add_parser('position')
     parser_position.set_defaults(func=position_func)

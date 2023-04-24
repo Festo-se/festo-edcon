@@ -3,7 +3,7 @@ import sys
 from edcon.edrive.telegram9_handler import Telegram9Handler
 
 
-def add_tg9_args(subparsers):
+def add_tg9_parser(subparsers):
     """Adds arguments to a provided subparsers instance"""
     parser_tg9 = subparsers.add_parser('tg9')
     parser_tg9.set_defaults(func=tg9_func)

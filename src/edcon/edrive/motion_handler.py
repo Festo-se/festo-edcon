@@ -12,31 +12,45 @@ class MotionHandler(Telegram111Handler):
     This class is used to control the EDrive devices in position mode (telegram 111).
     It provides a set of functions to control the position of the EDrive using different modes.
     """
-    over_v = property(fset=lambda self, value: setattr(
-        self.telegram, 'override',
-        OVERRIDE(int(16384*(value/100.0)))), doc="Override velocity in percent")
-
-    over_acc = property(fset=lambda self, value: setattr(
-        self.telegram, 'mdi_acc',
-        MDI_ACC(int(16384*(value/100.0)))), doc="Override acceleration in percent")
-
-    over_dec = property(fset=lambda self, value: setattr(
-        self.telegram, 'mdi_dec',
-        MDI_DEC(int(16384*(value/100.0)))), doc="Override deceleration in percent")
 
     def __init__(self, edrive: ComBase = None) -> None:
         super().__init__(edrive)
         self.over_v = 100.0
         self.over_acc = 100.0
         self.over_dec = 100.0
-
         self.base_velocity = 0
 
-    def scaled_velocity(self) -> int:
-        """Convert the raw velocity to a scaled velocity
-        """
-        raw_velocity = self.telegram.nist_b
-        return raw_velocity * self.base_velocity / 1073741824.0
+    @property
+    def over_v(self):
+        """Override velocity in percent"""
+        return 100.0 * self.telegram.override.value / 0x4000
+
+    @over_v.setter
+    def over_v(self, value):
+        self.telegram.override = OVERRIDE(int(0x4000*(value/100.0)))
+
+    @property
+    def over_acc(self):
+        """Override acceleration in percent"""
+        return 100.0 * self.telegram.mdi_acc.value / 0x4000
+
+    @over_acc.setter
+    def over_acc(self, value):
+        self.telegram.mdi_acc = MDI_ACC(int(0x4000*(value/100.0)))
+
+    @property
+    def over_dec(self):
+        """Override deceleration in percent"""
+        return 100.0 * self.telegram.mdi_dec.value / 0x4000
+
+    @over_dec.setter
+    def over_dec(self, value):
+        self.telegram.mdi_dec = MDI_DEC(int(0x4000*(value/100.0)))
+
+    @property
+    def scaled_velocity(self):
+        """Velocity scaled to base velocity"""
+        return self.telegram.nist_b.value * self.base_velocity / 0x40000000
 
     def current_velocity(self):
         """Read the current velocity
@@ -52,5 +66,5 @@ class MotionHandler(Telegram111Handler):
         """
         self.update_inputs()
         if self.base_velocity > 0:
-            return self.scaled_velocity()
+            return self.scaled_velocity
         return self.telegram.nist_b
