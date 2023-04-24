@@ -2,7 +2,7 @@
 
 import logging
 from edcon.edrive.telegram_handler import TelegramHandler
-from edcon.utils.func_helpers import func_sequence
+from edcon.utils.func_helpers import func_sequence, wait_for, wait_until
 
 
 class PositionTelegramHandler(TelegramHandler):
@@ -29,7 +29,8 @@ class PositionTelegramHandler(TelegramHandler):
         Returns:
             str: String containing velocity information
         """
-        return f"Velocity [Target, Current]: [0, {int(self.telegram.nist_b)}]"
+        return f"Velocity [Target, Current]: " \
+               f"[{int(self.telegram.mdi_velocity)}, {int(self.telegram.nist_b)}]"
 
     def configure_traversing_to_fixed_stop(self, active: bool):
         """Configures the traversing to fixed stop option (drive maintains parametrized torque)
@@ -66,6 +67,19 @@ class PositionTelegramHandler(TelegramHandler):
         self.update_inputs()
         return self.telegram.zsw1.drive_stopped
 
+    def wait_for_referencing_task_ack(self) -> bool:
+        """Waits for drive to be referenced
+
+        Returns:
+            bool: True if succesful, False otherwise
+        """
+        logging.info("Wait for referencing task to be acknowledged")
+        if not self.telegram.stw1.start_homing_procedure:
+            return False
+
+        logging.info("Referencing task acknowledged")
+        return True
+
     def wait_for_home_position_set(self) -> bool:
         """Waits for drive to be referenced
 
@@ -77,7 +91,9 @@ class PositionTelegramHandler(TelegramHandler):
         def cond():
             return self.telegram.zsw1.home_position_set
 
-        if not self.wait_until(cond, info_string=self.position_info_string):
+        if not wait_until(cond, self.fault_present,
+                          info_string=self.position_info_string,
+                          error_string=self.fault_string):
             return False
         logging.info("Reference position set")
         return True
@@ -92,7 +108,9 @@ class PositionTelegramHandler(TelegramHandler):
 
         def cond():
             return self.telegram.zsw1.traversing_task_ack
-        if not self.wait_until(cond):
+        if not wait_until(cond, self.fault_present,
+                          info_string=self.position_info_string,
+                          error_string=self.fault_string):
             return False
         logging.info("Traversing task acknowledged")
         return True
@@ -108,7 +126,9 @@ class PositionTelegramHandler(TelegramHandler):
         def cond():
             return self.telegram.zsw1.target_position_reached
 
-        if not self.wait_until(cond, info_string=self.position_info_string):
+        if not wait_until(cond, self.fault_present,
+                          info_string=self.position_info_string,
+                          error_string=self.fault_string):
             return False
         logging.info("Target position reached")
         return True
@@ -124,7 +144,9 @@ class PositionTelegramHandler(TelegramHandler):
         def cond():
             return self.telegram.zsw1.drive_stopped
 
-        if not self.wait_until(cond, info_string=self.velocity_info_string):
+        if not wait_until(cond, self.fault_present,
+                          info_string=self.velocity_info_string,
+                          error_string=self.fault_string):
             return False
         logging.info("Drive stopped")
         return True
@@ -135,6 +157,9 @@ class PositionTelegramHandler(TelegramHandler):
         Returns:
             bool: True if succesful, False otherwise
         """
+        if not self.wait_for_referencing_task_ack():
+            return False
+
         if not self.wait_for_home_position_set():
             return False
         self.stop_motion_task()
@@ -300,7 +325,7 @@ class PositionTelegramHandler(TelegramHandler):
             return True
 
         # Wait for predefined amount of time
-        if not self.wait_for(duration, self.position_info_string):
+        if not wait_for(duration, self.fault_present, self.position_info_string, self.fault_string):
             return False
 
         self.stop_motion_task()

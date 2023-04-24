@@ -3,8 +3,7 @@
 import time
 import traceback
 import logging
-from collections.abc import Callable
-from edcon.utils.func_helpers import func_sequence
+from edcon.utils.func_helpers import func_sequence, wait_until
 
 
 class TelegramHandler:
@@ -44,52 +43,6 @@ class TelegramHandler:
         self.__del__()
         return True
 
-    def wait_until(self, condition: Callable[[], bool] = None, timeout: float = 0.0,
-                   info_string: Callable[[], str] = None) -> bool:
-        """Waits until provided condition is satisfied
-
-        Parameter:
-            condition (Callable): boolean condition function
-            timeout (float): Time that should be waited for condition to be satisfied (in seconds)
-            info_string (Callable): optional callback for string to print during wait process
-
-        Returns:
-            bool: True if succesful, False otherwise
-        """
-        start_time = time.time()
-        while timeout == 0.0 or not time.time() - start_time > timeout:
-            self.update_inputs()
-            if condition and condition():
-                return True
-            if self.telegram.zsw1.fault_present:
-                logging.error(self.fault_string())
-                return False
-            if info_string:
-                logging.info(info_string())
-        logging.error(f"Cancelled due to timeout after {timeout} s")
-        return False
-
-    def wait_for(self, duration: float, info_string: Callable[[], str] = None) -> bool:
-        """Waits for provided duration
-
-        Parameter:
-            duration (float): time that should be waited for
-            info_string (Callable): optional callback for string to print during wait process
-
-        Returns:
-            bool: True if succesful, False otherwise
-        """
-        start_time = time.time()
-        while duration == 0.0 or not time.time() - start_time > duration:
-            self.update_inputs()
-            if self.telegram.zsw1.fault_present:
-                logging.error(self.fault_string())
-                return False
-            if info_string:
-                logging.info(info_string())
-        logging.info(f"Duration of {duration} seconds passed")
-        return True
-
     def update_inputs(self):
         """Reads current input process data and updates telegram"""
         self.telegram.input_bytes(self.edrive.recv_io())
@@ -112,32 +65,20 @@ class TelegramHandler:
         """
         return "Unknown fault"
 
-    def configure_coast_stop(self, active: bool):
-        """Configures the coast stop option
+    def fault_present(self) -> bool:
+        """Gives information whether a fault is present
 
-        Parameters:
-            active (bool): True => activate coasting, False => deactivate coasting
+        Returns:
+            bool: True if fault presens, False otherwise
         """
-        self.telegram.stw1.no_coast_stop = not active
-
-    def configure_quick_stop(self, active: bool):
-        """Configures the quick stop option
-
-        Parameters:
-            active (bool): True => activate quick stop, False => deactivate quick stop
-        """
-        self.telegram.stw1.no_quick_stop = not active
-
-    def configure_brake(self, active: bool):
-        """Configures the holding brake
-
-        Parameters:
-            active (bool): True => activate brake, False => release brake
-        """
-        self.telegram.stw1.open_holding_brake = not active
+        self.update_inputs()
+        if self.telegram.zsw1.fault_present:
+            logging.error("Fault bit is present")
+            return True
+        return False
 
     def plc_control_granted(self) -> bool:
-        """Gives information in PLC control is granted
+        """Gives information if PLC control is granted
 
         Returns:
             bool: True if succesful, False otherwise
@@ -167,6 +108,30 @@ class TelegramHandler:
         logging.info("[bold green]    -> success!", extra={"markup": True})
         return True
 
+    def configure_coast_stop(self, active: bool):
+        """Configures the coast stop option
+
+        Parameters:
+            active (bool): True => activate coasting, False => deactivate coasting
+        """
+        self.telegram.stw1.no_coast_stop = not active
+
+    def configure_quick_stop(self, active: bool):
+        """Configures the quick stop option
+
+        Parameters:
+            active (bool): True => activate quick stop, False => deactivate quick stop
+        """
+        self.telegram.stw1.no_quick_stop = not active
+
+    def configure_brake(self, active: bool):
+        """Configures the holding brake
+
+        Parameters:
+            active (bool): True => activate brake, False => release brake
+        """
+        self.telegram.stw1.open_holding_brake = not active
+
     def acknowledge_faults(self, timeout: float = 5.0) -> bool:
         """Send telegram to acknowledge present faults of the EDrive
 
@@ -187,9 +152,8 @@ class TelegramHandler:
         def cond():
             return not self.telegram.zsw1.fault_present
 
-        if not self.wait_until(cond, timeout):
-            logging.error(
-                f"Fault code: ({int(self.telegram.fault_code)})")
+        if not wait_until(cond, self.fault_present, timeout,
+                          error_string=self.fault_string):
             return False
 
         logging.info("[bold green]    -> success!", extra={"markup": True})
@@ -218,7 +182,8 @@ class TelegramHandler:
         def cond():
             return self.telegram.zsw1.operation_enabled
 
-        if not self.wait_until(cond, timeout):
+        if not wait_until(cond, self.fault_present, timeout,
+                          error_string=self.fault_string):
             logging.error("Operation inhibited")
             return False
 

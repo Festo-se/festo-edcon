@@ -5,6 +5,7 @@ import logging
 from edcon.edrive.diagnosis import diagnosis_name, diagnosis_remedy
 from edcon.edrive.position_telegram_handler import PositionTelegramHandler
 from edcon.profidrive.telegram111 import Telegram111
+from edcon.utils.func_helpers import wait_for, wait_until
 
 
 class Telegram111Handler(PositionTelegramHandler):
@@ -146,6 +147,24 @@ class Telegram111Handler(PositionTelegramHandler):
             fault_desc += f"\nPossible remedy {str(i+1)}: {remedy}"
         return fault_desc
 
+    def wait_for_referencing_task_ack(self) -> bool:
+        """Waits for drive to be referenced
+
+        Returns:
+            bool: True if succesful, False otherwise
+        """
+        logging.info("Wait for referencing task to be acknowledged")
+
+        def cond():
+            return self.telegram.pos_zsw1.homing_active
+        if not wait_until(cond, self.fault_present,
+                          info_string=self.position_info_string,
+                          error_string=self.fault_string):
+            return False
+
+        logging.info("Referencing task acknowledged")
+        return True
+
     def set_current_position_task(self, nonblocking: bool = False) -> bool:
         """Perform the referencing sequence. If successful, the drive is referenced afterwards.
 
@@ -196,14 +215,12 @@ class Telegram111Handler(PositionTelegramHandler):
             return False
 
         # Wait for predefined amount of time
-        def info():
-            return f"Velocity [Target, Current]: " \
-                   f"[{int(self.telegram.mdi_velocity)}, {int(self.telegram.nist_b)}]"
-        if not self.wait_for(duration, info):
+        if not wait_for(duration, self.fault_present,
+                        self.velocity_info_string, self.fault_string):
             return False
 
         self.stop_motion_task()
-        logging.info("Finished velocity task")
+        logging.info("Finished velocity task (using unlimited positioning)")
         return True
 
     def record_task(self, record_number: int, nonblocking: bool = True) -> bool:

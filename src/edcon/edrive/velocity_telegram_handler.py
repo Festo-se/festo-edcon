@@ -2,6 +2,7 @@
 
 import logging
 from edcon.edrive.telegram_handler import TelegramHandler
+from edcon.utils.func_helpers import wait_for
 
 
 class VelocityTelegramHandler(TelegramHandler):
@@ -57,8 +58,8 @@ class VelocityTelegramHandler(TelegramHandler):
             return True
 
         # Wait for predefined amount of time
-
-        if not self.wait_for(duration, self.velocity_info_string):
+        if not wait_for(duration, self.fault_present,
+                        self.velocity_info_string, self.fault_string):
             return False
 
         self.stop_motion_task()

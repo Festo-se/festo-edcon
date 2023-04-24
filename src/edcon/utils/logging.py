@@ -1,10 +1,10 @@
-"""Contains EDrive class which contains logging methods."""
+"""Contains class which contains logging methods."""
 import logging
 from rich.logging import RichHandler
 
 
 class Logging:
-    """Class that contains common functions for EDrive logging."""
+    """Class that contains common functions for logging."""
 
     def __init__(self, logging_level=logging.INFO, filename=None):
         if filename:

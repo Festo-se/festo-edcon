@@ -22,5 +22,5 @@ with MotionHandler(edrive) as mot:
     # Be aware that only changing the absolute velocity value update the ongoing task
     mot.velocity_task(10001)
 
-    mot.wait_for(3)
+    time.sleep(3)
     mot.stop_motion_task()
