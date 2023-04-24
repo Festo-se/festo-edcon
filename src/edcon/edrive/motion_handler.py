@@ -50,8 +50,7 @@ class MotionHandler(Telegram111Handler):
 
                  current_velocity = raw_value * base_value_velocity / 0x40000000.
         """
-        # self.update_inputs()
+        self.update_inputs()
         if self.base_velocity > 0:
             return self.scaled_velocity()
-        else:
-            return self.telegram.nist_b
+        return self.telegram.nist_b

@@ -59,7 +59,7 @@ class TestFuncHelpers:
         elapsed_time = time.time() - start_time
 
         assert res == False
-        assert elapsed_time == approx(0.1, 0.01)
+        assert elapsed_time == approx(0.1, abs=0.01)
 
     def test_wait_for_timeout_return_true(self):
         """Tests wait_for and return True after specified time"""
@@ -68,7 +68,7 @@ class TestFuncHelpers:
         elapsed_time = time.time() - start_time
 
         assert res == True
-        assert elapsed_time == approx(0.1, 0.01)
+        assert elapsed_time == approx(0.1, abs=0.01)
 
     def test_wait_for_error_condition_return_false(self):
         """Tests wait_for"""
@@ -79,4 +79,4 @@ class TestFuncHelpers:
         elapsed_time = time.time() - start_time
 
         assert res == False
-        assert elapsed_time == approx(0.0, 0.01)
+        assert elapsed_time == approx(0.0, abs=0.01)
