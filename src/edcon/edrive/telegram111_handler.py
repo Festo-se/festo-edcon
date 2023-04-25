@@ -156,6 +156,7 @@ class Telegram111Handler(PositionTelegramHandler):
         logging.info("Wait for referencing task to be acknowledged")
 
         def cond():
+            self.update_inputs()
             return self.telegram.pos_zsw1.homing_active
         if not wait_until(cond, self.fault_present,
                           info_string=self.position_info_string,
