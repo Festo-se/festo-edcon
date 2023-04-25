@@ -12,7 +12,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [Minor] Separated EDriveMotion into subclasses also used for other telegam modes.
 - [Patch] Updated examples/multi_position_nonblock.py.
 - [Patch] Changed CLI tools to use a central entry point with subcommands.
-  
+### Fixed
+- [Patch] Fixed not updating telegram bits during condition monitoring.
 ## v0.9.0 - 05.04.23
 ### Added
 - [Minor] EDriveMotion: Added function to disable powerstage.

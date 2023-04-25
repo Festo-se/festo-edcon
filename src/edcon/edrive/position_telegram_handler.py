@@ -89,6 +89,7 @@ class PositionTelegramHandler(TelegramHandler):
         logging.info("Wait for reference")
 
         def cond():
+            self.update_inputs()
             return self.telegram.zsw1.home_position_set
 
         if not wait_until(cond, self.fault_present,
@@ -107,6 +108,7 @@ class PositionTelegramHandler(TelegramHandler):
         logging.info("Wait for traversing task to be acknowledged")
 
         def cond():
+            self.update_inputs()
             return self.telegram.zsw1.traversing_task_ack
         if not wait_until(cond, self.fault_present,
                           info_string=self.position_info_string,
@@ -124,6 +126,7 @@ class PositionTelegramHandler(TelegramHandler):
         logging.info("Wait for target position to be reached")
 
         def cond():
+            self.update_inputs()
             return self.telegram.zsw1.target_position_reached
 
         if not wait_until(cond, self.fault_present,
@@ -142,6 +145,7 @@ class PositionTelegramHandler(TelegramHandler):
         logging.info("Wait for drive to stop")
 
         def cond():
+            self.update_inputs()
             return self.telegram.zsw1.drive_stopped
 
         if not wait_until(cond, self.fault_present,

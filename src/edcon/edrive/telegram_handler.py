@@ -150,10 +150,10 @@ class TelegramHandler:
         func_sequence(toggle_func, [True, False])
 
         def cond():
+            self.update_inputs()
             return not self.telegram.zsw1.fault_present
 
-        if not wait_until(cond, self.fault_present, timeout,
-                          error_string=self.fault_string):
+        if not wait_until(cond, timeout=timeout, error_string=self.fault_string):
             return False
 
         logging.info("[bold green]    -> success!", extra={"markup": True})
@@ -180,6 +180,7 @@ class TelegramHandler:
         func_sequence(toggle_func, [False, True])
 
         def cond():
+            self.update_inputs()
             return self.telegram.zsw1.operation_enabled
 
         if not wait_until(cond, self.fault_present, timeout,
