@@ -5,7 +5,7 @@ from edcon.utils.logging import Logging
 # Enable loglevel info
 Logging()
 
-edrive = ComModbus('192.168.0.51')
+edrive = ComModbus('192.168.0.1')
 with MotionHandler(edrive) as mot:
     mot.acknowledge_faults()
     mot.enable_powerstage()

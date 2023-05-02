@@ -4,7 +4,7 @@ from edcon.utils.logging import Logging
 # Enable loglevel info
 Logging()
 
-edrive = ComModbus('192.168.0.51')
+edrive = ComModbus('192.168.0.1')
 
 # Read currently selected telegram
 original_value = edrive.read_pnu(3490, 0)

@@ -17,7 +17,7 @@ def main():
     # Bus agnostic options
     parser = argparse.ArgumentParser()
 
-    parser.add_argument('-i', '--ip-address', default="192.168.0.51",
+    parser.add_argument('-i', '--ip-address', default="192.168.0.1",
                         help='IP address to connect to (default: %(default)s).')
 
     # Bus specific options
