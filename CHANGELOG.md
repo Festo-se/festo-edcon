@@ -5,6 +5,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## Unreleased
+## v0.10.1 - 02.05.23
+### Fixed
+- [Patch] Fixed typo in help message causing CLI to crash.
+
+ ### Changed
+- [Patch] Changed default IP adress from `192.168.0.51` to `192.168.0.1`
+  
 ## v0.10.0 - 28.04.23
 ### Added
 - [Minor] Added LUT for ICP names to skip manual search for fault names and remedies in manual.
