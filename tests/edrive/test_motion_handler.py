@@ -50,11 +50,13 @@ class TestMotionHandler:
         mot.over_dec = 50.0
         assert mot.telegram.mdi_dec.value == 8192
 
-    def test_scaled_velocity(self):
-        """Tests scaled_velocity"""
+    def test_current_velocity(self):
+        """Tests current_velocity"""
         edrive = Mock()
         mot = MotionHandler(edrive)
+        mot.update_inputs = Mock()
+
         mot.base_velocity = 1000
         mot.telegram.nist_b = NIST_B(2000)
 
-        assert mot.scaled_velocity == 2000 * (1000 / 0x40000000)
+        assert mot.current_velocity() == 2000 * (1000 / 0x40000000)
