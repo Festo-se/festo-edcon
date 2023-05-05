@@ -18,7 +18,7 @@ class MotionHandler(Telegram111Handler):
         self.over_v = 100.0
         self.over_acc = 100.0
         self.over_dec = 100.0
-        self.base_velocity = 0
+        self.base_velocity = 0.0
 
     @property
     def over_v(self):
@@ -47,24 +47,19 @@ class MotionHandler(Telegram111Handler):
     def over_dec(self, value):
         self.telegram.mdi_dec = MDI_DEC(int(0x4000*(value/100.0)))
 
-    @property
-    def scaled_velocity(self):
-        """Velocity scaled to base velocity"""
-        return self.telegram.nist_b.value * self.base_velocity / 0x40000000
-
     def current_velocity(self):
-        """Read the current velocity
+        """Velocity scaled according to base velocity
 
         Returns:
-            int/float: In order to get the correct velocity, base_velocity needs to be provided.
-                 If no base_velocity is given, returned value is raw and can be converted using
-                 the following formula:
+            int/float: In order to get the correct velocity, 
+                base_velocity (default: 3000.0) needs to be provided.
 
-                 base_velocity = Base Value Velocity (parameterized on device)
+                Output is calculated as follows:
 
-                 current_velocity = raw_value * base_value_velocity / 0x40000000.
+                base_velocity = Base Value Velocity (parameterized on device)
+                raw_value = telegram.nist_b
+
+                current_velocity = raw_value * base_velocity / 0x40000000.
         """
         self.update_inputs()
-        if self.base_velocity > 0:
-            return self.scaled_velocity
-        return self.telegram.nist_b
+        return self.telegram.nist_b.value * self.base_velocity / 0x40000000
