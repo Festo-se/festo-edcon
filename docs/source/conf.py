@@ -17,7 +17,7 @@ sys.path.insert(0, os.path.abspath('../../src/'))
 
 # -- Project information -----------------------------------------------------
 
-project = 'edcon'
+project = 'festo-edcon'
 copyright = '2022, Festo SE & Co. KG'
 author = 'Elias Rosch'
 
@@ -57,4 +57,7 @@ html_theme = 'sphinx_rtd_theme'
 # html_static_path = ['_static']
 
 autoclass_content = 'both'
-autodoc_member_order = 'bysource'
+autodoc_default_options = {
+    # 'inherited-members': True,
+    'member-order': 'bysource',
+}

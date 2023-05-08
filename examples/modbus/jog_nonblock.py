@@ -1,9 +1,13 @@
 import time
-from edrive.edrive_modbus import EDriveModbus
-from edrive.edrive_motion import EDriveMotion
+from edcon.edrive.com_modbus import ComModbus
+from edcon.edrive.motion_handler import MotionHandler
+from edcon.utils.logging import Logging
 
-edrive = EDriveModbus('192.168.0.51')
-with EDriveMotion(edrive) as mot:
+# Enable loglevel info
+Logging()
+
+edrive = ComModbus('192.168.0.1')
+with MotionHandler(edrive) as mot:
     mot.acknowledge_faults()
     mot.enable_powerstage()
 
@@ -11,3 +15,5 @@ with EDriveMotion(edrive) as mot:
     time.sleep(4)
     mot.jog_task(False, True, duration=0.0)
     time.sleep(4)
+
+    mot.stop_motion_task()

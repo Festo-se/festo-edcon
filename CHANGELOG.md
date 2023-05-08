@@ -5,7 +5,76 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## Unreleased
+### Changed
+- [Patch] MotionHandler: Changed semantics of current_velocity.
 
+## v0.10.1 - 02.05.23
+### Fixed
+- [Patch] Fixed typo in help message causing CLI to crash.
+
+ ### Changed
+- [Patch] Changed default IP adress from `192.168.0.51` to `192.168.0.1`
+  
+## v0.10.0 - 28.04.23
+### Added
+- [Minor] Added LUT for ICP names to skip manual search for fault names and remedies in manual.
+ ### Changed
+- [Minor] Overhauled complete project structure to recommended pattern.
+- [Minor] Separated EDriveMotion into subclasses also used for other telegam modes.
+- [Patch] Updated examples/multi_position_nonblock.py.
+- [Patch] Changed CLI tools to use a central entry point with subcommands.
+### Fixed
+- [Patch] Fixed not updating telegram bits during condition monitoring.
+
+## v0.9.0 - 05.04.23
+### Added
+- [Minor] EDriveMotion: Added function to disable powerstage.
+- [Minor] Added LUT for PNU types to skip manual search for data types in manual.
+- [Patch] Added example for PNU access.
+- [Patch] Added missing data types to  `festo-edcon-pnu` tool.
+### Changed
+- [Patch] Restructured README.md and sphinx docs.
+### Removed
+- [Minor] Removed modbus flavour feature due to simplification reasons.
+
+## v0.8.0 - 31.03.23
+### Added
+- [Minor] EDriveMotion: Added wait_for_traversing_task_ack method.
+### Changed
+- [Minor] Moved to python version 3.10
+- [Minor] EDriveModbus/EDriveEthernetip: added nonblocking/blocking behavior to I/O methods.
+- [Minor] EDriveMotion: enhanced wait_for_condition and adapted motion tasks to new behavior.
+- [Patch] EDriveMotion: referencing task now uses homing method as per default.
+- [Patch] Updated unit tests.
+- [Patch] Updated examples.
+### Fixed
+- [Patch] Raise error when no EIP connection is possible.
+
+## v0.7.6 - 03.11.22
+### Added
+- [Patch] EDriveMotion: Added methods to check if fix stop and/or clamping torque has been reached.
+### Fixed
+- [Patch] Fixed setup.py.
+
+## v0.7.5 - 20.10.22
+### Fixed
+- [Patch] Fixed LICENSE.
+
+## v0.7.4 - 18.10.22
+### Added
+- [Patch] Updated URLs to new project location.
+### Fixed
+- [Patch] Fixed issue where position tool would continue operation after error instead of exiting.
+
+## v0.7.3 - 17.10.22
+### Added
+- [Patch] Added LICENSE file.
+
+## v0.7.2 - 11.10.22
+### Added
+- [Patch] Added a EDriveLogging class to enable easy logging. 
+### Changed
+- [Patch] Moved correct telegram assertion from constructor to separate method.
 ## v0.7.1 - 13.09.22
 ### Added
 - [Patch] Added a few status checking functions. 

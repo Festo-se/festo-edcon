@@ -13,7 +13,7 @@
 #
 # For more information, see: https://docs.gitlab.com/ee/ci/yaml/index.html#stages
 
-image: "python:3.8.13-bullseye"
+image: "python:3.10-bullseye"
 
 stages:          # List of stages for jobs, and their order of execution
   - changelogtest
@@ -38,7 +38,7 @@ unit-test-job:   # This job runs in the test stage.
     - python -m pip install .
     - python -m pip install pytest pytest-cov
   script:
-    - pytest tests -v --cov=edrive --cov=profidrive --cov=boollist
+    - pytest tests -v --cov=edcon
 
   coverage: '/(?i)total.*? (100(?:\.0+)?\%|[1-9]?\d(?:\.\d+)?\%)$/'
 
@@ -51,7 +51,7 @@ lint-test-job:   # This job also runs in the test stage.
     - python -m pip install .
     - python -m pip install pylint
   script:
-    - pylint src -d=logging-fstring-interpolation --ignore=edcon_tools # For now ignore
+    - pylint src -d=logging-fstring-interpolation
 
 sphinx-docs:
   stage: docs
@@ -82,15 +82,11 @@ release-job:
   rules:
     - if: '$CI_COMMIT_TAG =~ /^v\d+\.\d+\.\d+$/ && $CI_COMMIT_REF_PROTECTED == "true"'
   before_script:
-    # - python -m pip install wheel
     - python -m pip install twine
-    - curl -fL https://install-cli.jfrog.io | sh
   script:
     - python setup.py bdist_wheel
     - twine check dist/*
-    - cd dist
-    # - twine upload --repository-url "$ARTIFACTORY_PYPI_URL" -u"$ARTIFACTORY_PYPI_USER" -p"$ARTIFACTORY_PYPI_PASSWORD" dist/*
-    - jf rt u --url "$ARTIFACTORY_PYPI_URL" --access-token "$ARTIFACTORY_ACCESS_TOKEN" "*.whl" electricdrives-python-dev-local/edcon/
+    - twine upload dist/*
   needs:
     - unit-test-job
     - lint-test-job
