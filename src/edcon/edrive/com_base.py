@@ -30,9 +30,8 @@ class ComBase:
         raw = self.read_pnu_raw(pnu, subindex)
         if raw:
             param = pnu_unpack(pnu, raw, forced_format)
-            logging.info(
-                f"Read PNU {pnu} (subindex: {subindex}): {param} "
-                f"(raw: {raw})")
+            logging.info(f"Unpacked {raw} to {param}")
+
             return param
 
         logging.error(f"PNU {pnu} read failed")
@@ -46,10 +45,8 @@ class ComBase:
     def write_pnu(self, pnu: int, subindex: int = 0, value=0, forced_format=None) -> bool:
         """Writes a value to a PNU to the EDrive"""
         raw = pnu_pack(pnu, value, forced_format)
+        logging.info(f"Packed {value} to {raw}")
         if self.write_pnu_raw(pnu, subindex, value=raw):
-            logging.info(
-                f"Written PNU {pnu} (subindex: {subindex}): {value} "
-                f"(raw: {raw})")
             return True
         logging.error(f"PNU {pnu} write failed")
         return False

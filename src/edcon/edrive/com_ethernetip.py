@@ -87,6 +87,8 @@ class ComEthernetip(ComBase):
         if status != 0:
             logging.error(f"Error reading PNU {pnu}, status: {status}")
             return None
+        logging.info(
+            f"Successful read of PNU {pnu} (subindex: {subindex}): {data})")
         return data
 
     def write_pnu_raw(self, pnu: int, subindex: int = 0, num_elements: int = 1,
@@ -100,6 +102,9 @@ class ComEthernetip(ComBase):
             logging.error(
                 f"Error writing PNU {pnu}, status: {status}, data: {data}")
             return False
+
+        logging.info(
+            f"Successful write of PNU {pnu} (subindex: {subindex}): {value} ")
         return True
 
     def start_io(self):
