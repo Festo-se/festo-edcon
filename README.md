@@ -49,11 +49,12 @@ It supports various subcommands which execute some basic functions.
 For more information use the help flag  (`festo-edcon -h`).
 #### Subcommands
 - `position` is a subcommand to execute very basic positioning tasks.
-- `pnu` is subcommnad to read or write PNUs.
-- `tg1` is subcommnad to run a test sequence using telegram 1.
-- `tg9` is subcommnad to run a test sequence using telegram 9.
-- `tg102` is subcommnad to run a test sequence using telegram 102.
-- `tg111` is subcommnad to run a test sequence using telegram 111.
+- `pnu` is a subcommnad to read or write PNUs.
+- `parameter-set-loader` is a subcommand to load a complete parameter set to a drive.
+- `tg1` is a subcommnad to run a test sequence using telegram 1.
+- `tg9` is a subcommnad to run a test sequence using telegram 9.
+- `tg102` is a subcommnad to run a test sequence using telegram 102.
+- `tg111` is a subcommnad to run a test sequence using telegram 111.
 
 
 
