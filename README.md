@@ -30,7 +30,7 @@ pip install .
 ### [MotionHandler](https://festo-research.gitlab.io/electric-automation/festo-edcon/features/edrive.html#edrive-motionhandler) - [`edrive.motion.MotionHandler`](https://festo-research.gitlab.io/electric-automation/festo-edcon/edcon.edrive.html#module-edcon.edrive.motion_handler)
 The motion module which aims to replicate the function set of the Siemens SinaPos function block (both using telegram 111).
 
-### [ComModbus](https://festo-research.gitlab.io/electric-automation/festo-edcon/features/edrive.html#commodbus) - [`edrive.com_modbus.ComModbus`)](https://festo-research.gitlab.io/electric-automation/festo-edcon/edcon.edrive.html#module-edcon.edrive.com_modbus)
+### [ComModbus](https://festo-research.gitlab.io/electric-automation/festo-edcon/features/edrive.html#commodbus) - [`edrive.com_modbus.ComModbus`](https://festo-research.gitlab.io/electric-automation/festo-edcon/edcon.edrive.html#module-edcon.edrive.com_modbus)
 The Modbus/TCP communication driver used for transmitting modbus traffic between host and drive.
 
 ### [ComEthernetip](https://festo-research.gitlab.io/electric-automation/festo-edcon/features/edrive.html#comethernetip) - [`edrive.com_modbus.ComEthernetip`](https://festo-research.gitlab.io/electric-automation/festo-edcon/edcon.edrive.html#module-edcon.edrive.com_ethernetip)
