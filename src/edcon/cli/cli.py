@@ -3,6 +3,7 @@ import argparse
 import logging
 from edcon.cli.position import add_position_parser
 from edcon.cli.pnu import add_pnu_parser
+from edcon.cli.parameter_set_load import add_parameter_set_load_parser
 from edcon.cli.tg1 import add_tg1_parser
 from edcon.cli.tg9 import add_tg9_parser
 from edcon.cli.tg102 import add_tg102_parser
@@ -35,6 +36,9 @@ def main():
 
     # Options for pnu
     add_pnu_parser(subparsers)
+
+    # Options for parameter_set
+    add_parameter_set_load_parser(subparsers)
 
     # Options for tg1
     add_tg1_parser(subparsers)

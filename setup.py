@@ -27,7 +27,7 @@ setup(
     install_requires=['pymodbus<3.0.0', 'ethernetip', 'rich'],
     packages=find_packages(where="src", exclude="tests"),
     package_dir={"": "src"},
-    package_data={"edrive.data": ["pnu_type_map.csv", "icp_name_map.csv"]},
+    package_data={"edrive.data": ["pnu_map.csv", "icp_map.csv"]},
     include_package_data=True,
     entry_points={
         'console_scripts': ['festo-edcon = edcon.cli.cli:main']

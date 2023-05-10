@@ -102,7 +102,7 @@ class ComModbus(ComBase):
         """Reads device info from the CMMT and returns dict with containing values
 
         Returns:
-            dict: Contains device information values 
+            dict: Contains device information values
         """
         dev_info = {}
 
@@ -178,6 +178,8 @@ class ComModbus(ComBase):
             # Convert to integer
             data = b''.join(reg.to_bytes(2, 'little')
                             for reg in indata.registers)
+            logging.info(
+                f"Successful read of PNU {pnu} (subindex: {subindex}): {data})")
             return data
 
         except AttributeError:
@@ -210,6 +212,9 @@ class ComModbus(ComBase):
             if status != PNU_MAILBOX_EXEC_DONE:
                 logging.error(f"Error writing PNU {pnu}, status: {status}")
                 return False
+
+            logging.info(
+                f"Successful write of PNU {pnu} (subindex: {subindex}): {value} ")
             return True
 
         except AttributeError:
