@@ -6,6 +6,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## v0.10.3 - 21.06.23
+- [Patch] Fixed issue causing an error when reading 8-bit wide PNUs.
 ## v0.10.2 - 10.05.23
 ### Added
 - [Patch] Added CLI tool to load complete parameter set files.
