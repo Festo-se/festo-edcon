@@ -29,30 +29,30 @@ def pnu_unpack(pnu: int, raw: bytes, forced_format: str = None):
     Returns:
         value: Unpacked value with determined type
     """
-    if not forced_format:
+    if forced_format:
+        logging.info(f"PNU {pnu} forced to type ({forced_format})")
+        unpack_data_type = forced_format
+    else:
         pnu_map = PnuMap()
         pnu_data_type = pnu_map[pnu].data_type
         pnu_name = pnu_map[pnu].name
         logging.info(f"PNU {pnu} ({pnu_name}) is of type {pnu_data_type}")
         if 'STRING' in pnu_data_type:
-            value = struct.unpack(f'{len(raw)}s', raw)[0]
+            unpack_data_type = f'{len(raw)}s'
 
         else:
-            value = struct.unpack(
-                PNU_TYPE_TO_FORMAT_CHAR[pnu_data_type], raw)[0]
+            unpack_data_type = PNU_TYPE_TO_FORMAT_CHAR[pnu_data_type]
+
+    if unpack_data_type == 's':
+        value = struct.unpack(f"{len(raw)}s", raw)[0]
+    if unpack_data_type == '?':
+        value = struct.unpack('b', raw[0:1])[0]
+    if unpack_data_type == 'B':
+        value = struct.unpack('B', raw[0:1])[0]
+    if unpack_data_type == 'b':
+        value = struct.unpack('b', raw[0:1])[0]
     else:
-        logging.info(f"PNU {pnu} forced to type ({forced_format})")
-
-        if forced_format == 's':
-            value = struct.unpack(f"{len(raw)}s", raw)[0]
-        if forced_format == '?':
-            value = struct.unpack('b', raw[0:1])[0]
-        if forced_format == 'B':
-            value = struct.unpack('B', raw[0:1])[0]
-        if forced_format == 'b':
-            value = struct.unpack('b', raw[0:1])[0]
-        else:
-            value = struct.unpack(forced_format, raw)[0]
+        value = struct.unpack(unpack_data_type, raw)[0]
 
     return value
 
