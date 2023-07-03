@@ -46,7 +46,9 @@ Contains telegram definitions that are currently supported by EDrives running PR
 ### [CLI](https://festo-research.gitlab.io/electric-automation/festo-edcon/features/cli.html) - [`cli`](https://festo-research.gitlab.io/electric-automation/festo-edcon/edcon.cli.html#module-edcon.cli)
 `festo-edcon` is the main entry point to the CLI.
 It supports various subcommands which execute some basic functions.
+
 For more information use the help flag  (`festo-edcon -h`).
+
 #### Subcommands
 - `position` is a subcommand to execute very basic positioning tasks.
 - `pnu` is a subcommnad to read or write PNUs.
