@@ -5,7 +5,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## Unreleased
-
+### Fixed
+- [Patch] Enabled possibility to create multiple ComEthernetip instances.
+  
 ## v0.10.3 - 21.06.23
 - [Patch] Fixed issue causing an error when reading 8-bit wide PNUs.
 ## v0.10.2 - 10.05.23

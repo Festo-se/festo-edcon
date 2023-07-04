@@ -17,7 +17,16 @@ T_O_STD_PROCESS_DATA = 101  # Target to Originator
 O_T_EXT_PROCESS_DATA = 110  # Originator to Target
 T_O_EXT_PROCESS_DATA = 111  # Target to Originator
 
-
+class EtherNetIPSingleton():
+    __instance = None
+    def __new__(cls):
+        if cls.__instance is not None:
+            return cls.__instance
+        
+        instance = ethernetip.EtherNetIP()
+        cls.__instance = instance
+        return instance
+    
 class ComEthernetip(ComBase):
     """Class to configure and communicate with EDrive devices via EtherNet/IP."""
 
@@ -30,7 +39,7 @@ class ComEthernetip(ComBase):
         """
         self.cycle_time = cycle_time
         logging.info(f"Starting EtherNet/IP connection on {ip_address}")
-        self.eip = ethernetip.EtherNetIP(ip_address)
+        self.eip = EtherNetIPSingleton()
 
         self.connection = self.eip.explicit_conn(ip_address)
         self.connection.registerSession()
