@@ -17,16 +17,20 @@ T_O_STD_PROCESS_DATA = 101  # Target to Originator
 O_T_EXT_PROCESS_DATA = 110  # Originator to Target
 T_O_EXT_PROCESS_DATA = 111  # Target to Originator
 
-class EtherNetIPSingleton():
+class EtherNetIPSingleton:
+    """Class to lazyly create an EtherNet/IP singleton object."""
+    # pylint: disable=too-few-public-methods
+    # Don't need more here
+
     __instance = None
-    def __new__(cls):
-        if cls.__instance is not None:
-            return cls.__instance
-        
-        instance = ethernetip.EtherNetIP()
-        cls.__instance = instance
-        return instance
-    
+
+    @classmethod
+    def get_instance(cls):
+        """If no instace exists yet, create one. Returns instance."""
+        if not cls.__instance:
+            cls.__instance = ethernetip.EtherNetIP()
+        return cls.__instance
+
 class ComEthernetip(ComBase):
     """Class to configure and communicate with EDrive devices via EtherNet/IP."""
 
@@ -39,7 +43,7 @@ class ComEthernetip(ComBase):
         """
         self.cycle_time = cycle_time
         logging.info(f"Starting EtherNet/IP connection on {ip_address}")
-        self.eip = EtherNetIPSingleton()
+        self.eip = EtherNetIPSingleton.get_instance()
 
         self.connection = self.eip.explicit_conn(ip_address)
         self.connection.registerSession()
