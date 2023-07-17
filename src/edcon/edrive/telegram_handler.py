@@ -159,7 +159,7 @@ class TelegramHandler:
         logging.info("[bold green]    -> success!", extra={"markup": True})
         return True
 
-    def enable_powerstage(self, timeout: float = 1.0) -> bool:
+    def enable_powerstage(self, timeout: float = 5.0) -> bool:
         """Send telegram to enable the power stage
 
         Parameter:
