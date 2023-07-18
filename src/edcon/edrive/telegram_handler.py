@@ -191,8 +191,20 @@ class TelegramHandler:
         logging.info("[bold green]    -> success!", extra={"markup": True})
         return True
 
-    def disable_powerstage(self) -> bool:
+    def disable_powerstage(self, timeout: float = 5.0) -> bool:
         """Send telegram to disable the power stage"""
         logging.info("Disable powerstage")
         self.telegram.stw1.on = False
         self.update_outputs()
+
+        def cond():
+            self.update_inputs()
+            return not self.telegram.zsw1.operation_enabled
+
+        if not wait_until(cond, self.fault_present, timeout,
+                          error_string=self.fault_string):
+            logging.error("Operation inhibited")
+            return False
+
+        logging.info("=> Powerstage disabled")
+        return True
