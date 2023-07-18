@@ -48,6 +48,7 @@ class VelocityTelegramHandler(TelegramHandler):
             bool: True if succesful, False otherwise
         """
         if not self.ready_for_motion():
+            logging.error("Velocity task aborted")
             return False
         logging.info("Start velocity task")
 
@@ -63,5 +64,5 @@ class VelocityTelegramHandler(TelegramHandler):
             return False
 
         self.stop_motion_task()
-        logging.info("Finished velocity task")
+        logging.info("=> Finished velocity task")
         return True

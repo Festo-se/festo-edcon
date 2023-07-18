@@ -163,7 +163,7 @@ class Telegram111Handler(PositionTelegramHandler):
                           error_string=self.fault_string):
             return False
 
-        logging.info("Referencing task acknowledged")
+        logging.info("=> Referencing task acknowledged")
         return True
 
     def set_current_position_task(self, nonblocking: bool = False) -> bool:
@@ -197,6 +197,7 @@ class Telegram111Handler(PositionTelegramHandler):
             bool: True if succesful, False otherwise
         """
         if not self.ready_for_motion():
+            logging.error("Velocity task aborted")
             return False
         logging.info("Start velocity task")
 
@@ -221,7 +222,7 @@ class Telegram111Handler(PositionTelegramHandler):
             return False
 
         self.stop_motion_task()
-        logging.info("Finished velocity task (using unlimited positioning)")
+        logging.info("=> Finished velocity task (using unlimited positioning)")
         return True
 
     def record_task(self, record_number: int, nonblocking: bool = True) -> bool:
@@ -237,6 +238,7 @@ class Telegram111Handler(PositionTelegramHandler):
             bool: True if succesful, False otherwise
         """
         if not self.ready_for_motion():
+            logging.error("Record task aborted")
             return False
         logging.info("Start record task")
 
