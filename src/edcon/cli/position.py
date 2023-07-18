@@ -19,10 +19,10 @@ def add_position_parser(subparsers):
                                  help='Perform a referencing task before positioning task')
 
 
-def position_func(edrive, args):
+def position_func(com, args):
     """Executes subcommand based on provided arguments"""
     try:
-        with MotionHandler(edrive) as mot:
+        with MotionHandler(com) as mot:
             if not mot.acknowledge_faults():
                 sys.exit(1)
             if not mot.enable_powerstage():

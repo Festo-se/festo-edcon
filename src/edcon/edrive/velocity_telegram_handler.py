@@ -8,8 +8,8 @@ from edcon.utils.func_helpers import wait_for
 class VelocityTelegramHandler(TelegramHandler):
     """Basic class for executing velocity telegrams."""
 
-    def __init__(self, telegram, edrive) -> None:
-        super().__init__(telegram, edrive)
+    def __init__(self, telegram, com) -> None:
+        super().__init__(telegram, com)
 
         # Set default bits for velocity telegrams
         self.telegram.stw1.enable_ramp_generator = True

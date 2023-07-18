@@ -12,9 +12,9 @@ def add_tg1_parser(subparsers):
         help='Speed setpoint to use (default: %(default)s).')
 
 
-def tg1_func(edrive, args):
+def tg1_func(com, args):
     """Executes subcommand based on provided arguments"""
-    with Telegram1Handler(edrive) as tg1:
+    with Telegram1Handler(com) as tg1:
         if not tg1.acknowledge_faults():
             sys.exit(1)
         if not tg1.enable_powerstage():

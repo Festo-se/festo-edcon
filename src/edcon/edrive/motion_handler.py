@@ -13,8 +13,8 @@ class MotionHandler(Telegram111Handler):
     It provides a set of functions to control the position of the EDrive using different modes.
     """
 
-    def __init__(self, edrive: ComBase = None) -> None:
-        super().__init__(edrive)
+    def __init__(self, com: ComBase = None) -> None:
+        super().__init__(com)
         self.over_v = 100.0
         self.over_acc = 100.0
         self.over_dec = 100.0
