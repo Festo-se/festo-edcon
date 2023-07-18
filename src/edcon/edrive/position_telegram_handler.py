@@ -8,8 +8,8 @@ from edcon.utils.func_helpers import func_sequence, wait_for, wait_until
 class PositionTelegramHandler(TelegramHandler):
     """Basic class for executing position telegrams."""
 
-    def __init__(self, telegram, edrive) -> None:
-        super().__init__(telegram, edrive)
+    def __init__(self, telegram, com) -> None:
+        super().__init__(telegram, com)
         # Set default bits for position telegrams
         self.telegram.stw1.do_not_reject_traversing_task = True
         self.telegram.stw1.no_intermediate_stop = True

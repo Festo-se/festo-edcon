@@ -5,8 +5,8 @@ from edcon.utils.logging import Logging
 # Enable loglevel info
 Logging()
 
-edrive = ComEthernetip('192.168.0.1')
-with MotionHandler(edrive) as pos:
+com = ComEthernetip('192.168.0.1')
+with MotionHandler(com) as pos:
     pos.acknowledge_faults()
     pos.enable_powerstage()
     pos.referencing_task()

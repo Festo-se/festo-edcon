@@ -12,9 +12,9 @@ def add_tg111_parser(subparsers):
                               help='Target position to be reached (default: %(default)s).')
 
 
-def tg111_func(edrive, args):
+def tg111_func(com, args):
     """Executes subcommand based on provided arguments"""
-    with Telegram111Handler(edrive) as tg111:
+    with Telegram111Handler(com) as tg111:
         tg111.telegram.override.value = int(16384*(float(args.over_v)/100.0))
         tg111.telegram.mdi_acc.value = 16384
         tg111.telegram.mdi_dec.value = 16384

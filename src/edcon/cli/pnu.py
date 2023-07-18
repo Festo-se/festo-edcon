@@ -25,19 +25,19 @@ def add_pnu_parser(subparsers):
     parser_write.add_argument('value', help='Value to be written')
 
 
-def pnu_func(edrive, args):
+def pnu_func(com, args):
     """Executes subcommand based on provided arguments"""
     pnu = int(args.pnu)
     subindex = int(args.subindex)
     if args.subcommand == 'read':
         if args.raw:
-            pnu_value = edrive.read_pnu_raw(
+            pnu_value = com.read_pnu_raw(
                 pnu, subindex, num_elements=int(args.raw))
             if pnu_value:
                 print(f"Length: {len(pnu_value)}")
         else:
-            pnu_value = edrive.read_pnu(pnu, subindex)
+            pnu_value = com.read_pnu(pnu, subindex)
         print(f"Value: {pnu_value}")
 
     elif args.subcommand == 'write':
-        edrive.write_pnu(pnu, subindex, args.value)
+        com.write_pnu(pnu, subindex, args.value)

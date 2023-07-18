@@ -12,9 +12,9 @@ def add_tg9_parser(subparsers):
                             help='Target position to be reached (default: %(default)s).')
 
 
-def tg9_func(edrive, args):
+def tg9_func(com, args):
     """Executes subcommand based on provided arguments"""
-    with Telegram9Handler(edrive) as tg9:
+    with Telegram9Handler(com) as tg9:
         if not tg9.acknowledge_faults():
             sys.exit(1)
         if not tg9.enable_powerstage():

@@ -95,7 +95,7 @@ class ComModbus(ComBase):
         self.set_timeout(timeout_ms)
 
     def __del__(self):
-        if hasattr(self, "client"):
+        if self.modbus_client:
             self.modbus_client.close()
 
     def read_device_info(self) -> dict:

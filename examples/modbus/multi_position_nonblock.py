@@ -9,11 +9,11 @@ from edcon.utils.logging import Logging
 Logging()
 
 # Create a list of all Modbus targets
-edrives = [ComModbus(ip_address='192.168.0.1'),
+coms = [ComModbus(ip_address='192.168.0.1'),
            ComModbus(ip_address='192.168.0.119')]
 
 with ExitStack() as stack:
-    mots = [stack.enter_context(MotionHandler(edrive)) for edrive in edrives]
+    mots = [stack.enter_context(MotionHandler(com)) for com in coms]
 
     for mot in mots:
         mot.acknowledge_faults()
