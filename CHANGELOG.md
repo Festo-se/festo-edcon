@@ -7,9 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Unreleased
 ### Fixed
 - [Patch] Enabled possibility to create multiple ComEthernetip instances.
-  
+- [Patch] Increased timeout for enabling the powerstage from 1 to 5 seconds.
+- [Patch] Fixed return value of TelegramHandler: disable_powerstage().
+
+### Changed
+- [Patch] Updated logging info output strings.
+
 ## v0.10.3 - 21.06.23
+### Fixed
 - [Patch] Fixed issue causing an error when reading 8-bit wide PNUs.
+
 ## v0.10.2 - 10.05.23
 ### Added
 - [Patch] Added CLI tool to load complete parameter set files.

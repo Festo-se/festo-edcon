@@ -87,9 +87,9 @@ class TelegramHandler:
 
         self.update_inputs()
         if not self.telegram.zsw1.control_requested:
-            logging.error("PLC control denied")
+            logging.info("=> PLC control denied")
             return False
-        logging.info("[bold green]    -> success!", extra={"markup": True})
+        logging.info("=> PLC control granted")
         return True
 
     def ready_for_motion(self):
@@ -103,9 +103,9 @@ class TelegramHandler:
         logging.info("Check if drive is ready for motion")
         self.update_inputs()
         if not self.telegram.zsw1.operation_enabled:
-            logging.error("Drive not ready for motion")
+            logging.info("=> Drive not ready for motion")
             return False
-        logging.info("[bold green]    -> success!", extra={"markup": True})
+        logging.info("=> Drive is ready for motion")
         return True
 
     def configure_coast_stop(self, active: bool):
@@ -156,10 +156,10 @@ class TelegramHandler:
         if not wait_until(cond, timeout=timeout, error_string=self.fault_string):
             return False
 
-        logging.info("[bold green]    -> success!", extra={"markup": True})
+        logging.info("=> No fault present")
         return True
 
-    def enable_powerstage(self, timeout: float = 1.0) -> bool:
+    def enable_powerstage(self, timeout: float = 5.0) -> bool:
         """Send telegram to enable the power stage
 
         Parameter:
@@ -169,6 +169,7 @@ class TelegramHandler:
             bool: True if succesful, False otherwise
         """
         if not self.plc_control_granted():
+            logging.error("Enabling powerstage is not possible")
             return False
         logging.info("Enable powerstage")
 
@@ -188,11 +189,23 @@ class TelegramHandler:
             logging.error("Operation inhibited")
             return False
 
-        logging.info("[bold green]    -> success!", extra={"markup": True})
+        logging.info("=> Powerstage enabled")
         return True
 
-    def disable_powerstage(self) -> bool:
+    def disable_powerstage(self, timeout: float = 5.0) -> bool:
         """Send telegram to disable the power stage"""
         logging.info("Disable powerstage")
         self.telegram.stw1.on = False
         self.update_outputs()
+
+        def cond():
+            self.update_inputs()
+            return not self.telegram.zsw1.operation_enabled
+
+        if not wait_until(cond, self.fault_present, timeout,
+                          error_string=self.fault_string):
+            logging.error("Operation inhibited")
+            return False
+
+        logging.info("=> Powerstage disabled")
+        return True
