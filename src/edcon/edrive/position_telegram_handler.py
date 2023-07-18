@@ -77,7 +77,7 @@ class PositionTelegramHandler(TelegramHandler):
         if not self.telegram.stw1.start_homing_procedure:
             return False
 
-        logging.info("Referencing task acknowledged")
+        logging.info("=> Referencing task acknowledged")
         return True
 
     def wait_for_home_position_set(self) -> bool:
@@ -96,7 +96,7 @@ class PositionTelegramHandler(TelegramHandler):
                           info_string=self.position_info_string,
                           error_string=self.fault_string):
             return False
-        logging.info("Reference position set")
+        logging.info("=> Reference position set")
         return True
 
     def wait_for_traversing_task_ack(self) -> bool:
@@ -114,7 +114,7 @@ class PositionTelegramHandler(TelegramHandler):
                           info_string=self.position_info_string,
                           error_string=self.fault_string):
             return False
-        logging.info("Traversing task acknowledged")
+        logging.info("=> Traversing task acknowledged")
         return True
 
     def wait_for_target_position(self) -> bool:
@@ -133,7 +133,7 @@ class PositionTelegramHandler(TelegramHandler):
                           info_string=self.position_info_string,
                           error_string=self.fault_string):
             return False
-        logging.info("Target position reached")
+        logging.info("=> Target position reached")
         return True
 
     def wait_for_stop(self) -> bool:
@@ -152,7 +152,7 @@ class PositionTelegramHandler(TelegramHandler):
                           info_string=self.velocity_info_string,
                           error_string=self.fault_string):
             return False
-        logging.info("Drive stopped")
+        logging.info("=> Drive stopped")
         return True
 
     def wait_for_referencing_execution(self) -> bool:
@@ -167,7 +167,7 @@ class PositionTelegramHandler(TelegramHandler):
         if not self.wait_for_home_position_set():
             return False
         self.stop_motion_task()
-        logging.info("Finished referencing task")
+        logging.info("=> Finished referencing task")
         return True
 
     def wait_for_position_motion_execution(self) -> bool:
@@ -182,7 +182,7 @@ class PositionTelegramHandler(TelegramHandler):
         if not self.wait_for_target_position():
             return False
         self.stop_motion_task()
-        logging.info("Finished position motion task")
+        logging.info("=> Finished position motion task")
         return True
 
     def trigger_record_change(self):
@@ -195,7 +195,7 @@ class PositionTelegramHandler(TelegramHandler):
 
         func_sequence(toggle_func, [True, False])
 
-        logging.info("Finished record change")
+        logging.info("=> Finished record change")
 
     def _prepare_stop_motion_task_bits(self):
         """Prepares the telegram bits for stopping the current motion"""
@@ -251,8 +251,9 @@ class PositionTelegramHandler(TelegramHandler):
             bool: True if succesful, False otherwise
         """
         if not self.ready_for_motion():
+            logging.error("Referencing task aborted")
             return False
-        logging.info("Start homing task using the homing method")
+        logging.info("Start referencing task using the homing method")
         self.telegram.stw1.start_homing_procedure = True
         self.update_outputs()
 
@@ -285,6 +286,7 @@ class PositionTelegramHandler(TelegramHandler):
             bool: True if succesful, False otherwise
         """
         if not self.ready_for_motion():
+            logging.error("Traversing task aborted")
             return False
         logging.info("Start traversing task")
 
@@ -319,6 +321,7 @@ class PositionTelegramHandler(TelegramHandler):
             bool: True if succesful, False otherwise
         """
         if not self.ready_for_motion():
+            logging.error("Jogging task aborted")
             return False
         logging.info("Start jogging task")
 
@@ -333,5 +336,5 @@ class PositionTelegramHandler(TelegramHandler):
             return False
 
         self.stop_motion_task()
-        logging.info("Finished jogging task")
+        logging.info("=> Finished jogging task")
         return True
