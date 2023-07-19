@@ -22,10 +22,7 @@ class TelegramHandler:
         self.com.start_io()
 
     def __del__(self):
-        if self.telegram and self.com:
-            self.telegram.stw1.enable_operation = False
-            self.com.send_io(self.telegram.output_bytes())
-            self.com.stop_io()
+        self.shutdown()
 
     def __enter__(self):
         return self
@@ -33,8 +30,14 @@ class TelegramHandler:
     def __exit__(self, exc_type, exc_value, trc_bck):
         if exc_type is not None:
             traceback.print_exception(exc_type, exc_value, trc_bck)
+        self.shutdown()
 
-        self.__del__()
+    def shutdown(self):
+        """Tries to disable the powerstage and stops the communication thread """
+        if hasattr(self, 'telegram') and hasattr(self, 'com'):
+            self.telegram.stw1.enable_operation = False
+            self.com.send_io(self.telegram.output_bytes())
+            self.com.shutdown()
 
     def update_inputs(self):
         """Reads current input process data and updates telegram"""

@@ -8,8 +8,8 @@ class Telegram102Handler(VelocityTelegramHandler):
     """Basic class for executing telegram 1."""
 
     def __init__(self, com) -> None:
+        com.validate_selected_telegram(102)
         super().__init__(Telegram102(), com)
-        self.com.validate_selected_telegram(102)
 
     def velocity_info_string(self) -> str:
         """Returns string containing velocity information

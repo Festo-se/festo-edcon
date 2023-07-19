@@ -8,8 +8,8 @@ class Telegram9Handler(PositionTelegramHandler):
     """Basic class for executing telegram 9."""
 
     def __init__(self, com) -> None:
+        com.validate_selected_telegram(9)
         super().__init__(Telegram9(), com)
-        self.com.validate_selected_telegram(9)
 
     def _prepare_position_task_bits(self, position: int, velocity: int, absolute: bool = False):
         """Prepares the telegram bits for positioning task"""
