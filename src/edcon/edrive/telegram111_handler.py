@@ -12,8 +12,8 @@ class Telegram111Handler(PositionTelegramHandler):
     """Basic class for executing telegram 111."""
 
     def __init__(self, com) -> None:
+        com.validate_selected_telegram(111)
         super().__init__(Telegram111(), com)
-        self.com.validate_selected_telegram(111)
 
     def fault_string(self) -> str:
         """Returns string containing fault reason
