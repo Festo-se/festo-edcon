@@ -78,7 +78,12 @@ class ComEthernetip(ComBase):
                 f"Extended process data output size (data: {attribute}): {epd_outsize}")
 
     def __del__(self):
-        self.connection.unregisterSession()
+        self.shutdown()
+
+    def shutdown(self):
+        """Tries stop the communication thread and closes the modbus connection"""
+        if hasattr(self, 'eip') and hasattr(self, 'connection'):
+            self.stop_io()
 
     def read_pnu_raw(self, pnu: int, subindex: int = 0, num_elements: int = 1) -> bytes:
         """Reads a PNU from the EDrive without interpreting the data"""
@@ -148,7 +153,10 @@ class ComEthernetip(ComBase):
         if not nonblocking:
             # Unfortunately we have no event
             #   -> wait for worst case cycle time
-            time.sleep(self.cycle_time * 0.001)
+            try:
+                time.sleep(self.cycle_time * 0.001)
+            except OSError:
+                pass
 
     def recv_io(self, nonblocking: bool = False) -> bytes:
         """Receives data from the input
