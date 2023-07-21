@@ -15,6 +15,8 @@ mots = [MotionHandler(com) for com in coms]
 for mot in mots:
     mot.acknowledge_faults()
     mot.enable_powerstage()
+    if not mot.referenced():
+        mot.referencing_task()
 
 for mot in mots:
     mot.position_task(10000000, 300000, nonblocking=True)
