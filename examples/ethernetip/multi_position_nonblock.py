@@ -1,6 +1,6 @@
 import time
 import logging
-from edcon.edrive.com_modbus import ComModbus
+from edcon.edrive.com_ethernetip import ComEthernetip
 from edcon.edrive.motion_handler import MotionHandler
 from edcon.utils.logging import Logging
 
@@ -8,8 +8,8 @@ from edcon.utils.logging import Logging
 Logging()
 
 # Create a list of all Modbus targets
-coms = [ComModbus(ip_address='192.168.0.1'),
-        ComModbus(ip_address='192.168.0.119')]
+coms = [ComEthernetip(ip_address='192.168.0.2'),
+        ComEthernetip(ip_address='192.168.0.51')]
 mots = [MotionHandler(com) for com in coms]
 
 for mot in mots:
