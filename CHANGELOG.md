@@ -8,6 +8,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - [Patch] Enabled possibility to create multiple ComEthernetip instances.
 
+### Fixed
+- [Patch] Fixed shutdown behavior of ComEthernetip.
+- [Patch] Fixed log output of error string when timeout occurs (e.g. acknowlege_faults).
+
+## v0.10.6 - 19.07.23
+### Fixed
+- [Patch] Improved shutdown behavior of TelegramHandler.
+
+## v0.10.5 - 18.07.23
+### Fixed
+- [Patch] Fixed exception on exit when using python-3.11.
+
 ## v0.10.4 - 18.07.23
 ### Fixed
 - [Patch] Increased timeout for enabling the powerstage from 1 to 5 seconds.

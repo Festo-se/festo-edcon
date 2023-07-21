@@ -7,9 +7,9 @@ from edcon.edrive.velocity_telegram_handler import VelocityTelegramHandler
 class Telegram1Handler(VelocityTelegramHandler):
     """Basic class for executing telegram 1."""
 
-    def __init__(self, edrive) -> None:
-        super().__init__(Telegram1(), edrive)
-        self.edrive.validate_selected_telegram(1)
+    def __init__(self, com) -> None:
+        com.validate_selected_telegram(1)
+        super().__init__(Telegram1(), com)
 
     def velocity_info_string(self) -> str:
         """Returns string containing velocity information

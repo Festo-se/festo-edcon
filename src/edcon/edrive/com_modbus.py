@@ -7,7 +7,7 @@ https://pymodbus.readthedocs.io/en/latest/index.html
 import threading
 import logging
 import time
-
+import traceback
 from pymodbus.client.sync import ModbusTcpClient as ModbusClient
 from pymodbus.mei_message import ReadDeviceInformationRequest
 from edcon.edrive.com_base import ComBase
@@ -46,7 +46,7 @@ class IOThread(threading.Thread):
         self.cycle_time = cycle_time
         self.active = False
         self.exe_event = threading.Event()
-        threading.Thread.__init__(self)
+        threading.Thread.__init__(self, daemon=True)
 
     def run(self):
         """Method that needs to be implemented by child."""
@@ -55,7 +55,8 @@ class IOThread(threading.Thread):
                 self.perform_io()
                 self.exe_event.set()
                 self.exe_event.clear()
-            except:
+            except Exception:
+                traceback.print_exc()
                 self.stop()
                 raise
             time.sleep(self.cycle_time * 0.001)
@@ -95,7 +96,14 @@ class ComModbus(ComBase):
         self.set_timeout(timeout_ms)
 
     def __del__(self):
-        if hasattr(self, "client"):
+        self.shutdown()
+
+    def shutdown(self):
+        """Tries stop the communication thread and closes the modbus connection"""
+        if hasattr(self, 'io_thread'):
+            self.io_thread.stop()
+
+        if hasattr(self, 'modbus_client'):
             self.modbus_client.close()
 
     def read_device_info(self) -> dict:
@@ -183,6 +191,7 @@ class ComModbus(ComBase):
             return data
 
         except AttributeError:
+            traceback.print_exc()
             logging.error("Could not access PNU register")
             return None
 
@@ -218,6 +227,7 @@ class ComModbus(ComBase):
             return True
 
         except AttributeError:
+            traceback.print_exc()
             logging.error("Could not access PNU register")
             return False
 

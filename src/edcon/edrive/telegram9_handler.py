@@ -7,9 +7,9 @@ from edcon.profidrive.telegram9 import Telegram9
 class Telegram9Handler(PositionTelegramHandler):
     """Basic class for executing telegram 9."""
 
-    def __init__(self, edrive) -> None:
-        super().__init__(Telegram9(), edrive)
-        self.edrive.validate_selected_telegram(9)
+    def __init__(self, com) -> None:
+        com.validate_selected_telegram(9)
+        super().__init__(Telegram9(), com)
 
     def _prepare_position_task_bits(self, position: int, velocity: int, absolute: bool = False):
         """Prepares the telegram bits for positioning task"""

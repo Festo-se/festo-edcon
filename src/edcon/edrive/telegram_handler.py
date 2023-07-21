@@ -1,6 +1,5 @@
 """Class definition containing generic telegram execution functions."""
 
-import time
 import traceback
 import logging
 from edcon.utils.func_helpers import func_sequence, wait_until
@@ -9,7 +8,7 @@ from edcon.utils.func_helpers import func_sequence, wait_until
 class TelegramHandler:
     """Basic class for executing telegrams."""
 
-    def __init__(self, telegram, edrive) -> None:
+    def __init__(self, telegram, com) -> None:
         self.telegram = telegram
 
         # Configure generic values of the telegram
@@ -18,20 +17,12 @@ class TelegramHandler:
         self.telegram.stw1.no_quick_stop = True
         self.telegram.stw1.enable_operation = True
 
-        # Telegram 1/102
-        # self.telegram.stw1.enable_ramp_generator = True
-        # self.telegram.stw1.unfreeze_ramp_generator = True
-
-        self.edrive = edrive
+        self.com = com
         # Start process data
-        self.edrive.start_io()
+        self.com.start_io()
 
     def __del__(self):
-        if self.edrive is not None:
-            self.telegram.stw1.enable_operation = False
-            self.edrive.send_io(self.telegram.output_bytes())
-            time.sleep(0.1)
-            self.edrive.stop_io()
+        self.shutdown()
 
     def __enter__(self):
         return self
@@ -39,18 +30,23 @@ class TelegramHandler:
     def __exit__(self, exc_type, exc_value, trc_bck):
         if exc_type is not None:
             traceback.print_exception(exc_type, exc_value, trc_bck)
+        self.shutdown()
 
-        self.__del__()
-        return True
+    def shutdown(self):
+        """Tries to disable the powerstage and stops the communication thread """
+        if hasattr(self, 'telegram') and hasattr(self, 'com'):
+            self.telegram.stw1.enable_operation = False
+            self.com.send_io(self.telegram.output_bytes())
+            self.com.shutdown()
 
     def update_inputs(self):
         """Reads current input process data and updates telegram"""
-        self.telegram.input_bytes(self.edrive.recv_io())
+        self.telegram.input_bytes(self.com.recv_io())
 
     def update_outputs(self):
         """Writes current telegram value to output process data
         """
-        self.edrive.send_io(self.telegram.output_bytes())
+        self.com.send_io(self.telegram.output_bytes())
 
     def update_io(self):
         """Updates process data in both directions (I/O)"""

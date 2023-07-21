@@ -60,11 +60,11 @@ def main():
 
     # Initialize driver
     if args.ethernetip:
-        edrive = ComEthernetip(args.ip_address)
+        com = ComEthernetip(args.ip_address)
     else:
-        edrive = ComModbus(args.ip_address)
+        com = ComModbus(args.ip_address)
 
-    args.func(edrive, args)
+    args.func(com, args)
 
 
 if __name__ == "__main__":
