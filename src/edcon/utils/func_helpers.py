@@ -48,6 +48,8 @@ def wait_until(condition: Callable[[], bool] = None,
         if info_string:
             logging.info(info_string())
     logging.error(f"Cancelled due to timeout after {timeout} s")
+    if error_string:
+        logging.error(error_string())
     return False
 
 

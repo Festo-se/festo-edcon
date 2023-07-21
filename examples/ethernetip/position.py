@@ -5,7 +5,7 @@ from edcon.utils.logging import Logging
 # Enable loglevel info
 Logging()
 
-com = ComEthernetip('192.168.0.1')
+com = ComEthernetip('192.168.0.2')
 with MotionHandler(com) as pos:
     pos.acknowledge_faults()
     pos.enable_powerstage()
