@@ -15,7 +15,16 @@
 
 image: "python:3.10-bullseye"
 
-stages:          # List of stages for jobs, and their order of execution
+# Run branch pipeline only if no MR pipeline exists
+workflow:
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    - if: $CI_COMMIT_BRANCH && $CI_OPEN_MERGE_REQUESTS
+      when: never
+    - if: $CI_COMMIT_BRANCH
+
+# List of stages for jobs, and their order of execution
+stages:          
   - changelogtest
   - test
   - docs
