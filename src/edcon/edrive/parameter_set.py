@@ -45,6 +45,9 @@ class Parameter:
             bool: True if the parameter is a null terminator
         """
         parameter_map = ParameterMap()
+        if not self.uid() in parameter_map:
+            return None
+        
         data_type = parameter_map[self.uid()].data_type
         if 'STRING' in data_type:
             last_index = int(data_type.strip('STRING()')) - 1

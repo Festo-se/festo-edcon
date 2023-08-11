@@ -79,6 +79,10 @@ class ParameterMap:
     def __init__(self) -> None:
         self.mapping = create_parameter_map()
 
+    def __contains__(self, parameter_id: str):
+        parameter_id = self.sanitize_parameter_id(parameter_id)
+        return parameter_id in self.mapping
+
     def __getitem__(self, parameter_id: str):
         """Determines the corresponding pnu_map_item from a provided parameter id
 
@@ -87,8 +91,15 @@ class ParameterMap:
         Returns:
             value: pnu_map_item
         """
-        axis, parameter_id, instance, _ = parameter_id.strip('P').split('.')
-        return self.mapping[f'{axis}.{parameter_id}.{instance}']
+        parameter_id = self.sanitize_parameter_id(parameter_id)
+        if parameter_id not in self.mapping:
+            logging.error(f"Parameter {parameter_id} not available in parameter_map.")
+            return None
+        return self.mapping[parameter_id]
 
     def __len__(self):
         return len(self.mapping)
+    
+    def sanitize_parameter_id(self, parameter_id):
+        axis, parameter_id, instance, _ = parameter_id.strip('P').split('.')
+        return f'{axis}.{parameter_id}.{instance}'
