@@ -22,10 +22,12 @@ def parameter_set_load_func(com, args):
     for parameter in parameter_set:
         parameter_uid = parameter.uid()
         if not parameter_uid in parameter_map:
-            logging.warning(f"Skipping parameter {parameter_uid} as it is not available in parameter_map.\n"
-                            f"Possible remedies:\n"
-                            f"1. Upgrade the parameter map (by upgrading the python package).\n"
-                            f"2. Downgrade the firmware version and corresponding parameter set.")
+            logging.warning(
+                f"Skipping parameter {parameter_uid} as it is not available in parameter_map.\n"
+                f"Possible remedies:\n"
+                f"1. Upgrade the parameter map (by upgrading the python package).\n"
+                f"2. Downgrade the firmware version and corresponding parameter set."
+                )
             continue
         pnu = int(parameter_map[parameter_uid].pnu)
         status = com.write_pnu_raw(

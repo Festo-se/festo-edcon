@@ -99,7 +99,14 @@ class ParameterMap:
 
     def __len__(self):
         return len(self.mapping)
-    
+
     def sanitize_parameter_id(self, parameter_id):
+        """Sanitizes the provided parameter_id by removing unwanted characters.
+
+        Parameters:
+            parameter_id (str): Parameter id of the PNU type to be sanitized.
+        Returns:
+            value: sanitized parameter_id
+        """
         axis, parameter_id, instance, _ = parameter_id.strip('P').split('.')
         return f'{axis}.{parameter_id}.{instance}'
