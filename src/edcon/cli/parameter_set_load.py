@@ -20,14 +20,23 @@ def parameter_set_load_func(com, args):
 
     counter = 0
     for parameter in parameter_set:
-        pnu = int(parameter_map[parameter.uid()].pnu)
+        parameter_uid = parameter.uid()
+        if not parameter_uid in parameter_map:
+            logging.warning(
+                f"Skipping parameter {parameter_uid} as it is not available in parameter_map.\n"
+                f"Possible remedies:\n"
+                f"1. Upgrade the parameter map (by upgrading the python package).\n"
+                f"2. Downgrade the firmware version and corresponding parameter set."
+                )
+            continue
+        pnu = int(parameter_map[parameter_uid].pnu)
         status = com.write_pnu_raw(
             pnu=pnu, subindex=parameter.subindex, num_elements=1, value=parameter.value)
         if status:
             counter += 1
         else:
             logging.error(
-                f"Setting {parameter.uid()} (PNU: {pnu}) at subindex {parameter.subindex} "
+                f"Setting {parameter_uid} (PNU: {pnu}) at subindex {parameter.subindex} "
                 f"to {parameter.value} failed")
 
     print(f"{counter} PNUs succesfully written!")
