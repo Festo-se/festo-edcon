@@ -6,6 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 ### Changed
+- [Minor] Upgraded package dependencies to pymodbus3.
 - [Patch] Run branch pipeline only if no MR pipeline exists.
 
 ## v0.10.7 - 21.07.23
