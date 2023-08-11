@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [Patch] Added error handling to parameter-set-load for missing parameter mappings.
 
 ### Changed
+- [Minor] Upgraded package dependencies to pymodbus3.
 - [Patch] Run branch pipeline only if no MR pipeline exists.
 - [Patch] Upgraded pnu_map.csv.
 
