@@ -5,11 +5,11 @@ This implementation uses the pymodbus library
 https://pymodbus.readthedocs.io/en/latest/index.html
 """
 import threading
-from edcon.utils.logging import Logging
 import time
 import traceback
 from pymodbus.client.tcp import ModbusTcpClient as ModbusClient
 from pymodbus.mei_message import ReadDeviceInformationRequest
+from edcon.utils.logging import Logging
 from edcon.edrive.com_base import ComBase
 
 REG_OUTPUT_DATA = 0

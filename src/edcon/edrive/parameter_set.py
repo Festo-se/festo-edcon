@@ -2,9 +2,9 @@
 """
 Contains ParameterSet class which is used to represent parameter sets of EDrives.
 """
-from edcon.utils.logging import Logging
 from dataclasses import dataclass
 from edcon.edrive.parameter_mapping import ParameterMap
+from edcon.utils.logging import Logging
 
 
 @dataclass
@@ -52,7 +52,7 @@ class Parameter:
         if 'STRING' in data_type:
             last_index = int(data_type.strip('STRING()')) - 1
             if self.subindex == last_index:
-                logging.debug(
+                Logging.logger.debug(
                     f'Parameter {self.uid()}.{self.subindex} is a null terminator')
                 return True
         return False

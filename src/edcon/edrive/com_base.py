@@ -1,6 +1,5 @@
 """Contains ComBase class which contains common code for EDrive communication drivers."""
 from edcon.utils.logging import Logging
-from edcon.utils.logging import Logging
 from edcon.edrive.pnu_packing import pnu_pack, pnu_unpack
 
 

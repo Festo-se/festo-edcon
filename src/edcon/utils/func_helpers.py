@@ -1,8 +1,8 @@
 """Helper functions used to call other functions."""
 
 import time
-from edcon.utils.logging import Logging
 from collections.abc import Callable
+from edcon.utils.logging import Logging
 
 
 def func_sequence(func: Callable[[bool], None],

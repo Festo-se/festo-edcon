@@ -18,16 +18,17 @@ class Logging:
 
     def enable_stream_logging(self, logging_level):
         """Enables logging to stream using the provided log level with rich log formatting."""
-        ch = RichHandler()
-        ch.setLevel(logging_level)
+        handler = RichHandler()
+        handler.setLevel(logging_level)
         formatter = logging.Formatter(fmt='%(message)s', datefmt="[%X]")
-        ch.setFormatter(formatter)
-        Logging.logger.addHandler(ch)
+        handler.setFormatter(formatter)
+        Logging.logger.addHandler(handler)
 
     def enable_file_logging(self, filename, logging_level):
         """Enables logging to a file using the provided filename and log level."""
-        ch = logging.FileHandler(filename)
-        ch.setLevel(logging_level)
-        formatter = logging.Formatter(fmt="%(asctime)s - %(name)s - %(levelname)s - %(message)s", datefmt="[%X]")
-        ch.setFormatter(formatter)
-        Logging.logger.addHandler(ch)
+        handler = logging.FileHandler(filename)
+        handler.setLevel(logging_level)
+        formatter = logging.Formatter(fmt="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+                                      datefmt="[%X]")
+        handler.setFormatter(formatter)
+        Logging.logger.addHandler(handler)

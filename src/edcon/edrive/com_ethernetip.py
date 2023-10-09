@@ -4,12 +4,12 @@ Contains ComEthernetip class to configure and communicate with EDrive devices.
 This implementation uses the python-ethernetip library by
 Sebastian Block (https://codeberg.org/paperwork/python-ethernetip)
 """
-from edcon.utils.logging import Logging
 import time
 import ethernetip
 
-from edcon.edrive.com_base import ComBase
+from edcon.utils.logging import Logging
 from edcon.utils.boollist import bytes_to_boollist, boollist_to_bytes
+from edcon.edrive.com_base import ComBase
 
 
 O_T_STD_PROCESS_DATA = 100  # Originator to Target
