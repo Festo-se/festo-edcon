@@ -8,6 +8,10 @@ class Logging:
 
     logger = logging.getLogger('edcon')
     def __init__(self, logging_level=logging.INFO, filename=None):
+        logging.basicConfig(format='%(message)s',
+                            datefmt="[%X]",
+                            handlers=[RichHandler()])
+        
         Logging.logger.setLevel(logging_level)
         Logging.logger.propagate = False
 
