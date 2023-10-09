@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [Minor] Upgraded package dependencies to pymodbus3.
 - [Patch] Run branch pipeline only if no MR pipeline exists.
 - [Patch] Upgraded pnu_map.csv.
+- [Patch] Using dedicated logger instead of generic root logger for edcon logs.
 
 ## v0.10.7 - 21.07.23
 ### Added
