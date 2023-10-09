@@ -2,7 +2,7 @@
 """
 Contains ParameterSet class which is used to represent parameter sets of EDrives.
 """
-import logging
+from edcon.utils.logging import Logging
 from dataclasses import dataclass
 from edcon.edrive.parameter_mapping import ParameterMap
 
@@ -76,7 +76,7 @@ class ParameterSet:
             self.parameters.append(Parameter.from_uid(key, value))
 
         if strip_null_terminators:
-            logging.info('Stripping null terminators from parameter set')
+            Logging.logger.info('Stripping null terminators from parameter set')
             self.strip_null_terminators()
 
     def __iter__(self):
