@@ -165,9 +165,9 @@ class ComEthernetip(ComBase):
         self.connection.outAssem = bytes_to_boollist(data, self.outsize)
         if not nonblocking:
             # Unfortunately we have no event
-            #   -> wait for worst case cycle time
+            #   -> wait for twice the worst case cycle time
             try:
-                time.sleep(self.cycle_time * 0.001)
+                time.sleep(2 * self.cycle_time * 0.001)
             except OSError:
                 pass
 
