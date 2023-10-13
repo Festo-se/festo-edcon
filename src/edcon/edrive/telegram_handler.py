@@ -1,7 +1,7 @@
 """Class definition containing generic telegram execution functions."""
 
 import traceback
-import logging
+from edcon.utils.logging import Logging
 from edcon.utils.func_helpers import func_sequence, wait_until
 
 
@@ -69,7 +69,7 @@ class TelegramHandler:
         """
         self.update_inputs()
         if self.telegram.zsw1.fault_present:
-            logging.error("Fault bit is present")
+            Logging.logger.error("Fault bit is present")
             return True
         return False
 
@@ -79,13 +79,13 @@ class TelegramHandler:
         Returns:
             bool: True if succesful, False otherwise
         """
-        logging.info("Check if PLC control is granted")
+        Logging.logger.info("Check if PLC control is granted")
 
         self.update_inputs()
         if not self.telegram.zsw1.control_requested:
-            logging.info("=> PLC control denied")
+            Logging.logger.info("=> PLC control denied")
             return False
-        logging.info("=> PLC control granted")
+        Logging.logger.info("=> PLC control granted")
         return True
 
     def ready_for_motion(self):
@@ -96,12 +96,12 @@ class TelegramHandler:
         """
         if not self.plc_control_granted():
             return False
-        logging.info("Check if drive is ready for motion")
+        Logging.logger.info("Check if drive is ready for motion")
         self.update_inputs()
         if not self.telegram.zsw1.operation_enabled:
-            logging.info("=> Drive not ready for motion")
+            Logging.logger.info("=> Drive not ready for motion")
             return False
-        logging.info("=> Drive is ready for motion")
+        Logging.logger.info("=> Drive is ready for motion")
         return True
 
     def configure_coast_stop(self, active: bool):
@@ -137,7 +137,7 @@ class TelegramHandler:
         Returns:
             bool: True if succesful, False otherwise
         """
-        logging.info("Acknowledge any present faults")
+        Logging.logger.info("Acknowledge any present faults")
 
         def toggle_func(value):
             self.telegram.stw1.fault_ack = value
@@ -152,7 +152,7 @@ class TelegramHandler:
         if not wait_until(cond, timeout=timeout, error_string=self.fault_string):
             return False
 
-        logging.info("=> No fault present")
+        Logging.logger.info("=> No fault present")
         return True
 
     def enable_powerstage(self, timeout: float = 5.0) -> bool:
@@ -165,9 +165,9 @@ class TelegramHandler:
             bool: True if succesful, False otherwise
         """
         if not self.plc_control_granted():
-            logging.error("Enabling powerstage is not possible")
+            Logging.logger.error("Enabling powerstage is not possible")
             return False
-        logging.info("Enable powerstage")
+        Logging.logger.info("Enable powerstage")
 
         # Toggle to low (in case it is already True)
         def toggle_func(value):
@@ -182,15 +182,15 @@ class TelegramHandler:
 
         if not wait_until(cond, self.fault_present, timeout,
                           error_string=self.fault_string):
-            logging.error("Operation inhibited")
+            Logging.logger.error("Operation inhibited")
             return False
 
-        logging.info("=> Powerstage enabled")
+        Logging.logger.info("=> Powerstage enabled")
         return True
 
     def disable_powerstage(self, timeout: float = 5.0) -> bool:
         """Send telegram to disable the power stage"""
-        logging.info("Disable powerstage")
+        Logging.logger.info("Disable powerstage")
         self.telegram.stw1.on = False
         self.update_outputs()
 
@@ -200,8 +200,8 @@ class TelegramHandler:
 
         if not wait_until(cond, self.fault_present, timeout,
                           error_string=self.fault_string):
-            logging.error("Operation inhibited")
+            Logging.logger.error("Operation inhibited")
             return False
 
-        logging.info("=> Powerstage disabled")
+        Logging.logger.info("=> Powerstage disabled")
         return True

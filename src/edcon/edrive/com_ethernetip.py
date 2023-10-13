@@ -4,12 +4,12 @@ Contains ComEthernetip class to configure and communicate with EDrive devices.
 This implementation uses the python-ethernetip library by
 Sebastian Block (https://codeberg.org/paperwork/python-ethernetip)
 """
-import logging
 import time
 import ethernetip
 
-from edcon.edrive.com_base import ComBase
+from edcon.utils.logging import Logging
 from edcon.utils.boollist import bytes_to_boollist, boollist_to_bytes
+from edcon.edrive.com_base import ComBase
 
 
 O_T_STD_PROCESS_DATA = 100  # Originator to Target
@@ -42,7 +42,7 @@ class ComEthernetip(ComBase):
             cycle_time (int): Cycle time (in ms) that should be used for I/O transfers
         """
         self.cycle_time = cycle_time
-        logging.info(f"Starting EtherNet/IP connection on {ip_address}")
+        Logging.logger.info(f"Starting EtherNet/IP connection on {ip_address}")
         self.eip = EtherNetIPSingleton.get_instance()
 
         self.connection = self.eip.explicit_conn(ip_address)
@@ -51,7 +51,7 @@ class ComEthernetip(ComBase):
         # Read product name
         pkt = self.connection.listID()
         if pkt:
-            logging.info(
+            Logging.logger.info(
                 f"Product name: {pkt.product_name.decode()}")  # pylint: disable=no-member
 
         # read process data input size of EDrive from global system object
@@ -60,7 +60,7 @@ class ComEthernetip(ComBase):
             0x4, O_T_STD_PROCESS_DATA, 4)
         if status == 0:
             self.insize = int.from_bytes(attribute, 'little')
-            logging.info(
+            Logging.logger.info(
                 f"Process data input size (data: {attribute}): {self.insize}")
 
         # read process data output size of EDrive from global system object
@@ -69,7 +69,7 @@ class ComEthernetip(ComBase):
             0x4, T_O_STD_PROCESS_DATA, 4)
         if status == 0:
             self.outsize = int.from_bytes(attribute, 'little')
-            logging.info(
+            Logging.logger.info(
                 f"Process data output size (data: {attribute}): {self.outsize}")
 
         # read extended process data input size of EDrive from global system object
@@ -78,7 +78,7 @@ class ComEthernetip(ComBase):
             0x4, O_T_EXT_PROCESS_DATA, 4)
         if status == 0:
             epd_insize = int.from_bytes(attribute, 'little')
-            logging.info(
+            Logging.logger.info(
                 f"Extended process data input size (data: {attribute}): {epd_insize}")
 
         # read extended process data output size of EDrive from global system object
@@ -87,7 +87,7 @@ class ComEthernetip(ComBase):
             0x4, T_O_EXT_PROCESS_DATA, 4)
         if status == 0:
             epd_outsize = int.from_bytes(attribute, 'little')
-            logging.info(
+            Logging.logger.info(
                 f"Extended process data output size (data: {attribute}): {epd_outsize}")
 
     def __del__(self):
@@ -103,9 +103,9 @@ class ComEthernetip(ComBase):
         # read the PNU (CIP obj 0x401, inst {pnu}, attr {subindex})
         status, data = self.connection.getAttrSingle(0x401, pnu, subindex)
         if status != 0:
-            logging.error(f"Error reading PNU {pnu}, status: {status}")
+            Logging.logger.error(f"Error reading PNU {pnu}, status: {status}")
             return None
-        logging.info(
+        Logging.logger.info(
             f"Successful read of PNU {pnu} (subindex: {subindex}): {data})")
         return data
 
@@ -117,17 +117,17 @@ class ComEthernetip(ComBase):
             0x401, pnu, subindex, value)
 
         if status != 0:
-            logging.error(
+            Logging.logger.error(
                 f"Error writing PNU {pnu}, status: {status}, data: {data}")
             return False
 
-        logging.info(
+        Logging.logger.info(
             f"Successful write of PNU {pnu} (subindex: {subindex}): {value} ")
         return True
 
     def start_io(self):
         """Configures and starts i/o data process"""
-        logging.info(
+        Logging.logger.info(
             f"Configure i/o data with {self.insize} input bytes and {self.outsize} output bytes")
         self.eip.registerAssembly(
             ethernetip.EtherNetIP.ENIP_IO_TYPE_INPUT,
@@ -144,7 +144,7 @@ class ComEthernetip(ComBase):
             T_O_STD_PROCESS_DATA, O_T_STD_PROCESS_DATA, 1,
             torpi=self.cycle_time, otrpi=self.cycle_time)
         if status != 0:
-            logging.error(f"Could not open connection: {status}")
+            Logging.logger.error(f"Could not open connection: {status}")
             raise ConnectionError
         self.connection.produce()
 

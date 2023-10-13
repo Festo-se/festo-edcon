@@ -1,7 +1,7 @@
 """Class definition containing telegram 111 execution functions."""
 
 import time
-import logging
+from edcon.utils.logging import Logging
 from edcon.edrive.diagnosis import diagnosis_name, diagnosis_remedy
 from edcon.edrive.position_telegram_handler import PositionTelegramHandler
 from edcon.profidrive.telegram111 import Telegram111
@@ -153,7 +153,7 @@ class Telegram111Handler(PositionTelegramHandler):
         Returns:
             bool: True if succesful, False otherwise
         """
-        logging.info("Wait for referencing task to be acknowledged")
+        Logging.logger.info("Wait for referencing task to be acknowledged")
 
         def cond():
             self.update_inputs()
@@ -163,7 +163,7 @@ class Telegram111Handler(PositionTelegramHandler):
                           error_string=self.fault_string):
             return False
 
-        logging.info("=> Referencing task acknowledged")
+        Logging.logger.info("=> Referencing task acknowledged")
         return True
 
     def set_current_position_task(self, nonblocking: bool = False) -> bool:
@@ -175,7 +175,7 @@ class Telegram111Handler(PositionTelegramHandler):
         Returns:
             bool: True if succesful, False otherwise
         """
-        logging.info("Start homing task using current position")
+        Logging.logger.info("Start homing task using current position")
         self.telegram.pos_stw2.set_reference_point = True
         self.update_outputs()
 
@@ -197,9 +197,9 @@ class Telegram111Handler(PositionTelegramHandler):
             bool: True if succesful, False otherwise
         """
         if not self.ready_for_motion():
-            logging.error("Velocity task aborted")
+            Logging.logger.error("Velocity task aborted")
             return False
-        logging.info("Start velocity task")
+        Logging.logger.info("Start velocity task")
 
         self.telegram.mdi_velocity.value = abs(velocity)
         self.telegram.pos_stw1.activate_mdi = True
@@ -222,7 +222,7 @@ class Telegram111Handler(PositionTelegramHandler):
             return False
 
         self.stop_motion_task()
-        logging.info("=> Finished velocity task (using unlimited positioning)")
+        Logging.logger.info("=> Finished velocity task (using unlimited positioning)")
         return True
 
     def record_task(self, record_number: int, nonblocking: bool = True) -> bool:
@@ -238,9 +238,9 @@ class Telegram111Handler(PositionTelegramHandler):
             bool: True if succesful, False otherwise
         """
         if not self.ready_for_motion():
-            logging.error("Record task aborted")
+            Logging.logger.error("Record task aborted")
             return False
-        logging.info("Start record task")
+        Logging.logger.info("Start record task")
 
         self.telegram.pos_stw1.record_table_selection0 = record_number & 1 > 0
         self.telegram.pos_stw1.record_table_selection1 = record_number & 2 > 0

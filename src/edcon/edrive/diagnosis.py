@@ -3,7 +3,7 @@ from collections import namedtuple
 from importlib.resources import files
 from functools import lru_cache
 import csv
-import logging
+from edcon.utils.logging import Logging
 
 
 @lru_cache
@@ -43,7 +43,7 @@ def diagnosis_name(icp_number: int, icp_map_file: str = None) -> str:
     """
     icp_map = read_icp_map_file(icp_map_file)
     if not icp_number in icp_map.keys():
-        logging.error(f'No entry for ICP {icp_number}')
+        Logging.logger.error(f'No entry for ICP {icp_number}')
     return icp_map[icp_number].name
 
 
@@ -61,7 +61,7 @@ def diagnosis_remedy(icp_number: int, icp_map_file: str = None) -> list:
     """
     icp_map = read_icp_map_file(icp_map_file)
     if not icp_number in icp_map.keys():
-        logging.error(f'No entry for ICP {icp_number}')
+        Logging.logger.error(f'No entry for ICP {icp_number}')
     remedy_list = [x.strip('-')
                    for x in icp_map[icp_number].remedy.split('\n')]
     return remedy_list

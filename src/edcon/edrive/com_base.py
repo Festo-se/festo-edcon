@@ -1,5 +1,5 @@
 """Contains ComBase class which contains common code for EDrive communication drivers."""
-import logging
+from edcon.utils.logging import Logging
 from edcon.edrive.pnu_packing import pnu_pack, pnu_unpack
 
 
@@ -12,12 +12,12 @@ class ComBase:
         configured_telegram_id = self.read_pnu(3490)
 
         if not configured_telegram_id:
-            logging.warning("Could not verify correct telegram via PNU")
+            Logging.logger.warning("Could not verify correct telegram via PNU")
             return False
 
         assert configured_telegram_id == telegram_id, f"Incorrect telegram selected -> " \
             f"Expected: {telegram_id}, Actual: {configured_telegram_id}"
-        logging.info(
+        Logging.logger.info(
             f"Correct telegram selected: {configured_telegram_id}")
         return True
 
@@ -30,11 +30,11 @@ class ComBase:
         raw = self.read_pnu_raw(pnu, subindex)
         if raw:
             param = pnu_unpack(pnu, raw, forced_format)
-            logging.info(f"Unpacked {raw} to {param}")
+            Logging.logger.info(f"Unpacked {raw} to {param}")
 
             return param
 
-        logging.error(f"PNU {pnu} read failed")
+        Logging.logger.error(f"PNU {pnu} read failed")
         return None
 
     def write_pnu_raw(self, pnu: int, subindex: int = 0, num_elements: int = 1,
@@ -45,10 +45,10 @@ class ComBase:
     def write_pnu(self, pnu: int, subindex: int = 0, value=0, forced_format=None) -> bool:
         """Writes a value to a PNU to the EDrive"""
         raw = pnu_pack(pnu, value, forced_format)
-        logging.info(f"Packed {value} to {raw}")
+        Logging.logger.info(f"Packed {value} to {raw}")
         if self.write_pnu_raw(pnu, subindex, value=raw):
             return True
-        logging.error(f"PNU {pnu} write failed")
+        Logging.logger.error(f"PNU {pnu} write failed")
         return False
 
     def start_io(self):

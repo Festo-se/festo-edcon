@@ -1,8 +1,8 @@
 """Helper functions used to call other functions."""
 
 import time
-import logging
 from collections.abc import Callable
+from edcon.utils.logging import Logging
 
 
 def func_sequence(func: Callable[[bool], None],
@@ -43,13 +43,13 @@ def wait_until(condition: Callable[[], bool] = None,
             return True
         if error_condition and error_condition():
             if error_string:
-                logging.error(error_string())
+                Logging.logger.error(error_string())
             return False
         if info_string:
-            logging.info(info_string())
-    logging.error(f"Cancelled due to timeout after {timeout} s")
+            Logging.logger.info(info_string())
+    Logging.logger.error(f"Cancelled due to timeout after {timeout} s")
     if error_string:
-        logging.error(error_string())
+        Logging.logger.error(error_string())
     return False
 
 
@@ -72,9 +72,9 @@ def wait_for(duration: float,
     while duration == 0.0 or not time.time() - start_time > duration:
         if error_condition and error_condition():
             if error_string:
-                logging.error(error_string())
+                Logging.logger.error(error_string())
             return False
         if info_string:
-            logging.info(info_string())
-    logging.info(f"Duration of {duration} seconds passed")
+            Logging.logger.info(info_string())
+    Logging.logger.info(f"Duration of {duration} seconds passed")
     return True

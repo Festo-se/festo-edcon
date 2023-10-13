@@ -1,6 +1,6 @@
 """Class definition containing velocity telegram execution functions."""
 
-import logging
+from edcon.utils.logging import Logging
 from edcon.edrive.telegram_handler import TelegramHandler
 from edcon.utils.func_helpers import wait_for
 
@@ -25,7 +25,7 @@ class VelocityTelegramHandler(TelegramHandler):
 
     def stop_motion_task(self):
         """Stops any currently active motion task"""
-        logging.info("Stopping motion")
+        Logging.logger.info("Stopping motion")
         self.telegram.stw1.setpoint_enable = False
         self.update_outputs()
 
@@ -48,9 +48,9 @@ class VelocityTelegramHandler(TelegramHandler):
             bool: True if succesful, False otherwise
         """
         if not self.ready_for_motion():
-            logging.error("Velocity task aborted")
+            Logging.logger.error("Velocity task aborted")
             return False
-        logging.info("Start velocity task")
+        Logging.logger.info("Start velocity task")
 
         self._prepare_velocity_task_bits(velocity)
         self.update_outputs()
@@ -64,5 +64,5 @@ class VelocityTelegramHandler(TelegramHandler):
             return False
 
         self.stop_motion_task()
-        logging.info("=> Finished velocity task")
+        Logging.logger.info("=> Finished velocity task")
         return True

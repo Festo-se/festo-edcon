@@ -1,5 +1,5 @@
 import time
-import logging
+from edcon.utils.logging import Logging
 from edcon.edrive.com_ethernetip import ComEthernetip
 from edcon.edrive.motion_handler import MotionHandler
 from edcon.utils.logging import Logging
@@ -24,7 +24,7 @@ time.sleep(0.1)
 
 while True:
     target_positions_reached = [mot.target_position_reached() for mot in mots]
-    logging.info(f"Target positions reached: {target_positions_reached}")
+    Logging.logger.info(f"Target positions reached: {target_positions_reached}")
     if all(target_positions_reached):
         break
     time.sleep(0.1)

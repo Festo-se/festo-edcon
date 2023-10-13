@@ -1,6 +1,6 @@
 """Contains functions which provide mapping of PNU types."""
 import struct
-import logging
+from edcon.utils.logging import Logging
 from edcon.edrive.parameter_mapping import PnuMap
 
 PNU_TYPE_TO_FORMAT_CHAR = {
@@ -30,13 +30,13 @@ def pnu_unpack(pnu: int, raw: bytes, forced_format: str = None):
         value: Unpacked value with determined type
     """
     if forced_format:
-        logging.info(f"PNU {pnu} forced to type ({forced_format})")
+        Logging.logger.info(f"PNU {pnu} forced to type ({forced_format})")
         unpack_data_type = forced_format
     else:
         pnu_map = PnuMap()
         pnu_data_type = pnu_map[pnu].data_type
         pnu_name = pnu_map[pnu].name
-        logging.info(f"PNU {pnu} ({pnu_name}) is of type {pnu_data_type}")
+        Logging.logger.info(f"PNU {pnu} ({pnu_name}) is of type {pnu_data_type}")
         if 'STRING' in pnu_data_type:
             unpack_data_type = f'{len(raw)}s'
 
@@ -73,7 +73,7 @@ def pnu_pack(pnu: int, value, forced_format: str = None) -> bytes:
         pnu_map = PnuMap()
         pnu_data_type = pnu_map[pnu].data_type
         pnu_name = pnu_map[pnu].name
-        logging.info(f"PNU {pnu} ({pnu_name}) is of type {pnu_data_type}")
+        Logging.logger.info(f"PNU {pnu} ({pnu_name}) is of type {pnu_data_type}")
 
         if 'INT' in pnu_data_type:
             value = int(value)
@@ -83,5 +83,5 @@ def pnu_pack(pnu: int, value, forced_format: str = None) -> bytes:
             return struct.pack('s', bytes(value, encoding='ascii'))
         return struct.pack(PNU_TYPE_TO_FORMAT_CHAR[pnu_data_type], value)
 
-    logging.info(f"PNU {pnu} forced to type ({forced_format})")
+    Logging.logger.info(f"PNU {pnu} forced to type ({forced_format})")
     return struct.pack(forced_format, value)

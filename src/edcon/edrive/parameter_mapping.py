@@ -3,7 +3,7 @@ from collections import namedtuple
 from importlib.resources import files
 from functools import lru_cache
 import csv
-import logging
+from edcon.utils.logging import Logging
 
 
 @lru_cache
@@ -23,7 +23,7 @@ def read_pnu_map_file(pnu_map_file: str = None) -> list:
         # Define a namedtuple where the header row determines the field names
         pnu_map_item = namedtuple('pnu_map_item', next(reader, None))
 
-        logging.info(f"Load PNU map file: {pnu_map_file}")
+        Logging.logger.info(f"Load PNU map file: {pnu_map_file}")
         return [pnu_map_item(*row) for row in reader]
 
 
@@ -36,7 +36,7 @@ def create_pnu_map() -> dict:
         dict: PNU ids (key) and PNU items (value)
     """
     pnu_list = read_pnu_map_file()
-    logging.info("Create mapping from PNU ids to PNU items")
+    Logging.logger.info("Create mapping from PNU ids to PNU items")
     return {int(item.pnu): item for item in pnu_list}
 
 
@@ -49,7 +49,7 @@ def create_parameter_map() -> dict:
         dict: parameter ids (key) and PNU items (value)
     """
     pnu_list = read_pnu_map_file()
-    logging.info("Create mapping from parameter ids to PNU items")
+    Logging.logger.info("Create mapping from parameter ids to PNU items")
     return {item.parameter_id: item for item in pnu_list}
 
 
@@ -93,7 +93,7 @@ class ParameterMap:
         """
         parameter_id = self.sanitize_parameter_id(parameter_id)
         if parameter_id not in self.mapping:
-            logging.error(f"Parameter {parameter_id} not available in parameter_map.")
+            Logging.logger.error(f"Parameter {parameter_id} not available in parameter_map.")
             return None
         return self.mapping[parameter_id]
 
