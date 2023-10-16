@@ -13,7 +13,7 @@
 #
 # For more information, see: https://docs.gitlab.com/ee/ci/yaml/index.html#stages
 
-image: "python:3.10-bullseye"
+image: "python:3.9-bullseye"
 
 # Run branch pipeline only if no MR pipeline exists
 workflow:
