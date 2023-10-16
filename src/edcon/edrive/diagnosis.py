@@ -1,6 +1,7 @@
 """Contains functions which provide corresponding name and remedy of ICP numbers."""
 from collections import namedtuple
 from importlib.resources import files
+from pathlib import PurePath
 from functools import lru_cache
 import csv
 from edcon.utils.logging import Logging
@@ -17,8 +18,7 @@ def read_icp_map_file(icp_map_file: str = None):
         dict: With the first column values as keys and namedtuple values
     """
     if not icp_map_file:
-        icp_map_file = files(
-            'edcon.edrive.data').joinpath('icp_map.csv')
+        icp_map_file = PurePath(files('edcon') / 'edrive' / 'data' / 'icp_map.csv')
 
     with open(icp_map_file, encoding='utf-8') as csvfile:
         reader = csv.reader(csvfile, delimiter=';')

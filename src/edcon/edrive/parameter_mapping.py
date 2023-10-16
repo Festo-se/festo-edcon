@@ -1,6 +1,7 @@
 """Contains functions which provide mapping of PNU types."""
 from collections import namedtuple
 from importlib.resources import files
+from pathlib import PurePath
 from functools import lru_cache
 import csv
 from edcon.utils.logging import Logging
@@ -17,7 +18,7 @@ def read_pnu_map_file(pnu_map_file: str = None) -> list:
         list: Containing PNU map items with fieldnames created from the header pnu_map_file. 
     """
     if not pnu_map_file:
-        pnu_map_file = files('edcon.edrive.data').joinpath('pnu_map.csv')
+        pnu_map_file = PurePath(files('edcon') / 'edrive' / 'data' / 'pnu_map.csv')
     with open(pnu_map_file, encoding='ascii') as csvfile:
         reader = csv.reader(csvfile, delimiter=';')
         # Define a namedtuple where the header row determines the field names
