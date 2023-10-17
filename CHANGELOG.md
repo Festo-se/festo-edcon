@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
-## v0.10.8 - 16.10.23
+## v0.10.9 - 17.10.23
 ### Changed
 - [Patch] Changes to enable backport to python3.9
 
