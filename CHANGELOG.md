@@ -5,10 +5,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## Unreleased
+### Added
+- [Patch] Added job to create gitlab release entry.
 
 ## v0.10.9 - 17.10.23
 ### Changed
-- [Patch] Changes to enable backport to python3.9
+- [Patch] Changes to enable backport to python3.9.
 
 ## v0.10.8 - 13.10.23
 ### Added
