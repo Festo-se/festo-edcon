@@ -208,6 +208,11 @@ class Telegram111Handler(PositionTelegramHandler):
         self.telegram.pos_stw1.activate_setup = True
         self.telegram.pos_stw1.positioning_direction0 = velocity > 0
         self.telegram.pos_stw1.positioning_direction1 = velocity < 0
+        # Ensure the generation of a rising edge
+        if not self.telegram.pos_stw1.continuous_update and \
+            self.telegram.stw1.activate_traversing_task:
+            self.telegram.stw1.activate_traversing_task = False
+            self.update_outputs()
         self.telegram.stw1.activate_traversing_task = True
         self.update_outputs()
 
@@ -250,6 +255,11 @@ class Telegram111Handler(PositionTelegramHandler):
         self.telegram.pos_stw1.record_table_selection4 = record_number & 16 > 0
         self.telegram.pos_stw1.record_table_selection5 = record_number & 32 > 0
         self.telegram.pos_stw1.record_table_selection6 = record_number & 64 > 0
+        # Ensure the generation of a rising edge
+        if not self.telegram.pos_stw1.continuous_update and \
+            self.telegram.stw1.activate_traversing_task:
+            self.telegram.stw1.activate_traversing_task = False
+            self.update_outputs()
         self.telegram.stw1.activate_traversing_task = True
         self.update_outputs()
 
