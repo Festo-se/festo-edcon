@@ -9,7 +9,7 @@ class Telegram1Handler(VelocityTelegramHandler):
 
     def __init__(self, com, skip_validation = False) -> None:
         if not skip_validation:
-            ParameterHandler(com).validate("P0.3030101.0.0", 111)
+            ParameterHandler(com).validate("P0.3030101.0.0", 1)
         super().__init__(Telegram1(), com)
 
     def velocity_info_string(self) -> str:
