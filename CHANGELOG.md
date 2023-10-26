@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## Unreleased
+### Fixed
+- [Patch] Added conditional toggle for activate_traversing_task bit when continuous_update is not active.
+
 ## v0.10.10 - 26.10.23
 ### Fixed
 - [Patch] Fixed bug where setup of ComModbus would crash for CMMT-xx-EP devices.

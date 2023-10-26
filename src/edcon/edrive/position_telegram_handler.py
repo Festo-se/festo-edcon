@@ -262,13 +262,21 @@ class PositionTelegramHandler(TelegramHandler):
 
         return self.wait_for_referencing_execution()
 
+    def _prepare_activate_traversing_task(self):
+        # If continuous update not active: ensure the generation of a rising edge
+        if not self.telegram.pos_stw1.continuous_update and \
+            self.telegram.stw1.activate_traversing_task:
+            self.telegram.stw1.activate_traversing_task = False
+            self.update_outputs()
+        self.telegram.stw1.activate_traversing_task = True
+
     def _prepare_position_task_bits(self, position: int, velocity: int,
                                     absolute: bool = False  # pylint: disable=unused-argument
                                     ):
         """Prepares the telegram bits for positioning task"""
         self.telegram.mdi_tarpos.value = position
         self.telegram.mdi_velocity.value = velocity
-        self.telegram.stw1.activate_traversing_task = True
+        self._prepare_activate_traversing_task()
 
     def position_task(self, position: int, velocity: int, absolute: bool = False,
                       nonblocking: bool = False) -> bool:
