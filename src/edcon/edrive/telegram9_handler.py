@@ -9,7 +9,7 @@ class Telegram9Handler(PositionTelegramHandler):
     """Basic class for executing telegram 9."""
     def __init__(self, com, skip_validation = False) -> None:
         if not skip_validation:
-            ParameterHandler(com).validate("P0.3030101.0.0", 111)
+            ParameterHandler(com).validate("P0.3030101.0.0", 9)
         super().__init__(Telegram9(), com)
 
     def _prepare_position_task_bits(self, position: int, velocity: int, absolute: bool = False):
