@@ -92,14 +92,33 @@ release-job:
   rules:
     - if: '$CI_COMMIT_TAG =~ /^v\d+\.\d+\.\d+$/ && $CI_COMMIT_REF_PROTECTED == "true"'
   before_script:
-    - python -m pip install twine
+    - python -m pip install twine kac-tools
   script:
+    - mkdir public
+    - kac-tools >> public/RELEASENOTES.md
     - python setup.py bdist_wheel
     - twine check dist/*
     - twine upload dist/*
+  artifacts:
+    paths:
+      - public
   needs:
     - unit-test-job
     - lint-test-job
+
+gitlab-release-job:
+  stage: upload
+  image: registry.gitlab.com/gitlab-org/release-cli:latest
+  rules:
+    - if: '$CI_COMMIT_TAG =~ /^v\d+\.\d+\.\d+$/ && $CI_COMMIT_REF_PROTECTED == "true"'
+  script:
+    - echo "running gitlab-release-job"
+  release:
+    tag_name: '$CI_COMMIT_TAG'
+    description: './public/RELEASENOTES.md'
+  needs:
+    - release-job
+
 
 pages:
   image: alpine:latest
