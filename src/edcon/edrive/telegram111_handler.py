@@ -6,14 +6,14 @@ from edcon.edrive.diagnosis import diagnosis_name, diagnosis_remedy
 from edcon.edrive.position_telegram_handler import PositionTelegramHandler
 from edcon.profidrive.telegram111 import Telegram111
 from edcon.utils.func_helpers import wait_for, wait_until
-from edcon.edrive.parameter_validator import ParameterValidator
+from edcon.edrive.parameter_handler import ParameterHandler
 
 class Telegram111Handler(PositionTelegramHandler):
     """Basic class for executing telegram 111."""
 
     def __init__(self, com, skip_validation = False) -> None:
         if not skip_validation:
-            ParameterValidator.validate(com, 3490, 111)
+            ParameterHandler(com).validate("P0.3030101.0.0", 111)
         super().__init__(Telegram111(), com)
 
     def fault_string(self) -> str:
