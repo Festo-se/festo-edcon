@@ -190,8 +190,7 @@ class ComModbus(ComBase):
                 f"Successful read of PNU {pnu} (subindex: {subindex}): {data})")
             return data
 
-        except AttributeError:
-            traceback.print_exc()
+        except (AttributeError, IndexError):
             Logging.logger.error("Could not access PNU register")
             return None
 

@@ -2,13 +2,14 @@
 
 from edcon.profidrive.telegram102 import Telegram102
 from edcon.edrive.velocity_telegram_handler import VelocityTelegramHandler
-
+from edcon.edrive.parameter_handler import ParameterHandler
 
 class Telegram102Handler(VelocityTelegramHandler):
     """Basic class for executing telegram 1."""
 
-    def __init__(self, com) -> None:
-        com.validate_selected_telegram(102)
+    def __init__(self, com, skip_validation = False) -> None:
+        if not skip_validation:
+            ParameterHandler(com).validate("P0.3030101.0.0", 102)
         super().__init__(Telegram102(), com)
 
     def velocity_info_string(self) -> str:

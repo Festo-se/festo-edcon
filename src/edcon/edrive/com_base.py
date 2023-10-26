@@ -5,22 +5,6 @@ from edcon.edrive.pnu_packing import pnu_pack, pnu_unpack
 
 class ComBase:
     """Class that contains common functions for EDrive communication drivers."""
-
-    def validate_selected_telegram(self, telegram_id: int):
-        """Asserts that the selected telegram is actually configured on the EDrive"""
-        # read the currently selected telegram (PNU 3490)
-        configured_telegram_id = self.read_pnu(3490)
-
-        if not configured_telegram_id:
-            Logging.logger.warning("Could not verify correct telegram via PNU")
-            return False
-
-        assert configured_telegram_id == telegram_id, f"Incorrect telegram selected -> " \
-            f"Expected: {telegram_id}, Actual: {configured_telegram_id}"
-        Logging.logger.info(
-            f"Correct telegram selected: {configured_telegram_id}")
-        return True
-
     def read_pnu_raw(self, pnu: int, subindex: int = 0, num_elements: int = 1) -> bytes:
         """Reads a PNU from the EDrive without interpreting the data"""
         raise NotImplementedError
