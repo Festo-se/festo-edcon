@@ -14,21 +14,21 @@ class Parameter:
     data_id: int
     instance: int
     subindex: int
-    value: bytes
+    value_raw: bytes
 
     @classmethod
-    def from_uid(cls, uid_id: str, value: bytes):
+    def from_uid(cls, uid_id: str, value_raw: bytes):
         """Function to create a Parameter by providing a uid and value.
 
         Parameters:
             uid_id (str): uid of the parameter
-            value (bytes): value of the parameter
+            value_raw (bytes): value of the parameter
 
         Returns:
             Parameter object
         """
         axis, data_id, instance, subindex = uid_id.strip('P').split('.')
-        return cls(int(axis), int(data_id), int(instance), int(subindex), value)
+        return cls(int(axis), int(data_id), int(instance), int(subindex), value_raw)
 
     def uid(self) -> str:
         """Returns the uid of the parameter.
@@ -71,9 +71,9 @@ class ParameterSet:
 
         for item in lines[start_idx:end_idx]:
             key, hex_value = item.decode().strip('P').split(';')
-            value = bytes.fromhex(hex_value.split('x')[1])[::-1]
+            value_raw = bytes.fromhex(hex_value.split('x')[1])[::-1]
 
-            self.parameters.append(Parameter.from_uid(key, value))
+            self.parameters.append(Parameter.from_uid(key, value_raw))
 
         if strip_null_terminators:
             Logging.logger.info('Stripping null terminators from parameter set')
