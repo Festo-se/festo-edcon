@@ -582,6 +582,28 @@ icp_number;name;remedy
 - Service case"
 476;Safety Invalid HCI header;"- Restart device
 - Service case"
+478;Mismatch of safety destination address;- Check safety destination address configuration
+479;Safety destination address not valid;- Check safety destination address configuration
+480;Safety source address not valid or mismatch;- Check safety source address configuration
+481;Safety watchdog time value is 0 ms;- Check safety watchdog timeout configuration
+482;"Parameter ""F_SIL"" exceeds SIL from specific device application";"- Check SIL of ""F-SIL"" parameter"
+483;"Parameter ""F_CRC_Length"" does not match the generated values";"- Check ""F_CRC_Length"" parameter configuration"
+484;Version of F-Parameter set incorrect;- Check F-Parameter version
+485;Data inconsistent in received F-Parameter block (CRC1 error);"- Check wiring
+- Check hardware"
+486;Device specific or unspecified diagnosis information;- See device specific manual
+487;Save iParameter watchdog time exceeded;"- Check software (firmware update)
+- Check hardware"
+488;Restore iParameter watchdog time exceeded;"- Check software (firmware update)
+- Check hardware"
+489;Inconsistent iParameters (iParCRC error);- Check hardware
+490;F_Block_ID not supported;- Check configuration
+491;Transmission error: data inconsistent (CRC2 error);"- Check wiring
+- Check hardware"
+492;Transmission error: timeout;"- Check wiring
+- Check hardware"
+493;Acknowledge required to enable the channel(s);- Acknowledge channel(s)
+494;BaseID not valid or mismatch of the BaseID;- Check BaseID configuration
 512;Safety Overtemperature Channel A;"- Unit fan defective?
 - Device overloaded?
 - Check installation conditions, filter of control cabinet fan dirty?
@@ -639,7 +661,8 @@ icp_number;name;remedy
 - Open Engineering Tool and download a valid paramter set"
 542;Safety External cross-circuit BR-EXT channel A;- Check wiring on BR-EXT
 543;Safety External cross-circuit BR-EXT channel B;- Check wiring on BR-EXT
-544;Error communication RTE;- Service case
+544;Error communication RTE;"- Update Firmware
+- Service case"
 545;Parameter set stored remanent;- None
 546;Parameter set activated;- None
 550;Safety CRC2 error Channel A;"- Reset device to factory settings
@@ -757,3 +780,56 @@ icp_number;name;remedy
 688;Cogging compensation invalid;- Restart device
 689;System starts;- None
 693;Error when recording the cogging table;- Repeat identification drive
+698;Invalid LIN Mapping La;- Check mapping of the safety sub-function to the inputs.
+699;Invalid LIN Mapping Lb;- Check mapping of the safety sub-function to the inputs.
+700;BadSafetyFunctionSelector_A;- Check the configuration of the Safety fieldbus interface or I/O device.
+701;BadSafetyFunctionSelector_B;- Check the configuration of the Safety fieldbus interface or I/O device.
+702;Brake resistor not connected;- Check braking resistor connection
+713;diagnosticOptionModuleIncompatible;- Contact Festo service
+714;diagnosticOptionModuleProduction;- Contact Festo service
+727;SMS_SafetyConditionViolated_LA;- Check maximum velocity
+728;SMS_SafetyConditionViolated_LB;- Check maximum velocity
+729;SMS_SpeedLimitViolated_LA;- Check maximum velocity
+730;SMS_SpeedLimitViolated_LB;- Check maximum velocity
+731;SLS_SafetyConditionViolated_LA;- Check maximum velocity
+732;SLS_SafetyConditionViolated_LB;- Check maximum velocity
+733;SLS_BrakeRampViolated_LA;- Check maximum velocity
+734;SLS_BrakeRampViolated_LB;- Check maximum velocity
+735;SLS_SpeedLimitViolated_LA;- Check maximum velocity
+736;SLS_SpeedLimitViolated_LB;- Check maximum velocity
+737;SS1_InputValuesNotValid_La;'- Check encoder
+738;SS1_InputValuesNotValid_Lb;'- Check encoder
+739;SS1_BrakeRampViolated_La;- Check controller setting
+740;SS1_BrakeRampViolated_Lb;- Check controller setting
+741;SS1_SpeedLimitViolated_La;"- Check controller setting
+- Check standstill monitoring"
+742;SS1_SpeedLimitViolated_Lb;"- Check controller setting
+- Check standstill monitoring"
+743;SS2_InputValuesNotValid_La;'- Check encoder
+744;SS2_InputValuesNotValid_Lb;'- Check encoder
+745;SS2_BrakeRampViolated_La;- Check controller setting
+746;SS2_BrakeRampViolated_Lb;- Check controller setting
+747;NetXInternDriverError;- Contact Festo service
+748;Mismatch of safety destination address;- Check safety destination address configuration
+749;Safety destination address not valid;- Check safety destination address configuration
+750;Safety source address not valid or mismatch;- Check safety source address configuration
+751;Safety watchdog time value is 0 ms;- Check safety watchdog timeout configuration
+752;"Parameter ""F_SIL"" exceeds SIL from specific device application";"- Check SIL of ""F-SIL"" parameter"
+753;"Parameter ""F_CRC_Length"" does not match the generated values";"- Check ""F_CRC_Length"" parameter configuration"
+754;Version of F-Parameter set incorrect;- Check F-Parameter version
+755;Data inconsistent in received F-Parameter block (CRC1 error);"- Check wiring
+- Check hardware"
+756;Device specific or unspecified diagnosis information;- See device specific manual
+757;Save iParameter watchdog time exceeded;"- Check software (firmware update)
+- Check hardware"
+758;Restore iParameter watchdog time exceeded;"- Check software (firmware update)
+- Check hardware"
+759;Inconsistent iParameters (iParCRC error);- Check hardware
+760;F_Block_ID not supported;- Check configuration
+761;Transmission error: data inconsistent (CRC2 error);"- Check wiring
+- Check hardware"
+762;Transmission error: timeout;"- Check wiring
+- Check hardware"
+763;Acknowledge required to enable the channel(s);- Acknowledge channel(s)
+764;BaseID not valid or mismatch of the BaseID;- Check BaseID configuration
+765;NoEstimationDoneLevel;- Increase pause time between movements
