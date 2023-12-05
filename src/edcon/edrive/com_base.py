@@ -35,6 +35,10 @@ class ComBase:
         Logging.logger.error(f"PNU {pnu} write failed")
         return False
 
+    def connected(self):
+        """Provides information about connection status."""
+        raise NotImplementedError
+
     def start_io(self):
         """Configures and starts i/o data process"""
 

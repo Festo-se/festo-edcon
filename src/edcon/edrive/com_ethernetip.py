@@ -125,6 +125,10 @@ class ComEthernetip(ComBase):
             f"Successful write of PNU {pnu} (subindex: {subindex}): {value} ")
         return True
 
+    def connected(self):
+        """Provides information about connection status."""
+        return self.eip.io_state and self.connection.prod_state
+
     def start_io(self):
         """Configures and starts i/o data process"""
         Logging.logger.info(

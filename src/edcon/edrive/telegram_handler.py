@@ -41,11 +41,17 @@ class TelegramHandler:
 
     def update_inputs(self):
         """Reads current input process data and updates telegram"""
+        if not self.com.connected():
+            raise ConnectionError("Connection of communication driver was interrupted")
+
         self.telegram.input_bytes(self.com.recv_io())
 
     def update_outputs(self):
         """Writes current telegram value to output process data
         """
+        if not self.com.connected():
+            raise ConnectionError("Connection of communication driver was interrupted")
+
         self.com.send_io(self.telegram.output_bytes())
 
     def update_io(self):
