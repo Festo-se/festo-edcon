@@ -55,10 +55,12 @@ class IOThread(threading.Thread):
                 self.perform_io()
                 self.exe_event.set()
                 self.exe_event.clear()
-            except Exception:
-                traceback.print_exc()
+
+            # pylint: disable=bare-except
+            except:
+                Logging.logger.error(traceback.format_exc())
                 self.stop()
-                raise
+
             time.sleep(self.cycle_time * 0.001)
 
     def start(self):
@@ -146,15 +148,21 @@ class ComModbus(ComBase):
     def perform_io(self):
         """Reads input data from and writes output data to according modbus registers."""
         # Inputs, convert to bytes
-        indata = self.modbus_client.read_holding_registers(
-            REG_INPUT_DATA, int(IO_DATA_SIZE/2))
-        self.in_data = b''.join(reg.to_bytes(2, 'little')
-                                for reg in indata.registers)
+        try:
+            indata = self.modbus_client.read_holding_registers(
+                REG_INPUT_DATA, int(IO_DATA_SIZE/2))
+            self.in_data = b''.join(reg.to_bytes(2, 'little')
+                                        for reg in indata.registers)
 
-        # Outputs, convert to list of modbus words
-        word_list = [int.from_bytes(self.out_data[i:i+2], 'little')
-                     for i in range(0, len(self.out_data), 2)]
-        self.modbus_client.write_registers(REG_OUTPUT_DATA, word_list)
+            # Outputs, convert to list of modbus words
+            word_list = [int.from_bytes(self.out_data[i:i+2], 'little')
+                        for i in range(0, len(self.out_data), 2)]
+            self.modbus_client.write_registers(REG_OUTPUT_DATA, word_list)
+
+        # pylint: disable=bare-except
+        except:
+            Logging.logger.error("Modbus client is not reachable")
+            self.shutdown()
 
     def read_pnu_raw(self, pnu: int, subindex: int = 0, num_elements: int = 1) -> bytes:
         """Reads a PNU from the EDrive without interpreting the data"""
@@ -229,6 +237,10 @@ class ComModbus(ComBase):
             traceback.print_exc()
             Logging.logger.error("Could not access PNU register")
             return False
+
+    def connected(self):
+        """Provides information about connection status."""
+        return self.io_thread.active
 
     def start_io(self):
         """Starts i/o data process"""

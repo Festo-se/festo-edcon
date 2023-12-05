@@ -6,10 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+### Added
+- [Patch] Added connected() method to ComBase.
 ### Changed
 - [Patch] Updated pnu_map.csv and icp_map.csv.
 - [Patch] Enforce ethernetip package version 1.1.1.
-
 ### Fixed
 - [Patch] Added conditional toggle for activate_traversing_task bit when continuous_update is not active.
 
