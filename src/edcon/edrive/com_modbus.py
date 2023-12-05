@@ -55,7 +55,9 @@ class IOThread(threading.Thread):
                 self.perform_io()
                 self.exe_event.set()
                 self.exe_event.clear()
-            except Exception:
+
+            # pylint: disable=bare-except
+            except:
                 Logging.logger.error(traceback.format_exc())
                 self.stop()
 
@@ -156,6 +158,8 @@ class ComModbus(ComBase):
             word_list = [int.from_bytes(self.out_data[i:i+2], 'little')
                         for i in range(0, len(self.out_data), 2)]
             self.modbus_client.write_registers(REG_OUTPUT_DATA, word_list)
+
+        # pylint: disable=bare-except
         except:
             Logging.logger.error("Modbus client is not reachable")
             self.shutdown()
