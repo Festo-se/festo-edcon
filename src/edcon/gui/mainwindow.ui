@@ -1,63 +1,79 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
  <class>MainWindow</class>
- <widget class="QMainWindow" name="MainWindow">
+ <widget class="QWidget" name="MainWindow">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1334</width>
-    <height>870</height>
+    <width>1102</width>
+    <height>864</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
-  <widget class="QWidget" name="centralwidget"/>
-  <widget class="QStatusBar" name="statusbar"/>
-  <widget class="QMenuBar" name="menuBar">
+  <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1334</width>
+     <width>1102</width>
      <height>26</height>
     </rect>
    </property>
-   <widget class="QMenu" name="menuConfiguration">
+   <widget class="QMenu" name="menumenu">
     <property name="title">
-     <string>Menü</string>
+     <string>menu</string>
     </property>
-    <addaction name="actionVerbindungsverwaltung"/>
-    <addaction name="actionKonfiguration"/>
-    <addaction name="actionSteuerung"/>
-    <addaction name="actionAnalyse_und_Diagnose"/>
+    <addaction name="actionconnection"/>
+    <addaction name="actionconfiguration"/>
+    <addaction name="actionmovement"/>
+    <addaction name="actionanalysis"/>
    </widget>
-   <addaction name="menuConfiguration"/>
+   <addaction name="menumenu"/>
   </widget>
-  <action name="actionConfiguration">
+  <widget class="QStatusBar" name="statusbar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>3</width>
+     <height>21</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QToolBar" name="toolBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>4</width>
+     <height>14</height>
+    </rect>
+   </property>
+   <property name="windowTitle">
+    <string>toolBar</string>
+   </property>
+  </widget>
+  <action name="actionconnection">
    <property name="text">
-    <string>Verbindungsverwaltung</string>
+    <string>connection</string>
    </property>
   </action>
-  <action name="actionKonfiguration">
+  <action name="actionconfiguration">
    <property name="text">
-    <string>Konfiguration</string>
+    <string>configuration</string>
    </property>
   </action>
-  <action name="actionAnalyse_und_Diagnose">
+  <action name="actionmovement">
    <property name="text">
-    <string>Analyse und Diagnose</string>
+    <string>movement</string>
    </property>
   </action>
-  <action name="actionSteuerung">
+  <action name="actionanalysis">
    <property name="text">
-    <string>Steuerung</string>
-   </property>
-  </action>
-  <action name="actionVerbindungsverwaltung">
-   <property name="text">
-    <string>Verbindungsverwaltung</string>
+    <string>analysis</string>
    </property>
   </action>
  </widget>

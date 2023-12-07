@@ -9,56 +9,36 @@ class MainWindow(QMainWindow):
         loadUi("C:/Workspace/festo-edcon/src/edcon/gui/mainwindow.ui", self)
         self.setWindowTitle("MainWindow")
 
-        self.stacked_widget = QStackedWidget()
-        self.setCentralWidget(self.stacked_widget)
+        # Create a stacked widget to hold the different pages
+        self.stackedWidget = QStackedWidget()
+        self.setCentralWidget(self.stackedWidget)
 
-        self.actionVerbindungsverwaltung.triggered.connect(self.show_verbindungsverwaltung_page)
-        self.actionKonfiguration.triggered.connect(self.show_konfiguration_page)
-        self.actionSteuerung.triggered.connect(self.show_steuerung_page)
-        self.actionAnalyse_und_Diagnose.triggered.connect(self.show_analyse_page)
+        # Create the connection page
+        connection_page = QMainWindow()
+        loadUi("C:/Workspace/festo-edcon/src/edcon/gui/connection.ui", connection_page)
+        self.stackedWidget.addWidget(connection_page)
 
-        self.create_pages()
+        # Create the configuration page
+        configuration_page = QMainWindow()
+        loadUi("C:/Workspace/festo-edcon/src/edcon/gui/configuration.ui", configuration_page)
+        self.stackedWidget.addWidget(configuration_page)
 
-    def create_pages(self):
-        verbindungsverwaltung_page = QWidget()
-        verbindungsverwaltung_layout = QVBoxLayout()
-        verbindungsverwaltung_label = QLabel("Verbindungsverwaltung Page")
-        verbindungsverwaltung_layout.addWidget(verbindungsverwaltung_label)
-        verbindungsverwaltung_page.setLayout(verbindungsverwaltung_layout)
-        self.stacked_widget.addWidget(verbindungsverwaltung_page)
+        # Create the movement page
+        movement_page = QMainWindow()
+        loadUi("C:/Workspace/festo-edcon/src/edcon/gui/movement.ui", movement_page)
+        self.stackedWidget.addWidget(movement_page)
 
-        konfiguration_page = QWidget()
-        konfiguration_layout = QVBoxLayout()
-        konfiguration_label = QLabel("Konfiguration Page")
-        konfiguration_layout.addWidget(konfiguration_label)
-        konfiguration_page.setLayout(konfiguration_layout)
-        self.stacked_widget.addWidget(konfiguration_page)
+        # Create the analysis page
+        analysis_page = QMainWindow()
+        loadUi("C:/Workspace/festo-edcon/src/edcon/gui/analysis.ui", analysis_page)
+        self.stackedWidget.addWidget(analysis_page)
 
-        steuerung_page = QWidget()
-        steuerung_layout = QVBoxLayout()
-        steuerung_label = QLabel("Steuerung Page")
-        steuerung_layout.addWidget(steuerung_label)
-        steuerung_page.setLayout(steuerung_layout)
-        self.stacked_widget.addWidget(steuerung_page)
+        # Connect the menu actions to switch between pages
+        self.actionconnection.triggered.connect(lambda: self.stackedWidget.setCurrentIndex(0))
+        self.actionconfiguration.triggered.connect(lambda: self.stackedWidget.setCurrentIndex(1))
+        self.actionmovement.triggered.connect(lambda: self.stackedWidget.setCurrentIndex(2))
+        self.actionanalysis.triggered.connect(lambda: self.stackedWidget.setCurrentIndex(3))
 
-        analyse_page = QWidget()
-        analyse_layout = QVBoxLayout()
-        analyse_label = QLabel("Analyse und Diagnose Page")
-        analyse_layout.addWidget(analyse_label)
-        analyse_page.setLayout(analyse_layout)
-        self.stacked_widget.addWidget(analyse_page)
-
-    def show_verbindungsverwaltung_page(self):
-        self.stacked_widget.setCurrentIndex(0)
-
-    def show_konfiguration_page(self):
-        self.stacked_widget.setCurrentIndex(1)
-
-    def show_steuerung_page(self):
-        self.stacked_widget.setCurrentIndex(2)
-
-    def show_analyse_page(self):
-        self.stacked_widget.setCurrentIndex(3)
 
 if __name__ == "__main__":
     app = QApplication([])

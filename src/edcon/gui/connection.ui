@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QWidget" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1102</width>
+    <height>864</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget" native="true">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1091</width>
+     <height>701</height>
+    </rect>
+   </property>
+   <widget class="QWidget" name="formLayoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>380</x>
+      <y>240</y>
+      <width>331</width>
+      <height>221</height>
+     </rect>
+    </property>
+    <layout class="QFormLayout" name="formLayout">
+     <property name="horizontalSpacing">
+      <number>40</number>
+     </property>
+     <property name="verticalSpacing">
+      <number>40</number>
+     </property>
+     <property name="leftMargin">
+      <number>10</number>
+     </property>
+     <property name="topMargin">
+      <number>10</number>
+     </property>
+     <property name="rightMargin">
+      <number>10</number>
+     </property>
+     <property name="bottomMargin">
+      <number>10</number>
+     </property>
+     <item row="0" column="0">
+      <widget class="QLabel" name="iPAdressLabel">
+       <property name="text">
+        <string>IP-adress</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QLineEdit" name="txteditIP"/>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="portnumberLabel">
+       <property name="text">
+        <string>Portnumber</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QLineEdit" name="txteditPort"/>
+     </item>
+     <item row="2" column="1">
+      <widget class="QPushButton" name="btnconnect">
+       <property name="styleSheet">
+        <string notr="true">QPushButton{background-color:rgb(0, 170, 255);
+color:white}</string>
+       </property>
+       <property name="text">
+        <string>connect</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+  <action name="actionconnection">
+   <property name="text">
+    <string>connection</string>
+   </property>
+  </action>
+  <action name="actionconfiguration">
+   <property name="text">
+    <string>configuration</string>
+   </property>
+  </action>
+  <action name="actionmovement">
+   <property name="text">
+    <string>movement</string>
+   </property>
+  </action>
+  <action name="actionanalysis">
+   <property name="text">
+    <string>analysis</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
