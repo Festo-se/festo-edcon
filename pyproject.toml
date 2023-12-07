@@ -1,0 +1,42 @@
+[build-system]
+requires = ["setuptools", "setuptools-scm"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "festo-edcon"
+description = "Library to issue profidrive tasks for Festo specific electrical drives"
+readme = { file = "README.md", content-type = "text/markdown" }
+authors = [
+    { name = "Elias Rosch", email = "elias.rosch@festo.com" },
+]
+license = {text = "MIT"}
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+dynamic = ["version"]
+requires-python = ">=3.9"
+dependencies = [
+    'pymodbus>=3.0.0,<4.0.0',
+    'ethernetip>=1.1.1,<2.0.0',
+    'rich'
+]
+
+[project.urls]
+Documentation = "https://festo-research.gitlab.io/electric-automation/festo-edcon"
+Repository = "https://gitlab.com/festo-research/electric-automation/festo-edcon"
+Changelog = "https://gitlab.com/festo-research/electric-automation/festo-edcon/-/blob/main/CHANGELOG.md"
+
+[project.scripts]
+festo-edcon = "edcon.cli.cli:main"
+
+[tool.setuptools.package-data]
+pnu_map = ["edcon/edrive/data/pnu_map.csv"]
+icp_map = ["edcon/edrive/data/icp_map.csv"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+exclude = ["tests"]
+
+[tool.setuptools_scm]
