@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1334</width>
+    <height>870</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget"/>
+  <widget class="QStatusBar" name="statusbar"/>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1334</width>
+     <height>26</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuConfiguration">
+    <property name="title">
+     <string>Menü</string>
+    </property>
+    <addaction name="actionVerbindungsverwaltung"/>
+    <addaction name="actionKonfiguration"/>
+    <addaction name="actionSteuerung"/>
+    <addaction name="actionAnalyse_und_Diagnose"/>
+   </widget>
+   <addaction name="menuConfiguration"/>
+  </widget>
+  <action name="actionConfiguration">
+   <property name="text">
+    <string>Verbindungsverwaltung</string>
+   </property>
+  </action>
+  <action name="actionKonfiguration">
+   <property name="text">
+    <string>Konfiguration</string>
+   </property>
+  </action>
+  <action name="actionAnalyse_und_Diagnose">
+   <property name="text">
+    <string>Analyse und Diagnose</string>
+   </property>
+  </action>
+  <action name="actionSteuerung">
+   <property name="text">
+    <string>Steuerung</string>
+   </property>
+  </action>
+  <action name="actionVerbindungsverwaltung">
+   <property name="text">
+    <string>Verbindungsverwaltung</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
