@@ -16,11 +16,15 @@
   <widget class="QWidget" name="centralwidget" native="true">
    <property name="geometry">
     <rect>
-     <x>0</x>
+     <x>-80</x>
      <y>0</y>
-     <width>1091</width>
-     <height>701</height>
+     <width>1221</width>
+     <height>931</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QWidget{background-color:rgb(235, 235, 235);
+color:black}</string>
    </property>
    <widget class="QWidget" name="formLayoutWidget">
     <property name="geometry">
@@ -58,7 +62,12 @@
       </widget>
      </item>
      <item row="0" column="1">
-      <widget class="QLineEdit" name="txteditIP"/>
+      <widget class="QLineEdit" name="txteditIP">
+       <property name="styleSheet">
+        <string notr="true">QLineEdit{background-color:white;
+color:black}</string>
+       </property>
+      </widget>
      </item>
      <item row="1" column="0">
       <widget class="QLabel" name="portnumberLabel">
@@ -68,7 +77,12 @@
       </widget>
      </item>
      <item row="1" column="1">
-      <widget class="QLineEdit" name="txteditPort"/>
+      <widget class="QLineEdit" name="txteditPort">
+       <property name="styleSheet">
+        <string notr="true">QLineEdit{background-color:white;
+color:black}</string>
+       </property>
+      </widget>
      </item>
      <item row="2" column="1">
       <widget class="QPushButton" name="btnconnect">

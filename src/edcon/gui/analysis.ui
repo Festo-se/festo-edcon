@@ -16,11 +16,15 @@
   <widget class="QWidget" name="centralwidget" native="true">
    <property name="geometry">
     <rect>
-     <x>10</x>
-     <y>20</y>
-     <width>1081</width>
-     <height>791</height>
+     <x>0</x>
+     <y>0</y>
+     <width>1111</width>
+     <height>861</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QWidget{background-color:rgb(235, 235, 235);
+color:black}</string>
    </property>
    <widget class="QWidget" name="gridLayoutWidget_2">
     <property name="geometry">

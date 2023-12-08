@@ -16,227 +16,21 @@
   <widget class="QWidget" name="centralwidget" native="true">
    <property name="geometry">
     <rect>
-     <x>10</x>
-     <y>50</y>
-     <width>1071</width>
-     <height>791</height>
+     <x>-10</x>
+     <y>-10</y>
+     <width>1171</width>
+     <height>881</height>
     </rect>
    </property>
-   <widget class="QWidget" name="verticalLayoutWidget">
-    <property name="geometry">
-     <rect>
-      <x>60</x>
-      <y>490</y>
-      <width>971</width>
-      <height>261</height>
-     </rect>
-    </property>
-    <layout class="QVBoxLayout" name="verticalLayout">
-     <item>
-      <layout class="QGridLayout" name="gridLayout_2">
-       <item row="0" column="0">
-        <widget class="QLabel" name="label_6">
-         <property name="text">
-          <string>actual position value</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="1">
-        <layout class="QHBoxLayout" name="horizontalLayout">
-         <item>
-          <widget class="QPushButton" name="btnJogN">
-           <property name="styleSheet">
-            <string notr="true">QPushButton{background-color:rgb(0, 170, 255);
-color:white}</string>
-           </property>
-           <property name="text">
-            <string>-</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="btnJogP">
-           <property name="styleSheet">
-            <string notr="true">QPushButton{background-color:rgb(0, 170, 255);
-color:white}</string>
-           </property>
-           <property name="text">
-            <string>+</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item row="3" column="1">
-        <layout class="QHBoxLayout" name="horizontalLayout_3">
-         <item>
-          <widget class="QLineEdit" name="txtTargetPosition"/>
-         </item>
-         <item>
-          <widget class="QLabel" name="label_12">
-           <property name="text">
-            <string>rev</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLineEdit" name="txtVelocity"/>
-         </item>
-         <item>
-          <widget class="QLabel" name="label_13">
-           <property name="text">
-            <string>r/min</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="btnExecute">
-           <property name="text">
-            <string>Execute</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item row="2" column="1">
-        <layout class="QHBoxLayout" name="horizontalLayout_2">
-         <item>
-          <widget class="QPushButton" name="btnSingleStepN">
-           <property name="styleSheet">
-            <string notr="true">QPushButton{background-color:rgb(0, 170, 255);
-color:white}</string>
-           </property>
-           <property name="text">
-            <string>-</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLineEdit" name="txtSingleStepValue"/>
-         </item>
-         <item>
-          <widget class="QLabel" name="label_11">
-           <property name="text">
-            <string>rev</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="btnSingleStepP">
-           <property name="styleSheet">
-            <string notr="true">QPushButton{background-color:rgb(0, 170, 255);
-color:white}</string>
-           </property>
-           <property name="text">
-            <string>+</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item row="2" column="0">
-        <widget class="QLabel" name="label_8">
-         <property name="text">
-          <string>Single Step</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="0">
-        <widget class="QLabel" name="label_7">
-         <property name="text">
-          <string>Jog</string>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="0">
-        <widget class="QLabel" name="label_9">
-         <property name="text">
-          <string>Target Position</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="1">
-        <layout class="QHBoxLayout" name="horizontalLayout_4">
-         <property name="spacing">
-          <number>100</number>
-         </property>
-         <property name="leftMargin">
-          <number>70</number>
-         </property>
-         <property name="topMargin">
-          <number>0</number>
-         </property>
-         <property name="rightMargin">
-          <number>100</number>
-         </property>
-         <property name="bottomMargin">
-          <number>0</number>
-         </property>
-         <item>
-          <widget class="QLineEdit" name="txtActualPositionValue"/>
-         </item>
-         <item>
-          <widget class="QLabel" name="label_5">
-           <property name="text">
-            <string>rev</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item row="4" column="1">
-        <layout class="QHBoxLayout" name="horizontalLayout_5">
-         <item>
-          <widget class="QPushButton" name="btnPauseMovement">
-           <property name="styleSheet">
-            <string notr="true">QPushButton{background-color:rgb(0, 170, 255);
-color:white}</string>
-           </property>
-           <property name="text">
-            <string>Pause</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="btnContinueMovement">
-           <property name="styleSheet">
-            <string notr="true">QPushButton{background-color:rgb(0, 170, 255);
-color:white}</string>
-           </property>
-           <property name="text">
-            <string>Continue</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item row="4" column="0">
-        <widget class="QLabel" name="label_10">
-         <property name="text">
-          <string>Pause/Continue</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </item>
-     <item>
-      <widget class="QPushButton" name="btnStopMovement">
-       <property name="styleSheet">
-        <string notr="true">QPushButton{background-color:rgb(0, 170, 255);
-color:white}</string>
-       </property>
-       <property name="text">
-        <string>Stop Movement</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </widget>
+   <property name="styleSheet">
+    <string notr="true">QWidget{background-color:rgb(235, 235, 235);
+color:black}</string>
+   </property>
    <widget class="QLabel" name="label_14">
     <property name="geometry">
      <rect>
-      <x>490</x>
-      <y>430</y>
+      <x>460</x>
+      <y>380</y>
       <width>161</width>
       <height>31</height>
      </rect>
@@ -248,10 +42,10 @@ color:white}</string>
    <widget class="QWidget" name="gridLayoutWidget">
     <property name="geometry">
      <rect>
-      <x>460</x>
-      <y>210</y>
+      <x>430</x>
+      <y>190</y>
       <width>208</width>
-      <height>181</height>
+      <height>101</height>
      </rect>
     </property>
     <layout class="QGridLayout" name="gridLayout">
@@ -288,8 +82,8 @@ color:white}</string>
    <widget class="QPushButton" name="btnHoming">
     <property name="geometry">
      <rect>
-      <x>400</x>
-      <y>120</y>
+      <x>370</x>
+      <y>100</y>
       <width>321</width>
       <height>51</height>
      </rect>
@@ -305,8 +99,8 @@ color:white}</string>
    <widget class="QLabel" name="label_3">
     <property name="geometry">
      <rect>
-      <x>510</x>
-      <y>50</y>
+      <x>480</x>
+      <y>30</y>
       <width>121</width>
       <height>41</height>
      </rect>
@@ -314,6 +108,255 @@ color:white}</string>
     <property name="text">
      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:16pt; font-weight:600;&quot;&gt;Homing&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
+   </widget>
+   <widget class="QWidget" name="layoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>450</y>
+      <width>1019</width>
+      <height>329</height>
+     </rect>
+    </property>
+    <layout class="QGridLayout" name="gridLayout_2">
+     <item row="1" column="1">
+      <layout class="QHBoxLayout" name="horizontalLayout">
+       <property name="leftMargin">
+        <number>100</number>
+       </property>
+       <item>
+        <widget class="QPushButton" name="btnJogN">
+         <property name="styleSheet">
+          <string notr="true">QPushButton{background-color:rgb(0, 170, 255);
+color:white}</string>
+         </property>
+         <property name="text">
+          <string>-</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="btnJogP">
+         <property name="styleSheet">
+          <string notr="true">QPushButton{background-color:rgb(0, 170, 255);
+color:white}</string>
+         </property>
+         <property name="text">
+          <string>+</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item row="2" column="1">
+      <layout class="QHBoxLayout" name="horizontalLayout_2">
+       <property name="leftMargin">
+        <number>100</number>
+       </property>
+       <item>
+        <widget class="QPushButton" name="btnSingleStepN">
+         <property name="styleSheet">
+          <string notr="true">QPushButton{background-color:rgb(0, 170, 255);
+color:white}</string>
+         </property>
+         <property name="text">
+          <string>-</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="txtSingleStepValue">
+         <property name="styleSheet">
+          <string notr="true">QLineEdit{background-color:white;
+color:black}</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_11">
+         <property name="text">
+          <string>rev</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="btnSingleStepP">
+         <property name="styleSheet">
+          <string notr="true">QPushButton{background-color:rgb(0, 170, 255);
+color:white}</string>
+         </property>
+         <property name="text">
+          <string>+</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="label_7">
+       <property name="text">
+        <string>Jog</string>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="0">
+      <widget class="QLabel" name="label_10">
+       <property name="text">
+        <string>Pause/Continue</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="0">
+      <widget class="QLabel" name="label_6">
+       <property name="text">
+        <string>actual position value</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <layout class="QHBoxLayout" name="horizontalLayout_4">
+       <property name="spacing">
+        <number>100</number>
+       </property>
+       <property name="leftMargin">
+        <number>100</number>
+       </property>
+       <property name="topMargin">
+        <number>0</number>
+       </property>
+       <property name="rightMargin">
+        <number>0</number>
+       </property>
+       <property name="bottomMargin">
+        <number>0</number>
+       </property>
+       <item>
+        <widget class="QLineEdit" name="txtActualPositionValue">
+         <property name="styleSheet">
+          <string notr="true">QLineEdit{background-color:white;
+color:black}</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item row="3" column="0">
+      <widget class="QLabel" name="label_9">
+       <property name="text">
+        <string>Target Position</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="0">
+      <widget class="QLabel" name="label_8">
+       <property name="text">
+        <string>Single Step</string>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="1">
+      <layout class="QHBoxLayout" name="horizontalLayout_5">
+       <property name="leftMargin">
+        <number>100</number>
+       </property>
+       <item>
+        <widget class="QPushButton" name="btnPauseMovement">
+         <property name="styleSheet">
+          <string notr="true">QPushButton{background-color:rgb(0, 170, 255);
+color:white}</string>
+         </property>
+         <property name="text">
+          <string>Pause</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="btnContinueMovement">
+         <property name="styleSheet">
+          <string notr="true">QPushButton{background-color:rgb(0, 170, 255);
+color:white}</string>
+         </property>
+         <property name="text">
+          <string>Continue</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item row="3" column="1">
+      <layout class="QHBoxLayout" name="horizontalLayout_3">
+       <property name="leftMargin">
+        <number>100</number>
+       </property>
+       <item>
+        <widget class="QLineEdit" name="txtTargetPosition">
+         <property name="styleSheet">
+          <string notr="true">QLineEdit{background-color:white;
+color:black}</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_12">
+         <property name="text">
+          <string>rev</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="txtVelocity">
+         <property name="styleSheet">
+          <string notr="true">QLineEdit{background-color:white;
+color:black}</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_13">
+         <property name="text">
+          <string>r/min</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="btnExecute">
+         <property name="styleSheet">
+          <string notr="true">QPushButton{background-color:rgb(0, 170, 255);
+color:white}</string>
+         </property>
+         <property name="text">
+          <string>Execute</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item row="5" column="1">
+      <layout class="QHBoxLayout" name="horizontalLayout_6">
+       <property name="leftMargin">
+        <number>100</number>
+       </property>
+       <item>
+        <widget class="QPushButton" name="btnStopMovement">
+         <property name="styleSheet">
+          <string notr="true">QPushButton{background-color:rgb(0, 170, 255);
+color:white}</string>
+         </property>
+         <property name="text">
+          <string>Stop Movement</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item row="5" column="0">
+      <widget class="QLabel" name="label_5">
+       <property name="text">
+        <string>Stop</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </widget>
   </widget>
   <action name="actionconnection">
