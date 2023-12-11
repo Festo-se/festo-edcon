@@ -1,5 +1,6 @@
 from PyQt5.QtWidgets import QMainWindow, QApplication, QTabWidget, QWidget
 from PyQt5.uic import loadUi
+from edcon.gui.costumconnection import CostumConnection
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -30,6 +31,9 @@ class MainWindow(QMainWindow):
         analysis_page = QWidget()
         loadUi("C:/Workspace/festo-edcon/src/edcon/gui/analysis.ui", analysis_page)
         self.tabWidget.addTab(analysis_page, "Analysis")
+
+        # Create an instance of CustomConnection and pass the connection_page as the parent
+        self.costum_connection = CostumConnection(connection_page)
 
 if __name__ == "__main__":
     app = QApplication([])

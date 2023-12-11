@@ -65,26 +65,18 @@ color:black}</string>
       <widget class="QLineEdit" name="txteditIP">
        <property name="styleSheet">
         <string notr="true">QLineEdit{background-color:white;
-color:black}</string>
+color:black
+}</string>
        </property>
-      </widget>
-     </item>
-     <item row="1" column="0">
-      <widget class="QLabel" name="portnumberLabel">
+       <property name="inputMask">
+        <string>000.000.000.000</string>
+       </property>
        <property name="text">
-        <string>Portnumber</string>
+        <string>0.0.0.0</string>
        </property>
       </widget>
      </item>
      <item row="1" column="1">
-      <widget class="QLineEdit" name="txteditPort">
-       <property name="styleSheet">
-        <string notr="true">QLineEdit{background-color:white;
-color:black}</string>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="1">
       <widget class="QPushButton" name="btnconnect">
        <property name="styleSheet">
         <string notr="true">QPushButton{background-color:rgb(0, 170, 255);
