@@ -18,17 +18,13 @@ def parameter_set_load_func(com, args):
     parameter_set = ParameterSet(args.file)
     parameter_handler = ParameterHandler(com)
 
-    counter = 0
-    for parameter in parameter_set:
-        status = parameter_handler.write(parameter_uid=parameter.uid(),
-                                         value=parameter.value_raw,
-                                         subindex=parameter.subindex,
-                                         raw=True)
-        if status:
-            counter += 1
-        else:
+    i = None
+    for i, parameter in enumerate(parameter_set):
+        status = parameter_handler.write(parameter)
+
+        if not status:
             Logging.logger.error(
-                f"Setting {parameter.uid()} at subindex {parameter.subindex} "
+                f"Setting {parameter.uid()}"
                 f"to {parameter.value} failed")
 
-    print(f"{counter} PNUs succesfully written!")
+    print(f"{i+1} PNUs succesfully written!")

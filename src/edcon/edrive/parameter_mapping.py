@@ -25,7 +25,8 @@ def read_pnu_map_file(pnu_map_file: str = None) -> list:
         pnu_map_item = namedtuple('pnu_map_item', next(reader, None))
 
         Logging.logger.info(f"Load PNU map file: {pnu_map_file}")
-        return [pnu_map_item(*row) for row in reader]
+        # Interpret the first row element (PNU) as int
+        return [pnu_map_item(int(row[0]), *row[1:]) for row in reader]
 
 
 @lru_cache
@@ -38,7 +39,7 @@ def create_pnu_map() -> dict:
     """
     pnu_list = read_pnu_map_file()
     Logging.logger.info("Create mapping from PNU ids to PNU items")
-    return {int(item.pnu): item for item in pnu_list}
+    return {item.pnu: item for item in pnu_list}
 
 
 @lru_cache
@@ -68,6 +69,9 @@ class PnuMap:
         Returns:
             value: pnu_map_item
         """
+        if pnu not in self.mapping:
+            Logging.logger.error(f"PNU {pnu} not available in pnu_map")
+            return None
         return self.mapping[pnu]
 
     def __len__(self):
