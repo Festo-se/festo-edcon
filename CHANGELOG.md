@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## Unreleased
+
+## v0.11.0 - 11.12.23
 ### Added
 - [Minor] Parameter: Added new class Parameter as representation of a EDrive parameter.
 - [Minor] ParameterHandler: Added write and read methods for Parameter objects.

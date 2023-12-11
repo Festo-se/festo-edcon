@@ -96,9 +96,9 @@ release-job:
   script:
     - mkdir public
     - kac-tools >> public/RELEASENOTES.md
-    - python setup.py bdist_wheel
-    - twine check dist/*
-    - twine upload dist/*
+    - python -m pip wheel --no-deps .
+    - twine check *.whl
+    - twine upload *.whl
   artifacts:
     paths:
       - public
