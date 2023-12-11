@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QMainWindow, QApplication, QTabWidget, QWidget
+from PyQt5.QtWidgets import QMainWindow, QApplication, QTabWidget, QWidget, QToolBar, QAction, QLineEdit, QPushButton, QMessageBox
 from PyQt5.uic import loadUi
 from edcon.gui.costumconnection import CostumConnection
 
@@ -11,11 +11,6 @@ class MainWindow(QMainWindow):
         # Create a tab widget to hold the different pages
         self.tabWidget = QTabWidget()
         self.setCentralWidget(self.tabWidget)
-
-        # Create the connection page
-        connection_page = QWidget()
-        loadUi("C:/Workspace/festo-edcon/src/edcon/gui/connection.ui", connection_page)
-        self.tabWidget.addTab(connection_page, "Connection")
 
         # Create the configuration page
         configuration_page = QWidget()
@@ -32,9 +27,29 @@ class MainWindow(QMainWindow):
         loadUi("C:/Workspace/festo-edcon/src/edcon/gui/analysis.ui", analysis_page)
         self.tabWidget.addTab(analysis_page, "Analysis")
 
-        # Create an instance of CustomConnection and pass the connection_page as the parent
-        self.costum_connection = CostumConnection(connection_page)
+        # Create a toolbar
+        toolbar = QToolBar()
+        self.addToolBar(toolbar)
 
+         # Create a QWidget as a spacer for the layout
+        spacer = QWidget()
+        spacer.setFixedWidth(50)  # Set the width to half a centimeter
+
+        # Create a QLineEdit for the user to enter the IP address
+        txteditIP = QLineEdit()
+        txteditIP.setStyleSheet("QLineEdit{background-color:white; color:black;}")
+        txteditIP.setInputMask("000.000.000.000")
+        txteditIP.setFixedWidth(txteditIP.fontMetrics().boundingRect("000.000.000.0000").width())
+        toolbar.addWidget(txteditIP)
+        toolbar.addWidget(spacer)
+        # Create a QPushButton for the connect button
+        btnConnect = QPushButton("Connect")
+        btnConnect.setStyleSheet("QPushButton{background-color:rgb(0, 170, 255); color:white;}")
+        toolbar.addWidget(btnConnect)
+
+        # Create an instance of CustomConnection 
+        self.costum_connection = CostumConnection( txteditIP, btnConnect)
+    
 if __name__ == "__main__":
     app = QApplication([])
     window = MainWindow()

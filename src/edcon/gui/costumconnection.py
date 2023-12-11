@@ -1,23 +1,22 @@
-
-from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QMessageBox,QLineEdit
+from PyQt5.QtWidgets import QWidget, QMessageBox
 from edcon.edrive.com_modbus import ComModbus
 from edcon.utils.logging import Logging
 
+com = None  # Global variable for the Modbus connection
+
 class CostumConnection(QWidget):
-    def __init__(self, connection_page):
+    def __init__(self, txteditIP, btnConnect):
         super().__init__()
 
-        # Access the btnconnect of the connection_page instance
-        self.btnconnect = connection_page.findChild(QPushButton, "btnconnect")
+        # Connect the button's clicked signal to the function
+        btnConnect.clicked.connect(self.connect_button_clicked)
 
-        # Connect the button's click event to the function
-        self.btnconnect.clicked.connect(self.connect_button_clicked)
-
-        # Create a QLineEdit for the user to enter the IP address
-        self.txteditIP = connection_page.findChild(QLineEdit, "txteditIP")
+        # Store the QLineEdit and QPushButton for future use
+        self.txteditIP = txteditIP
+        self.btnConnect = btnConnect
 
     def connect_button_clicked(self):
-        
+        global com  # Declare the variable as global to modify it
         # Enable loglevel info
         Logging()
 
@@ -31,11 +30,20 @@ class CostumConnection(QWidget):
             return
 
         QMessageBox.information(self, "Connection Successful", "Connection established!")
+        # Replace the "Connect" button with a "Disconnect" button
+        self.btnConnect.setText("Disconnect")
+        self.btnConnect.clicked.disconnect()  # Disconnect the previous signal-slot connection
+        self.btnConnect.clicked.connect(self.disconnect_button_clicked)  # Connect the new signal-slot connection
 
 
-if __name__ == "__main__":
-    app = QApplication([])
-    connection_page = window.tabWidget.widget(0)  # Get the connection_page from MainWindow
-    connection = CostumConnection(connection_page)
-    connection.show()
-    app.exec_()
+    def disconnect_button_clicked(self):
+
+        global com  # Declare the variable as global to modify it
+        if com is not None:
+             #........               # Perform the disconnection
+            com = None  # Reset the global variable
+
+        # Replace the "Disconnect" button with a "Connect" button
+        self.btnConnect.setText("Connect")
+        self.btnConnect.clicked.disconnect()  # Disconnect the previous signal-slot connection
+        self.btnConnect.clicked.connect(self.connect_button_clicked)  # Connect the new signal-slot connection
