@@ -1,7 +1,7 @@
 """Contains ComBase class which contains common code for EDrive communication drivers."""
+from typing import Any
 from edcon.utils.logging import Logging
 from edcon.edrive.pnu_packing import pnu_pack, pnu_unpack
-
 
 class ComBase:
     """Class that contains common functions for EDrive communication drivers."""
@@ -9,7 +9,7 @@ class ComBase:
         """Reads a PNU from the EDrive without interpreting the data"""
         raise NotImplementedError
 
-    def read_pnu(self, pnu: int, subindex: int = 0, forced_format=None):
+    def read_pnu(self, pnu: int, subindex: int = 0, forced_format=None) -> Any:
         """Reads a PNU from the EDrive"""
         raw = self.read_pnu_raw(pnu, subindex)
         if raw:
@@ -26,7 +26,7 @@ class ComBase:
         """Writes raw bytes to a PNU on the EDrive"""
         raise NotImplementedError
 
-    def write_pnu(self, pnu: int, subindex: int = 0, value=0, forced_format=None) -> bool:
+    def write_pnu(self, pnu: int, subindex: int = 0, value: Any = 0, forced_format = None) -> bool:
         """Writes a value to a PNU to the EDrive"""
         raw = pnu_pack(pnu, value, forced_format)
         Logging.logger.info(f"Packed {value} to {raw}")

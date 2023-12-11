@@ -1,5 +1,6 @@
 """Contains functions which provide mapping of PNU types."""
 import struct
+from typing import Any
 from edcon.utils.logging import Logging
 from edcon.edrive.parameter_mapping import PnuMap
 
@@ -17,7 +18,7 @@ PNU_TYPE_TO_FORMAT_CHAR = {
 }
 
 
-def pnu_unpack(pnu: int, raw: bytes, forced_format: str = None):
+def pnu_unpack(pnu: int, raw: bytes, forced_format: str = None) -> Any:
     """Unpacks a raw byte value to specific type. 
        The type is determined by the pnu_map_file shipped with the package.
 
@@ -57,7 +58,7 @@ def pnu_unpack(pnu: int, raw: bytes, forced_format: str = None):
     return value
 
 
-def pnu_pack(pnu: int, value, forced_format: str = None) -> bytes:
+def pnu_pack(pnu: int, value: Any, forced_format: str = None) -> bytes:
     """Packs a provided value to raw bytes object.
        The type is determined by the pnu_map_file shipped with the package.
 
