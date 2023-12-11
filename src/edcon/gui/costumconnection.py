@@ -22,13 +22,15 @@ class CostumConnection(QWidget):
         Logging()
 
         ip_address = self.txteditIP.text()  # Get the content of the QLineEdit txteditIP
-        com = ComModbus(ip_address)  # Füge die IP-Adresse in "IP Adresse" bei comModbus ein
 
         # Establish the connection with the SPS
-        if com.connected():
-            QMessageBox.warning(self, "Connection Failed", "Failed to establish the connection.")
-        else:
-            QMessageBox.information(self, "Connection Successful", "Connection established!")
+        try:
+            com = ComModbus(ip_address)  # Füge die IP-Adresse in "IP Adresse" bei comModbus ein
+        except Exception as e:
+            QMessageBox.warning(self, "Connection Failed", f"Failed to establish the connection: {str(e)}")
+            return
+
+        QMessageBox.information(self, "Connection Successful", "Connection established!")
 
 
 if __name__ == "__main__":
