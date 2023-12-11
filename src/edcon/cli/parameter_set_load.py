@@ -21,7 +21,7 @@ def parameter_set_load_func(com, args):
     counter = 0
     for parameter in parameter_set:
         status = parameter_handler.write(parameter_uid=parameter.uid(),
-                                         value=parameter.value,
+                                         value=parameter.value_raw,
                                          subindex=parameter.subindex,
                                          raw=True)
         if status:
