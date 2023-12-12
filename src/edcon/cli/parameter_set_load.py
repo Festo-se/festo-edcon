@@ -2,7 +2,8 @@
 from edcon.utils.logging import Logging
 from edcon.edrive.parameter_set import ParameterSet
 from edcon.edrive.parameter_handler import ParameterHandler
-
+from edcon.edrive.com_modbus import ComModbus
+from edcon.edrive.com_ethernetip import ComEthernetip
 
 def add_parameter_set_load_parser(subparsers):
     """Adds arguments to a provided subparsers instance"""
@@ -13,8 +14,10 @@ def add_parameter_set_load_parser(subparsers):
                             help="Parameter set to write.")
 
 
-def parameter_set_load_func(com, args):
+def parameter_set_load_func(args):
     """Executes subcommand based on provided arguments"""
+    # Initialize driver
+    com = ComEthernetip(args.ip_address) if args.ethernetip else ComModbus(args.ip_address)
     parameter_set = ParameterSet(args.file)
     parameter_handler = ParameterHandler(com)
 

@@ -1,7 +1,8 @@
 """CLI tool that performs a sequence on Telegram9 and EDrive classes."""
 import sys
 from edcon.edrive.telegram9_handler import Telegram9Handler
-
+from edcon.edrive.com_modbus import ComModbus
+from edcon.edrive.com_ethernetip import ComEthernetip
 
 def add_tg9_parser(subparsers):
     """Adds arguments to a provided subparsers instance"""
@@ -12,8 +13,10 @@ def add_tg9_parser(subparsers):
                             help='Target position to be reached (default: %(default)s).')
 
 
-def tg9_func(com, args):
+def tg9_func(args):
     """Executes subcommand based on provided arguments"""
+    # Initialize driver
+    com = ComEthernetip(args.ip_address) if args.ethernetip else ComModbus(args.ip_address)
     with Telegram9Handler(com) as tg9:
         if not tg9.acknowledge_faults():
             sys.exit(1)

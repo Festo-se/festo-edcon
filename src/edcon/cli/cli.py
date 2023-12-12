@@ -8,10 +8,8 @@ from edcon.cli.tg1 import add_tg1_parser
 from edcon.cli.tg9 import add_tg9_parser
 from edcon.cli.tg102 import add_tg102_parser
 from edcon.cli.tg111 import add_tg111_parser
-from edcon.utils.logging import Logging
-from edcon.edrive.com_modbus import ComModbus
-from edcon.edrive.com_ethernetip import ComEthernetip
 from edcon.cli.gui import add_gui_parser
+from edcon.utils.logging import Logging
 
 def main():
     """Parses command line arguments and calls corresponding subcommand program."""
@@ -62,15 +60,6 @@ def main():
         Logging(logging.WARNING)
 
     args.func(args)
-
-#     Initialize driver
-#     if args.ethernetip:
-#        com = ComEthernetip(args.ip_address)
-#     else:
-#        com = ComModbus(args.ip_address)
-
-#    args.func(com, args)
-
 
 if __name__ == "__main__":
     main()

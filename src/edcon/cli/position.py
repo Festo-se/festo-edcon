@@ -2,7 +2,8 @@
 import sys
 import traceback
 from edcon.edrive.motion_handler import MotionHandler
-
+from edcon.edrive.com_modbus import ComModbus
+from edcon.edrive.com_ethernetip import ComEthernetip
 
 def add_position_parser(subparsers):
     """Adds arguments to a provided subparsers instance"""
@@ -19,8 +20,10 @@ def add_position_parser(subparsers):
                                  help='Perform a referencing task before positioning task')
 
 
-def position_func(com, args):
+def position_func(args):
     """Executes subcommand based on provided arguments"""
+    # Initialize driver
+    com = ComEthernetip(args.ip_address) if args.ethernetip else ComModbus(args.ip_address)
     try:
         with MotionHandler(com) as mot:
             if not mot.acknowledge_faults():
