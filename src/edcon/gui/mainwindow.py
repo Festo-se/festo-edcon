@@ -1,6 +1,8 @@
-from PyQt5.QtWidgets import QMainWindow, QApplication, QTabWidget, QWidget, QToolBar, QAction, QLineEdit, QPushButton, QMessageBox
+from PyQt5.QtWidgets import QMainWindow, QApplication, QTabWidget, QWidget, QToolBar, QLineEdit, QPushButton
 from PyQt5.uic import loadUi
 from edcon.gui.costumconnection import CostumConnection
+from edcon.gui.costumreadparameters import CostumReadParameters
+from edcon.gui.costumwriteparameters import CostumWriteParameters
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -21,7 +23,7 @@ class MainWindow(QMainWindow):
         toolbar = QToolBar()
         self.addToolBar(toolbar)
 
-         # Create a QWidget as a spacer for the layout
+        # Create a QWidget as a spacer for the layout
         spacer = QWidget()
         spacer.setFixedWidth(50)  # Set the width to half a centimeter
 
@@ -39,8 +41,14 @@ class MainWindow(QMainWindow):
         toolbar.addWidget(btnConnect)
 
         # Create an instance of CustomConnection 
-        self.costum_connection = CostumConnection( txteditIP, btnConnect)
-    
+        self.costum_connection = CostumConnection(txteditIP, btnConnect)
+
+        # Create an instance of CustomReadParameters
+        self.costum_read_parameters = CostumReadParameters(configuration_page.txtsearchParameter, txteditIP.text())
+
+        # Create an instance of CustomReadParameters
+        self.costum_write_parameters = CostumWriteParameters(configuration_page.txtValueParameter, txteditIP.text(), configuration_page.txtsearchParameter)
+
 if __name__ == "__main__":
     app = QApplication([])
     window = MainWindow()
