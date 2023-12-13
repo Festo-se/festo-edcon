@@ -1,5 +1,7 @@
 from PyQt5.QtWidgets import QMainWindow, QApplication, QTabWidget, QWidget, QToolBar, QLineEdit, QPushButton
 from PyQt5.uic import loadUi
+from importlib.resources import files
+from pathlib import PurePath
 from edcon.gui.costumconnection import CostumConnection
 from edcon.gui.costumreadparameters import CostumReadParameters
 from edcon.gui.costumwriteparameters import CostumWriteParameters
@@ -7,10 +9,10 @@ from edcon.gui.costumwriteparameters import CostumWriteParameters
 class MainWindow(QMainWindow):
     def __init__(self, ip_address):
         super().__init__()
-        loadUi("C:/Workspace/festo-edcon/src/edcon/gui/mainwindow.ui", self)
+        loadUi(PurePath(files('edcon') / 'gui' / 'mainwindow.ui'), self)
         self.setWindowTitle("GUI")
 
-        connection_widget = loadUi("C:/Workspace/festo-edcon/src/edcon/gui/connection.ui")
+        connection_widget = loadUi(PurePath(files('edcon') / 'gui' / 'connection.ui'))
         connection_widget.ipAddressEdit.setText(ip_address)
         self.toolBar.addWidget(connection_widget)
 
