@@ -11,7 +11,7 @@ class MainWindow(QMainWindow):
         self.setWindowTitle("GUI")
 
         connection_widget = loadUi("C:/Workspace/festo-edcon/src/edcon/gui/connection.ui")
-        # connection_widget.groupBox.ipAddressEdit.setText(ip_address)
+        connection_widget.ipAddressEdit.setText(ip_address)
         self.toolBar.addWidget(connection_widget)
 
         # self.toolBar.addWidget(connection_widget)
