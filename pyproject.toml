@@ -20,7 +20,8 @@ requires-python = ">=3.9"
 dependencies = [
     'pymodbus>=3.0.0,<4.0.0',
     'ethernetip>=1.1.1,<2.0.0',
-    'rich'
+    'rich',
+    'pyqt5'
 ]
 
 [project.urls]
@@ -30,9 +31,6 @@ Changelog = "https://gitlab.com/festo-research/electric-automation/festo-edcon/-
 
 [project.scripts]
 festo-edcon = "edcon.cli.cli:main"
-
-[project.optional-dependencies]
-gui = ["pyqt5"]
 
 [tool.setuptools.package-data]
 pnu_map = ["edcon/edrive/data/pnu_map.csv"]

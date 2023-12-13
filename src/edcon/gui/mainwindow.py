@@ -5,7 +5,7 @@ from edcon.gui.costumreadparameters import CostumReadParameters
 from edcon.gui.costumwriteparameters import CostumWriteParameters
 
 class MainWindow(QMainWindow):
-    def __init__(self):
+    def __init__(self, ip_address):
         super().__init__()
         loadUi("C:/Workspace/festo-edcon/src/edcon/gui/mainwindow.ui", self)
         self.setWindowTitle("GUI")
@@ -32,7 +32,7 @@ class MainWindow(QMainWindow):
         txteditIP.setStyleSheet("QLineEdit{background-color:white; color:black;}")
         txteditIP.setInputMask("000.000.000.000")
         txteditIP.setFixedWidth(txteditIP.fontMetrics().boundingRect("000.000.000.0000").width())
-        txteditIP.setText("192.168.0.1")  # Set the default value
+        txteditIP.setText(ip_address)  # Set the default value
         toolbar.addWidget(txteditIP)
         toolbar.addWidget(spacer)
         # Create a QPushButton for the connect button
@@ -48,9 +48,3 @@ class MainWindow(QMainWindow):
 
         # Create an instance of CustomReadParameters
         self.costum_write_parameters = CostumWriteParameters(configuration_page.txtValueParameter, txteditIP.text(), configuration_page.txtsearchParameter)
-
-if __name__ == "__main__":
-    app = QApplication([])
-    window = MainWindow()
-    window.show()
-    app.exec_()
