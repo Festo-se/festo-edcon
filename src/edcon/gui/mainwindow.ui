@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>873</width>
+    <width>874</width>
     <height>573</height>
    </rect>
   </property>
@@ -50,77 +50,169 @@ color:black}</string>
           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:16pt; font-weight:600;&quot;&gt;search parameter&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
         </widget>
-        <widget class="QLabel" name="label">
+        <widget class="QTableView" name="tblPnuList">
          <property name="geometry">
           <rect>
-           <x>40</x>
-           <y>100</y>
-           <width>89</width>
-           <height>16</height>
+           <x>20</x>
+           <y>230</y>
+           <width>801</width>
+           <height>251</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QWidget" name="horizontalLayoutWidget_2">
+         <property name="geometry">
+          <rect>
+           <x>20</x>
+           <y>180</y>
+           <width>291</width>
+           <height>41</height>
+          </rect>
+         </property>
+         <layout class="QHBoxLayout" name="horizontalLayout_2">
+          <property name="spacing">
+           <number>50</number>
+          </property>
+          <item>
+           <widget class="QLabel" name="label_2">
+            <property name="text">
+             <string>Filter pnu-list</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="txtsearchPnuList">
+            <property name="styleSheet">
+             <string notr="true">QLineEdit{background-color:white;
+color:black}</string>
+            </property>
+            <property name="clearButtonEnabled">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+        <widget class="QPushButton" name="btnUpdate">
+         <property name="geometry">
+          <rect>
+           <x>320</x>
+           <y>190</y>
+           <width>93</width>
+           <height>28</height>
           </rect>
          </property>
          <property name="text">
-          <string>search parameter:</string>
+          <string>update</string>
          </property>
         </widget>
-        <widget class="QLineEdit" name="txtsearchParameter">
+        <widget class="QWidget" name="formLayoutWidget">
          <property name="geometry">
           <rect>
-           <x>180</x>
-           <y>100</y>
-           <width>133</width>
-           <height>20</height>
+           <x>20</x>
+           <y>80</y>
+           <width>341</width>
+           <height>42</height>
           </rect>
          </property>
-         <property name="focusPolicy">
-          <enum>Qt::StrongFocus</enum>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">QLineEdit{background-color:white;
+         <layout class="QFormLayout" name="formLayout">
+          <property name="horizontalSpacing">
+           <number>40</number>
+          </property>
+          <property name="verticalSpacing">
+           <number>40</number>
+          </property>
+          <property name="leftMargin">
+           <number>10</number>
+          </property>
+          <property name="topMargin">
+           <number>10</number>
+          </property>
+          <property name="rightMargin">
+           <number>10</number>
+          </property>
+          <property name="bottomMargin">
+           <number>10</number>
+          </property>
+          <item row="0" column="0">
+           <widget class="QLabel" name="label_3">
+            <property name="text">
+             <string>search parameter:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QLineEdit" name="txtsearchParameter">
+            <property name="focusPolicy">
+             <enum>Qt::StrongFocus</enum>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">QLineEdit{background-color:white;
 color:black}</string>
-         </property>
-         <property name="inputMask">
-          <string>0000000000</string>
-         </property>
-         <property name="maxLength">
-          <number>10</number>
-         </property>
-         <property name="cursorPosition">
-          <number>0</number>
-         </property>
-         <property name="clearButtonEnabled">
-          <bool>true</bool>
-         </property>
+            </property>
+            <property name="inputMask">
+             <string>0000000000</string>
+            </property>
+            <property name="maxLength">
+             <number>10</number>
+            </property>
+            <property name="cursorPosition">
+             <number>0</number>
+            </property>
+            <property name="clearButtonEnabled">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </widget>
-        <widget class="QLineEdit" name="txtValueParameter">
+        <widget class="QWidget" name="horizontalLayoutWidget">
          <property name="geometry">
           <rect>
-           <x>180</x>
-           <y>140</y>
-           <width>133</width>
-           <height>20</height>
+           <x>20</x>
+           <y>130</y>
+           <width>341</width>
+           <height>41</height>
           </rect>
          </property>
-         <property name="styleSheet">
-          <string notr="true">QLineEdit{background-color:white;
+         <layout class="QHBoxLayout" name="horizontalLayout">
+          <property name="spacing">
+           <number>112</number>
+          </property>
+          <property name="leftMargin">
+           <number>10</number>
+          </property>
+          <property name="topMargin">
+           <number>5</number>
+          </property>
+          <property name="rightMargin">
+           <number>10</number>
+          </property>
+          <property name="bottomMargin">
+           <number>5</number>
+          </property>
+          <item>
+           <widget class="QLabel" name="label_8">
+            <property name="text">
+             <string>value:</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="txtValueParameter">
+            <property name="styleSheet">
+             <string notr="true">QLineEdit{background-color:white;
 color:black}</string>
-         </property>
-         <property name="inputMask">
-          <string>0000000000</string>
-         </property>
-        </widget>
-        <widget class="QLabel" name="label_7">
-         <property name="geometry">
-          <rect>
-           <x>40</x>
-           <y>140</y>
-           <width>30</width>
-           <height>16</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>value:</string>
-         </property>
+            </property>
+            <property name="inputMask">
+             <string>0000000000</string>
+            </property>
+            <property name="clearButtonEnabled">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </widget>
        </widget>
       </widget>

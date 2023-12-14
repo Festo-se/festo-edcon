@@ -12,7 +12,7 @@ class CostumWriteParameters:
         self.txtValueParameter.returnPressed.connect(self.write_pnu_value_from_text)
 
     def write_pnu_value_from_text(self):
-        new_value = self.txtValueParameter.text()  
+        new_value = self.txtValueParameter.text()
         pnu = int(self.txtsearchParameter.text())  # Convert pnu to an integer
     
         try:
