@@ -7,6 +7,7 @@ class CostumTableModel(QtCore.QAbstractTableModel):
 
         self._headers = data[0]
         self._data = data[1:]
+        #print(len(self._data) -2)
 
     def data(self, index, role):
         if role == Qt.DisplayRole:
@@ -15,9 +16,9 @@ class CostumTableModel(QtCore.QAbstractTableModel):
             return self._data[row][column]
 
     def rowCount(self, index):
-        return len(self._data)
+        return len(self._data) -2
 
-    def columnCount(self, index):
+    def columnCount(self, index):   
         return len(self._headers)
 
     def headerData(self, section, orientation, role):
