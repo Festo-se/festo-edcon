@@ -5,7 +5,7 @@ from pathlib import PurePath
 from edcon.gui.costumconnection import CostumConnection
 from edcon.gui.costumreadparameters import CostumReadParameters
 from edcon.gui.costumwriteparameters import CostumWriteParameters
-from edcon.gui.costumtablecsv import CostumTableCsv
+from edcon.gui.costumtablemodel import CostumTableModel
 class MainWindow(QMainWindow):
     def __init__(self, ip_address):
         super().__init__()
@@ -13,7 +13,7 @@ class MainWindow(QMainWindow):
         self.setWindowTitle("GUI")
 
         connection_widget = loadUi(PurePath(files('edcon') / 'gui' / 'connection.ui'))
-        #connection_widget.txteditIP.setText(ip_address)
+        connection_widget.txteditIP.setText(ip_address)
         self.toolBar.addWidget(connection_widget)
 
           # # Create an instance of CustomConnection 
@@ -27,6 +27,9 @@ class MainWindow(QMainWindow):
 
         # Create an instance of CostumTableCsv
         csv_file_path = PurePath(files('edcon') / 'edrive' / 'data'/ 'pnu_map.csv')
-        self.costum_table_csv = CostumTableCsv(csv_file_path,self.tblPnuList)
 
+        self.model = CostumTableModel(csv_file_path)
+        # self.model.setNameFilter("telegram")
+        # self.model.setValue("32", "5")
+        self.tblPnuList.setModel(self.model)
   
