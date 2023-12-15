@@ -23,17 +23,17 @@ class MainWindow(QMainWindow):
 
         # # Create an instance of CustomConnection
         self.connection_widget = ConnectionWidget(
-            self.connection_widget.line_edit_ip, self.connection_widget.btnConnect)
+            self.connection_widget.line_edit_ip, self.connection_widget.btn_connect)
 
         # Create an instance of ParameterTableModel
         csv_file_path = PurePath(
             files('edcon') / 'edrive' / 'data' / 'pnu_map.csv')
         self.model = ParameterTableModel(csv_file_path, self.connection_widget)
 
+        self.tbl_pnu_list.setModel(self.model)
         self.btn_update.clicked.connect(self.btn_update_clicked)
         self.btn_confirm.clicked.connect(self.btn_confirm_clicked)
         self.btn_read.clicked.connect(self.btn_read_clicked)
-        self.tbl_pnu_list.setModel(self.model)
         self.line_edit_pnu_list.textChanged.connect(self.on_text_changed)
         self.line_edit_pnu_value.returnPressed.connect(self.pressed_enter_value)
         self.line_edit_pnu.returnPressed.connect(self.pressed_enter_read)
