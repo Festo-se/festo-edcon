@@ -23,7 +23,8 @@ class CostumConnection(QWidget):
 
         # Establish the connection with the SPS
         try:
-            self.com = ComModbus(ip_address)  # Füge die IP-Adresse in "IP Adresse" bei comModbus ein
+            self.com = ComModbus(ip_address, timeout_ms = 0 )  # Füge die IP-Adresse in "IP Adresse" bei comModbus ein
+            self.com.read_pnu(1)
         except Exception as e:
             QMessageBox.warning(self, "Connection Failed", f"Failed to establish the connection: {str(e)}")
             return
