@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>274</width>
-    <height>82</height>
+    <height>74</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -24,7 +24,7 @@
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout_2">
       <item>
-       <widget class="QLineEdit" name="txteditIP">
+       <widget class="QLineEdit" name="line_edit_ip">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
           <horstretch>0</horstretch>

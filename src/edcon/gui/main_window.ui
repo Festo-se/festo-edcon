@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>874</width>
+    <width>638</width>
     <height>646</height>
    </rect>
   </property>
@@ -40,7 +40,7 @@ color:black}</string>
         <widget class="QLabel" name="label_9">
          <property name="geometry">
           <rect>
-           <x>20</x>
+           <x>160</x>
            <y>10</y>
            <width>291</width>
            <height>41</height>
@@ -50,10 +50,10 @@ color:black}</string>
           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:16pt; font-weight:600;&quot;&gt;search and edit parameter&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
         </widget>
-        <widget class="QTableView" name="tblPnuList">
+        <widget class="QTableView" name="tbl_pnu_list">
          <property name="geometry">
           <rect>
-           <x>20</x>
+           <x>30</x>
            <y>230</y>
            <width>561</width>
            <height>291</height>
@@ -63,50 +63,15 @@ color:black}</string>
         <widget class="QWidget" name="gridLayoutWidget">
          <property name="geometry">
           <rect>
-           <x>20</x>
+           <x>30</x>
            <y>60</y>
-           <width>331</width>
+           <width>441</width>
            <height>161</height>
           </rect>
          </property>
          <layout class="QGridLayout" name="gridLayout">
-          <item row="1" column="1">
-           <widget class="QLineEdit" name="txtValueParameter">
-            <property name="styleSheet">
-             <string notr="true">QLineEdit{background-color:white;
-color:black}</string>
-            </property>
-            <property name="inputMask">
-             <string>0000000000</string>
-            </property>
-            <property name="clearButtonEnabled">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="1">
-           <widget class="QLineEdit" name="txtsearchPnuList">
-            <property name="styleSheet">
-             <string notr="true">QLineEdit{background-color:white;
-color:black}</string>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-            <property name="clearButtonEnabled">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="0">
-           <widget class="QLabel" name="label_8">
-            <property name="text">
-             <string>set value:</string>
-            </property>
-           </widget>
-          </item>
           <item row="2" column="2">
-           <widget class="QPushButton" name="btnUpdate">
+           <widget class="QPushButton" name="btn_update">
             <property name="styleSheet">
              <string notr="true">background-color: rgb(0, 153, 255);
 color: rgb(255, 255, 255);</string>
@@ -117,7 +82,7 @@ color: rgb(255, 255, 255);</string>
            </widget>
           </item>
           <item row="1" column="2">
-           <widget class="QPushButton" name="btnConfirmValue">
+           <widget class="QPushButton" name="btn_confirm">
             <property name="styleSheet">
              <string notr="true">background-color: rgb(0, 153, 255);
 color: rgb(255, 255, 255);</string>
@@ -134,26 +99,8 @@ color: rgb(255, 255, 255);</string>
             </property>
            </widget>
           </item>
-          <item row="0" column="2">
-           <widget class="QPushButton" name="btnReadValue">
-            <property name="styleSheet">
-             <string notr="true">background-color: rgb(0, 153, 255);
-color: rgb(255, 255, 255);</string>
-            </property>
-            <property name="text">
-             <string>read</string>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="0">
-           <widget class="QLabel" name="label_2">
-            <property name="text">
-             <string>Filter pnu-list:</string>
-            </property>
-           </widget>
-          </item>
           <item row="0" column="1">
-           <widget class="QLineEdit" name="txtsearchParameter">
+           <widget class="QLineEdit" name="line_edit_pnu">
             <property name="focusPolicy">
              <enum>Qt::StrongFocus</enum>
             </property>
@@ -172,6 +119,73 @@ color:black}</string>
             </property>
             <property name="clearButtonEnabled">
              <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QLineEdit" name="line_edit_pnu_list">
+            <property name="styleSheet">
+             <string notr="true">QLineEdit{background-color:white;
+color:black}</string>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+            <property name="clearButtonEnabled">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="2">
+           <widget class="QPushButton" name="btn_read">
+            <property name="styleSheet">
+             <string notr="true">background-color: rgb(0, 153, 255);
+color: rgb(255, 255, 255);</string>
+            </property>
+            <property name="text">
+             <string>read</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QLineEdit" name="line_edit_pnu_value">
+            <property name="styleSheet">
+             <string notr="true">QLineEdit{background-color:white;
+color:black}</string>
+            </property>
+            <property name="inputMask">
+             <string>0000000000</string>
+            </property>
+            <property name="clearButtonEnabled">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="label_8">
+            <property name="text">
+             <string>set value:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <widget class="QLabel" name="label_2">
+            <property name="text">
+             <string>Filter pnu-list:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="3">
+           <widget class="QLabel" name="label">
+            <property name="text">
+             <string>(Only numbers are allowed)</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="3">
+           <widget class="QLabel" name="label_4">
+            <property name="text">
+             <string>(Only numbers are allowed)</string>
             </property>
            </widget>
           </item>
