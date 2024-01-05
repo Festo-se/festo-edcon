@@ -3,14 +3,14 @@
 import csv
 from PyQt5 import QtCore
 from PyQt5.QtCore import Qt
+from edcon.utils.logging import Logging
 
 
 class ParameterTableModel(QtCore.QAbstractTableModel):
     """Defines the model for the parameter table."""
 
-    def __init__(self, csv_file_path, connection_widget):
+    def __init__(self, csv_file_path):
         super().__init__()
-        self.connection_widget = connection_widget
 
         self.name_filter = ''
         with open(csv_file_path, encoding='ascii') as csvfile:
@@ -26,23 +26,25 @@ class ParameterTableModel(QtCore.QAbstractTableModel):
             self._filtered_data = self._data
         self._filtered_data = [
             line for line in self._data if name_filter in line[1]]
+        self.layoutChanged.emit()
 
-    def set_pnu_for_all_rows(self):
+    def set_pnu_for_all_rows(self, com):
         """Fill the column "value" for all rows."""
         pnu_list = [row[0] for row in self._data]
         for pnu in pnu_list:
-            self.set_value_for_one_row(pnu)
+            self.set_value_for_one_row(pnu, com)
 
-    def set_value_for_one_row(self, pnu):
+    def set_value_for_one_row(self, pnu, com):
         """Fill the column "value" for one row."""
         try:
             # Execute the command with the current pnu value
-            value = self.connection_widget.com.read_pnu(int(pnu), 0)
+            value = com.read_pnu(int(pnu), 0)
             index = [row[0] for row in self._data].index(str(pnu))
             self._data[index][4] = value
+            self.layoutChanged.emit()
 
         except (ValueError, AttributeError):
-            pass
+            Logging.logger.error(f"Could not access PNU register {pnu}")
 
     def data(self, index, role):
         """returns the cell value if the role is "Qt.DisplayRole"""

@@ -1,32 +1,28 @@
 """Functionality related to the connection widget."""
-from PyQt5.QtWidgets import QWidget, QMessageBox
+from pathlib import PurePath
+from importlib.resources import files
+from PyQt5.QtWidgets import QWidget, QMessageBox  # pylint: disable=import-error, no-name-in-module
+from PyQt5.uic import loadUi
 from pymodbus.exceptions import ConnectionException
-from edcon.edrive.com_modbus import ComModbus
 
 
 class ConnectionWidget(QWidget):
     """Defines the connection widget."""
 
-    def __init__(self, line_edit_ip, push_button_connect):
+    # pylint: disable=too-few-public-methods
+    def __init__(self, ip_address, connect_function):
         super().__init__()
-
+        loadUi(PurePath(files('edcon') / 'gui' / 'connection.ui'), self)
         # Connect the button's clicked signal to the function
-        push_button_connect.clicked.connect(self.push_button_connect_clicked)
+        self.btn_connect.clicked.connect(self.push_button_connect_clicked)
 
-        # Store the QLineEdit and QPushButton for future use
-        self.line_edit_ip = line_edit_ip
-        self.push_button_connect = push_button_connect
-
-        self.com = None
+        self.line_edit_ip.setText(ip_address)
+        self.connect_function = connect_function
 
     def push_button_connect_clicked(self):
         """Method that is called when the push_button_connect is clicked."""
-
-        # Get the content of the QLineEdit txteditIP
-        ip_address = self.line_edit_ip.text()
         try:
-            # Establish the connection with the drive
-            self.com = ComModbus(ip_address, timeout_ms=0)
+            self.connect_function(self.line_edit_ip.text())
         except ConnectionException as exception:
             QMessageBox.warning(self, "Connection Failed",
                                 f"Failed to establish the connection: {str(exception)}")
