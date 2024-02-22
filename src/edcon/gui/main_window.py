@@ -28,8 +28,7 @@ class MainWindow(QMainWindow):
         self.toolBar.addWidget(self.connection_widget)
 
         # Create an instance of ParameterTableModel
-        csv_file_path = PurePath(files("edcon") / "edrive" / "data" / "pnu_map.csv")
-        self.model = ParameterTableModel(csv_file_path)
+        self.model = ParameterTableModel()
 
         self.table_view_pnu_list.horizontalHeader().setSectionResizeMode(
             QHeaderView.Stretch
@@ -44,11 +43,17 @@ class MainWindow(QMainWindow):
         self.line_edit_pnu_value.returnPressed.connect(self.pressed_enter_value)
         self.line_edit_pnu.returnPressed.connect(self.pressed_enter_read)
 
-        self.com = None
+        self._com = None
+
+    @property
+    def com(self):
+        if self._com is None:
+            self.connection_widget.connect()
+        return self._com
 
     def connect_function(self, ip_address):
         """Establishes the connection using the communication driver."""
-        self.com = ComModbus(ip_address=ip_address, timeout_ms=0)
+        self._com = ComModbus(ip_address=ip_address, timeout_ms=0)
 
     def read_pnu_from_text(self):
         """Takes input from line edit and reads corresponding PNU."""
@@ -89,23 +94,23 @@ class MainWindow(QMainWindow):
     def button_pnu_read_clicked(self):
         """Button click callback for PNU read."""
         self.read_pnu_from_text()
-        self.model.set_row_value(self.line_edit_pnu.text(), self.com)
+        self.model.update_value(self.line_edit_pnu.text(), self.com)
 
     def button_pnu_write_clicked(self):
         """Button click callback for PNU write."""
         self.write_pnu_value_from_text()
-        self.model.set_row_value(self.line_edit_pnu.text(), self.com)
+        self.model.update_value(self.line_edit_pnu.text(), self.com)
 
     def button_pnu_list_update_clicked(self):
         """Button click callback for PNU list update."""
-        self.model.set_pnu_for_all_rows(self.com)
+        self.model.update_all_values(self.com)
 
     def pressed_enter_read(self):
         """Enter press callback for PNU read."""
         self.read_pnu_from_text()
-        self.model.set_row_value(self.line_edit_pnu.text(), self.com)
+        self.model.update_value(self.line_edit_pnu.text(), self.com)
 
     def pressed_enter_value(self):
         """Enter press callback for PNU write."""
         self.write_pnu_value_from_text()
-        self.model.set_row_value(self.line_edit_pnu.text(), self.com)
+        self.model.update_value(self.line_edit_pnu.text(), self.com)
