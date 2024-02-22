@@ -28,16 +28,16 @@ class ParameterTableModel(QtCore.QAbstractTableModel):
         ]
         self.layoutChanged.emit()
 
-    def update_all_values(self, com):
+    def update_all_values(self, pnu_read_func):
         """Fill the column "value" for all rows."""
         for data in self._filtered_data:
             try:
-                data[4] = com.read_pnu(data[0], 0)
+                data[4] = pnu_read_func(data[0])
             except (ValueError, AttributeError):
                 Logging.logger.error(f"Could not access PNU register {data[0]}")
         self.layoutChanged.emit()
 
-    def update_value(self, pnu, com):
+    def update_value(self, pnu, pnu_read_func):
         """Fill the column "value" for one row."""
         data = next((data for data in self._data if data[0] == int(pnu)), None)
         if data is None:
@@ -45,7 +45,7 @@ class ParameterTableModel(QtCore.QAbstractTableModel):
             return
 
         try:
-            data[4] = com.read_pnu(data[0], 0)
+            data[4] = pnu_read_func(data[0])
         except (ValueError, AttributeError):
             Logging.logger.error(f"Could not access PNU register {pnu}")
         self.layoutChanged.emit()
