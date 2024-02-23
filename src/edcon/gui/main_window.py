@@ -32,6 +32,10 @@ class MainWindow(QMainWindow):
 
     @property
     def com(self):
+        """
+        Returns the communication driver.
+        Trys to establish the connection if not yet established.
+        """
         if self._com is None:
             self.connection_widget.connect()
         return self._com
@@ -41,9 +45,9 @@ class MainWindow(QMainWindow):
         self._com = ComModbus(ip_address=ip_address, timeout_ms=0)
 
     def pnu_read_function(self, pnu):
-        """Establishes the connection using the communication driver."""
+        """Reads a PNU using the communication driver."""
         return self.com.read_pnu(pnu)
 
     def pnu_write_function(self, pnu, value):
-        """Establishes the connection using the communication driver."""
+        """Writes a PNU using the communication driver."""
         return self.com.write_pnu(pnu, value=value)

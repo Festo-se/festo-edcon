@@ -5,7 +5,7 @@ from importlib.resources import files
 from PyQt5.QtWidgets import QWidget  # pylint: disable=import-error, no-name-in-module
 from PyQt5.uic import loadUi
 from pymodbus.exceptions import ConnectionException
-from edcon.gui.qt_helpers import bold_string
+from edcon.gui.pyqt_helpers import bold_string
 
 
 class ConnectionWidget(QWidget):
