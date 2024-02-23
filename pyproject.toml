@@ -35,7 +35,8 @@ festo-edcon = "edcon.cli.cli:main"
 [tool.setuptools.package-data]
 pnu_map = ["edcon/edrive/data/pnu_map.csv"]
 icp_map = ["edcon/edrive/data/icp_map.csv"]
-ui_files = ["edcon/gui/*.ui"]
+ui_files = ["edcon/gui/ui/*.ui"]
+image_files = ["edcon/gui/images/*.png"]
 
 [tool.setuptools.packages.find]
 where = ["src"]
