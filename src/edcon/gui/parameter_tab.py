@@ -2,10 +2,9 @@
 
 from pathlib import PurePath
 from importlib.resources import files
-from PyQt5.QtWidgets import (
-    QWidget,
-    QHeaderView,
-)  # pylint: disable=import-error, no-name-in-module
+
+# pylint: disable=import-error, no-name-in-module
+from PyQt5.QtWidgets import QWidget, QHeaderView
 from PyQt5.uic import loadUi
 from edcon.gui.parameter_table_model import ParameterTableModel
 from edcon.gui.pyqt_helpers import checkmark, ballot
