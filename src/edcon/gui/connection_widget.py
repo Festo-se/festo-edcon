@@ -14,7 +14,7 @@ class ConnectionWidget(QWidget):
     # pylint: disable=too-few-public-methods
     def __init__(self, ip_address, connect_function):
         super().__init__()
-        loadUi(PurePath(files("edcon") / "gui" / "connection.ui"), self)
+        loadUi(PurePath(files("edcon") / "gui" / "ui" / "connection.ui"), self)
         # Connect the button's clicked signal to the function
         self.button_connect.clicked.connect(self.connect)
 
