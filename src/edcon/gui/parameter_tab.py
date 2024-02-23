@@ -15,7 +15,7 @@ class ParameterTab(QWidget):
 
     def __init__(self, pnu_read_func, pnu_write_func):
         super().__init__()
-        loadUi(PurePath(files("edcon") / "gui" / "parameter_tab.ui"), self)
+        loadUi(PurePath(files("edcon") / "gui" / "ui" / "parameter_tab.ui"), self)
 
         self.read_pnu = pnu_read_func
         self.write_pnu = pnu_write_func

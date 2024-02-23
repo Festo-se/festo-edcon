@@ -18,7 +18,7 @@ class MainWindow(QMainWindow):
         super().__init__()
         self._com = None
 
-        loadUi(PurePath(files("edcon") / "gui" / "main_window.ui"), self)
+        loadUi(PurePath(files("edcon") / "gui" / "ui" / "main_window.ui"), self)
         self.setWindowTitle("GUI")
 
         self.connection_widget = ConnectionWidget(

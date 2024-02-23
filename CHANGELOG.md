@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 ### Added
-- Added first version of GUI
+- Added first version of GUI.
 
 ### Changed
 - Added .pylintrc containing pylint config.

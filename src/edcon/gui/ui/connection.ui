@@ -97,7 +97,7 @@ color: rgb(255, 255, 255);</string>
       <string/>
      </property>
      <property name="pixmap">
-      <pixmap>../../../docs/images/festo_logo.png</pixmap>
+      <pixmap>../images/festo_logo.png</pixmap>
      </property>
      <property name="scaledContents">
       <bool>true</bool>
