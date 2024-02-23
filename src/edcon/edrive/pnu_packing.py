@@ -37,25 +37,29 @@ def pnu_unpack(pnu: int, raw: bytes, forced_format: str = None) -> Any:
         pnu_map = PnuMap()
         pnu_data_type = pnu_map[pnu].data_type
         pnu_name = pnu_map[pnu].name
-        Logging.logger.info(f"PNU {pnu} ({pnu_name}) is of type {pnu_data_type}")
+        Logging.logger.info(
+            f"PNU {pnu} ({pnu_name}) is of type {pnu_data_type}")
         if 'STRING' in pnu_data_type:
             unpack_data_type = f'{len(raw)}s'
 
         else:
             unpack_data_type = PNU_TYPE_TO_FORMAT_CHAR[pnu_data_type]
 
-    if unpack_data_type == 's':
-        value = struct.unpack(f"{len(raw)}s", raw)[0]
-    if unpack_data_type == '?':
-        value = struct.unpack('b', raw[0:1])[0]
-    if unpack_data_type == 'B':
-        value = struct.unpack('B', raw[0:1])[0]
-    if unpack_data_type == 'b':
-        value = struct.unpack('b', raw[0:1])[0]
-    else:
-        value = struct.unpack(unpack_data_type, raw)[0]
-
-    return value
+    try:
+        if unpack_data_type == 's':
+            value = struct.unpack(f"{len(raw)}s", raw)[0]
+        if unpack_data_type == '?':
+            value = struct.unpack('b', raw[0:1])[0]
+        if unpack_data_type == 'B':
+            value = struct.unpack('B', raw[0:1])[0]
+        if unpack_data_type == 'b':
+            value = struct.unpack('b', raw[0:1])[0]
+        else:
+            value = struct.unpack(unpack_data_type, raw)[0]
+        return value
+    except struct.error as error:
+        Logging.logger.error(f"Unpack failed: {error}")
+        return None
 
 
 def pnu_pack(pnu: int, value: Any, forced_format: str = None) -> bytes:
@@ -74,7 +78,8 @@ def pnu_pack(pnu: int, value: Any, forced_format: str = None) -> bytes:
         pnu_map = PnuMap()
         pnu_data_type = pnu_map[pnu].data_type
         pnu_name = pnu_map[pnu].name
-        Logging.logger.info(f"PNU {pnu} ({pnu_name}) is of type {pnu_data_type}")
+        Logging.logger.info(
+            f"PNU {pnu} ({pnu_name}) is of type {pnu_data_type}")
 
         if 'INT' in pnu_data_type:
             value = int(value)

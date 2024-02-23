@@ -1,5 +1,6 @@
 """CLI Tool to read or write PNUs of a EDrive device."""
-
+from edcon.edrive.com_modbus import ComModbus
+from edcon.edrive.com_ethernetip import ComEthernetip
 
 def add_pnu_parser(subparsers):
     """Adds arguments to a provided subparsers instance"""
@@ -25,8 +26,10 @@ def add_pnu_parser(subparsers):
     parser_write.add_argument('value', help='Value to be written')
 
 
-def pnu_func(com, args):
+def pnu_func(args):
     """Executes subcommand based on provided arguments"""
+    # Initialize driver
+    com = ComEthernetip(args.ip_address) if args.ethernetip else ComModbus(args.ip_address)
     pnu = int(args.pnu)
     subindex = int(args.subindex)
     if args.subcommand == 'read':

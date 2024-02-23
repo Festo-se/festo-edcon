@@ -1,7 +1,8 @@
 """CLI tool that performs a sequence on Telegram111 and EDrive classes."""
 import sys
 from edcon.edrive.telegram111_handler import Telegram111Handler
-
+from edcon.edrive.com_modbus import ComModbus
+from edcon.edrive.com_ethernetip import ComEthernetip
 
 def add_tg111_parser(subparsers):
     """Adds arguments to a provided subparsers instance"""
@@ -12,8 +13,10 @@ def add_tg111_parser(subparsers):
                               help='Target position to be reached (default: %(default)s).')
 
 
-def tg111_func(com, args):
+def tg111_func(args):
     """Executes subcommand based on provided arguments"""
+    # Initialize driver
+    com = ComEthernetip(args.ip_address) if args.ethernetip else ComModbus(args.ip_address)
     with Telegram111Handler(com) as tg111:
         tg111.telegram.override.value = int(16384*(float(args.over_v)/100.0))
         tg111.telegram.mdi_acc.value = 16384

@@ -14,3 +14,4 @@ docs/source/edcon.utils.rst
 docs/source/modules.rst
 .vscode/*
 **/.idea/*
+venv/

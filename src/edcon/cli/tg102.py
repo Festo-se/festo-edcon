@@ -1,7 +1,8 @@
 """CLI tool that performs a sequence on Telegram102 and EDrive classes."""
 import sys
 from edcon.edrive.telegram102_handler import Telegram102Handler
-
+from edcon.edrive.com_modbus import ComModbus
+from edcon.edrive.com_ethernetip import ComEthernetip
 
 def add_tg102_parser(subparsers):
     """Adds arguments to a provided subparsers instance"""
@@ -13,8 +14,10 @@ def add_tg102_parser(subparsers):
                               help='Moment reduction to use in percent (default: %(default)s).')
 
 
-def tg102_func(com, args):
+def tg102_func(args):
     """Executes subcommand based on provided arguments"""
+    # Initialize driver
+    com = ComEthernetip(args.ip_address) if args.ethernetip else ComModbus(args.ip_address)
     with Telegram102Handler(com) as tg102:
         tg102.telegram.momred.value = round(
             16384.0 * float(args.moment_reduction) / 100.0)
