@@ -274,6 +274,7 @@ class PositionTelegramHandler(TelegramHandler):
                                     absolute: bool = False  # pylint: disable=unused-argument
                                     ):
         """Prepares the telegram bits for positioning task"""
+        self.telegram.pos_stw1.activate_setup = False
         self.telegram.mdi_tarpos.value = position
         self.telegram.mdi_velocity.value = velocity
         self._prepare_activate_traversing_task()
