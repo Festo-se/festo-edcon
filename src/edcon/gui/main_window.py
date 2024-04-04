@@ -8,9 +8,8 @@ from PyQt5.QtWidgets import QMainWindow
 from PyQt5.uic import loadUi
 from edcon.gui.connection_widget import ConnectionWidget
 from edcon.gui.parameter_tab import ParameterTab
+from edcon.gui.processdata_tab import ProcessDataTab
 from edcon.edrive.com_modbus import ComModbus
-
-
 class MainWindow(QMainWindow):
     """Defines the main window."""
 
@@ -24,10 +23,15 @@ class MainWindow(QMainWindow):
         self.connection_widget = ConnectionWidget(
             ip_address=ip_address, connect_function=self.connect_function
         )
+
         self.toolBar.addWidget(self.connection_widget)
 
         self.tabWidget.addTab(
             ParameterTab(self.pnu_read_function, self.pnu_write_function), "Parameter"
+        )
+        
+        self.tabWidget.addTab(
+            ProcessDataTab(self.com), "Process data"
         )
 
     @property
