@@ -84,7 +84,7 @@ class ComModbus(ComBase):
             cycle_time (int): Cycle time (in ms) that should be used for I/O transfers
             timeout_ms (int): Modbus timeout (in ms) that should be configured on the slave
         """
-        self.io_thread = IOThread(self.perform_io, cycle_time)
+        self.cycle_time = cycle_time
 
         Logging.logger.info(f"Starting Modbus connection on {ip_address}")
         self.modbus_client = ModbusClient(ip_address)
@@ -96,6 +96,7 @@ class ComModbus(ComBase):
         self.out_data = b'\x00' * IO_DATA_SIZE
 
         self.set_timeout(timeout_ms)
+        self.io_thread = None
 
     def __del__(self):
         self.shutdown()
@@ -104,7 +105,7 @@ class ComModbus(ComBase):
         """Tries stop the communication thread and closes the modbus connection"""
         if hasattr(self, 'io_thread'):
             self.io_thread.stop()
-
+            self.io_thread.join()
         if hasattr(self, 'modbus_client'):
             self.modbus_client.close()
 
@@ -244,12 +245,14 @@ class ComModbus(ComBase):
 
     def start_io(self):
         """Starts i/o data process"""
+        self.io_thread = IOThread(self.perform_io, self.cycle_time)
         self.io_thread.start()
 
     def stop_io(self):
         """Stops i/o data process"""
         self.send_io(b'\x00' * IO_DATA_SIZE)
         self.io_thread.stop()
+        self.io_thread.join()
 
     def send_io(self, data: bytes, nonblocking: bool = False):
         """Sends data to the output
