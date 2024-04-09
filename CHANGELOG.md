@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## Unreleased
+### Changed
+- Added inputs()/outputs() method to retrieve input/output words from Telegram.
 
 ## v0.12.2 - 07.03.24
 ### Fixed
