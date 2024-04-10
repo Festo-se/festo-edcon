@@ -31,7 +31,7 @@ class MainWindow(QMainWindow):
         )
         
         self.tabWidget.addTab(
-            ProcessDataTab(self.com), "Process data"
+            ProcessDataTab(self.get_com_function), "Process data"
         )
 
     @property
@@ -47,6 +47,9 @@ class MainWindow(QMainWindow):
     def connect_function(self, ip_address):
         """Establishes the connection using the communication driver."""
         self._com = ComModbus(ip_address=ip_address, timeout_ms=0)
+
+    def get_com_function(self):
+        return self.com
 
     def pnu_read_function(self, pnu):
         """Reads a PNU using the communication driver."""

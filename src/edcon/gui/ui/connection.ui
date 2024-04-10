@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>615</width>
-    <height>74</height>
+    <height>79</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -35,7 +35,7 @@
          <string>000.000.000.000</string>
         </property>
         <property name="text">
-         <string>192.168.0.1</string>
+         <string>192.168.0.2</string>
         </property>
         <property name="frame">
          <bool>true</bool>
