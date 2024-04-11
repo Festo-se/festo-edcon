@@ -3,18 +3,16 @@ from importlib.resources import files
 
 # pylint: disable=import-error, no-name-in-module
 from dataclasses import fields
-import time
-from threading import Thread
 from PyQt5.QtWidgets import QWidget,QHeaderView
 from PyQt5.QtGui import QStandardItem, QStandardItemModel
-from PyQt5.QtCore import Qt
+from PyQt5.QtCore import Qt,QTimer
 from PyQt5.uic import loadUi
 from edcon.edrive.telegram1_handler import Telegram1Handler
 from edcon.edrive.telegram9_handler import Telegram9Handler
 from edcon.edrive.telegram102_handler import Telegram102Handler
 from edcon.edrive.telegram111_handler import Telegram111Handler
+from edcon.utils.logging import Logging
 from edcon.profidrive.words import BitwiseWord
-
 
 class ProcessDataTab(QWidget):
     """Defines the main window."""
@@ -32,9 +30,9 @@ class ProcessDataTab(QWidget):
         self.treeView.clicked.connect(self.on_item_clicked)
         self.model.dataChanged.connect(self.on_item_changed)
 
-        self.update_thread = Thread(target=self.continuous_update)
-        self.update_thread.daemon = True
-        self.update_thread.start()
+        self.timer = QTimer(self)
+        self.timer.timeout.connect(self.update_outputs_gui)
+        self.timer.start(100)
 
     def select_telegramhandler(self):
         """Select a Telegram handler from the combobox."""
@@ -80,11 +78,9 @@ class ProcessDataTab(QWidget):
         """Generates a Treeview using the respective Telegram handler"""
         self.tgh.update_io()
         in_and_outputs = [x.name for x in fields(self.tgh.telegram)]
-
         root = QStandardItem("Inputs")
         root.setFlags(Qt.NoItemFlags)
         self.model.appendRow(root)
-
         self.treeView.setHeaderHidden(True)
         self.treeView.header().setSectionResizeMode(0, QHeaderView.ResizeToContents)
         self.model.setColumnCount(2)
@@ -101,12 +97,10 @@ class ProcessDataTab(QWidget):
                 if isinstance(getattr(self.tgh.telegram, item.text()),BitwiseWord) == True:
 
                     for attribute_name in attribute_name_list:
-                        attribute_item = QStandardItem(f"{attribute_name}: {getattr(getattr(self.tgh.telegram, name), attribute_name)}")
-
+                        attribute_item = QStandardItem(f"{attribute_name}")
                         attribute_item.setFlags(Qt.ItemIsUserCheckable)
                         attribute_item.setCheckable(True)
                         attribute_item.setCheckState(Qt.PartiallyChecked if getattr(getattr(self.tgh.telegram, name), attribute_name) else Qt.Unchecked)
-
                         item.appendRow(attribute_item)
                 else:
 
@@ -118,7 +112,6 @@ class ProcessDataTab(QWidget):
                             attribute_name_item.setFlags(Qt.NoItemFlags)
                             attribute_value_item = QStandardItem(f"{str(attribute_value)}")
                             attribute_value_item.setFlags(Qt.ItemIsEditable | Qt.ItemIsEnabled)
-
                             item.appendRow([attribute_name_item, attribute_value_item])
 
         root = QStandardItem("Outputs")
@@ -137,13 +130,10 @@ class ProcessDataTab(QWidget):
                 for attribute_name in attribute_name_list:
 
                     if isinstance(getattr(self.tgh.telegram, item.text()),BitwiseWord) == True:
-
-                        attribute_item = QStandardItem(f"{attribute_name}: {getattr(getattr(self.tgh.telegram, name), attribute_name)}")
-
+                        attribute_item = QStandardItem(f"{attribute_name}")
                         attribute_item.setFlags(Qt.ItemIsUserCheckable)
                         attribute_item.setCheckable(True)
                         attribute_item.setCheckState(Qt.PartiallyChecked if getattr(getattr(self.tgh.telegram, name), attribute_name) else Qt.Unchecked)
-                        
                         attribute_item.setFlags(Qt.NoItemFlags)
                         item.appendRow(attribute_item)
 
@@ -157,6 +147,9 @@ class ProcessDataTab(QWidget):
 
     def update_outputs_gui(self):
         """Updates the treeview content"""
+        if self.tgh is None:
+            return
+        
         outputs_root_index = self.model.index(1, 0)
         self.tgh.update_io()
                 
@@ -164,23 +157,22 @@ class ProcessDataTab(QWidget):
             output_item_index = self.model.index(row, 0, outputs_root_index)  
             output_item = self.model.itemFromIndex(output_item_index)  
             j = 16
+
             for child_row in range(output_item.rowCount()):
                 child_item = output_item.child(child_row)
                 text = child_item.text()
-                name = text.split(":")[0].strip()
+                name = text.split(":")[0]
                 j = j - 1
 
                 if isinstance(getattr(self.tgh.telegram, output_item.text()),BitwiseWord) == True:
                     
                     if bin(int(getattr(self.tgh.telegram,output_item.text())))[2:].zfill(16)[j] == "1":
-                        child_item.setText(f"{name}: True")
+                        child_item.setText(f"{name}")
                         child_item.setCheckState(Qt.PartiallyChecked)
                     else:
-                        child_item.setText(f"{name}: False")
+                        child_item.setText(f"{name}")
                         child_item.setCheckState(Qt.Unchecked)
-
                 else: 
-                    
                     child_item.setText(f"{name}:")
                     child_item2 = child_item.parent().child(child_item.row(), 1)
                     child_item2.setText(f"{getattr(getattr(self.tgh.telegram, output_item.text()), name)}")
@@ -194,28 +186,21 @@ class ProcessDataTab(QWidget):
             index (QModelIndex): Index of the clicked item
         """
         inputs_root_index = self.model.index(0, 0)
-
         parent_index = index.parent()
         grandparent_index = parent_index.parent()
     
         if grandparent_index == inputs_root_index:
-            
             item = self.treeView.model().itemFromIndex(index)
             attribute_name = item.parent().text()
             child_attribute_name = item.text().split(":")[0].strip()
 
             if isinstance(getattr(self.tgh.telegram, item.parent().text()),BitwiseWord) == True:
-
                 current_value = getattr(getattr(self.tgh.telegram, attribute_name), child_attribute_name)
                 new_value = not current_value
-        
                 setattr(getattr(self.tgh.telegram, attribute_name), child_attribute_name, new_value)
-                print(f"Attribute '{attribute_name}.{child_attribute_name}' value changed to: {new_value}")
-
+                Logging.logger.info(f"Attribute '{attribute_name}.{child_attribute_name}' value changed to: {new_value}")
                 self.tgh.update_io()
-
-                item.setText(f"{child_attribute_name}: {new_value}")
-
+                item.setText(f"{child_attribute_name}")
                 item.setCheckState(Qt.PartiallyChecked if new_value else Qt.Unchecked)
     
     def on_item_changed(self, index):
@@ -224,22 +209,15 @@ class ProcessDataTab(QWidget):
         Parameters:
             index (QModelIndex): Index of the changed item
         """
+        inputs_root_index = self.model.index(0, 0)
         item = self.treeView.model().itemFromIndex(index)
         attribute_name = item.parent().text()
         current_value = item.text()
         child_attribute_name = "value"
 
-        if isinstance(getattr(self.tgh.telegram, item.parent().text()),BitwiseWord) == False:
-            
-            setattr(getattr(self.tgh.telegram, attribute_name), child_attribute_name, int(current_value))
-            print(f"Attribute '{attribute_name}.{child_attribute_name}' value changed to: {current_value}") 
-            self.tgh.update_io()
+        if inputs_root_index == item.parent().parent().index():
 
-    def continuous_update(self):
-        """Continuously calls for updating"""
-        while True:
-            try:
-                self.update_outputs_gui()
-            except:
-                None
-            time.sleep(0.1)
+            if isinstance(getattr(self.tgh.telegram, item.parent().text()),BitwiseWord) == False:
+                setattr(getattr(self.tgh.telegram, attribute_name), child_attribute_name, int(current_value))
+                Logging.logger.info(f"Attribute '{attribute_name}.{child_attribute_name}' value changed to: {current_value}")
+                self.tgh.update_io()
