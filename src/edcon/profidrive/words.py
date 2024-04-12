@@ -15,7 +15,7 @@ class BitwiseWord:
 
     def __int__(self):
         """Returns the integer representation"""
-        return int.from_bytes(self.to_bytes(), 'little')
+        return int.from_bytes(self.to_bytes(), "little")
 
     def size(self):
         """Returns the size of the word in bytes"""
@@ -23,8 +23,10 @@ class BitwiseWord:
 
     def to_bytes(self):
         """Returns the bytes representation"""
-        blist = [getattr(self, v.name) for v in fields(self)]
-        return boollist_to_bytes(blist)
+        return boollist_to_bytes(self.to_boollist())
+
+    def to_boollist(self):
+        return [getattr(self, v.name) for v in fields(self)]
 
     @classmethod
     def from_bytes(cls, data: bytes):
@@ -34,12 +36,13 @@ class BitwiseWord:
     @classmethod
     def from_int(cls, value: int):
         """Initializes a BitwiseWord from an integer"""
-        return cls.from_bytes(value.to_bytes(cls.byte_size, 'little'))
+        return cls.from_bytes(value.to_bytes(cls.byte_size, "little"))
 
 
 @dataclass
 class BitwiseWordGeneric(BitwiseWord):
     """This is a generic derivative of BitwiseWord e.g. to test it's methods"""
+
     # pylint: disable=too-many-instance-attributes
     # Sixteen is needed here
 
@@ -64,6 +67,7 @@ class BitwiseWordGeneric(BitwiseWord):
 @dataclass
 class STW1_SM(BitwiseWord):
     """Implementation of STW1 in velocity mode"""
+
     # pylint: disable=invalid-name
     # pylint: disable=too-many-instance-attributes
     # Sixteen is needed here
@@ -90,6 +94,7 @@ class STW1_SM(BitwiseWord):
 @dataclass
 class STW1_PM(BitwiseWord):
     """Implementation of STW1 in position mode"""
+
     # pylint: disable=invalid-name
     # pylint: disable=too-many-instance-attributes
     # Sixteen is needed here
@@ -116,6 +121,7 @@ class STW1_PM(BitwiseWord):
 @dataclass
 class SATZANW(BitwiseWord):
     """Implementation of SATZANW"""
+
     # pylint: disable=invalid-name
     # pylint: disable=too-many-instance-attributes
     # Sixteen is needed here
@@ -141,6 +147,7 @@ class SATZANW(BitwiseWord):
 @dataclass
 class STW2(BitwiseWord):
     """Implementation of STW2"""
+
     # pylint: disable=invalid-name
     # pylint: disable=too-many-instance-attributes
     # Sixteen is needed here
@@ -166,6 +173,7 @@ class STW2(BitwiseWord):
 @dataclass
 class POS_STW1(BitwiseWord):
     """Implementation of POS_STW1"""
+
     # pylint: disable=invalid-name
     # pylint: disable=too-many-instance-attributes
     # Sixteen is needed here
@@ -190,6 +198,7 @@ class POS_STW1(BitwiseWord):
 @dataclass
 class POS_STW2(BitwiseWord):
     """Implementation of POS_STW1"""
+
     # pylint: disable=invalid-name
     # pylint: disable=too-many-instance-attributes
     # Sixteen is needed here
@@ -214,6 +223,7 @@ class POS_STW2(BitwiseWord):
 @dataclass
 class ZSW1_SM(BitwiseWord):
     """Implementation of ZSW1 in velocity mode"""
+
     # pylint: disable=invalid-name
     # pylint: disable=too-many-instance-attributes
     # Sixteen is needed here
@@ -239,6 +249,7 @@ class ZSW1_SM(BitwiseWord):
 @dataclass
 class ZSW1_PM(BitwiseWord):
     """Implementation of ZSW1 in position mode"""
+
     # pylint: disable=invalid-name
     # pylint: disable=too-many-instance-attributes
     # Sixteen is needed here
@@ -264,6 +275,7 @@ class ZSW1_PM(BitwiseWord):
 @dataclass
 class AKTSATZ(BitwiseWord):
     """Implementation of AKTSATZ"""
+
     # pylint: disable=invalid-name
     # pylint: disable=too-many-instance-attributes
     # Sixteen is needed here
@@ -289,6 +301,7 @@ class AKTSATZ(BitwiseWord):
 @dataclass
 class ZSW2(BitwiseWord):
     """Implementation of ZSW2"""
+
     # pylint: disable=invalid-name
     # pylint: disable=too-many-instance-attributes
     # Sixteen is needed here
@@ -314,6 +327,7 @@ class ZSW2(BitwiseWord):
 @dataclass
 class POS_ZSW1(BitwiseWord):
     """Implementation of POS_ZSW1"""
+
     # pylint: disable=invalid-name
     # pylint: disable=too-many-instance-attributes
     # Sixteen is needed here
@@ -339,6 +353,7 @@ class POS_ZSW1(BitwiseWord):
 @dataclass
 class POS_ZSW2(BitwiseWord):
     """Implementation of POS_ZSW2"""
+
     # pylint: disable=invalid-name
     # pylint: disable=too-many-instance-attributes
     # Sixteen is needed here
@@ -364,6 +379,7 @@ class POS_ZSW2(BitwiseWord):
 @dataclass
 class MELDW(BitwiseWord):
     """Implementation of MELDW"""
+
     # pylint: disable=invalid-name
     # pylint: disable=too-many-instance-attributes
     # Sixteen is needed here
@@ -389,6 +405,7 @@ class MELDW(BitwiseWord):
 @dataclass
 class G1_STW(BitwiseWord):
     """Implementation of G1_STW"""
+
     # pylint: disable=invalid-name
     # pylint: disable=too-many-instance-attributes
     # Sixteen is needed here
@@ -414,6 +431,7 @@ class G1_STW(BitwiseWord):
 @dataclass
 class G1_ZSW(BitwiseWord):
     """Implementation of G1_ZSW"""
+
     # pylint: disable=invalid-name
     # pylint: disable=too-many-instance-attributes
     # Sixteen is needed here
@@ -439,6 +457,7 @@ class G1_ZSW(BitwiseWord):
 @dataclass
 class MDI_MOD(BitwiseWord):
     """Implementation of MDI_MOD"""
+
     # pylint: disable=invalid-name
     # pylint: disable=too-many-instance-attributes
     # Sixteen is needed here
@@ -478,17 +497,17 @@ class IntWord:
 
     def to_bytes(self) -> bytes:
         """Returns the bytes representation"""
-        return int(self).to_bytes(2, 'little', signed=True)
+        return int(self).to_bytes(2, "little", signed=True)
 
     @classmethod
     def from_bytes(cls, data: bytes):
         """Initializes a int word value from a byte representation"""
-        return cls(int.from_bytes(data, 'little', signed=True))
+        return cls(int.from_bytes(data, "little", signed=True))
 
     @classmethod
     def from_int(cls, value: int):
         """Initializes a int word value from an integer"""
-        return cls.from_bytes(value.to_bytes(cls.byte_size, 'little'))
+        return cls.from_bytes(value.to_bytes(cls.byte_size, "little"))
 
 
 class NSOLL_A(IntWord):  # pylint: disable=invalid-name
@@ -540,17 +559,17 @@ class IntDoubleWord:
 
     def to_bytes(self) -> bytes:
         """Returns the bytes representation"""
-        return int(self).to_bytes(4, 'little', signed=True)
+        return int(self).to_bytes(4, "little", signed=True)
 
     @classmethod
     def from_bytes(cls, data: bytes):
         """Initializes a int double word value from a byte representation"""
-        return cls(int.from_bytes(data, 'little', signed=True))
+        return cls(int.from_bytes(data, "little", signed=True))
 
     @classmethod
     def from_int(cls, value: int):
         """Initializes a int double word value from an integer"""
-        return cls.from_bytes(value.to_bytes(cls.byte_size, 'little'))
+        return cls.from_bytes(value.to_bytes(cls.byte_size, "little"))
 
 
 class NSOLL_B(IntDoubleWord):  # pylint: disable=invalid-name

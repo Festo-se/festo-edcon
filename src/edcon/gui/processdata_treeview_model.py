@@ -105,41 +105,25 @@ class ProcessDataTreeViewModel(QStandardItemModel):
 
         root_index = self.index(1, 0)
 
-        for row in range(self.rowCount(root_index)):
-            output_item_index = self.index(row, 0, root_index)
-            output_item = self.itemFromIndex(output_item_index)
-            j = 16
-
-            for child_row in range(output_item.rowCount()):
-                child_item = output_item.child(child_row)
-                text = child_item.text()
-                name = text.split(":")[0]
-                j = j - 1
-
-                if (
-                    isinstance(
-                        getattr(self.tgh.telegram, output_item.text()), BitwiseWord
-                    )
-                    == True
-                ):
-
-                    if (
-                        bin(int(getattr(self.tgh.telegram, output_item.text())))[
-                            2:
-                        ].zfill(16)[j]
-                        == "1"
-                    ):
-                        child_item.setText(f"{name}")
-                        child_item.setCheckState(Qt.PartiallyChecked)
+        input_word_items = [
+            self.itemFromIndex(self.index(row, 0, root_index))
+            for row in range(self.rowCount(root_index))
+        ]
+        for word_item in input_word_items:
+            input_items = [word_item.child(row) for row in range(word_item.rowCount())]
+            for item in input_items:
+                word_name = word_item.text()
+                word = getattr(self.tgh.telegram, word_name)
+                if self.is_bitwise_word(word_name):
+                    item_name = item.text()
+                    if getattr(word, item_name):
+                        item.setCheckState(Qt.PartiallyChecked)
                     else:
-                        child_item.setText(f"{name}")
-                        child_item.setCheckState(Qt.Unchecked)
+                        item.setCheckState(Qt.Unchecked)
                 else:
-                    child_item.setText(f"{name}:")
-                    child_item2 = child_item.parent().child(child_item.row(), 1)
-                    child_item2.setText(
-                        f"{getattr(getattr(self.tgh.telegram, output_item.text()), name)}"
-                    )
+                    item_name = "value"
+                    input_value = item.parent().child(item.row(), 1)
+                    input_value.setText(f"{getattr(word, item_name)}")
         self.layoutChanged.emit()
 
     def on_item_changed(self, index):
