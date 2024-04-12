@@ -94,6 +94,36 @@ class ProcessDataTab(QWidget):
     def is_bitwise_word(self, name):
         return isinstance(getattr(self.tgh.telegram, name), BitwiseWord)
 
+    def append_word_item(self, root, name, readonly=False):
+        item = QStandardItem(name)
+        item.setFlags(Qt.NoItemFlags)
+        root.appendRow(item)
+        attribute_name_list = [x.name for x in fields(getattr(self.tgh.telegram, name))]
+
+        for attribute_name in attribute_name_list:
+            if self.is_bitwise_word(item.text()):
+                attribute_item = QStandardItem(f"{attribute_name}")
+                attribute_item.setFlags(Qt.ItemIsUserCheckable | Qt.ItemIsEnabled)
+                attribute_item.setCheckable(False)
+                attribute_item.setCheckState(
+                    Qt.PartiallyChecked
+                    if getattr(getattr(self.tgh.telegram, name), attribute_name)
+                    else Qt.Unchecked
+                )
+                item.appendRow(attribute_item)
+            else:
+                if attribute_name == "byte_size":
+                    continue
+                attribute_value = getattr(
+                    getattr(self.tgh.telegram, name), attribute_name
+                )
+                attribute_name_item = QStandardItem(f"{attribute_name}:")
+                attribute_name_item.setFlags(Qt.NoItemFlags)
+                attribute_value_item = QStandardItem(f"{str(attribute_value)}")
+                if readonly:
+                    attribute_value_item.setFlags(Qt.NoItemFlags)
+                item.appendRow([attribute_name_item, attribute_value_item])
+
     def generate_treeview(self):
         """Generates a Treeview using the respective Telegram handler"""
         self.model.setColumnCount(2)
@@ -103,69 +133,13 @@ class ProcessDataTab(QWidget):
         root.setFlags(Qt.NoItemFlags)
         self.model.appendRow(root)
         for name in self.output_word_names():
-            item = QStandardItem(name)
-            item.setFlags(Qt.NoItemFlags)
-            root.appendRow(item)
-            attribute_name_list = [
-                x.name for x in fields(getattr(self.tgh.telegram, name))
-            ]
-
-            for attribute_name in attribute_name_list:
-                if self.is_bitwise_word(item.text()):
-                    attribute_item = QStandardItem(f"{attribute_name}")
-                    attribute_item.setFlags(Qt.ItemIsUserCheckable)
-                    attribute_item.setCheckable(True)
-                    attribute_item.setCheckState(
-                        Qt.PartiallyChecked
-                        if getattr(getattr(self.tgh.telegram, name), attribute_name)
-                        else Qt.Unchecked
-                    )
-                    item.appendRow(attribute_item)
-                else:
-                    if attribute_name != "byte_size":
-                        attribute_value = getattr(
-                            getattr(self.tgh.telegram, name), attribute_name
-                        )
-                        attribute_name_item = QStandardItem(f"{attribute_name}:")
-                        attribute_name_item.setFlags(Qt.NoItemFlags)
-                        attribute_value_item = QStandardItem(f"{str(attribute_value)}")
-                        attribute_value_item.setFlags(
-                            Qt.ItemIsEditable | Qt.ItemIsEnabled
-                        )
-                        item.appendRow([attribute_name_item, attribute_value_item])
+            self.append_word_item(root, name)
 
         root = QStandardItem("Inputs")
         root.setFlags(Qt.NoItemFlags)
         self.model.appendRow(root)
         for name in self.input_word_names():
-            item = QStandardItem(name)
-            item.setFlags(Qt.NoItemFlags)
-            root.appendRow(item)
-            attribute_name_list = [
-                x.name for x in fields(getattr(self.tgh.telegram, name))
-            ]
-            for attribute_name in attribute_name_list:
-                if self.is_bitwise_word(item.text()):
-                    attribute_item = QStandardItem(f"{attribute_name}")
-                    attribute_item.setFlags(Qt.ItemIsUserCheckable)
-                    attribute_item.setCheckable(True)
-                    attribute_item.setCheckState(
-                        Qt.PartiallyChecked
-                        if getattr(getattr(self.tgh.telegram, name), attribute_name)
-                        else Qt.Unchecked
-                    )
-                    attribute_item.setFlags(Qt.NoItemFlags)
-                    item.appendRow(attribute_item)
-
-                elif attribute_name != "byte_size":
-                    attribute_value = getattr(
-                        getattr(self.tgh.telegram, name), attribute_name
-                    )
-                    attribute_name_item = QStandardItem(f"{attribute_name}:")
-                    attribute_name_item.setFlags(Qt.NoItemFlags)
-                    attribute_value_item = QStandardItem(f"{str(attribute_value)}")
-                    attribute_value_item.setFlags(Qt.NoItemFlags)
-                    item.appendRow([attribute_name_item, attribute_value_item])
+            self.append_word_item(root, name, readonly=True)
 
     def update_inputs_gui(self):
         """Updates the treeview content"""
