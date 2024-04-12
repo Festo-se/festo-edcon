@@ -11,6 +11,9 @@ class ProcessDataTreeViewModel(QStandardItemModel):
 
     def __init__(self, tgh):
         super().__init__()
+        if tgh is None:
+            raise ValueError("tgh cannot be None")
+
         self.tgh = tgh
         self.setColumnCount(2)
         self.dataChanged.connect(self.on_item_changed)
@@ -19,8 +22,12 @@ class ProcessDataTreeViewModel(QStandardItemModel):
         self.timer.timeout.connect(self.update_inputs_gui)
         self.timer.start(100)
 
-        if self.tgh is not None:
-            self.generate_treeview()
+        self.generate_treeview()
+
+    def clear(self):
+        super().clear()
+        self.tgh.shutdown()
+        self.tgh = None
 
     def output_word_names(self):
         in_and_outputs = [x.name for x in fields(self.tgh.telegram)]
