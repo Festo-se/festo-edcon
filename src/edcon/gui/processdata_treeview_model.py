@@ -26,6 +26,7 @@ class ProcessDataTreeViewModel(QStandardItemModel):
 
     def clear(self):
         super().clear()
+        self.timer.stop()
         self.tgh.shutdown()
         self.tgh = None
 
@@ -58,6 +59,7 @@ class ProcessDataTreeViewModel(QStandardItemModel):
             if self.is_bitwise_word(item.text()):
                 attribute_item = QStandardItem(f"{attribute_name}")
                 attribute_item.setFlags(Qt.ItemIsEnabled | Qt.ItemIsUserCheckable)
+                attribute_item.setUserTristate(True)
                 attribute_item.setCheckState(
                     Qt.PartiallyChecked
                     if getattr(getattr(self.tgh.telegram, name), attribute_name)
@@ -99,8 +101,6 @@ class ProcessDataTreeViewModel(QStandardItemModel):
 
     def update_inputs_gui(self):
         """Updates the treeview content"""
-        if self.tgh is None:
-            return
         self.tgh.update_inputs()
 
         root_index = self.index(1, 0)
@@ -148,25 +148,26 @@ class ProcessDataTreeViewModel(QStandardItemModel):
         Parameters:
             index (QModelIndex): Index of the item that changed
         """
+        item = self.itemFromIndex(index)
+
+        # True if PartiallyChecked, False otherwise
+        if item.checkState() == Qt.Checked:
+            item.setCheckState(Qt.Unchecked)
+            return
+
         root_index = self.index(0, 0)
         if root_index == index.parent().parent():
-            item = self.itemFromIndex(index)
-            attribute_name = item.parent().text()
-            if self.is_bitwise_word(attribute_name):
-                child_attribute_name = item.text()
-                new_value = not getattr(
-                    getattr(self.tgh.telegram, attribute_name), child_attribute_name
-                )
-                item.setCheckState(Qt.PartiallyChecked if new_value else Qt.Unchecked)
+            word_name = item.parent().text()
+            word = getattr(self.tgh.telegram, word_name)
+            if self.is_bitwise_word(word_name):
+                item_name = item.text()
+                new_value = item.checkState() != Qt.Unchecked
             else:
-                child_attribute_name = "value"
+                item_name = "value"
                 new_value = int(item.text())
-            setattr(
-                getattr(self.tgh.telegram, attribute_name),
-                child_attribute_name,
-                new_value,
-            )
+
+            setattr(word, item_name, new_value)
             Logging.logger.info(
-                f"Attribute '{attribute_name}.{child_attribute_name}' value changed to: {new_value}"
+                f"Attribute '{word_name}.{item_name}' value changed to: {new_value}"
             )
             self.tgh.update_outputs()
