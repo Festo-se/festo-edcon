@@ -28,7 +28,6 @@ class ProcessDataTab(QWidget):
         self.treeView.setModel(self.model)
 
         self.comboBox.currentIndexChanged.connect(self.select_telegramhandler)
-        self.treeView.clicked.connect(self.on_item_clicked)
         self.model.dataChanged.connect(self.on_item_changed)
 
         self.timer = QTimer(self)
@@ -103,14 +102,16 @@ class ProcessDataTab(QWidget):
         for attribute_name in attribute_name_list:
             if self.is_bitwise_word(item.text()):
                 attribute_item = QStandardItem(f"{attribute_name}")
-                attribute_item.setFlags(Qt.ItemIsUserCheckable | Qt.ItemIsEnabled)
-                attribute_item.setCheckable(False)
+                attribute_item.setFlags(Qt.ItemIsEnabled | Qt.ItemIsUserCheckable)
                 attribute_item.setCheckState(
                     Qt.PartiallyChecked
                     if getattr(getattr(self.tgh.telegram, name), attribute_name)
                     else Qt.Unchecked
                 )
+                if readonly:
+                    attribute_item.setCheckable(False)
                 item.appendRow(attribute_item)
+
             else:
                 if attribute_name == "byte_size":
                     continue
@@ -184,16 +185,7 @@ class ProcessDataTab(QWidget):
                     child_item2.setText(
                         f"{getattr(getattr(self.tgh.telegram, output_item.text()), name)}"
                     )
-
         self.treeView.viewport().update()
-
-    def on_item_clicked(self, index):
-        root_index = self.model.index(0, 0)
-        if root_index == index.parent().parent():
-            item = self.treeView.model().itemFromIndex(index)
-            attribute_name = item.parent().text()
-            if self.is_bitwise_word(attribute_name):
-                item.setCheckState(not item.checkState())
 
     def on_item_changed(self, index):
         """Item changed callback for handling item changed events
@@ -210,6 +202,7 @@ class ProcessDataTab(QWidget):
                 new_value = not getattr(
                     getattr(self.tgh.telegram, attribute_name), child_attribute_name
                 )
+                item.setCheckState(Qt.PartiallyChecked if new_value else Qt.Unchecked)
             else:
                 child_attribute_name = "value"
                 new_value = int(item.text())
