@@ -46,56 +46,59 @@ class ProcessDataTreeViewModel(QStandardItemModel):
             if getattr(self.tgh.telegram, x) in self.tgh.telegram.inputs()
         ]
 
-    def is_bitwise_word(self, name):
-        return isinstance(getattr(self.tgh.telegram, name), BitwiseWord)
+    def is_bitwise_word(self, word_name):
+        return isinstance(getattr(self.tgh.telegram, word_name), BitwiseWord)
+
+    def append_bitwise_word_item(self, root, name, value, readonly=False):
+        item = QStandardItem(f"{name}")
+        item.setFlags(Qt.ItemIsEnabled | Qt.ItemIsUserCheckable)
+        item.setUserTristate(True)
+        item.setCheckState(Qt.PartiallyChecked if value else Qt.Unchecked)
+        if readonly:
+            item.setCheckable(False)
+        root.appendRow(item)
+
+    def append_value_word_item(self, root, name, value, readonly=False):
+        item = QStandardItem(f"{name}:")
+        item.setFlags(Qt.NoItemFlags)
+        value_item = QStandardItem(f"{str(value)}")
+        if readonly:
+            value_item.setFlags(Qt.NoItemFlags)
+        root.appendRow([item, value_item])
 
     def append_word_item(self, root, name, readonly=False):
-        item = QStandardItem(name)
-        item.setFlags(Qt.NoItemFlags)
-        root.appendRow(item)
-        attribute_name_list = [x.name for x in fields(getattr(self.tgh.telegram, name))]
+        word_item = QStandardItem(name)
+        word_item.setFlags(Qt.NoItemFlags)
+        root.appendRow(word_item)
+        word = getattr(self.tgh.telegram, name)
+        item_name_list = [x.name for x in fields(word)]
 
-        for attribute_name in attribute_name_list:
-            if self.is_bitwise_word(item.text()):
-                attribute_item = QStandardItem(f"{attribute_name}")
-                attribute_item.setFlags(Qt.ItemIsEnabled | Qt.ItemIsUserCheckable)
-                attribute_item.setUserTristate(True)
-                attribute_item.setCheckState(
-                    Qt.PartiallyChecked
-                    if getattr(getattr(self.tgh.telegram, name), attribute_name)
-                    else Qt.Unchecked
+        for item_name in item_name_list:
+            item_value = getattr(word, item_name)
+            if self.is_bitwise_word(name):
+                self.append_bitwise_word_item(
+                    word_item, item_name, item_value, readonly
                 )
-                if readonly:
-                    attribute_item.setCheckable(False)
-                item.appendRow(attribute_item)
-
             else:
-                if attribute_name == "byte_size":
+                # Skip byte_size field
+                if item_name == "byte_size":
                     continue
-                attribute_value = getattr(
-                    getattr(self.tgh.telegram, name), attribute_name
-                )
-                attribute_name_item = QStandardItem(f"{attribute_name}:")
-                attribute_name_item.setFlags(Qt.NoItemFlags)
-                attribute_value_item = QStandardItem(f"{str(attribute_value)}")
-                if readonly:
-                    attribute_value_item.setFlags(Qt.NoItemFlags)
-                item.appendRow([attribute_name_item, attribute_value_item])
+                self.append_value_word_item(word_item, item_name, item_value, readonly)
 
     def generate_treeview(self):
         """Generates a Treeview using the respective Telegram handler"""
 
-        root = QStandardItem("Outputs")
-        root.setFlags(Qt.NoItemFlags)
-        self.appendRow(root)
+        self.output_root_item = QStandardItem("Outputs")
+        self.output_root_item.setFlags(Qt.NoItemFlags)
+        self.appendRow(self.output_root_item)
         for name in self.output_word_names():
-            self.append_word_item(root, name)
+            self.append_word_item(self.output_root_item, name)
 
-        root = QStandardItem("Inputs")
-        root.setFlags(Qt.NoItemFlags)
-        self.appendRow(root)
+        self.input_root_item = QStandardItem("Inputs")
+        self.input_root_item.setFlags(Qt.NoItemFlags)
+        self.appendRow(self.input_root_item)
         for name in self.input_word_names():
-            self.append_word_item(root, name, readonly=True)
+            self.append_word_item(self.input_root_item, name, readonly=True)
 
         self.layoutChanged.emit()
 
@@ -103,27 +106,26 @@ class ProcessDataTreeViewModel(QStandardItemModel):
         """Updates the treeview content"""
         self.tgh.update_inputs()
 
-        root_index = self.index(1, 0)
-
         input_word_items = [
-            self.itemFromIndex(self.index(row, 0, root_index))
-            for row in range(self.rowCount(root_index))
+            self.input_root_item.child(idx)
+            for idx in range(self.input_root_item.rowCount())
         ]
+
         for word_item in input_word_items:
             input_items = [word_item.child(row) for row in range(word_item.rowCount())]
             for item in input_items:
                 word_name = word_item.text()
                 word = getattr(self.tgh.telegram, word_name)
                 if self.is_bitwise_word(word_name):
-                    item_name = item.text()
-                    if getattr(word, item_name):
+                    item_value = getattr(word, item.text())
+                    if item_value:
                         item.setCheckState(Qt.PartiallyChecked)
                     else:
                         item.setCheckState(Qt.Unchecked)
                 else:
-                    item_name = "value"
+                    item_value = getattr(word, "value")
                     input_value = item.parent().child(item.row(), 1)
-                    input_value.setText(f"{getattr(word, item_name)}")
+                    input_value.setText(f"{item_value}")
         self.layoutChanged.emit()
 
     def on_item_changed(self, index):
@@ -132,6 +134,10 @@ class ProcessDataTreeViewModel(QStandardItemModel):
         Parameters:
             index (QModelIndex): Index of the item that changed
         """
+        # Ignore if item is not a child of Outputs
+        if index.parent().parent() != self.output_root_item.index():
+            return
+
         item = self.itemFromIndex(index)
 
         # True if PartiallyChecked, False otherwise
@@ -139,19 +145,17 @@ class ProcessDataTreeViewModel(QStandardItemModel):
             item.setCheckState(Qt.Unchecked)
             return
 
-        root_index = self.index(0, 0)
-        if root_index == index.parent().parent():
-            word_name = item.parent().text()
-            word = getattr(self.tgh.telegram, word_name)
-            if self.is_bitwise_word(word_name):
-                item_name = item.text()
-                new_value = item.checkState() != Qt.Unchecked
-            else:
-                item_name = "value"
-                new_value = int(item.text())
+        word_name = item.parent().text()
+        word = getattr(self.tgh.telegram, word_name)
+        if self.is_bitwise_word(word_name):
+            item_name = item.text()
+            new_value = item.checkState() != Qt.Unchecked
+        else:
+            item_name = "value"
+            new_value = int(item.text())
 
-            setattr(word, item_name, new_value)
-            Logging.logger.info(
-                f"Attribute '{word_name}.{item_name}' value changed to: {new_value}"
-            )
-            self.tgh.update_outputs()
+        setattr(word, item_name, new_value)
+        Logging.logger.info(
+            f"Attribute '{word_name}.{item_name}' value changed to: {new_value}"
+        )
+        self.tgh.update_outputs()
