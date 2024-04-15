@@ -1,6 +1,8 @@
 """Model for the processdata treeview."""
 
 from dataclasses import fields
+
+# pylint: disable=import-error, no-name-in-module
 from PyQt5.QtGui import QStandardItem, QStandardItemModel
 from PyQt5.QtCore import Qt, QTimer
 from edcon.utils.logging import Logging
@@ -8,7 +10,7 @@ from edcon.profidrive.words import BitwiseWord
 
 
 class ProcessDataTreeViewModel(QStandardItemModel):
-    """Defines the main window."""
+    """Defines the process data treeview model."""
 
     def __init__(self, tgh):
         super().__init__()
@@ -23,7 +25,7 @@ class ProcessDataTreeViewModel(QStandardItemModel):
         self.timer.timeout.connect(self.update_input_tree)
         self.timer.start(100)
 
-        self.generate_treeview()
+        self.populate()
 
     def clear(self):
         """Clears the treeview."""
@@ -32,26 +34,22 @@ class ProcessDataTreeViewModel(QStandardItemModel):
         self.tgh.shutdown()
         self.tgh = None
 
-    def output_word_names(self):
-        """Returns names from the output word."""
-        in_and_outputs = [x.name for x in fields(self.tgh.telegram)]
-        return [
-            x
-            for x in in_and_outputs
-            if getattr(self.tgh.telegram, x) in self.tgh.telegram.outputs()
-        ]
+    def word_names(self, word_list):
+        """Returns a list of names of words provided in word_list.
 
-    def input_word_names(self):
-        """Returns names from the input word."""
-        in_and_outputs = [x.name for x in fields(self.tgh.telegram)]
-        return [
-            x
-            for x in in_and_outputs
-            if getattr(self.tgh.telegram, x) in self.tgh.telegram.inputs()
-        ]
+        Parameters:
+            word_list(list): list of word objects to get names from
+        Returns:
+            iter: iterator of word names
+        """
+        word_names = [x.name for x in fields(self.tgh.telegram)]
+        return filter(
+            lambda x: getattr(self.tgh.telegram, x) in word_list,
+            word_names,
+        )
 
     def is_bitwise_word(self, word_name):
-        """Returns True if word_name is BitwiseWord.
+        """Returns True if telegram attribute word_name is an BitwiseWord.
 
         Parameters:
             word_name(string): word name
@@ -62,13 +60,13 @@ class ProcessDataTreeViewModel(QStandardItemModel):
         return isinstance(getattr(self.tgh.telegram, word_name), BitwiseWord)
 
     def append_bitwise_word_item(self, root, name, value, readonly=False):
-        """Append item to the row from root.
+        """Append a bitwise word item to provided root.
 
         Parameters:
-            root(Qstandarditem): item from treeview
-            name(string): bit names
-            value(bool): value from bit names
-            readonly(bool): read only 
+            root(Qstandarditem): root item to append to
+            name(string): name of bit item
+            value(bool): value of bit item
+            readonly(bool): read only
         """
         item = QStandardItem(f"{name}")
         item.setFlags(Qt.ItemIsEnabled | Qt.ItemIsUserCheckable)
@@ -79,13 +77,13 @@ class ProcessDataTreeViewModel(QStandardItemModel):
         root.appendRow(item)
 
     def append_value_word_item(self, root, name, value, readonly=False):
-        """Append value_item to the row from root.
+        """Append value word item to provided root.
 
         Parameters:
-            root(Qstandarditem): item from treeview
-            name(string): bit names
-            value(bool): value from bit names
-            readonly(bool): read only 
+            root(Qstandarditem): root item to append to
+            name(string): name of bit item
+            value(bool): value of bit item
+            readonly(bool): read only
         """
         item = QStandardItem(f"{name}:")
         item.setFlags(Qt.NoItemFlags)
@@ -95,13 +93,13 @@ class ProcessDataTreeViewModel(QStandardItemModel):
         root.appendRow([item, value_item])
 
     def append_word_item(self, root, name, readonly=False):
-        """Append word_item to the row from root.
+        """Append word item to provided root.
 
         Parameters:
-            root(Qstandarditem): item from treeview
-            name(string): word names
-            value(bool): value from bit names
-            readonly(bool): read only 
+            root(Qstandarditem): root item to append to
+            name(string): name of bit item
+            value(bool): value of bit item
+            readonly(bool): read only
         """
         word_item = QStandardItem(name)
         word_item.setFlags(Qt.NoItemFlags)
@@ -121,25 +119,25 @@ class ProcessDataTreeViewModel(QStandardItemModel):
                     continue
                 self.append_value_word_item(word_item, item_name, item_value, readonly)
 
-    def generate_treeview(self):
-        """Generates a Treeview using the respective Telegram handler"""
+    def populate(self):
+        """Populates a treeview model using the respective telegram handler"""
 
         self.output_root_item = QStandardItem("Outputs")
         self.output_root_item.setFlags(Qt.NoItemFlags)
         self.appendRow(self.output_root_item)
-        for name in self.output_word_names():
+        for name in self.word_names(self.tgh.telegram.outputs()):
             self.append_word_item(self.output_root_item, name)
 
         self.input_root_item = QStandardItem("Inputs")
         self.input_root_item.setFlags(Qt.NoItemFlags)
         self.appendRow(self.input_root_item)
-        for name in self.input_word_names():
+        for name in self.word_names(self.tgh.telegram.inputs()):
             self.append_word_item(self.input_root_item, name, readonly=True)
 
         self.layoutChanged.emit()
 
     def update_input_tree(self):
-        """Updates the treeview content"""
+        """Updates the content of inputs tree"""
         self.tgh.update_inputs()
 
         input_word_items = [

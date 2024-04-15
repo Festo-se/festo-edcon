@@ -1,4 +1,4 @@
-"""Setup code of the main window."""
+"""Setup code of the process data tab."""
 
 from pathlib import PurePath
 from importlib.resources import files
@@ -15,7 +15,7 @@ from edcon.gui.processdata_treeview_model import ProcessDataTreeViewModel
 
 
 class ProcessDataTab(QWidget):
-    """Defines the main window."""
+    """Defines the process data tab."""
 
     def __init__(self, get_com_function):
         super().__init__()
@@ -26,6 +26,18 @@ class ProcessDataTab(QWidget):
 
         self.comboBox.currentIndexChanged.connect(self.select_telegramhandler)
 
+        self.selection_dict = {
+            "Telegram1": Telegram1Handler,
+            "Telegram9": Telegram9Handler,
+            "Telegram102": Telegram102Handler,
+            "Telegram111": Telegram111Handler,
+        }
+
+    def update_treeview(self):
+        """Update the treeview with the current model."""
+        self.treeView.setModel(self.model)
+        self.treeView.header().setSectionResizeMode(0, QHeaderView.ResizeToContents)
+
     def select_telegramhandler(self):
         """Select a Telegram handler from the combobox."""
         selected_item_name = self.comboBox.currentText()
@@ -33,28 +45,12 @@ class ProcessDataTab(QWidget):
         if self.model is not None:
             self.model.clear()
 
-        if selected_item_name == "Telegram1":
-            com = self.get_com_function()
-            com.write_pnu(3490, value=1)
-            self.model = ProcessDataTreeViewModel(Telegram1Handler(com))
-
-        elif selected_item_name == "Telegram9":
-            com = self.get_com_function()
-            com.write_pnu(3490, value=9)
-            self.model = ProcessDataTreeViewModel(Telegram9Handler(com))
-
-        elif selected_item_name == "Telegram102":
-            com = self.get_com_function()
-            com.write_pnu(3490, value=102)
-            self.model = ProcessDataTreeViewModel(Telegram102Handler(com))
-
-        elif selected_item_name == "Telegram111":
-            com = self.get_com_function()
-            com.write_pnu(3490, value=111)
-            self.model = ProcessDataTreeViewModel(Telegram111Handler(com))
-        else:
+        if selected_item_name not in self.selection_dict:
             self.model = None
             return
 
-        self.treeView.setModel(self.model)
-        self.treeView.header().setSectionResizeMode(0, QHeaderView.ResizeToContents)
+        com = self.get_com_function()
+        self.model = ProcessDataTreeViewModel(
+            self.selection_dict[selected_item_name](com, validation="write")
+        )
+        self.update_treeview()

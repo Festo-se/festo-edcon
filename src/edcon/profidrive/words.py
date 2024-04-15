@@ -26,6 +26,7 @@ class BitwiseWord:
         return boollist_to_bytes(self.to_boollist())
 
     def to_boollist(self):
+        """Returns the boollist representation"""
         return [getattr(self, v.name) for v in fields(self)]
 
     @classmethod
