@@ -4,6 +4,7 @@ Contains ComModbus class to configure and communicate with EDrive devices.
 This implementation uses the pymodbus library
 https://pymodbus.readthedocs.io/en/latest/index.html
 """
+
 import threading
 import time
 import traceback
@@ -92,8 +93,8 @@ class ComModbus(ComBase):
 
         self.device_info = self.read_device_info()
 
-        self.in_data = b'\x00' * IO_DATA_SIZE
-        self.out_data = b'\x00' * IO_DATA_SIZE
+        self.in_data = b"\x00" * IO_DATA_SIZE
+        self.out_data = b"\x00" * IO_DATA_SIZE
 
         self.set_timeout(timeout_ms)
         self.io_thread = None
@@ -103,10 +104,11 @@ class ComModbus(ComBase):
 
     def shutdown(self):
         """Tries stop the communication thread and closes the modbus connection"""
-        if hasattr(self, 'io_thread'):
-            self.io_thread.stop()
-            self.io_thread.join()
-        if hasattr(self, 'modbus_client'):
+        if hasattr(self, "io_thread"):
+            if self.io_thread is not None:
+                self.io_thread.stop()
+                self.io_thread.join()
+        if hasattr(self, "modbus_client"):
             self.modbus_client.close()
 
     def read_device_info(self) -> dict:
@@ -120,15 +122,15 @@ class ComModbus(ComBase):
         # Read device information
         rreq = ReadDeviceInformationRequest(0x1, 0)
         rres = self.modbus_client.execute(rreq)
-        dev_info["vendor_name"] = rres.information[0].decode('ascii')
-        dev_info["product_code"] = rres.information[1].decode('ascii')
-        dev_info["revision"] = rres.information[2].decode('ascii')
+        dev_info["vendor_name"] = rres.information[0].decode("ascii")
+        dev_info["product_code"] = rres.information[1].decode("ascii")
+        dev_info["revision"] = rres.information[2].decode("ascii")
 
         rreq = ReadDeviceInformationRequest(0x2, 0)
         rres = self.modbus_client.execute(rreq)
-        dev_info["vendor_url"] = rres.information[3].decode('ascii')
-        dev_info["product_name"] = rres.information[4].decode('ascii')
-        dev_info["model_name"] = rres.information[5].decode('ascii')
+        dev_info["vendor_url"] = rres.information[3].decode("ascii")
+        dev_info["product_name"] = rres.information[4].decode("ascii")
+        dev_info["model_name"] = rres.information[5].decode("ascii")
 
         for key, value in dev_info.items():
             Logging.logger.info(f"{key.replace('_',' ').title()}: {value}")
@@ -151,13 +153,17 @@ class ComModbus(ComBase):
         # Inputs, convert to bytes
         try:
             indata = self.modbus_client.read_holding_registers(
-                REG_INPUT_DATA, int(IO_DATA_SIZE/2))
-            self.in_data = b''.join(reg.to_bytes(2, 'little')
-                                        for reg in indata.registers)
+                REG_INPUT_DATA, int(IO_DATA_SIZE / 2)
+            )
+            self.in_data = b"".join(
+                reg.to_bytes(2, "little") for reg in indata.registers
+            )
 
             # Outputs, convert to list of modbus words
-            word_list = [int.from_bytes(self.out_data[i:i+2], 'little')
-                        for i in range(0, len(self.out_data), 2)]
+            word_list = [
+                int.from_bytes(self.out_data[i : i + 2], "little")
+                for i in range(0, len(self.out_data), 2)
+            ]
             self.modbus_client.write_registers(REG_OUTPUT_DATA, word_list)
 
         # pylint: disable=bare-except
@@ -169,16 +175,18 @@ class ComModbus(ComBase):
         """Reads a PNU from the EDrive without interpreting the data"""
         try:
             self.modbus_client.write_register(REG_PNU_MAILBOX_PNU, pnu)
+            self.modbus_client.write_register(REG_PNU_MAILBOX_SUBINDEX, subindex)
             self.modbus_client.write_register(
-                REG_PNU_MAILBOX_SUBINDEX, subindex)
-            self.modbus_client.write_register(
-                REG_PNU_MAILBOX_NUM_ELEMENTS, num_elements)
+                REG_PNU_MAILBOX_NUM_ELEMENTS, num_elements
+            )
 
             # Execute
             self.modbus_client.write_register(
-                REG_PNU_MAILBOX_EXEC, PNU_MAILBOX_EXEC_READ)
+                REG_PNU_MAILBOX_EXEC, PNU_MAILBOX_EXEC_READ
+            )
             status = self.modbus_client.read_holding_registers(
-                REG_PNU_MAILBOX_EXEC, 1).registers[0]
+                REG_PNU_MAILBOX_EXEC, 1
+            ).registers[0]
 
             if status != PNU_MAILBOX_EXEC_DONE:
                 Logging.logger.error(f"Error reading PNU {pnu}, status: {status}")
@@ -186,52 +194,59 @@ class ComModbus(ComBase):
 
             # Read available data length
             length = self.modbus_client.read_holding_registers(
-                REG_PNU_MAILBOX_DATA_LEN, 1).registers[0]
+                REG_PNU_MAILBOX_DATA_LEN, 1
+            ).registers[0]
 
             # Divide length by 2 because each register is 2 bytes
             indata = self.modbus_client.read_holding_registers(
-                510, int((length+1)/2))
+                510, int((length + 1) / 2)
+            )
 
             # Convert to integer
-            data = b''.join(reg.to_bytes(2, 'little')
-                            for reg in indata.registers)
+            data = b"".join(reg.to_bytes(2, "little") for reg in indata.registers)
             Logging.logger.info(
-                f"Successful read of PNU {pnu} (subindex: {subindex}): {data})")
+                f"Successful read of PNU {pnu} (subindex: {subindex}): {data})"
+            )
             return data
 
         except (AttributeError, IndexError):
             Logging.logger.error("Could not access PNU register")
             return None
 
-    def write_pnu_raw(self, pnu: int, subindex: int = 0, num_elements: int = 1,
-                      value: bytes = b'\x00') -> bool:
+    def write_pnu_raw(
+        self, pnu: int, subindex: int = 0, num_elements: int = 1, value: bytes = b"\x00"
+    ) -> bool:
         """Writes raw bytes to a PNU on the EDrive"""
         try:
             self.modbus_client.write_register(REG_PNU_MAILBOX_PNU, pnu)
+            self.modbus_client.write_register(REG_PNU_MAILBOX_SUBINDEX, subindex)
             self.modbus_client.write_register(
-                REG_PNU_MAILBOX_SUBINDEX, subindex)
-            self.modbus_client.write_register(
-                REG_PNU_MAILBOX_NUM_ELEMENTS, num_elements)
-            self.modbus_client.write_register(
-                REG_PNU_MAILBOX_DATA_LEN, len(value))
+                REG_PNU_MAILBOX_NUM_ELEMENTS, num_elements
+            )
+            self.modbus_client.write_register(REG_PNU_MAILBOX_DATA_LEN, len(value))
 
             # Convert to list of words
-            word_list = [int.from_bytes(value[i:i+2], 'little')
-                         for i in range(0, len(value), 2)]
+            word_list = [
+                int.from_bytes(value[i : i + 2], "little")
+                for i in range(0, len(value), 2)
+            ]
             # Write data
             self.modbus_client.write_registers(510, word_list)
 
             # Execute
             self.modbus_client.write_register(
-                REG_PNU_MAILBOX_EXEC, PNU_MAILBOX_EXEC_WRITE)
+                REG_PNU_MAILBOX_EXEC, PNU_MAILBOX_EXEC_WRITE
+            )
             status = self.modbus_client.read_holding_registers(
-                REG_PNU_MAILBOX_EXEC, 1).registers[0]
+                REG_PNU_MAILBOX_EXEC, 1
+            ).registers[0]
             if status != PNU_MAILBOX_EXEC_DONE:
                 Logging.logger.error(f"Error writing PNU {pnu}, status: {status}")
                 return False
 
             Logging.logger.info(
-                f"Successful write of PNU {pnu} (subindex: {subindex}): {value} ")
+                f"Successful write of PNU {pnu} (subindex: {subindex}): {value} "
+            )
             return True
 
         except AttributeError:
@@ -250,7 +265,7 @@ class ComModbus(ComBase):
 
     def stop_io(self):
         """Stops i/o data process"""
-        self.send_io(b'\x00' * IO_DATA_SIZE)
+        self.send_io(b"\x00" * IO_DATA_SIZE)
         self.io_thread.stop()
         self.io_thread.join()
 
