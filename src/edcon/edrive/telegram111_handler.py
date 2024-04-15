@@ -7,12 +7,21 @@ from edcon.edrive.position_telegram_handler import PositionTelegramHandler
 from edcon.profidrive.telegram111 import Telegram111
 from edcon.utils.func_helpers import wait_for, wait_until
 from edcon.edrive.parameter_handler import ParameterHandler
+from edcon.edrive.parameter import Parameter
+
 
 class Telegram111Handler(PositionTelegramHandler):
-    """Basic class for executing telegram 111."""
+    """Basic class for executing telegram 111.
 
-    def __init__(self, com, skip_validation = False) -> None:
-        if not skip_validation:
+    Parameters:
+        com (ComBase): communication driver
+        validation (str): validation mode (None, "write", "validate")
+    """
+
+    def __init__(self, com, validation=None) -> None:
+        if validation == "write":
+            ParameterHandler(com).write(Parameter.from_uid("P0.3030101.0.0", 111))
+        elif validation == "validate":
             ParameterHandler(com).validate("P0.3030101.0.0", 111)
         super().__init__(Telegram111(), com)
 
@@ -40,7 +49,9 @@ class Telegram111Handler(PositionTelegramHandler):
         """
         self.telegram.pos_stw2.activate_software_limit_switch = active
 
-    def configure_measuring_probe(self, falling_edge: bool = False, measuring_probe: str = 'first'):
+    def configure_measuring_probe(
+        self, falling_edge: bool = False, measuring_probe: str = "first"
+    ):
         """
         Configures the measuring probes.
         Be aware that only one probe is configurable simultaneously.
@@ -53,9 +64,11 @@ class Telegram111Handler(PositionTelegramHandler):
             falling_edge (bool): Determines whether to trigger on rising or falling edge
             measuring_probe (str): One of ['first', 'second'], determines the probe to configure
         """
-        assert measuring_probe in ['first', 'second']
+        assert measuring_probe in ["first", "second"]
         self.telegram.pos_stw2.falling_edge_of_measuring_probe = falling_edge
-        self.telegram.pos_stw2.measuring_probe2_is_activated = measuring_probe == 'second'
+        self.telegram.pos_stw2.measuring_probe2_is_activated = (
+            measuring_probe == "second"
+        )
 
     def configure_continuous_update(self, active: bool):
         """
@@ -81,14 +94,20 @@ class Telegram111Handler(PositionTelegramHandler):
         # Reset referencing bits (in case referencing motion was performed)
         self.telegram.pos_stw2.set_reference_point = False
 
-    def _prepare_position_task_bits(self, position: int, velocity: int, absolute: bool = False):
+    def _prepare_position_task_bits(
+        self, position: int, velocity: int, absolute: bool = False
+    ):
         """Prepares the telegram bits for positioning task"""
         super()._prepare_position_task_bits(position, velocity, absolute)
         self.telegram.pos_stw1.activate_mdi = True
         self.telegram.pos_stw1.absolute_position = absolute
 
-    def _prepare_jog_task_bits(self, jog_positive: bool = True, jog_negative: bool = False,
-                               incremental: bool = False):
+    def _prepare_jog_task_bits(
+        self,
+        jog_positive: bool = True,
+        jog_negative: bool = False,
+        incremental: bool = False,
+    ):
         """Prepares the telegram bits for jog task task"""
         super()._prepare_jog_task_bits(jog_positive, jog_negative, incremental)
         self.telegram.pos_stw2.incremental_jogging = incremental
@@ -143,7 +162,9 @@ class Telegram111Handler(PositionTelegramHandler):
             if time.time() - start_time > timeout:
                 return f"Fault reason could not be determined within {timeout} s"
 
-        fault_desc = f"Cancelled due to fault: {diagnosis_name(fault_code)} ({fault_code})"
+        fault_desc = (
+            f"Cancelled due to fault: {diagnosis_name(fault_code)} ({fault_code})"
+        )
         for i, remedy in enumerate(diagnosis_remedy(fault_code)):
             fault_desc += f"\nPossible remedy {str(i+1)}: {remedy}"
         return fault_desc
@@ -159,9 +180,13 @@ class Telegram111Handler(PositionTelegramHandler):
         def cond():
             self.update_inputs()
             return self.telegram.pos_zsw1.homing_active
-        if not wait_until(cond, self.fault_present,
-                          info_string=self.position_info_string,
-                          error_string=self.fault_string):
+
+        if not wait_until(
+            cond,
+            self.fault_present,
+            info_string=self.position_info_string,
+            error_string=self.fault_string,
+        ):
             return False
 
         Logging.logger.info("=> Referencing task acknowledged")
@@ -219,8 +244,9 @@ class Telegram111Handler(PositionTelegramHandler):
             return False
 
         # Wait for predefined amount of time
-        if not wait_for(duration, self.fault_present,
-                        self.velocity_info_string, self.fault_string):
+        if not wait_for(
+            duration, self.fault_present, self.velocity_info_string, self.fault_string
+        ):
             return False
 
         self.stop_motion_task()
