@@ -1,3 +1,5 @@
+"""Setup code of the main window."""
+
 from pathlib import PurePath
 from importlib.resources import files
 

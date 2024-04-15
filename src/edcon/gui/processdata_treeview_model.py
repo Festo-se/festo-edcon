@@ -1,4 +1,5 @@
-# pylint: disable=import-error, no-name-in-module
+"""Model for the processdata treeview."""
+
 from dataclasses import fields
 from PyQt5.QtGui import QStandardItem, QStandardItemModel
 from PyQt5.QtCore import Qt, QTimer
@@ -16,21 +17,23 @@ class ProcessDataTreeViewModel(QStandardItemModel):
 
         self.tgh = tgh
         self.setColumnCount(2)
-        self.dataChanged.connect(self.on_item_changed)
+        self.dataChanged.connect(self.on_data_changed)
 
         self.timer = QTimer(self)
-        self.timer.timeout.connect(self.update_inputs_gui)
+        self.timer.timeout.connect(self.update_input_tree)
         self.timer.start(100)
 
         self.generate_treeview()
 
     def clear(self):
+        """Clears the treeview."""
         super().clear()
         self.timer.stop()
         self.tgh.shutdown()
         self.tgh = None
 
     def output_word_names(self):
+        """Returns names from the output word."""
         in_and_outputs = [x.name for x in fields(self.tgh.telegram)]
         return [
             x
@@ -39,6 +42,7 @@ class ProcessDataTreeViewModel(QStandardItemModel):
         ]
 
     def input_word_names(self):
+        """Returns names from the input word."""
         in_and_outputs = [x.name for x in fields(self.tgh.telegram)]
         return [
             x
@@ -47,9 +51,25 @@ class ProcessDataTreeViewModel(QStandardItemModel):
         ]
 
     def is_bitwise_word(self, word_name):
+        """Returns True if word_name is BitwiseWord.
+
+        Parameters:
+            word_name(string): word name
+
+        Returns:
+            bool: True if word is Bitwiseword
+        """
         return isinstance(getattr(self.tgh.telegram, word_name), BitwiseWord)
 
     def append_bitwise_word_item(self, root, name, value, readonly=False):
+        """Append item to the row from root.
+
+        Parameters:
+            root(Qstandarditem): item from treeview
+            name(string): bit names
+            value(bool): value from bit names
+            readonly(bool): read only 
+        """
         item = QStandardItem(f"{name}")
         item.setFlags(Qt.ItemIsEnabled | Qt.ItemIsUserCheckable)
         item.setUserTristate(True)
@@ -59,6 +79,14 @@ class ProcessDataTreeViewModel(QStandardItemModel):
         root.appendRow(item)
 
     def append_value_word_item(self, root, name, value, readonly=False):
+        """Append value_item to the row from root.
+
+        Parameters:
+            root(Qstandarditem): item from treeview
+            name(string): bit names
+            value(bool): value from bit names
+            readonly(bool): read only 
+        """
         item = QStandardItem(f"{name}:")
         item.setFlags(Qt.NoItemFlags)
         value_item = QStandardItem(f"{str(value)}")
@@ -67,6 +95,14 @@ class ProcessDataTreeViewModel(QStandardItemModel):
         root.appendRow([item, value_item])
 
     def append_word_item(self, root, name, readonly=False):
+        """Append word_item to the row from root.
+
+        Parameters:
+            root(Qstandarditem): item from treeview
+            name(string): word names
+            value(bool): value from bit names
+            readonly(bool): read only 
+        """
         word_item = QStandardItem(name)
         word_item.setFlags(Qt.NoItemFlags)
         root.appendRow(word_item)
@@ -102,7 +138,7 @@ class ProcessDataTreeViewModel(QStandardItemModel):
 
         self.layoutChanged.emit()
 
-    def update_inputs_gui(self):
+    def update_input_tree(self):
         """Updates the treeview content"""
         self.tgh.update_inputs()
 
@@ -128,7 +164,7 @@ class ProcessDataTreeViewModel(QStandardItemModel):
                     input_value.setText(f"{item_value}")
         self.layoutChanged.emit()
 
-    def on_item_changed(self, index):
+    def on_data_changed(self, index):
         """Item changed callback for handling item changed events
 
         Parameters:
