@@ -33,8 +33,8 @@ class TelegramHandler:
         self.shutdown()
 
     def shutdown(self):
-        """Tries to disable the powerstage and stops the communication thread """
-        if hasattr(self, 'telegram') and hasattr(self, 'com'):
+        """Tries to disable the powerstage and stops the communication thread"""
+        if hasattr(self, "telegram") and hasattr(self, "com"):
             self.telegram.stw1.enable_operation = False
             self.com.send_io(self.telegram.output_bytes())
             self.com.shutdown()
@@ -47,8 +47,7 @@ class TelegramHandler:
         self.telegram.input_bytes(self.com.recv_io())
 
     def update_outputs(self):
-        """Writes current telegram value to output process data
-        """
+        """Writes current telegram value to output process data"""
         if not self.com.connected():
             raise ConnectionError("Connection of communication driver was interrupted")
 
@@ -186,8 +185,9 @@ class TelegramHandler:
             self.update_inputs()
             return self.telegram.zsw1.operation_enabled
 
-        if not wait_until(cond, self.fault_present, timeout,
-                          error_string=self.fault_string):
+        if not wait_until(
+            cond, self.fault_present, timeout, error_string=self.fault_string
+        ):
             Logging.logger.error("Operation inhibited")
             return False
 
@@ -204,8 +204,9 @@ class TelegramHandler:
             self.update_inputs()
             return not self.telegram.zsw1.operation_enabled
 
-        if not wait_until(cond, self.fault_present, timeout,
-                          error_string=self.fault_string):
+        if not wait_until(
+            cond, self.fault_present, timeout, error_string=self.fault_string
+        ):
             Logging.logger.error("Operation inhibited")
             return False
 

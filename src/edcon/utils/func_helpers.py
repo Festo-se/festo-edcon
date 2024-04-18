@@ -5,8 +5,9 @@ from collections.abc import Callable
 from edcon.utils.logging import Logging
 
 
-def func_sequence(func: Callable[[bool], None],
-                  arg_list: list = True, delay: float = 0.1):
+def func_sequence(
+    func: Callable[[bool], None], arg_list: list = True, delay: float = 0.1
+):
     """Performs a toggling sequence on a provided toggle function
 
     Parameter:
@@ -20,11 +21,13 @@ def func_sequence(func: Callable[[bool], None],
         time.sleep(delay)
 
 
-def wait_until(condition: Callable[[], bool] = None,
-               error_condition: Callable[[], bool] = None,
-               timeout: float = 0.0,
-               info_string: Callable[[], str] = None,
-               error_string: Callable[[], str] = None) -> bool:
+def wait_until(
+    condition: Callable[[], bool] = None,
+    error_condition: Callable[[], bool] = None,
+    timeout: float = 0.0,
+    info_string: Callable[[], str] = None,
+    error_string: Callable[[], str] = None,
+) -> bool:
     """Waits until provided condition is satisfied
 
     Parameter:
@@ -53,10 +56,12 @@ def wait_until(condition: Callable[[], bool] = None,
     return False
 
 
-def wait_for(duration: float,
-             error_condition: Callable[[], bool] = None,
-             info_string: Callable[[], str] = None,
-             error_string: Callable[[], str] = None) -> bool:
+def wait_for(
+    duration: float,
+    error_condition: Callable[[], bool] = None,
+    info_string: Callable[[], str] = None,
+    error_string: Callable[[], str] = None,
+) -> bool:
     """Waits for provided duration
 
     Parameter:

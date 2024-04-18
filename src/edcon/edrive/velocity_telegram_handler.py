@@ -29,9 +29,9 @@ class VelocityTelegramHandler(TelegramHandler):
         self.telegram.stw1.setpoint_enable = False
         self.update_outputs()
 
-    def _prepare_velocity_task_bits(self,
-                                    velocity: int  # pylint: disable=unused-argument
-                                    ):
+    def _prepare_velocity_task_bits(
+        self, velocity: int  # pylint: disable=unused-argument
+    ):
         """Prepares the telegram bits for velocity task"""
         self.telegram.stw1.setpoint_enable = True
 
@@ -59,8 +59,9 @@ class VelocityTelegramHandler(TelegramHandler):
             return True
 
         # Wait for predefined amount of time
-        if not wait_for(duration, self.fault_present,
-                        self.velocity_info_string, self.fault_string):
+        if not wait_for(
+            duration, self.fault_present, self.velocity_info_string, self.fault_string
+        ):
             return False
 
         self.stop_motion_task()

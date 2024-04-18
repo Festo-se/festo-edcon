@@ -1,25 +1,26 @@
 """Contains functions which provide mapping of PNU types."""
+
 import struct
 from typing import Any
 from edcon.utils.logging import Logging
 from edcon.edrive.parameter_mapping import PnuMap
 
 PNU_TYPE_TO_FORMAT_CHAR = {
-    'BOOL': '?',
-    'SINT': 'b',
-    'INT': 'h',
-    'DINT': 'i',
-    'LINT': 'q',
-    'USINT': 'B',
-    'UINT': 'H',
-    'UDINT': 'I',
-    'ULINT': 'Q',
-    'REAL': 'f'
+    "BOOL": "?",
+    "SINT": "b",
+    "INT": "h",
+    "DINT": "i",
+    "LINT": "q",
+    "USINT": "B",
+    "UINT": "H",
+    "UDINT": "I",
+    "ULINT": "Q",
+    "REAL": "f",
 }
 
 
 def pnu_unpack(pnu: int, raw: bytes, forced_format: str = None) -> Any:
-    """Unpacks a raw byte value to specific type. 
+    """Unpacks a raw byte value to specific type.
        The type is determined by the pnu_map_file shipped with the package.
 
     Parameters:
@@ -37,23 +38,22 @@ def pnu_unpack(pnu: int, raw: bytes, forced_format: str = None) -> Any:
         pnu_map = PnuMap()
         pnu_data_type = pnu_map[pnu].data_type
         pnu_name = pnu_map[pnu].name
-        Logging.logger.info(
-            f"PNU {pnu} ({pnu_name}) is of type {pnu_data_type}")
-        if 'STRING' in pnu_data_type:
-            unpack_data_type = f'{len(raw)}s'
+        Logging.logger.info(f"PNU {pnu} ({pnu_name}) is of type {pnu_data_type}")
+        if "STRING" in pnu_data_type:
+            unpack_data_type = f"{len(raw)}s"
 
         else:
             unpack_data_type = PNU_TYPE_TO_FORMAT_CHAR[pnu_data_type]
 
     try:
-        if unpack_data_type == 's':
+        if unpack_data_type == "s":
             value = struct.unpack(f"{len(raw)}s", raw)[0]
-        if unpack_data_type == '?':
-            value = struct.unpack('b', raw[0:1])[0]
-        if unpack_data_type == 'B':
-            value = struct.unpack('B', raw[0:1])[0]
-        if unpack_data_type == 'b':
-            value = struct.unpack('b', raw[0:1])[0]
+        if unpack_data_type == "?":
+            value = struct.unpack("b", raw[0:1])[0]
+        if unpack_data_type == "B":
+            value = struct.unpack("B", raw[0:1])[0]
+        if unpack_data_type == "b":
+            value = struct.unpack("b", raw[0:1])[0]
         else:
             value = struct.unpack(unpack_data_type, raw)[0]
         return value
@@ -78,15 +78,14 @@ def pnu_pack(pnu: int, value: Any, forced_format: str = None) -> bytes:
         pnu_map = PnuMap()
         pnu_data_type = pnu_map[pnu].data_type
         pnu_name = pnu_map[pnu].name
-        Logging.logger.info(
-            f"PNU {pnu} ({pnu_name}) is of type {pnu_data_type}")
+        Logging.logger.info(f"PNU {pnu} ({pnu_name}) is of type {pnu_data_type}")
 
-        if 'INT' in pnu_data_type:
+        if "INT" in pnu_data_type:
             value = int(value)
-        if 'REAL' in pnu_data_type:
+        if "REAL" in pnu_data_type:
             value = float(value)
-        if 'STRING' in pnu_data_type:
-            return struct.pack('s', bytes(value, encoding='ascii'))
+        if "STRING" in pnu_data_type:
+            return struct.pack("s", bytes(value, encoding="ascii"))
         return struct.pack(PNU_TYPE_TO_FORMAT_CHAR[pnu_data_type], value)
 
     Logging.logger.info(f"PNU {pnu} forced to type ({forced_format})")
