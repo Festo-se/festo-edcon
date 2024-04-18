@@ -2,7 +2,7 @@
 
 from edcon.utils.logging import Logging
 from edcon.edrive.telegram_handler import TelegramHandler
-from edcon.utils.func_helpers import func_sequence, wait_for, wait_until
+from edcon.utils.func_helpers import func_sequence, wait_for
 
 
 class PositionTelegramHandler(TelegramHandler):
@@ -96,12 +96,7 @@ class PositionTelegramHandler(TelegramHandler):
             self.update_inputs()
             return self.telegram.zsw1.home_position_set
 
-        if not wait_until(
-            cond,
-            self.fault_present,
-            info_string=self.position_info_string,
-            error_string=self.fault_string,
-        ):
+        if not self.wait_until_or_fault(cond, info_string=self.position_info_string):
             return False
         Logging.logger.info("=> Reference position set")
         return True
@@ -118,12 +113,7 @@ class PositionTelegramHandler(TelegramHandler):
             self.update_inputs()
             return self.telegram.zsw1.traversing_task_ack
 
-        if not wait_until(
-            cond,
-            self.fault_present,
-            info_string=self.position_info_string,
-            error_string=self.fault_string,
-        ):
+        if not self.wait_until_or_fault(cond, info_string=self.position_info_string):
             return False
         Logging.logger.info("=> Traversing task acknowledged")
         return True
@@ -140,12 +130,7 @@ class PositionTelegramHandler(TelegramHandler):
             self.update_inputs()
             return self.telegram.zsw1.target_position_reached
 
-        if not wait_until(
-            cond,
-            self.fault_present,
-            info_string=self.position_info_string,
-            error_string=self.fault_string,
-        ):
+        if not self.wait_until_or_fault(cond, info_string=self.position_info_string):
             return False
         Logging.logger.info("=> Target position reached")
         return True
@@ -162,12 +147,7 @@ class PositionTelegramHandler(TelegramHandler):
             self.update_inputs()
             return self.telegram.zsw1.drive_stopped
 
-        if not wait_until(
-            cond,
-            self.fault_present,
-            info_string=self.velocity_info_string,
-            error_string=self.fault_string,
-        ):
+        if not self.wait_until_or_fault(cond, info_string=self.velocity_info_string):
             return False
         Logging.logger.info("=> Drive stopped")
         return True

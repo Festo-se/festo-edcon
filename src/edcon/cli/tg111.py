@@ -15,7 +15,7 @@ def add_tg111_parser(subparsers):
         "-o",
         "--over_v",
         default="100.0",
-        help="Target position to be reached (default: %(default)s).",
+        help="Override velocity in percent (default: %(default)s).",
     )
 
 

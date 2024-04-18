@@ -1,6 +1,7 @@
 """Class definition containing generic telegram execution functions."""
 
 import traceback
+from collections.abc import Callable
 from edcon.utils.logging import Logging
 from edcon.utils.func_helpers import func_sequence, wait_until
 
@@ -57,6 +58,21 @@ class TelegramHandler:
         """Updates process data in both directions (I/O)"""
         self.update_inputs()
         self.update_outputs()
+
+    def wait_until_or_fault(
+        self,
+        cond,
+        timeout: float = 0.0,
+        info_string: Callable[[], str] = None,
+    ):
+        """Waits for condition to be met until fault is present."""
+        return wait_until(
+            cond,
+            self.fault_present,
+            timeout=timeout,
+            info_string=info_string,
+            error_string=self.fault_string,
+        )
 
     def fault_string(self) -> str:
         """Returns string containing fault reason
@@ -154,7 +170,7 @@ class TelegramHandler:
             self.update_inputs()
             return not self.telegram.zsw1.fault_present
 
-        if not wait_until(cond, timeout=timeout, error_string=self.fault_string):
+        if not self.wait_until_or_fault(cond, timeout=timeout):
             return False
 
         Logging.logger.info("=> No fault present")
@@ -185,9 +201,7 @@ class TelegramHandler:
             self.update_inputs()
             return self.telegram.zsw1.operation_enabled
 
-        if not wait_until(
-            cond, self.fault_present, timeout, error_string=self.fault_string
-        ):
+        if not self.wait_until_or_fault(cond, timeout=timeout):
             Logging.logger.error("Operation inhibited")
             return False
 
@@ -204,9 +218,7 @@ class TelegramHandler:
             self.update_inputs()
             return not self.telegram.zsw1.operation_enabled
 
-        if not wait_until(
-            cond, self.fault_present, timeout, error_string=self.fault_string
-        ):
+        if not self.wait_until_or_fault(cond, timeout=timeout):
             Logging.logger.error("Operation inhibited")
             return False
 
