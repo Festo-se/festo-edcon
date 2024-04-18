@@ -36,7 +36,7 @@ class TelegramHandler:
     def shutdown(self):
         """Tries to disable the powerstage and stops the communication thread"""
         if hasattr(self, "telegram") and hasattr(self, "com"):
-            self.telegram.stw1.enable_operation = False
+            self.telegram.reset()
             self.com.send_io(self.telegram.output_bytes())
             self.com.shutdown()
 
