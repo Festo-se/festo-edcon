@@ -1,5 +1,9 @@
 """GUI entry point."""
-from PyQt5.QtWidgets import QApplication  # pylint: disable=import-error, no-name-in-module
+
+# pylint: disable=import-error, no-name-in-module
+from PyQt5.QtWidgets import (
+    QApplication,
+)
 from edcon.gui.main_window import MainWindow
 
 

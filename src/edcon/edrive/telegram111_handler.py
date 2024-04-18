@@ -5,7 +5,7 @@ from edcon.utils.logging import Logging
 from edcon.edrive.diagnosis import diagnosis_name, diagnosis_remedy
 from edcon.edrive.position_telegram_handler import PositionTelegramHandler
 from edcon.profidrive.telegram111 import Telegram111
-from edcon.utils.func_helpers import wait_for, wait_until
+from edcon.utils.func_helpers import wait_for
 from edcon.edrive.parameter_handler import ParameterHandler
 from edcon.edrive.parameter import Parameter
 
@@ -181,12 +181,7 @@ class Telegram111Handler(PositionTelegramHandler):
             self.update_inputs()
             return self.telegram.pos_zsw1.homing_active
 
-        if not wait_until(
-            cond,
-            self.fault_present,
-            info_string=self.position_info_string,
-            error_string=self.fault_string,
-        ):
+        if not self.wait_until_or_fault(cond, info_string=self.position_info_string):
             return False
 
         Logging.logger.info("=> Referencing task acknowledged")

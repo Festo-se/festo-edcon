@@ -19,27 +19,27 @@ image: "python:3.9-bullseye"
 workflow:
   rules:
     - if: $CI_COMMIT_TAG
-    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
-    - if: $CI_COMMIT_BRANCH && $CI_OPEN_MERGE_REQUESTS
+    - if: $CI_MERGE_REQUEST_ID
+    - if: $CI_OPEN_MERGE_REQUESTS
       when: never
-    - if: $CI_COMMIT_BRANCH
+    - when: always
 
 # List of stages for jobs, and their order of execution
 stages:          
-  - changelogtest
   - test
   - docs
-  - upload
+  - changelog-test
+  - deploy
 
-changelog-test-job:
-  stage: changelogtest
+changelog-test:
+  stage: changelog-test
   rules:
     - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
   script:
     - git fetch --all
     - if [ 0 -eq $(git diff --name-only origin/${CI_MERGE_REQUEST_TARGET_BRANCH_NAME}...${CI_COMMIT_SHA} CHANGELOG.md | wc -l) ]; then exit 1; fi
 
-unit-test-job:   # This job runs in the test stage.
+unit-test:   # This job runs in the test stage.
   stage: test    # It only starts when the job in the build stage completes successfully.
   rules:
     - if: $CI_PIPELINE_SOURCE == 'push'
@@ -52,8 +52,8 @@ unit-test-job:   # This job runs in the test stage.
 
   coverage: '/(?i)total.*? (100(?:\.0+)?\%|[1-9]?\d(?:\.\d+)?\%)$/'
 
-lint-test-job:   # This job also runs in the test stage.
-  stage: test    # It can run at the same time as unit-test-job (in parallel).
+pylint:   # This job also runs in the test stage.
+  stage: test    # It can run at the same time as unit-test (in parallel).
   rules:
     - if: $CI_PIPELINE_SOURCE == 'push'
     - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
@@ -62,6 +62,14 @@ lint-test-job:   # This job also runs in the test stage.
     - python -m pip install pylint
   script:
     - pylint src
+
+black:
+  stage: test
+  before_script:
+    - pip install black
+    - pip install .
+  script:
+    - black src --check
 
 sphinx-docs:
   stage: docs
@@ -87,8 +95,8 @@ sphinx-docs:
     paths:
       - public
 
-release-job:
-  stage: upload
+deploy:
+  stage: deploy
   rules:
     - if: '$CI_COMMIT_TAG =~ /^v\d+\.\d+\.\d+$/ && $CI_COMMIT_REF_PROTECTED == "true"'
   before_script:
@@ -103,26 +111,26 @@ release-job:
     paths:
       - public
   needs:
-    - unit-test-job
-    - lint-test-job
+    - unit-test
+    - pylint
 
-gitlab-release-job:
-  stage: upload
+gitlab-release:
+  stage: deploy
   image: registry.gitlab.com/gitlab-org/release-cli:latest
   rules:
     - if: '$CI_COMMIT_TAG =~ /^v\d+\.\d+\.\d+$/ && $CI_COMMIT_REF_PROTECTED == "true"'
   script:
-    - echo "running gitlab-release-job"
+    - echo "running gitlab-release"
   release:
     tag_name: '$CI_COMMIT_TAG'
     description: './public/RELEASENOTES.md'
   needs:
-    - release-job
+    - deploy
 
 
 pages:
   image: alpine:latest
-  stage: upload
+  stage: deploy
   rules:
   - if: '$CI_COMMIT_BRANCH == "main"'
 

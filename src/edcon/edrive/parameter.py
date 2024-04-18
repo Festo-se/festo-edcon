@@ -1,14 +1,17 @@
-
 """
 Contains Parameter class which is used to represent a parameter of EDrives.
 """
+
 from dataclasses import dataclass
 from typing import Any
 from edcon.edrive.parameter_mapping import ParameterMap
 from edcon.edrive.pnu_packing import pnu_pack, pnu_unpack
+
+
 @dataclass
 class Parameter:
     """Class representing a parameter."""
+
     axis: int
     data_id: int
     instance: int
@@ -26,7 +29,7 @@ class Parameter:
         Returns:
             Parameter object
         """
-        axis, data_id, instance, subindex = uid.strip('P').split('.')
+        axis, data_id, instance, subindex = uid.strip("P").split(".")
         inst = cls(int(axis), int(data_id), int(instance), int(subindex), None)
         inst.value = value
         return inst
@@ -42,7 +45,7 @@ class Parameter:
         Returns:
             Parameter object
         """
-        axis, data_id, instance, subindex = uid.strip('P').split('.')
+        axis, data_id, instance, subindex = uid.strip("P").split(".")
         return cls(int(axis), int(data_id), int(instance), int(subindex), value_raw)
 
     @property
@@ -68,4 +71,4 @@ class Parameter:
         Returns:
             str: uid
         """
-        return f'{self.axis}.{self.data_id}.{self.instance}.{self.subindex}'
+        return f"{self.axis}.{self.data_id}.{self.instance}.{self.subindex}"

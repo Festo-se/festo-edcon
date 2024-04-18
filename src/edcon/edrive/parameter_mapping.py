@@ -1,4 +1,5 @@
 """Contains functions which provide mapping of PNU types."""
+
 from collections import namedtuple
 from importlib.resources import files
 from pathlib import PurePath
@@ -12,17 +13,17 @@ def read_pnu_map_file(pnu_map_file: str = None) -> list:
     """Creates a list of PNU map items based on a provided PNU type map file
 
     Parameters:
-        pnu_map_file (str): Optional file to use for mapping. 
+        pnu_map_file (str): Optional file to use for mapping.
                                 If nothing provided try to load mapping shipped with package.
     Returns:
-        list: Containing PNU map items with fieldnames created from the header pnu_map_file. 
+        list: Containing PNU map items with fieldnames created from the header pnu_map_file.
     """
     if not pnu_map_file:
-        pnu_map_file = PurePath(files('edcon') / 'edrive' / 'data' / 'pnu_map.csv')
-    with open(pnu_map_file, encoding='ascii') as csvfile:
-        reader = csv.reader(csvfile, delimiter=';')
+        pnu_map_file = PurePath(files("edcon") / "edrive" / "data" / "pnu_map.csv")
+    with open(pnu_map_file, encoding="ascii") as csvfile:
+        reader = csv.reader(csvfile, delimiter=";")
         # Define a namedtuple where the header row determines the field names
-        pnu_map_item = namedtuple('pnu_map_item', next(reader, None))
+        pnu_map_item = namedtuple("pnu_map_item", next(reader, None))
 
         Logging.logger.info(f"Load PNU map file: {pnu_map_file}")
         # Interpret the first row element (PNU) as int
@@ -98,7 +99,9 @@ class ParameterMap:
         """
         parameter_id = self.sanitize_parameter_id(parameter_id)
         if parameter_id not in self.mapping:
-            Logging.logger.error(f"Parameter {parameter_id} not available in parameter_map.")
+            Logging.logger.error(
+                f"Parameter {parameter_id} not available in parameter_map."
+            )
             return None
         return self.mapping[parameter_id]
 
@@ -113,5 +116,5 @@ class ParameterMap:
         Returns:
             value: sanitized parameter_id
         """
-        axis, parameter_id, instance, _ = parameter_id.strip('P').split('.')
-        return f'{axis}.{parameter_id}.{instance}'
+        axis, parameter_id, instance, _ = parameter_id.strip("P").split(".")
+        return f"{axis}.{parameter_id}.{instance}"
