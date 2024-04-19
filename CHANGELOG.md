@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Apply black formatting
 - Update gitlab-ci (added black format check)
 - TelegramHandler does update_io() after construction
+- Telegram*Handler: Rename `validation` parameter to `config_mode`
 
 ## v0.13.2 - 17.04.24
 ### Fixed

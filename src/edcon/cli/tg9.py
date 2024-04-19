@@ -27,7 +27,7 @@ def tg9_func(args):
         if args.ethernetip
         else ComModbus(args.ip_address)
     )
-    with Telegram9Handler(com) as tg9:
+    with Telegram9Handler(com, config_mode="write") as tg9:
         if not tg9.acknowledge_faults():
             sys.exit(1)
         if not tg9.enable_powerstage():
