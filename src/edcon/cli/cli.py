@@ -32,7 +32,7 @@ def main():
         help="use EtherNet/IP (instead of ModbusTCP) as underlying communication.",
     )
     parser.add_argument(
-        "-v", "--verbose", action="store_true", help="increase output verbosity"
+        "-q", "--quiet", action="store_true", help="suppress output verbosity"
     )
 
     subparsers = parser.add_subparsers(
@@ -67,10 +67,10 @@ def main():
     add_gui_parser(subparsers)
 
     args = parser.parse_args()
-    if args.verbose:
-        Logging(logging.INFO)
-    else:
+    if args.quiet:
         Logging(logging.WARNING)
+    else:
+        Logging(logging.INFO)
 
     args.func(args)
 

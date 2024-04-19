@@ -5,6 +5,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## Unreleased
+## v0.13.3 - 19.04.24
 ### Fixed
 - Fix reset() method of telegram
 
@@ -13,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Update gitlab-ci (added black format check)
 - TelegramHandler does update_io() after construction
 - Telegram*Handler: Rename `validation` parameter to `config_mode`
+- CLI: Replaced `verbose` option with `quiet`
 
 ## v0.13.2 - 17.04.24
 ### Fixed
