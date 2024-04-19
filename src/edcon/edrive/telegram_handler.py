@@ -22,6 +22,8 @@ class TelegramHandler:
         # Start process data
         self.com.start_io()
 
+        self.update_io()
+
     def __del__(self):
         self.shutdown()
 
