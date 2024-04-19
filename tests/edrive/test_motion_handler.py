@@ -1,14 +1,14 @@
 """Contains tests for MotionHandler class"""
 
 from edcon.edrive.motion_handler import MotionHandler
-from unittest.mock import Mock, MagicMock
+from unittest.mock import Mock, MagicMock, patch
 from edcon.profidrive.words import NIST_B
 
 
 class TestMotionHandler:
     def test_over_v_set(self):
         """Tests over_v property"""
-        com = Mock()
+        com = MagicMock()
         mot = MotionHandler(com)
         assert mot.telegram.override.value == 16384
         mot.over_v = 50.0
@@ -16,14 +16,14 @@ class TestMotionHandler:
 
     def test_over_v_get(self):
         """Tests over_v property"""
-        com = Mock()
+        com = MagicMock()
         mot = MotionHandler(com)
         mot.telegram.override.value = 8192
         assert mot.over_v == 50.0
 
     def test_over_v_set_multiple_instances(self):
         """Tests over_v property"""
-        com = Mock()
+        com = MagicMock()
         mot = MotionHandler(com)
         assert mot.telegram.override.value == 16384
 
@@ -37,7 +37,7 @@ class TestMotionHandler:
 
     def test_over_acc(self):
         """Tests over_acc property"""
-        com = Mock()
+        com = MagicMock()
         mot = MotionHandler(com)
         assert mot.telegram.mdi_acc.value == 16384
         mot.over_acc = 50.0
@@ -45,7 +45,7 @@ class TestMotionHandler:
 
     def test_over_dec(self):
         """Tests over_dec property"""
-        com = Mock()
+        com = MagicMock()
         mot = MotionHandler(com)
         assert mot.telegram.mdi_dec.value == 16384
         mot.over_dec = 50.0
@@ -53,7 +53,7 @@ class TestMotionHandler:
 
     def test_current_velocity(self):
         """Tests current_velocity"""
-        com = Mock()
+        com = MagicMock()
         mot = MotionHandler(com)
         mot.update_inputs = Mock()
 
