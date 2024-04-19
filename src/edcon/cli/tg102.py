@@ -32,7 +32,7 @@ def tg102_func(args):
         if args.ethernetip
         else ComModbus(args.ip_address)
     )
-    with Telegram102Handler(com) as tg102:
+    with Telegram102Handler(com, config_mode="write") as tg102:
         tg102.telegram.momred.value = round(
             16384.0 * float(args.moment_reduction) / 100.0
         )

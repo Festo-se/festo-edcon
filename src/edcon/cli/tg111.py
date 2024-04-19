@@ -27,7 +27,7 @@ def tg111_func(args):
         if args.ethernetip
         else ComModbus(args.ip_address)
     )
-    with Telegram111Handler(com) as tg111:
+    with Telegram111Handler(com, config_mode="write") as tg111:
         tg111.telegram.override.value = int(16384 * (float(args.over_v) / 100.0))
         tg111.telegram.mdi_acc.value = 16384
         tg111.telegram.mdi_dec.value = 16384

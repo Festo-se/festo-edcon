@@ -44,7 +44,7 @@ def position_func(args):
         else ComModbus(args.ip_address)
     )
     try:
-        with MotionHandler(com) as mot:
+        with MotionHandler(com, config_mode="write") as mot:
             if not mot.acknowledge_faults():
                 sys.exit(1)
             if not mot.enable_powerstage():

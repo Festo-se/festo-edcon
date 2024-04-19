@@ -11,13 +11,13 @@ class Telegram9Handler(PositionTelegramHandler):
 
     Parameters:
         com (ComBase): communication driver
-        validation (str): validation mode (None, "write", "validate")
+        config_mode (str): configuration mode (None, "write", "validate")
     """
 
-    def __init__(self, com, validation=None) -> None:
-        if validation == "write":
+    def __init__(self, com, config_mode=None) -> None:
+        if config_mode == "write":
             ParameterHandler(com).write(Parameter.from_uid("P0.3030101.0.0", 9))
-        elif validation == "validate":
+        elif config_mode == "validate":
             ParameterHandler(com).validate("P0.3030101.0.0", 9)
         super().__init__(Telegram9(), com)
 

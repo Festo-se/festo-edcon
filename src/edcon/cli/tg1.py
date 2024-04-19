@@ -26,7 +26,7 @@ def tg1_func(args):
         if args.ethernetip
         else ComModbus(args.ip_address)
     )
-    with Telegram1Handler(com) as tg1:
+    with Telegram1Handler(com, config_mode="write") as tg1:
         if not tg1.acknowledge_faults():
             sys.exit(1)
         if not tg1.enable_powerstage():
