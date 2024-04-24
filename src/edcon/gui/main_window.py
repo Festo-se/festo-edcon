@@ -4,11 +4,13 @@ from pathlib import PurePath
 from importlib.resources import files
 
 # pylint: disable=import-error, no-name-in-module
-from PyQt5.QtWidgets import QMainWindow
+from PyQt5.QtWidgets import QMainWindow, QToolBar
 from PyQt5.uic import loadUi
 from edcon.gui.connection_widget import ConnectionWidget
 from edcon.gui.parameter_tab import ParameterTab
 from edcon.gui.processdata_tab import ProcessDataTab
+from edcon.gui.motion_tab import MotionTab
+from edcon.gui.device_configuration import DeviceConfigurationTab
 from edcon.edrive.com_modbus import ComModbus
 
 
@@ -27,12 +29,16 @@ class MainWindow(QMainWindow):
         )
 
         self.toolBar.addWidget(self.connection_widget)
-
+        self.motion_tab = MotionTab(self.get_com_function)
+        self.tabWidget.addTab(
+            DeviceConfigurationTab(self.motion_tab, self.get_com_function),
+            "Configuration",
+        )
+        self.tabWidget.addTab(self.motion_tab, "Motion")
+        self.tabWidget.addTab(ProcessDataTab(self.get_com_function), "Process data")
         self.tabWidget.addTab(
             ParameterTab(self.pnu_read_function, self.pnu_write_function), "Parameter"
         )
-
-        self.tabWidget.addTab(ProcessDataTab(self.get_com_function), "Process data")
 
     @property
     def com(self):

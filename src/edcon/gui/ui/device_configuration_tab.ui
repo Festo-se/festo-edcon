@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>parameterTab</class>
+ <widget class="QWidget" name="parameterTab">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>660</width>
+    <height>651</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <property name="sizeConstraint">
+    <enum>QLayout::SetMinimumSize</enum>
+   </property>
+   <item>
+    <widget class="QWidget" name="centralwidget_2" native="true">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="autoFillBackground">
+      <bool>false</bool>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QWidget{background-color:rgb(235, 235, 235);
+color:black}</string>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_3">
+      <property name="sizeConstraint">
+       <enum>QLayout::SetDefaultConstraint</enum>
+      </property>
+      <item>
+       <layout class="QVBoxLayout" name="verticalLayout_2">
+        <item>
+         <widget class="QLabel" name="label">
+          <property name="styleSheet">
+           <string notr="true">QLabel {
+    border-bottom: 2px solid grey; /* Dunkelgrauer unterer Rand als Linie */
+    padding: 3px; /* Ein wenig Abstand zum Text für Ästhetik */
+	color: rgb(72, 72, 72);
+}
+font: 14pt &quot;MS Shell Dlg 2&quot;;</string>
+          </property>
+          <property name="text">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;Select Axis&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout">
+          <item>
+           <widget class="QLabel" name="label_2">
+            <property name="text">
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;Axis: &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QComboBox" name="comboBox">
+            <property name="styleSheet">
+             <string notr="true">QComboBox {
+    border: 2px solid #B0BEC5; /* Grauer Rand */
+    border-radius: 8px; /* Abgerundete Ecken */
+    padding: 5px; /* Abstand innen */
+    background-color: white; /* Hellgrauer Hintergrund */
+}
+
+QComboBox:hover {
+    border-color: #78909C; /* Dunklerer Rand beim Hover */
+}
+
+QComboBox::drop-down {
+    subcontrol-origin: padding;
+    subcontrol-position: top right; /* Position des Dropdown-Pfeils */
+    border-left-width: 1px; /* Linie zwischen Text und Dropdown-Pfeil */
+    border-left-color: #B0BEC5; /* Farbe der Linie zwischen Text und Dropdown-Pfeil */
+    border-left-style: solid; /* Stil der Linie zwischen Text und Dropdown-Pfeil */
+}
+
+QComboBox QAbstractItemView {
+    border: 2px solid #B0BEC5; /* Rand der Dropdown-Liste */
+    selection-background-color: #78909C; /* Hintergrundfarbe für ausgewähltes Item */
+    color: #37474F; /* Textfarbe */
+    background-color: #ECEFF1; /* Hintergrundfarbe */
+    padding: 10px; /* Abstand */
+}</string>
+            </property>
+            <item>
+             <property name="text">
+              <string>None</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Rotative</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Linear</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <spacer name="horizontalSpacer_5">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_4">
+          <property name="styleSheet">
+           <string notr="true">QLabel {
+    border-bottom: 2px solid grey; /* Dunkelgrauer unterer Rand als Linie */
+    padding: 3px; /* Ein wenig Abstand zum Text für Ästhetik */
+	color: rgb(72, 72, 72);
+}
+font: 14pt &quot;MS Shell Dlg 2&quot;;</string>
+          </property>
+          <property name="text">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;Units&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_2">
+          <item>
+           <widget class="QLabel" name="label_3">
+            <property name="text">
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;Actual user unit:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QComboBox" name="comboBox_2">
+            <property name="styleSheet">
+             <string notr="true">QComboBox {
+    border: 2px solid #B0BEC5; /* Grauer Rand */
+    border-radius: 8px; /* Abgerundete Ecken */
+    padding: 5px; /* Abstand innen */
+    background-color: white; /* Hellgrauer Hintergrund */
+}
+
+QComboBox:hover {
+    border-color: #78909C; /* Dunklerer Rand beim Hover */
+}
+
+QComboBox::drop-down {
+    subcontrol-origin: padding;
+    subcontrol-position: top right; /* Position des Dropdown-Pfeils */
+    border-left-width: 1px; /* Linie zwischen Text und Dropdown-Pfeil */
+    border-left-color: #B0BEC5; /* Farbe der Linie zwischen Text und Dropdown-Pfeil */
+    border-left-style: solid; /* Stil der Linie zwischen Text und Dropdown-Pfeil */
+}
+
+QComboBox QAbstractItemView {
+    border: 2px solid #B0BEC5; /* Rand der Dropdown-Liste */
+    selection-background-color: #78909C; /* Hintergrundfarbe für ausgewähltes Item */
+    color: #37474F; /* Textfarbe */
+    background-color: #ECEFF1; /* Hintergrundfarbe */
+    padding: 10px; /* Abstand */
+}</string>
+            </property>
+            <item>
+             <property name="text">
+              <string>None</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer_2">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_6">
+          <item>
+           <widget class="QLabel" name="label_5">
+            <property name="text">
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;Position:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_8">
+            <property name="text">
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:16pt;&quot;&gt;-&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="line_edit_position_unit">
+            <property name="styleSheet">
+             <string notr="true">QLineEdit {
+    border: 2px solid #B0BEC5; /* Hellgrauer Rand */
+    border-radius: 8px; /* Abgerundete Ecken */
+    padding: 4px; /* Innenabstand für Text */
+    background-color: white; /* Helle Hintergrundfarbe */
+	font: 12pt &quot;MS Shell Dlg 2&quot;;
+}
+
+QLineEdit:hover {
+    border-color: #78909C; /* Dunklerer Rand beim Darüberfahren */
+}
+
+</string>
+            </property>
+            <property name="inputMask">
+             <string>000</string>
+            </property>
+            <property name="text">
+             <string>9</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer_3">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_7">
+          <item>
+           <widget class="QLabel" name="label_6">
+            <property name="text">
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;Velocity:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_7">
+            <property name="text">
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;-&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="line_edit_velocity_unit">
+            <property name="styleSheet">
+             <string notr="true">QLineEdit {
+    border: 2px solid #B0BEC5; /* Hellgrauer Rand */
+    border-radius: 8px; /* Abgerundete Ecken */
+    padding: 4px; /* Innenabstand für Text */
+    background-color: white; /* Helle Hintergrundfarbe */
+	font: 12pt &quot;MS Shell Dlg 2&quot;;
+}
+
+QLineEdit:hover {
+    border-color: #78909C; /* Dunklerer Rand beim Darüberfahren */
+}
+
+</string>
+            </property>
+            <property name="inputMask">
+             <string>000</string>
+            </property>
+            <property name="text">
+             <string>3</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer_4">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <spacer name="verticalSpacer">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
