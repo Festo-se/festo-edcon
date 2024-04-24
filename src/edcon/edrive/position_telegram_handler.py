@@ -2,7 +2,7 @@
 
 from edcon.utils.logging import Logging
 from edcon.edrive.telegram_handler import TelegramHandler
-from edcon.utils.func_helpers import func_sequence, wait_for, wait_until
+from edcon.utils.func_helpers import func_sequence, wait_for
 
 
 class PositionTelegramHandler(TelegramHandler):
@@ -20,8 +20,10 @@ class PositionTelegramHandler(TelegramHandler):
         Returns:
             str: String containing position information
         """
-        return f"Position [Target, Current]: " \
-               f"[{int(self.telegram.mdi_tarpos)}, {int(self.telegram.xist_a)}]"
+        return (
+            f"Position [Target, Current]: "
+            f"[{int(self.telegram.mdi_tarpos)}, {int(self.telegram.xist_a)}]"
+        )
 
     def velocity_info_string(self):
         """Returns string containing velocity information
@@ -29,8 +31,10 @@ class PositionTelegramHandler(TelegramHandler):
         Returns:
             str: String containing velocity information
         """
-        return f"Velocity [Target, Current]: " \
-               f"[{int(self.telegram.mdi_velocity)}, {int(self.telegram.nist_b)}]"
+        return (
+            f"Velocity [Target, Current]: "
+            f"[{int(self.telegram.mdi_velocity)}, {int(self.telegram.nist_b)}]"
+        )
 
     def configure_traversing_to_fixed_stop(self, active: bool):
         """Configures the traversing to fixed stop option (drive maintains parametrized torque)
@@ -92,9 +96,7 @@ class PositionTelegramHandler(TelegramHandler):
             self.update_inputs()
             return self.telegram.zsw1.home_position_set
 
-        if not wait_until(cond, self.fault_present,
-                          info_string=self.position_info_string,
-                          error_string=self.fault_string):
+        if not self.wait_until_or_fault(cond, info_string=self.position_info_string):
             return False
         Logging.logger.info("=> Reference position set")
         return True
@@ -110,9 +112,8 @@ class PositionTelegramHandler(TelegramHandler):
         def cond():
             self.update_inputs()
             return self.telegram.zsw1.traversing_task_ack
-        if not wait_until(cond, self.fault_present,
-                          info_string=self.position_info_string,
-                          error_string=self.fault_string):
+
+        if not self.wait_until_or_fault(cond, info_string=self.position_info_string):
             return False
         Logging.logger.info("=> Traversing task acknowledged")
         return True
@@ -129,9 +130,7 @@ class PositionTelegramHandler(TelegramHandler):
             self.update_inputs()
             return self.telegram.zsw1.target_position_reached
 
-        if not wait_until(cond, self.fault_present,
-                          info_string=self.position_info_string,
-                          error_string=self.fault_string):
+        if not self.wait_until_or_fault(cond, info_string=self.position_info_string):
             return False
         Logging.logger.info("=> Target position reached")
         return True
@@ -148,9 +147,7 @@ class PositionTelegramHandler(TelegramHandler):
             self.update_inputs()
             return self.telegram.zsw1.drive_stopped
 
-        if not wait_until(cond, self.fault_present,
-                          info_string=self.velocity_info_string,
-                          error_string=self.fault_string):
+        if not self.wait_until_or_fault(cond, info_string=self.velocity_info_string):
             return False
         Logging.logger.info("=> Drive stopped")
         return True
@@ -264,23 +261,33 @@ class PositionTelegramHandler(TelegramHandler):
 
     def _prepare_activate_traversing_task(self):
         # If continuous update not active: ensure the generation of a rising edge
-        if not self.telegram.pos_stw1.continuous_update and \
-            self.telegram.stw1.activate_traversing_task:
+        if (
+            not self.telegram.pos_stw1.continuous_update
+            and self.telegram.stw1.activate_traversing_task
+        ):
             self.telegram.stw1.activate_traversing_task = False
             self.update_outputs()
         self.telegram.stw1.activate_traversing_task = True
 
-    def _prepare_position_task_bits(self, position: int, velocity: int,
-                                    absolute: bool = False  # pylint: disable=unused-argument
-                                    ):
+    def _prepare_position_task_bits(
+        self,
+        position: int,
+        velocity: int,
+        absolute: bool = False,  # pylint: disable=unused-argument
+    ):
         """Prepares the telegram bits for positioning task"""
         self.telegram.pos_stw1.activate_setup = False
         self.telegram.mdi_tarpos.value = position
         self.telegram.mdi_velocity.value = velocity
         self._prepare_activate_traversing_task()
 
-    def position_task(self, position: int, velocity: int, absolute: bool = False,
-                      nonblocking: bool = False) -> bool:
+    def position_task(
+        self,
+        position: int,
+        velocity: int,
+        absolute: bool = False,
+        nonblocking: bool = False,
+    ) -> bool:
         """Perform a position task with the given parameters
 
         Parameters:
@@ -307,15 +314,23 @@ class PositionTelegramHandler(TelegramHandler):
 
         return self.wait_for_position_motion_execution()
 
-    def _prepare_jog_task_bits(self, jog_positive: bool = True, jog_negative: bool = False,
-                               incremental: bool = False  # pylint: disable=unused-argument
-                               ):
+    def _prepare_jog_task_bits(
+        self,
+        jog_positive: bool = True,
+        jog_negative: bool = False,
+        incremental: bool = False,  # pylint: disable=unused-argument
+    ):
         """Prepares the telegram bits for jog task"""
         self.telegram.stw1.jog1_on = jog_positive
         self.telegram.stw1.jog2_on = jog_negative
 
-    def jog_task(self, jog_positive: bool = True, jog_negative: bool = False,
-                 incremental: bool = False, duration: float = 0.0) -> bool:
+    def jog_task(
+        self,
+        jog_positive: bool = True,
+        jog_negative: bool = False,
+        incremental: bool = False,
+        duration: float = 0.0,
+    ) -> bool:
         """Perform a jogging task with a given duration.
             Please note that the jogging motion stops if jog_positive and jog_negative are equal.
 
@@ -341,7 +356,9 @@ class PositionTelegramHandler(TelegramHandler):
             return True
 
         # Wait for predefined amount of time
-        if not wait_for(duration, self.fault_present, self.position_info_string, self.fault_string):
+        if not wait_for(
+            duration, self.fault_present, self.position_info_string, self.fault_string
+        ):
             return False
 
         self.stop_motion_task()

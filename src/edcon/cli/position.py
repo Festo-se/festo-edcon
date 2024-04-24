@@ -1,31 +1,50 @@
 """CLI tool to execute positioning tasks using MotionHandler."""
+
 import sys
 import traceback
 from edcon.edrive.motion_handler import MotionHandler
 from edcon.edrive.com_modbus import ComModbus
 from edcon.edrive.com_ethernetip import ComEthernetip
 
+
 def add_position_parser(subparsers):
     """Adds arguments to a provided subparsers instance"""
-    parser_position = subparsers.add_parser('position')
+    parser_position = subparsers.add_parser("position")
     parser_position.set_defaults(func=position_func)
 
-    parser_position.add_argument('-p', '--position', default="10000",
-                                 help='Target position to be reached (default: %(default)s)')
-    parser_position.add_argument('-s', '--speed', default="600000",
-                                 help='Speed used for positioning task (default: %(default)s)')
-    parser_position.add_argument('-a', '--absolute', action='store_true',
-                                 help='Use absolute positioning mode')
-    parser_position.add_argument('-r', '--reference', action='store_true',
-                                 help='Perform a referencing task before positioning task')
+    parser_position.add_argument(
+        "-p",
+        "--position",
+        default="10000",
+        help="Target position to be reached (default: %(default)s)",
+    )
+    parser_position.add_argument(
+        "-s",
+        "--speed",
+        default="600000",
+        help="Speed used for positioning task (default: %(default)s)",
+    )
+    parser_position.add_argument(
+        "-a", "--absolute", action="store_true", help="Use absolute positioning mode"
+    )
+    parser_position.add_argument(
+        "-r",
+        "--reference",
+        action="store_true",
+        help="Perform a referencing task before positioning task",
+    )
 
 
 def position_func(args):
     """Executes subcommand based on provided arguments"""
     # Initialize driver
-    com = ComEthernetip(args.ip_address) if args.ethernetip else ComModbus(args.ip_address)
+    com = (
+        ComEthernetip(args.ip_address)
+        if args.ethernetip
+        else ComModbus(args.ip_address)
+    )
     try:
-        with MotionHandler(com) as mot:
+        with MotionHandler(com, config_mode="write") as mot:
             if not mot.acknowledge_faults():
                 sys.exit(1)
             if not mot.enable_powerstage():
@@ -35,7 +54,10 @@ def position_func(args):
                 if not mot.referencing_task():
                     sys.exit(1)
 
-            mot.position_task(position=int(args.position),
-                              velocity=int(args.speed), absolute=args.absolute)
+            mot.position_task(
+                position=int(args.position),
+                velocity=int(args.speed),
+                absolute=args.absolute,
+            )
     except ConnectionError:
         print(traceback.format_exc())

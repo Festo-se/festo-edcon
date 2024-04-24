@@ -5,7 +5,7 @@ from edcon.utils.logging import Logging
 from edcon.edrive.diagnosis import diagnosis_name, diagnosis_remedy
 from edcon.edrive.position_telegram_handler import PositionTelegramHandler
 from edcon.profidrive.telegram111 import Telegram111
-from edcon.utils.func_helpers import wait_for, wait_until
+from edcon.utils.func_helpers import wait_for
 from edcon.edrive.parameter_handler import ParameterHandler
 from edcon.edrive.parameter import Parameter
 
@@ -15,13 +15,13 @@ class Telegram111Handler(PositionTelegramHandler):
 
     Parameters:
         com (ComBase): communication driver
-        validation (str): validation mode (None, "write", "validate")
+        config_mode (str): configuration mode (None, "write", "validate")
     """
 
-    def __init__(self, com, validation=None) -> None:
-        if validation == "write":
+    def __init__(self, com, config_mode=None) -> None:
+        if config_mode == "write":
             ParameterHandler(com).write(Parameter.from_uid("P0.3030101.0.0", 111))
-        elif validation == "validate":
+        elif config_mode == "validate":
             ParameterHandler(com).validate("P0.3030101.0.0", 111)
         super().__init__(Telegram111(), com)
 
@@ -181,12 +181,7 @@ class Telegram111Handler(PositionTelegramHandler):
             self.update_inputs()
             return self.telegram.pos_zsw1.homing_active
 
-        if not wait_until(
-            cond,
-            self.fault_present,
-            info_string=self.position_info_string,
-            error_string=self.fault_string,
-        ):
+        if not self.wait_until_or_fault(cond, info_string=self.position_info_string):
             return False
 
         Logging.logger.info("=> Referencing task acknowledged")

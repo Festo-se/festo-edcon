@@ -51,6 +51,6 @@ class ProcessDataTab(QWidget):
 
         com = self.get_com_function()
         self.model = ProcessDataTreeViewModel(
-            self.selection_dict[selected_item_name](com, validation="write")
+            self.selection_dict[selected_item_name](com, config_mode="write")
         )
         self.update_treeview()
