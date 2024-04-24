@@ -93,6 +93,13 @@ QComboBox QAbstractItemView {
            </widget>
           </item>
           <item>
+           <widget class="QLabel" name="label_fault_string">
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item>
            <spacer name="horizontalSpacer">
             <property name="orientation">
              <enum>Qt::Horizontal</enum>
@@ -111,7 +118,7 @@ QComboBox QAbstractItemView {
          <widget class="QTreeView" name="treeView">
           <property name="maximumSize">
            <size>
-            <width>7000</width>
+            <width>16777215</width>
             <height>16777215</height>
            </size>
           </property>

@@ -1,6 +1,7 @@
 """Model for the processdata treeview."""
 
 from dataclasses import fields
+from edcon.gui.pyqt_helpers import bold_string
 
 # pylint: disable=import-error, no-name-in-module
 from PyQt5.QtGui import QStandardItem, QStandardItemModel
@@ -12,11 +13,11 @@ from edcon.profidrive.words import BitwiseWord
 class ProcessDataTreeViewModel(QStandardItemModel):
     """Defines the process data treeview model."""
 
-    def __init__(self, tgh):
+    def __init__(self, tgh, label_fault_string):
         super().__init__()
         if tgh is None:
             raise ValueError("tgh cannot be None")
-
+        self.label_fault_string = label_fault_string
         self.tgh = tgh
         self.setColumnCount(3)
         self.dataChanged.connect(self.on_data_changed)
@@ -100,7 +101,7 @@ class ProcessDataTreeViewModel(QStandardItemModel):
         place_holder_item.setFlags(Qt.NoItemFlags)
 
         if self.is_bitwise_word(name):
-            root.appendRow([word_item, bin_string_item, hex_string_item])
+            root.appendRow([word_item, hex_string_item, bin_string_item])
         else:
             if root.text() != "Outputs":
                 root.appendRow([word_item, value_item_no_flags, place_holder_item])
@@ -147,10 +148,10 @@ class ProcessDataTreeViewModel(QStandardItemModel):
             word_name = word_item.text()
             word = getattr(self.tgh.telegram, word_name)
             if self.is_bitwise_word(word_name):
-                bin_string_item = word_item.parent().child(word_item.row(), 1)
+                bin_string_item = word_item.parent().child(word_item.row(), 2)
                 bin_string_item.setText(str(bin(int(word))))
 
-                hex_string_item = word_item.parent().child(word_item.row(), 2)
+                hex_string_item = word_item.parent().child(word_item.row(), 1)
                 hex_string_item.setText(str(hex(int(word))))
 
             else:
@@ -180,10 +181,10 @@ class ProcessDataTreeViewModel(QStandardItemModel):
             word_name = word_item.text()
             word = getattr(self.tgh.telegram, word_name)
             if self.is_bitwise_word(word_name):
-                bin_string_item = word_item.parent().child(word_item.row(), 1)
+                bin_string_item = word_item.parent().child(word_item.row(), 2)
                 bin_string_item.setText(str(bin(int(word))))
 
-                hex_string_item = word_item.parent().child(word_item.row(), 2)
+                hex_string_item = word_item.parent().child(word_item.row(), 1)
                 hex_string_item.setText(str(hex(int(word))))
         self.layoutChanged.emit()
 
@@ -193,14 +194,20 @@ class ProcessDataTreeViewModel(QStandardItemModel):
         Parameters:
             index (QModelIndex): Index of the item that changed
         """
+
+        if self.tgh.telegram.zsw1.fault_present:
+            self.show_fault_string_label()
+        else:
+            self.hide_fault_string_label()
+
         item = self.itemFromIndex(index)
         item_text = item.text()
         # Ignore if item is not a child of Outputs
         if (
             index.parent().parent() != self.output_root_item.index()
             and index.parent() != self.output_root_item.index()
-            or item_text.startswith("0b")
-            and all(c in "01" for c in item_text[2:])
+            or item_text.startswith("0x")
+            and all(c in "0123456789ABCDEFabcdef" for c in item_text[2:])
             or item.index().column() == 2
         ):
             return
@@ -227,3 +234,10 @@ class ProcessDataTreeViewModel(QStandardItemModel):
             f"Attribute '{word_name}.{item_name}' value changed to: {new_value}"
         )
         self.tgh.update_outputs()
+
+    def show_fault_string_label(self):
+        fault_string = self.tgh.fault_string()
+        self.label_fault_string.setText(bold_string(f"{fault_string}", "red"))
+
+    def hide_fault_string_label(self):
+        self.label_fault_string.setText("")

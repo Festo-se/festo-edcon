@@ -47,7 +47,6 @@ class MotionTab(QWidget):
 
     def manage_button_connections(self, is_on):
         if is_on:
-            print("is on")
             self.button_jog_positive.pressed.connect(self.button_jog_positive_pressed)
             self.button_jog_negative.pressed.connect(self.button_jog_negative_pressed)
             self.button_execute.clicked.connect(self.button_execute_clicked)
@@ -101,8 +100,8 @@ class MotionTab(QWidget):
     def on_powerstage_toggled(self, is_on):
         if self.com is None and is_on:
             self.com = self.get_com_function()
-            self.mot = MotionHandler(self.com, validation="write")
-            self.tgh = Telegram111Handler(self.com)
+            self.mot = MotionHandler(self.com, config_mode="write")
+            #self.tgh = Telegram111Handler(self.com)
 
         if is_on:
             self.mot.acknowledge_faults()
