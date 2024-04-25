@@ -9,7 +9,6 @@ from PyQt5.QtWidgets import QWidget, QApplication
 from PyQt5.uic import loadUi
 from PyQt5.QtCore import QTimer, QCoreApplication
 from edcon.edrive.motion_handler import MotionHandler
-from edcon.edrive.telegram111_handler import Telegram111Handler
 from edcon.utils.logging import Logging
 from edcon.gui.pyqt_helpers import bold_string
 from edcon.gui.toggle_button_model import ToggleButtonModel
@@ -101,18 +100,15 @@ class MotionTab(QWidget):
         if self.com is None and is_on:
             self.com = self.get_com_function()
             self.mot = MotionHandler(self.com, config_mode="write")
-            #self.tgh = Telegram111Handler(self.com)
 
         if is_on:
             self.mot.acknowledge_faults()
             self.mot.enable_powerstage()
-            print("an")
             self.manage_button_connections(is_on)
 
         else:
             self.mot.acknowledge_faults()
             self.mot.disable_powerstage()
-            print("aus")
             self.manage_button_connections(is_on)
 
     def button_jog_positive_pressed(self):
@@ -203,7 +199,6 @@ class MotionTab(QWidget):
 
     def update_homing_status(self):
         if self.mot is not None:
-            # print(self.tgh.telegram.pos_zsw1.homing_active)
             if self.mot.referenced():
                 self.label_homing_feedback.setText(bold_string("valid", "green"))
 

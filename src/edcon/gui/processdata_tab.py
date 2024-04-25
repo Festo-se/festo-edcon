@@ -6,12 +6,14 @@ from importlib.resources import files
 # pylint: disable=import-error, no-name-in-module
 from PyQt5.QtWidgets import QWidget, QHeaderView
 from PyQt5.uic import loadUi
+from PyQt5.QtCore import QTimer
 from edcon.edrive.telegram1_handler import Telegram1Handler
 from edcon.edrive.telegram9_handler import Telegram9Handler
 from edcon.edrive.telegram102_handler import Telegram102Handler
 from edcon.edrive.telegram111_handler import Telegram111Handler
 
 from edcon.gui.processdata_treeview_model import ProcessDataTreeViewModel
+from edcon.gui.processdata_graphicview_model import StateDiagram
 
 
 class ProcessDataTab(QWidget):
@@ -25,7 +27,7 @@ class ProcessDataTab(QWidget):
         self.model = None
 
         self.comboBox.currentIndexChanged.connect(self.select_telegramhandler)
-
+        
         self.selection_dict = {
             "Telegram1": Telegram1Handler,
             "Telegram9": Telegram9Handler,
@@ -53,4 +55,7 @@ class ProcessDataTab(QWidget):
         self.model = ProcessDataTreeViewModel(
             self.selection_dict[selected_item_name](com, config_mode="write"),self.label_fault_string
         )
+
+        self.graphic_view_widget = StateDiagram(self.graphicsView, self.button_show_graphicview, com)
+
         self.update_treeview()
