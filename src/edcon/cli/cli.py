@@ -9,7 +9,6 @@ from edcon.cli.tg1 import add_tg1_parser
 from edcon.cli.tg9 import add_tg9_parser
 from edcon.cli.tg102 import add_tg102_parser
 from edcon.cli.tg111 import add_tg111_parser
-from edcon.cli.gui import add_gui_parser
 from edcon.utils.logging import Logging
 
 
@@ -62,9 +61,6 @@ def main():
 
     # Options for tg111
     add_tg111_parser(subparsers)
-
-    # Options for gui
-    add_gui_parser(subparsers)
 
     args = parser.parse_args()
     if args.quiet:
