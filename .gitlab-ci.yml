@@ -45,7 +45,7 @@ unit-test:   # This job runs in the test stage.
     - if: $CI_PIPELINE_SOURCE == 'push'
     - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
   before_script:
-    - python -m pip install .
+    - python -m pip install '.[gui]'
     - python -m pip install pytest pytest-cov
   script:
     - pytest tests -v --cov=edcon
@@ -58,7 +58,7 @@ pylint:   # This job also runs in the test stage.
     - if: $CI_PIPELINE_SOURCE == 'push'
     - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
   before_script:
-    - python -m pip install .
+    - python -m pip install '.[gui]'
     - python -m pip install pylint
   script:
     - pylint src
@@ -67,7 +67,7 @@ black:
   stage: test
   before_script:
     - pip install black
-    - pip install .
+    - pip install '.[gui]'
   script:
     - black src --check
 
@@ -78,7 +78,7 @@ sphinx-docs:
     - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
   before_script:
     - pip install -U pip sphinx sphinx-rtd-theme myst-parser
-    - pip install .
+    - pip install '.[gui]'
   script:
     - mkdir public
     - sphinx-apidoc -f -o docs/source src
