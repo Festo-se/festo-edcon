@@ -5,6 +5,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## Unreleased
+## v0.14.0 - 30.04.24
+### Changed
+- Made pyqt5 an optional dependency, move GUI to own entry point `festo-edcon-gui`.
+
 ## v0.13.3 - 19.04.24
 ### Fixed
 - Fix reset() method of telegram
