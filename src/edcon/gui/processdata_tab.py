@@ -6,7 +6,6 @@ from importlib.resources import files
 # pylint: disable=import-error, no-name-in-module
 from PyQt5.QtWidgets import QWidget, QHeaderView
 from PyQt5.uic import loadUi
-from PyQt5.QtCore import QTimer
 from edcon.edrive.telegram1_handler import Telegram1Handler
 from edcon.edrive.telegram9_handler import Telegram9Handler
 from edcon.edrive.telegram102_handler import Telegram102Handler
@@ -25,6 +24,7 @@ class ProcessDataTab(QWidget):
         self.get_com_function = get_com_function
 
         self.model = None
+        self.graphic_view_widget = None
 
         self.comboBox.currentIndexChanged.connect(self.select_telegramhandler)
         

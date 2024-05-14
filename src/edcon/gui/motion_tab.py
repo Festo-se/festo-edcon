@@ -110,6 +110,8 @@ class MotionTab(QWidget):
             self.mot.acknowledge_faults()
             self.mot.disable_powerstage()
             self.manage_button_connections(is_on)
+            self.mot = None
+            self.com = None
 
     def button_jog_positive_pressed(self):
         while QApplication.mouseButtons():
