@@ -597,6 +597,35 @@ QLineEdit:focus {
                </widget>
               </item>
               <item>
+               <widget class="QLineEdit" name="line_edit_single_step_velocity">
+                <property name="styleSheet">
+                 <string notr="true">QLineEdit {
+    border: 2px solid #B0BEC5; /* Hellgrauer Rand */
+    border-radius: 8px; /* Abgerundete Ecken */
+    padding: 4px; /* Innenabstand für Text */
+    background-color: white; /* Helle Hintergrundfarbe */
+	font: 12pt &quot;MS Shell Dlg 2&quot;;
+}
+
+QLineEdit:hover {
+    border-color: #78909C; /* Dunklerer Rand beim Darüberfahren */
+}
+
+QLineEdit:focus {
+    border-color: #42A5F5; /* Blauer Rand bei Fokussierung */
+    background-color: #FFFFFF; /* Weiße Hintergrundfarbe bei Fokussierung */
+}</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="label_5">
+                <property name="text">
+                 <string>r/min</string>
+                </property>
+               </widget>
+              </item>
+              <item>
                <widget class="QPushButton" name="button_single_step_positive">
                 <property name="styleSheet">
                  <string notr="true">QPushButton {

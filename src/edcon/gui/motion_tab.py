@@ -28,8 +28,8 @@ class MotionTab(QWidget):
         self.com = None
         self.mot = None
         self.tgh = None
-        self.position_unit = 1000000
-        self.velocity_unit = 1000
+        self.position_unit = None
+        self.velocity_unit = None
 
         self.timer = QTimer(self)
         self.timer.timeout.connect(self.update_functions)
@@ -100,7 +100,9 @@ class MotionTab(QWidget):
         if self.com is None and is_on:
             self.com = self.get_com_function()
             self.mot = MotionHandler(self.com, config_mode="write")
-            self.mot.base_velocity = 796.3341
+            self.mot.base_velocity = self.com.read_pnu(12345, 0)
+            self.velocity_unit = self.com.read_pnu(11725, 0)
+            self.position_unit = self.com.read_pnu(11724, 0)
 
         if is_on:
             self.mot.acknowledge_faults()
@@ -130,8 +132,8 @@ class MotionTab(QWidget):
         self.mot.position_task(int(position), int(velocity), absolute=True)
 
     def button_execute_clicked(self):
-        velocity = int(self.line_edit_velocity.text()) * self.velocity_unit
-        position = int(self.line_edit_pos_rev.text()) * self.position_unit
+        velocity = int(self.line_edit_velocity.text()) * int(1 / (10 ** self.velocity_unit))
+        position = int(self.line_edit_pos_rev.text()) * int(1 / (10 ** self.position_unit))
 
         if velocity and (position or position == 0):
             threading.Thread(
@@ -158,9 +160,10 @@ class MotionTab(QWidget):
 
     def button_single_step_positive_clicked(self):
         if self.line_edit_single_step.text() != "":
-            position = self.position_unit * int(self.line_edit_single_step.text())
+            position =  int(self.line_edit_single_step.text()) * int(1 / (10 ** self.position_unit))
+            velocity = int(1 / (10 ** self.velocity_unit)) * int(self.line_edit_single_step_velocity.text())
             threading.Thread(
-                target=self.mot.position_task, args=(position, 600000)
+                target=self.mot.position_task, args=(position, velocity)
             ).start()
 
         else:
@@ -170,9 +173,10 @@ class MotionTab(QWidget):
 
     def button_single_step_negative_clicked(self):
         if self.line_edit_single_step.text() != "":
-            position = -1 * self.position_unit * int(self.line_edit_single_step.text())
+            position = -1 * int(self.line_edit_single_step.text()) * int(1 / (10 ** self.position_unit))
+            velocity = int(1 / (10 ** self.velocity_unit)) * int(self.line_edit_single_step_velocity.text())
             threading.Thread(
-                target=self.mot.position_task, args=(position, 600000)
+                target=self.mot.position_task, args=(position, velocity)
             ).start()
 
         else:
@@ -188,9 +192,9 @@ class MotionTab(QWidget):
 
     def update_actual_position(self):
         if self.mot is not None:
-            current_position = self.mot.current_position() / 1000000
+            current_position = self.mot.current_position() * (10 ** self.position_unit)
             target_position = self.line_edit_pos_rev.text()
-            self.label_actual_position.setText(f"{current_position}")
+            self.label_actual_position.setText(f"{current_position:.2f}")
             self.label_target_position.setText(f"{target_position}")
 
     def update_actual_velocity(self):
@@ -198,7 +202,7 @@ class MotionTab(QWidget):
             current_velocity = self.mot.current_velocity()
             target_velocity = self.line_edit_velocity.text()
             self.label_actual_velocity.setText(f"{target_velocity}")
-            self.label_target_velocity.setText(f"{current_velocity}")
+            self.label_target_velocity.setText(f"{current_velocity:.2f}")
 
     def update_homing_status(self):
         if self.mot is not None:
