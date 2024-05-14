@@ -13,7 +13,7 @@ from edcon.profidrive.words import BitwiseWord
 class ProcessDataTreeViewModel(QStandardItemModel):
     """Defines the process data treeview model."""
 
-    def __init__(self, tgh, label_fault_string):
+    def __init__(self, tgh, label_fault_string, expand_button, treeView):
         super().__init__()
         if tgh is None:
             raise ValueError("tgh cannot be None")
@@ -21,6 +21,7 @@ class ProcessDataTreeViewModel(QStandardItemModel):
         self.tgh = tgh
         self.setColumnCount(3)
         self.dataChanged.connect(self.on_data_changed)
+        self.treeView = treeView
 
         self.timer = QTimer(self)
         self.timer.timeout.connect(self.update_input_tree)
@@ -28,6 +29,8 @@ class ProcessDataTreeViewModel(QStandardItemModel):
         self.timer.start(100)
 
         self.populate()
+
+        expand_button.clicked.connect(self.expand_all_button_clicked)
 
     def clear(self):
         """Clears the treeview."""
@@ -241,3 +244,6 @@ class ProcessDataTreeViewModel(QStandardItemModel):
 
     def hide_fault_string_label(self):
         self.label_fault_string.setText("")
+
+    def expand_all_button_clicked(self):
+        self.treeView.expandAll()

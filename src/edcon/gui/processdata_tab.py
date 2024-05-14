@@ -53,7 +53,7 @@ class ProcessDataTab(QWidget):
 
         com = self.get_com_function()
         self.model = ProcessDataTreeViewModel(
-            self.selection_dict[selected_item_name](com, config_mode="write"),self.label_fault_string
+            self.selection_dict[selected_item_name](com, config_mode="write"),self.label_fault_string, self.expand_button, self.treeView
         )
 
         self.graphic_view_widget = StateDiagram(self.graphicsView, self.button_show_graphicview, com)

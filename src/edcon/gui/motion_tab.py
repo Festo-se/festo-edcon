@@ -204,8 +204,5 @@ class MotionTab(QWidget):
             if self.mot.referenced():
                 self.label_homing_feedback.setText(bold_string("valid", "green"))
 
-            # if self.tgh.telegram.pos_zsw1.homing_active:
-            #     self.label_homing_feedback.setText(bold_string("in progress", "blue"))
-
             else:
                 self.label_homing_feedback.setText(bold_string("invalid", "red"))
