@@ -100,6 +100,7 @@ class MotionTab(QWidget):
         if self.com is None and is_on:
             self.com = self.get_com_function()
             self.mot = MotionHandler(self.com, config_mode="write")
+            self.mot.base_velocity = 796.3341
 
         if is_on:
             self.mot.acknowledge_faults()

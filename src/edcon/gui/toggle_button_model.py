@@ -1,3 +1,4 @@
+from importlib.resources import files
 from PyQt5.QtWidgets import QPushButton, QLabel
 from PyQt5.QtCore import QPropertyAnimation, QPoint, Qt, pyqtSignal
 
@@ -23,7 +24,10 @@ class ToggleButtonModel(QPushButton):
         self.toggled.connect(self.on_toggle)
 
     def load_styles(self):
-        with open("toggle_button_styles.css", "r") as file:
+
+        with open(
+            files("edcon") / "gui" / "ui" / "toggle_button_styles.css", "r"
+        ) as file:
             stylesheet = file.read()
         self.setStyleSheet(stylesheet)
 
