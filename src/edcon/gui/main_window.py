@@ -35,6 +35,10 @@ class MainWindow(QMainWindow):
         self.tabWidget.addTab(
             ParameterTab(self.pnu_read_function, self.pnu_write_function), "Parameter"
         )
+
+    def closeEvent(self, event):
+        del self.motion_tab
+
     @property
     def com(self):
         """

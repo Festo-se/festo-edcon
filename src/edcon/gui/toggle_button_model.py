@@ -9,7 +9,6 @@ class ToggleButtonModel(QPushButton):
     def __init__(self):
         super().__init__()
         self.setCheckable(True)
-        self.isChecked = False
         self.setMinimumSize(60, 30)
 
         self.label = QLabel("Off", self)
@@ -27,8 +26,8 @@ class ToggleButtonModel(QPushButton):
 
         with open(
             files("edcon") / "gui" / "ui" / "toggle_button_styles.css", "r"
-        ) as file:
-            stylesheet = file.read()
+        ) as style_file:
+            stylesheet = style_file.read()
         self.setStyleSheet(stylesheet)
 
     def on_toggle(self, checked):
