@@ -755,7 +755,7 @@ QPushButton:pressed {
           <item>
            <layout class="QGridLayout" name="gridLayout_10">
             <item row="2" column="2">
-             <widget class="QLabel" name="label_actual_position">
+             <widget class="QLabel" name="label_current_position">
               <property name="minimumSize">
                <size>
                 <width>75</width>
@@ -891,7 +891,7 @@ color: rgb(0, 170, 255);</string>
              </widget>
             </item>
             <item row="1" column="6">
-             <widget class="QLabel" name="label_actual_velocity">
+             <widget class="QLabel" name="label_current_velocity">
               <property name="minimumSize">
                <size>
                 <width>75</width>

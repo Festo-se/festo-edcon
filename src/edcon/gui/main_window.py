@@ -39,6 +39,9 @@ class MainWindow(QMainWindow):
     # pylint: disable=invalid-name, unused-argument
     # PyQt API naming
     def closeEvent(self, event):
+        """
+        Implements the necessary actions when the window is closed.
+        """
         del self.motion_tab
         event.accept()
 

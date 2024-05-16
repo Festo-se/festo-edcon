@@ -1,9 +1,17 @@
+"""Model for the toggle button."""
+
 from importlib.resources import files
+
+# pylint: disable=import-error, no-name-in-module
 from PyQt5.QtWidgets import QPushButton, QLabel
 from PyQt5.QtCore import QPropertyAnimation, QPoint, Qt, pyqtSignal
 
 
 class ToggleButtonModel(QPushButton):
+    """Defines the toggle button model."""
+
+    # pylint: disable=too-few-public-methods
+
     toggledState = pyqtSignal(bool)
 
     def __init__(self):
@@ -25,6 +33,7 @@ class ToggleButtonModel(QPushButton):
         self.toggled.connect(self.on_toggle)
 
     def on_toggle(self, checked):
+        """Callback for toggle signal of the button."""
         self.label.setText("On" if checked else "Off")
         self.animation.setEndValue(QPoint(33 if checked else 2, 5))
         self.animation.start()

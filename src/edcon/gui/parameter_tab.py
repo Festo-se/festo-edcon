@@ -11,7 +11,7 @@ from edcon.gui.pyqt_helpers import checkmark, ballot
 
 
 class ParameterTab(QWidget):
-    """Defines the main window."""
+    """Defines the parameter tab widget."""
 
     def __init__(self, pnu_read_func, pnu_write_func):
         super().__init__()
