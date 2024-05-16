@@ -29,21 +29,11 @@ class MainWindow(QMainWindow):
 
         self.toolBar.addWidget(self.connection_widget)
 
-        self.motion_tab = MotionTab(self.get_com_function)
-        self.tabWidget.addTab(self.motion_tab, "Motion")
+        self.tabWidget.addTab(MotionTab(self.get_com_function), "Motion")
         self.tabWidget.addTab(ProcessDataTab(self.get_com_function), "Process data")
         self.tabWidget.addTab(
             ParameterTab(self.pnu_read_function, self.pnu_write_function), "Parameter"
         )
-
-    # pylint: disable=invalid-name, unused-argument
-    # PyQt API naming
-    def closeEvent(self, event):
-        """
-        Implements the necessary actions when the window is closed.
-        """
-        del self.motion_tab
-        event.accept()
 
     @property
     def com(self):

@@ -38,10 +38,6 @@ class MotionTab(QWidget):
         self.horizontalLayout_2.insertWidget(0, self.toggle_button)
         self.toggle_button.toggledState.connect(self.on_powerstage_toggled)
 
-    def __del__(self):
-        if self.mot is not None:
-            self.mot = None
-
     def update_functions(self):
         """Updates the content of display labels"""
         self.update_homing_status()
