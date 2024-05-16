@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>642</width>
+    <width>1124</width>
     <height>884</height>
    </rect>
   </property>
@@ -34,34 +34,6 @@ color:black}</string>
        <layout class="QVBoxLayout" name="verticalLayout">
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_2">
-          <item>
-           <widget class="QPushButton" name="button_stop">
-            <property name="styleSheet">
-             <string notr="true">QPushButton {
-    background-color: rgb(0, 170, 255);
-    color: white; /* Weiße Schrift */
-    border-style: solid;
-    border-width: 2px;
-    border-radius: 10px; /* Abgerundete Ecken */
-    border-color: #0056b3; /* Dunkleres Blau für den Rand */
-
-    min-width: 80px; /* Minimale Breite des Buttons */
-    min-height: 30px; /* Minimale Höhe des Buttons */
-}
-
-QPushButton:hover {
-    background-color: #0056b3; /* Dunkleres Blau beim Darüberfahren */
-}
-
-QPushButton:pressed {
-    background-color: #004099; /* Noch dunkleres Blau beim Klicken */
-}</string>
-            </property>
-            <property name="text">
-             <string>Stop</string>
-            </property>
-           </widget>
-          </item>
           <item>
            <widget class="QPushButton" name="button_acknowledge_all">
             <property name="sizePolicy">
@@ -112,27 +84,14 @@ QPushButton:pressed {
          </layout>
         </item>
         <item>
-         <spacer name="horizontalSpacer_13">
+         <spacer name="verticalSpacer">
           <property name="orientation">
-           <enum>Qt::Horizontal</enum>
+           <enum>Qt::Vertical</enum>
           </property>
           <property name="sizeHint" stdset="0">
            <size>
-            <width>40</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-        <item>
-         <spacer name="horizontalSpacer_14">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>40</width>
-            <height>20</height>
+            <width>20</width>
+            <height>13</height>
            </size>
           </property>
          </spacer>
@@ -151,19 +110,6 @@ QPushButton:pressed {
            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt; font-weight:600;&quot;&gt;Homing&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
          </widget>
-        </item>
-        <item>
-         <spacer name="horizontalSpacer_10">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>40</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
         </item>
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_37">
@@ -214,6 +160,12 @@ QPushButton:pressed {
          <layout class="QHBoxLayout" name="horizontalLayout_3">
           <item>
            <widget class="QLabel" name="label_4">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>50</height>
+             </size>
+            </property>
             <property name="styleSheet">
              <string notr="true">font: 16pt &quot;MS Shell Dlg 2&quot;;</string>
             </property>
@@ -224,6 +176,12 @@ QPushButton:pressed {
           </item>
           <item>
            <widget class="QLabel" name="label_homing_feedback">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>50</height>
+             </size>
+            </property>
             <property name="styleSheet">
              <string notr="true">font: 16pt &quot;MS Shell Dlg 2&quot;;</string>
             </property>
@@ -248,226 +206,14 @@ QPushButton:pressed {
          </layout>
         </item>
         <item>
-         <spacer name="horizontalSpacer_12">
+         <spacer name="verticalSpacer_2">
           <property name="orientation">
-           <enum>Qt::Horizontal</enum>
+           <enum>Qt::Vertical</enum>
           </property>
           <property name="sizeHint" stdset="0">
            <size>
-            <width>40</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-        <item>
-         <widget class="QLabel" name="label_3">
-          <property name="styleSheet">
-           <string notr="true">QLabel {
-    border-bottom: 2px solid grey; /* Dunkelgrauer unterer Rand als Linie */
-    padding: 3px; /* Ein wenig Abstand zum Text für Ästhetik */
-	color: rgb(72, 72, 72);
-}
-</string>
-          </property>
-          <property name="text">
-           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt; font-weight:600;&quot;&gt;Actual Values&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_36">
-          <item>
-           <layout class="QGridLayout" name="gridLayout_10">
-            <item row="1" column="1">
-             <spacer name="horizontalSpacer_17">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>40</width>
-                <height>20</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-            <item row="2" column="0">
-             <widget class="QLabel" name="label">
-              <property name="styleSheet">
-               <string notr="true">font: 16pt &quot;MS Shell Dlg 2&quot;;</string>
-              </property>
-              <property name="text">
-               <string>Actual position:</string>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="5">
-             <spacer name="horizontalSpacer_2">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>40</width>
-                <height>20</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-            <item row="1" column="0">
-             <widget class="QLabel" name="label_53">
-              <property name="styleSheet">
-               <string notr="true">font: 16pt &quot;MS Shell Dlg 2&quot;;</string>
-              </property>
-              <property name="text">
-               <string>Target position:</string>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="2">
-             <widget class="QLabel" name="label_target_position">
-              <property name="styleSheet">
-               <string notr="true">font-weight: bold;
-font: 16pt &quot;MS Shell Dlg 2&quot;;
-color: rgb(0, 170, 255);</string>
-              </property>
-              <property name="text">
-               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="4">
-             <widget class="QLabel" name="label_6">
-              <property name="text">
-               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:16pt;&quot;&gt;Actual velocity:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="5">
-             <spacer name="horizontalSpacer_3">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>40</width>
-                <height>20</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-            <item row="2" column="2">
-             <widget class="QLabel" name="label_actual_position">
-              <property name="styleSheet">
-               <string notr="true">font-weight: bold;
-font: 16pt &quot;MS Shell Dlg 2&quot;;
-color: rgb(0, 170, 255);</string>
-              </property>
-              <property name="text">
-               <string/>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="1">
-             <spacer name="horizontalSpacer_18">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>40</width>
-                <height>20</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-            <item row="1" column="3">
-             <spacer name="horizontalSpacer_4">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>40</width>
-                <height>20</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-            <item row="2" column="3">
-             <spacer name="horizontalSpacer_5">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>40</width>
-                <height>20</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-            <item row="1" column="4">
-             <widget class="QLabel" name="label_7">
-              <property name="text">
-               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:16pt;&quot;&gt;Target velocity:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="6">
-             <widget class="QLabel" name="label_actual_velocity">
-              <property name="styleSheet">
-               <string notr="true">font-weight: bold;
-font: 16pt &quot;MS Shell Dlg 2&quot;;
-color: rgb(0, 170, 255);</string>
-              </property>
-              <property name="text">
-               <string/>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="6">
-             <widget class="QLabel" name="label_target_velocity">
-              <property name="styleSheet">
-               <string notr="true">font-weight: bold;
-font: 16pt &quot;MS Shell Dlg 2&quot;;
-color: rgb(0, 170, 255);</string>
-              </property>
-              <property name="text">
-               <string/>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </item>
-          <item>
-           <layout class="QGridLayout" name="gridLayout"/>
-          </item>
-          <item>
-           <spacer name="horizontalSpacer_6">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>40</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-         </layout>
-        </item>
-        <item>
-         <spacer name="horizontalSpacer_9">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>40</width>
-            <height>20</height>
+            <width>20</width>
+            <height>40</height>
            </size>
           </property>
          </spacer>
@@ -488,19 +234,6 @@ color: rgb(0, 170, 255);</string>
          </widget>
         </item>
         <item>
-         <spacer name="horizontalSpacer_11">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>40</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-        <item>
          <layout class="QHBoxLayout" name="horizontalLayout_26">
           <item>
            <layout class="QGridLayout" name="gridLayout_5">
@@ -517,28 +250,288 @@ color: rgb(0, 170, 255);</string>
               </property>
              </widget>
             </item>
-            <item row="4" column="0">
-             <widget class="QLabel" name="label_39">
+            <item row="3" column="2">
+             <layout class="QHBoxLayout" name="horizontalLayout">
+              <property name="leftMargin">
+               <number>0</number>
+              </property>
+              <item>
+               <widget class="QPushButton" name="button_pause_motion">
+                <property name="styleSheet">
+                 <string notr="true">QPushButton {
+    background-color: rgb(0, 170, 255);
+    color: white; /* Weiße Schrift */
+    border-style: solid;
+    border-width: 2px;
+    border-radius: 10px; /* Abgerundete Ecken */
+    border-color: #0056b3; /* Dunkleres Blau für den Rand */
+
+    min-width: 80px; /* Minimale Breite des Buttons */
+    min-height: 30px; /* Minimale Höhe des Buttons */
+}
+
+QPushButton:hover {
+    background-color: #0056b3; /* Dunkleres Blau beim Darüberfahren */
+}
+
+QPushButton:pressed {
+    background-color: #004099; /* Noch dunkleres Blau beim Klicken */
+}</string>
+                </property>
+                <property name="text">
+                 <string>Pause</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="button_continue_motion">
+                <property name="styleSheet">
+                 <string notr="true">QPushButton {
+    background-color: rgb(0, 170, 255);
+    color: white; /* Weiße Schrift */
+    border-style: solid;
+    border-width: 2px;
+    border-radius: 10px; /* Abgerundete Ecken */
+    border-color: #0056b3; /* Dunkleres Blau für den Rand */
+
+    min-width: 80px; /* Minimale Breite des Buttons */
+    min-height: 30px; /* Minimale Höhe des Buttons */
+}
+
+QPushButton:hover {
+    background-color: #0056b3; /* Dunkleres Blau beim Darüberfahren */
+}
+
+QPushButton:pressed {
+    background-color: #004099; /* Noch dunkleres Blau beim Klicken */
+}</string>
+                </property>
+                <property name="text">
+                 <string>Continue</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item row="0" column="2">
+             <layout class="QHBoxLayout" name="horizontalLayout_27">
+              <property name="leftMargin">
+               <number>0</number>
+              </property>
+              <item>
+               <widget class="QPushButton" name="button_jog_negative">
+                <property name="styleSheet">
+                 <string notr="true">QPushButton {
+    background-color: rgb(0, 170, 255);
+    color: white; /* Weiße Schrift */
+    border-style: solid;
+    border-width: 2px;
+    border-radius: 10px; /* Abgerundete Ecken */
+    border-color: #0056b3; /* Dunkleres Blau für den Rand */
+
+    min-width: 80px; /* Minimale Breite des Buttons */
+    min-height: 30px; /* Minimale Höhe des Buttons */
+}
+
+QPushButton:hover {
+    background-color: #0056b3; /* Dunkleres Blau beim Darüberfahren */
+}
+
+QPushButton:pressed {
+    background-color: #004099; /* Noch dunkleres Blau beim Klicken */
+}</string>
+                </property>
+                <property name="text">
+                 <string>-</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="button_jog_positive">
+                <property name="styleSheet">
+                 <string notr="true">QPushButton {
+    background-color: rgb(0, 170, 255);
+    color: white; /* Weiße Schrift */
+    border-style: solid;
+    border-width: 2px;
+    border-radius: 10px; /* Abgerundete Ecken */
+    border-color: #0056b3; /* Dunkleres Blau für den Rand */
+
+    min-width: 80px; /* Minimale Breite des Buttons */
+    min-height: 30px; /* Minimale Höhe des Buttons */
+}
+
+QPushButton:hover {
+    background-color: #0056b3; /* Dunkleres Blau beim Darüberfahren */
+}
+
+QPushButton:pressed {
+    background-color: #004099; /* Noch dunkleres Blau beim Klicken */
+}</string>
+                </property>
+                <property name="text">
+                 <string>+</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item row="1" column="0">
+             <widget class="QLabel" name="label_36">
               <property name="styleSheet">
                <string notr="true">font: 16pt &quot;MS Shell Dlg 2&quot;;</string>
               </property>
               <property name="text">
-               <string>Stop</string>
+               <string>Single Step</string>
               </property>
              </widget>
             </item>
-            <item row="1" column="1">
-             <layout class="QHBoxLayout" name="horizontalLayout_28">
+            <item row="2" column="0">
+             <widget class="QLabel" name="label_35">
+              <property name="styleSheet">
+               <string notr="true">font: 16pt &quot;MS Shell Dlg 2&quot;;</string>
+              </property>
+              <property name="text">
+               <string>Target Position</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="2">
+             <layout class="QHBoxLayout" name="horizontalLayout_31">
               <property name="leftMargin">
-               <number>89</number>
+               <number>0</number>
               </property>
               <item>
-               <widget class="QLabel" name="label_single_step_feedback">
-                <property name="text">
+               <widget class="QLineEdit" name="line_edit_pos_rev">
+                <property name="styleSheet">
+                 <string notr="true">QLineEdit {
+    border: 2px solid #B0BEC5; /* Hellgrauer Rand */
+    border-radius: 8px; /* Abgerundete Ecken */
+    padding: 4px; /* Innenabstand für Text */
+    background-color: white; /* Helle Hintergrundfarbe */
+	font: 12pt &quot;MS Shell Dlg 2&quot;;
+}
+
+QLineEdit:hover {
+    border-color: #78909C; /* Dunklerer Rand beim Darüberfahren */
+}
+
+QLineEdit:focus {
+    border-color: #42A5F5; /* Blauer Rand bei Fokussierung */
+    background-color: #FFFFFF; /* Weiße Hintergrundfarbe bei Fokussierung */
+}</string>
+                </property>
+                <property name="inputMask">
                  <string/>
                 </property>
                </widget>
               </item>
+              <item>
+               <widget class="QLabel" name="label_37">
+                <property name="text">
+                 <string>rev</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLineEdit" name="line_edit_velocity">
+                <property name="styleSheet">
+                 <string notr="true">QLineEdit {
+    border: 2px solid #B0BEC5; /* Hellgrauer Rand */
+    border-radius: 8px; /* Abgerundete Ecken */
+    padding: 4px; /* Innenabstand für Text */
+    background-color: white; /* Helle Hintergrundfarbe */
+	font: 12pt &quot;MS Shell Dlg 2&quot;;
+}
+
+QLineEdit:hover {
+    border-color: #78909C; /* Dunklerer Rand beim Darüberfahren */
+}
+
+QLineEdit:focus {
+    border-color: #42A5F5; /* Blauer Rand bei Fokussierung */
+    background-color: #FFFFFF; /* Weiße Hintergrundfarbe bei Fokussierung */
+}</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="label_38">
+                <property name="text">
+                 <string>r/min</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="button_execute">
+                <property name="styleSheet">
+                 <string notr="true">QPushButton {
+    background-color: rgb(0, 170, 255);
+    color: white; /* Weiße Schrift */
+    border-style: solid;
+    border-width: 2px;
+    border-radius: 10px; /* Abgerundete Ecken */
+    border-color: #0056b3; /* Dunkleres Blau für den Rand */
+
+    min-width: 80px; /* Minimale Breite des Buttons */
+    min-height: 30px; /* Minimale Höhe des Buttons */
+}
+
+QPushButton:hover {
+    background-color: #0056b3; /* Dunkleres Blau beim Darüberfahren */
+}
+
+QPushButton:pressed {
+    background-color: #004099; /* Noch dunkleres Blau beim Klicken */
+}</string>
+                </property>
+                <property name="text">
+                 <string>Execute</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item row="4" column="2">
+             <layout class="QHBoxLayout" name="horizontalLayout_30">
+              <property name="leftMargin">
+               <number>0</number>
+              </property>
+              <item>
+               <widget class="QPushButton" name="button_stop_movement">
+                <property name="styleSheet">
+                 <string notr="true">QPushButton {
+    background-color: rgb(0, 170, 255);
+    color: white; /* Weiße Schrift */
+    border-style: solid;
+    border-width: 2px;
+    border-radius: 10px; /* Abgerundete Ecken */
+    border-color: #0056b3; /* Dunkleres Blau für den Rand */
+
+    min-width: 80px; /* Minimale Breite des Buttons */
+    min-height: 30px; /* Minimale Höhe des Buttons */
+}
+
+QPushButton:hover {
+    background-color: #0056b3; /* Dunkleres Blau beim Darüberfahren */
+}
+
+QPushButton:pressed {
+    background-color: #004099; /* Noch dunkleres Blau beim Klicken */
+}</string>
+                </property>
+                <property name="text">
+                 <string>Stop Movement</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item row="1" column="2">
+             <layout class="QHBoxLayout" name="horizontalLayout_28">
+              <property name="leftMargin">
+               <number>0</number>
+              </property>
               <item>
                <widget class="QPushButton" name="button_single_step_negative">
                 <property name="styleSheet">
@@ -655,290 +648,6 @@ QPushButton:pressed {
               </item>
              </layout>
             </item>
-            <item row="1" column="0">
-             <widget class="QLabel" name="label_36">
-              <property name="styleSheet">
-               <string notr="true">font: 16pt &quot;MS Shell Dlg 2&quot;;</string>
-              </property>
-              <property name="text">
-               <string>Single Step</string>
-              </property>
-             </widget>
-            </item>
-            <item row="3" column="1">
-             <layout class="QHBoxLayout" name="horizontalLayout">
-              <property name="leftMargin">
-               <number>100</number>
-              </property>
-              <item>
-               <widget class="QPushButton" name="button_pause_motion">
-                <property name="styleSheet">
-                 <string notr="true">QPushButton {
-    background-color: rgb(0, 170, 255);
-    color: white; /* Weiße Schrift */
-    border-style: solid;
-    border-width: 2px;
-    border-radius: 10px; /* Abgerundete Ecken */
-    border-color: #0056b3; /* Dunkleres Blau für den Rand */
-
-    min-width: 80px; /* Minimale Breite des Buttons */
-    min-height: 30px; /* Minimale Höhe des Buttons */
-}
-
-QPushButton:hover {
-    background-color: #0056b3; /* Dunkleres Blau beim Darüberfahren */
-}
-
-QPushButton:pressed {
-    background-color: #004099; /* Noch dunkleres Blau beim Klicken */
-}</string>
-                </property>
-                <property name="text">
-                 <string>Pause</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QPushButton" name="button_continue_motion">
-                <property name="styleSheet">
-                 <string notr="true">QPushButton {
-    background-color: rgb(0, 170, 255);
-    color: white; /* Weiße Schrift */
-    border-style: solid;
-    border-width: 2px;
-    border-radius: 10px; /* Abgerundete Ecken */
-    border-color: #0056b3; /* Dunkleres Blau für den Rand */
-
-    min-width: 80px; /* Minimale Breite des Buttons */
-    min-height: 30px; /* Minimale Höhe des Buttons */
-}
-
-QPushButton:hover {
-    background-color: #0056b3; /* Dunkleres Blau beim Darüberfahren */
-}
-
-QPushButton:pressed {
-    background-color: #004099; /* Noch dunkleres Blau beim Klicken */
-}</string>
-                </property>
-                <property name="text">
-                 <string>Continue</string>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-            <item row="4" column="1">
-             <layout class="QHBoxLayout" name="horizontalLayout_30">
-              <property name="leftMargin">
-               <number>100</number>
-              </property>
-              <item>
-               <widget class="QPushButton" name="button_stop_movement">
-                <property name="styleSheet">
-                 <string notr="true">QPushButton {
-    background-color: rgb(0, 170, 255);
-    color: white; /* Weiße Schrift */
-    border-style: solid;
-    border-width: 2px;
-    border-radius: 10px; /* Abgerundete Ecken */
-    border-color: #0056b3; /* Dunkleres Blau für den Rand */
-
-    min-width: 80px; /* Minimale Breite des Buttons */
-    min-height: 30px; /* Minimale Höhe des Buttons */
-}
-
-QPushButton:hover {
-    background-color: #0056b3; /* Dunkleres Blau beim Darüberfahren */
-}
-
-QPushButton:pressed {
-    background-color: #004099; /* Noch dunkleres Blau beim Klicken */
-}</string>
-                </property>
-                <property name="text">
-                 <string>Stop Movement</string>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-            <item row="2" column="0">
-             <widget class="QLabel" name="label_35">
-              <property name="styleSheet">
-               <string notr="true">font: 16pt &quot;MS Shell Dlg 2&quot;;</string>
-              </property>
-              <property name="text">
-               <string>Target Position</string>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="1">
-             <layout class="QHBoxLayout" name="horizontalLayout_31">
-              <property name="leftMargin">
-               <number>89</number>
-              </property>
-              <item>
-               <widget class="QLabel" name="label_target_position_feedback">
-                <property name="text">
-                 <string/>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QLineEdit" name="line_edit_pos_rev">
-                <property name="styleSheet">
-                 <string notr="true">QLineEdit {
-    border: 2px solid #B0BEC5; /* Hellgrauer Rand */
-    border-radius: 8px; /* Abgerundete Ecken */
-    padding: 4px; /* Innenabstand für Text */
-    background-color: white; /* Helle Hintergrundfarbe */
-	font: 12pt &quot;MS Shell Dlg 2&quot;;
-}
-
-QLineEdit:hover {
-    border-color: #78909C; /* Dunklerer Rand beim Darüberfahren */
-}
-
-QLineEdit:focus {
-    border-color: #42A5F5; /* Blauer Rand bei Fokussierung */
-    background-color: #FFFFFF; /* Weiße Hintergrundfarbe bei Fokussierung */
-}</string>
-                </property>
-                <property name="inputMask">
-                 <string/>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QLabel" name="label_37">
-                <property name="text">
-                 <string>rev</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QLineEdit" name="line_edit_velocity">
-                <property name="styleSheet">
-                 <string notr="true">QLineEdit {
-    border: 2px solid #B0BEC5; /* Hellgrauer Rand */
-    border-radius: 8px; /* Abgerundete Ecken */
-    padding: 4px; /* Innenabstand für Text */
-    background-color: white; /* Helle Hintergrundfarbe */
-	font: 12pt &quot;MS Shell Dlg 2&quot;;
-}
-
-QLineEdit:hover {
-    border-color: #78909C; /* Dunklerer Rand beim Darüberfahren */
-}
-
-QLineEdit:focus {
-    border-color: #42A5F5; /* Blauer Rand bei Fokussierung */
-    background-color: #FFFFFF; /* Weiße Hintergrundfarbe bei Fokussierung */
-}</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QLabel" name="label_38">
-                <property name="text">
-                 <string>r/min</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QPushButton" name="button_execute">
-                <property name="styleSheet">
-                 <string notr="true">QPushButton {
-    background-color: rgb(0, 170, 255);
-    color: white; /* Weiße Schrift */
-    border-style: solid;
-    border-width: 2px;
-    border-radius: 10px; /* Abgerundete Ecken */
-    border-color: #0056b3; /* Dunkleres Blau für den Rand */
-
-    min-width: 80px; /* Minimale Breite des Buttons */
-    min-height: 30px; /* Minimale Höhe des Buttons */
-}
-
-QPushButton:hover {
-    background-color: #0056b3; /* Dunkleres Blau beim Darüberfahren */
-}
-
-QPushButton:pressed {
-    background-color: #004099; /* Noch dunkleres Blau beim Klicken */
-}</string>
-                </property>
-                <property name="text">
-                 <string>Execute</string>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-            <item row="0" column="1">
-             <layout class="QHBoxLayout" name="horizontalLayout_27">
-              <property name="leftMargin">
-               <number>100</number>
-              </property>
-              <item>
-               <widget class="QPushButton" name="button_jog_negative">
-                <property name="styleSheet">
-                 <string notr="true">QPushButton {
-    background-color: rgb(0, 170, 255);
-    color: white; /* Weiße Schrift */
-    border-style: solid;
-    border-width: 2px;
-    border-radius: 10px; /* Abgerundete Ecken */
-    border-color: #0056b3; /* Dunkleres Blau für den Rand */
-
-    min-width: 80px; /* Minimale Breite des Buttons */
-    min-height: 30px; /* Minimale Höhe des Buttons */
-}
-
-QPushButton:hover {
-    background-color: #0056b3; /* Dunkleres Blau beim Darüberfahren */
-}
-
-QPushButton:pressed {
-    background-color: #004099; /* Noch dunkleres Blau beim Klicken */
-}</string>
-                </property>
-                <property name="text">
-                 <string>-</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QPushButton" name="button_jog_positive">
-                <property name="styleSheet">
-                 <string notr="true">QPushButton {
-    background-color: rgb(0, 170, 255);
-    color: white; /* Weiße Schrift */
-    border-style: solid;
-    border-width: 2px;
-    border-radius: 10px; /* Abgerundete Ecken */
-    border-color: #0056b3; /* Dunkleres Blau für den Rand */
-
-    min-width: 80px; /* Minimale Breite des Buttons */
-    min-height: 30px; /* Minimale Höhe des Buttons */
-}
-
-QPushButton:hover {
-    background-color: #0056b3; /* Dunkleres Blau beim Darüberfahren */
-}
-
-QPushButton:pressed {
-    background-color: #004099; /* Noch dunkleres Blau beim Klicken */
-}</string>
-                </property>
-                <property name="text">
-                 <string>+</string>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
             <item row="3" column="0">
              <widget class="QLabel" name="label_2">
               <property name="styleSheet">
@@ -949,8 +658,166 @@ QPushButton:pressed {
               </property>
              </widget>
             </item>
+            <item row="4" column="0">
+             <widget class="QLabel" name="label_39">
+              <property name="styleSheet">
+               <string notr="true">font: 16pt &quot;MS Shell Dlg 2&quot;;</string>
+              </property>
+              <property name="text">
+               <string>Stop</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="1">
+             <spacer name="horizontalSpacer_3">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeType">
+               <enum>QSizePolicy::MinimumExpanding</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <spacer name="verticalSpacer_5">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_feedback">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>50</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>16</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_3">
+          <property name="styleSheet">
+           <string notr="true">QLabel {
+    border-bottom: 2px solid grey; /* Dunkelgrauer unterer Rand als Linie */
+    padding: 3px; /* Ein wenig Abstand zum Text für Ästhetik */
+	color: rgb(72, 72, 72);
+}
+</string>
+          </property>
+          <property name="text">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt; font-weight:600;&quot;&gt;Actual Values&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_36">
+          <item>
+           <layout class="QGridLayout" name="gridLayout_10">
+            <item row="2" column="2">
+             <widget class="QLabel" name="label_actual_position">
+              <property name="minimumSize">
+               <size>
+                <width>75</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">font-weight: bold;
+font: 16pt &quot;MS Shell Dlg 2&quot;;
+color: rgb(0, 170, 255);</string>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="0">
+             <widget class="QLabel" name="label">
+              <property name="styleSheet">
+               <string notr="true">font: 16pt &quot;MS Shell Dlg 2&quot;;</string>
+              </property>
+              <property name="text">
+               <string>Actual position:</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="0">
+             <widget class="QLabel" name="label_53">
+              <property name="styleSheet">
+               <string notr="true">font: 16pt &quot;MS Shell Dlg 2&quot;;</string>
+              </property>
+              <property name="text">
+               <string>Target position:</string>
+              </property>
+             </widget>
+            </item>
             <item row="1" column="2">
-             <spacer name="horizontalSpacer">
+             <widget class="QLabel" name="label_target_position">
+              <property name="minimumSize">
+               <size>
+                <width>75</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">font-weight: bold;
+font: 16pt &quot;MS Shell Dlg 2&quot;;
+color: rgb(0, 170, 255);</string>
+              </property>
+              <property name="text">
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="3">
+             <spacer name="horizontalSpacer_4">
               <property name="orientation">
                <enum>Qt::Horizontal</enum>
               </property>
@@ -962,7 +829,105 @@ QPushButton:pressed {
               </property>
              </spacer>
             </item>
+            <item row="1" column="4">
+             <widget class="QLabel" name="label_7">
+              <property name="text">
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:16pt;&quot;&gt;Target velocity:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="6">
+             <widget class="QLabel" name="label_target_velocity">
+              <property name="minimumSize">
+               <size>
+                <width>75</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">font-weight: bold;
+font: 16pt &quot;MS Shell Dlg 2&quot;;
+color: rgb(0, 170, 255);</string>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1">
+             <spacer name="horizontalSpacer_17">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item row="1" column="5">
+             <spacer name="horizontalSpacer_2">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item row="2" column="4">
+             <widget class="QLabel" name="label_6">
+              <property name="text">
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:16pt;&quot;&gt;Actual velocity:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="6">
+             <widget class="QLabel" name="label_actual_velocity">
+              <property name="minimumSize">
+               <size>
+                <width>75</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">font-weight: bold;
+font: 16pt &quot;MS Shell Dlg 2&quot;;
+color: rgb(0, 170, 255);</string>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+              </property>
+             </widget>
+            </item>
            </layout>
+          </item>
+          <item>
+           <layout class="QGridLayout" name="gridLayout"/>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer_6">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
           </item>
          </layout>
         </item>
