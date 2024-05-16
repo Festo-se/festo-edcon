@@ -16,19 +16,13 @@ class ToggleButtonModel(QPushButton):
         self.label.move(2, 5)
         self.label.resize(25, 20)
 
-        self.load_styles()
+        style_file_path = files("edcon") / "gui" / "ui" / "toggle_button_styles.css"
+        with open(style_file_path, "r", encoding="utf-8") as style_file:
+            self.setStyleSheet(style_file.read())
 
         self.animation = QPropertyAnimation(self.label, b"pos")
         self.animation.setDuration(200)
         self.toggled.connect(self.on_toggle)
-
-    def load_styles(self):
-
-        with open(
-            files("edcon") / "gui" / "ui" / "toggle_button_styles.css", "r"
-        ) as style_file:
-            stylesheet = style_file.read()
-        self.setStyleSheet(stylesheet)
 
     def on_toggle(self, checked):
         self.label.setText("On" if checked else "Off")

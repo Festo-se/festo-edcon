@@ -36,8 +36,11 @@ class MainWindow(QMainWindow):
             ParameterTab(self.pnu_read_function, self.pnu_write_function), "Parameter"
         )
 
+    # pylint: disable=invalid-name, unused-argument
+    # PyQt API naming
     def closeEvent(self, event):
         del self.motion_tab
+        event.accept()
 
     @property
     def com(self):

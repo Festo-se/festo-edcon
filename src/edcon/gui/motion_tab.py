@@ -5,9 +5,9 @@ from importlib.resources import files
 from collections import namedtuple
 
 # pylint: disable=import-error, no-name-in-module
-from PyQt5.QtWidgets import QWidget, QApplication
+from PyQt5.QtWidgets import QWidget
+from PyQt5.QtCore import QTimer
 from PyQt5.uic import loadUi
-from PyQt5.QtCore import QTimer, QCoreApplication
 from edcon.edrive.motion_handler import MotionHandler
 from edcon.utils.logging import Logging
 from edcon.gui.pyqt_helpers import bold_string

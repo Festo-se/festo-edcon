@@ -8,7 +8,10 @@ def style_string(string, color="black", weight=400, font_size=8):
             color (str): color of the font
             weight (int): weight of the font
     """
-    return f'<span style=" font-size:{font_size}pt; font-weight:{weight}; color:{color};">{string}</span>'
+    return (
+        '<span style=" '
+        + f'font-size:{font_size}pt; font-weight:{weight}; color:{color};">{string}</span>'
+    )
 
 
 def bold_string(string, color="black", font_size=8):
