@@ -9,6 +9,7 @@ from PyQt5.uic import loadUi
 from edcon.gui.connection_widget import ConnectionWidget
 from edcon.gui.parameter_tab import ParameterTab
 from edcon.gui.processdata_tab import ProcessDataTab
+from edcon.gui.motion_tab import MotionTab
 from edcon.edrive.com_modbus import ComModbus
 
 
@@ -28,11 +29,11 @@ class MainWindow(QMainWindow):
 
         self.toolBar.addWidget(self.connection_widget)
 
+        self.tabWidget.addTab(MotionTab(self.get_com_function), "Motion")
+        self.tabWidget.addTab(ProcessDataTab(self.get_com_function), "Process data")
         self.tabWidget.addTab(
             ParameterTab(self.pnu_read_function, self.pnu_write_function), "Parameter"
         )
-
-        self.tabWidget.addTab(ProcessDataTab(self.get_com_function), "Process data")
 
     @property
     def com(self):

@@ -17,6 +17,39 @@
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
      <widget class="QTabWidget" name="tabWidget">
+      <property name="styleSheet">
+       <string notr="true">
+/* Stil für die einzelnen Tabs */
+QTabBar::tab {
+    background: #E0EEEE; /* Hellblauer Hintergrund */
+    border: 1px solid #C4C4C3; /* Leichter Rand um die Tabs */
+    border-bottom-color: #5CACEE; /* Farbe der unteren Linie, wenn nicht ausgewählt */
+    border-top-left-radius: 4px; /* Abgerundete obere linke Ecke */
+    border-top-right-radius: 4px; /* Abgerundete obere rechte Ecke */
+    padding: 8px; /* Innerer Abstand für Text und Komfort */
+    min-width: 100px; /* Mindestbreite jedes Tabs */
+	
+	font: 10pt &quot;MS Shell Dlg 2&quot;;
+}
+
+/* Stil für den ausgewählten Tab */
+QTabBar::tab:selected {
+    background: #FFFFFF; /* Weißer Hintergrund für den ausgewählten Tab */
+    border-color: #5CACEE; /* Blauer Rand */
+    border-bottom-color: white; /* Weiße untere Linie, um Verschmelzung zu simulieren */
+}
+
+/* Stil für Tabs beim Hover */
+QTabBar::tab:hover {
+    background: #B0E2FF; /* Hellblau, wenn mit der Maus über einen Tab gefahren wird */
+}
+
+/* Stil für nicht ausgewählte Tabs, um sie visuell etwas abzusenken */
+QTabBar::tab:!selected {
+    margin-top: 2px; /* leicht nach unten versetzt */
+}
+</string>
+      </property>
       <property name="currentIndex">
        <number>-1</number>
       </property>

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>517</width>
-    <height>515</height>
+    <width>513</width>
+    <height>506</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -36,6 +36,35 @@ color:black}</string>
          <layout class="QHBoxLayout" name="horizontalLayout">
           <item>
            <widget class="QComboBox" name="comboBox">
+            <property name="styleSheet">
+             <string notr="true">QComboBox {
+    border: 2px solid #B0BEC5; /* Grauer Rand */
+    border-radius: 8px; /* Abgerundete Ecken */
+    padding: 5px; /* Abstand innen */
+    background-color: white; /* Hellgrauer Hintergrund */
+	font: 10pt &quot;MS Shell Dlg 2&quot;;
+}
+
+QComboBox:hover {
+    border-color: #78909C; /* Dunklerer Rand beim Hover */
+}
+
+QComboBox::drop-down {
+    subcontrol-origin: padding;
+    subcontrol-position: top right; /* Position des Dropdown-Pfeils */
+    border-left-width: 1px; /* Linie zwischen Text und Dropdown-Pfeil */
+    border-left-color: #B0BEC5; /* Farbe der Linie zwischen Text und Dropdown-Pfeil */
+    border-left-style: solid; /* Stil der Linie zwischen Text und Dropdown-Pfeil */
+}
+
+QComboBox QAbstractItemView {
+    border: 2px solid #B0BEC5; /* Rand der Dropdown-Liste */
+    selection-background-color: #78909C; /* Hintergrundfarbe für ausgewähltes Item */
+    color: #37474F; /* Textfarbe */
+    background-color: #ECEFF1; /* Hintergrundfarbe */
+    padding: 10px; /* Abstand */
+}</string>
+            </property>
             <item>
              <property name="text">
               <string>None</string>
@@ -64,6 +93,13 @@ color:black}</string>
            </widget>
           </item>
           <item>
+           <widget class="QLabel" name="label_fault_string">
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item>
            <spacer name="horizontalSpacer">
             <property name="orientation">
              <enum>Qt::Horizontal</enum>
@@ -78,10 +114,96 @@ color:black}</string>
           </item>
          </layout>
         </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_4">
         <item>
          <widget class="QTreeView" name="treeView">
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="styleSheet">
-           <string notr="true"/>
+           <string notr="true">QTreeView {
+    border: 1px solid #B0BEC5; /* Grauer Rand für den gesamten View */
+    background-color: #ECEFF1; /* Helle Hintergrundfarbe */
+    color: #37474F; /* Dunkelgraue Schriftfarbe */
+    alternate-background-color: #CFD8DC; /* Alternierende Zeilenfarbe */
+}
+
+QTreeView::item {
+    border-bottom: 1px solid #B0BEC5; /* Feiner Linienstil zwischen den Elementen */
+    padding: 4px;
+    background-color: transparent;
+    color: #37474F;
+}
+
+QTreeView::item:selected {
+    background-color: rgb(0, 170, 255); /* Hervorhebungs-Farbe bei Auswahl */
+    color: white;
+}
+
+QTreeView::item:selected:active {
+    background-color: rgb(0, 170, 255); /* Hervorhebungsfarbe bei aktiver Auswahl */
+    color: white;
+}
+
+QTreeView::item:selected:!active {
+    background-color:rgb(0, 170, 255);
+    color: white;
+}
+
+QHeaderView::section {
+    background-color: #CFD8DC; /* Hintergrundfarbe der Header */
+    padding: 4px;
+    border-top: 1px solid #B0BEC5; /* Top-Border der Header */
+    border-bottom: 1px solid #B0BEC5; /* Bottom-Border der Header */
+    border-right: 1px solid #B0BEC5; /* Right-Border zwischen Headern */
+    color: #37474F; /* Schriftfarbe der Header */
+    font-weight: bold; /* Fettschrift für die Header-Titel */
+    font-size: 12px; /* Schriftgröße */
+}
+
+/* Anpassung der Scrollbars wie im TableView */
+QScrollBar:vertical {
+    background: #ECEFF1;
+    width: 10px;
+    margin: 15px 0 15px 0;
+    border: 1px solid #B0BEC5;
+}
+
+QScrollBar::handle:vertical {
+    background: #CFD8DC;
+    min-height: 20px;
+}
+
+QScrollBar::handle:vertical:hover {
+    background: #B0BEC5;
+}
+
+QScrollBar::sub-line:vertical {
+    margin: 3px 0 3px 0;
+    border-image: url(:/icons/up_arrow.png); /* Pfeil nach oben */
+    height: 10px;
+    subcontrol-position: top;
+    subcontrol-origin: margin;
+}
+
+QScrollBar::add-line:vertical {
+    margin: 3px 0 3px 0;
+    border-image: url(:/icons/down_arrow.png); /* Pfeil nach unten */
+    height: 10px;
+    subcontrol-position: bottom;
+    subcontrol-origin: margin;
+}
+
+QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
+    background: none;
+}
+</string>
           </property>
           <property name="textElideMode">
            <enum>Qt::ElideRight</enum>
@@ -96,7 +218,7 @@ color:black}</string>
            <bool>false</bool>
           </property>
           <property name="animated">
-           <bool>false</bool>
+           <bool>true</bool>
           </property>
           <property name="allColumnsShowFocus">
            <bool>false</bool>
@@ -111,6 +233,23 @@ color:black}</string>
            <bool>true</bool>
           </property>
          </widget>
+        </item>
+        <item>
+         <layout class="QVBoxLayout" name="verticalLayout_4">
+          <item>
+           <spacer name="verticalSpacer">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>40</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
         </item>
        </layout>
       </item>

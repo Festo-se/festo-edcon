@@ -34,6 +34,14 @@ color:black}</string>
        <layout class="QVBoxLayout" name="verticalLayout_2">
         <item>
          <widget class="QLabel" name="label_pnu_access_title">
+          <property name="styleSheet">
+           <string notr="true">QLabel {
+    border-bottom: 2px solid grey; /* Dunkelgrauer unterer Rand als Linie */
+    padding: 3px; /* Ein wenig Abstand zum Text für Ästhetik */
+	color: rgb(72, 72, 72);
+}
+</string>
+          </property>
           <property name="text">
            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:16pt; font-weight:600;&quot;&gt;PNU access&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
@@ -60,8 +68,18 @@ color:black}</string>
              <enum>Qt::StrongFocus</enum>
             </property>
             <property name="styleSheet">
-             <string notr="true">QLineEdit{background-color:white;
-color:black}</string>
+             <string notr="true">QLineEdit {
+    border: 2px solid #B0BEC5; /* Hellgrauer Rand */
+    border-radius: 8px; /* Abgerundete Ecken */
+    padding: 4px; /* Innenabstand für Text */
+    background-color: white; /* Helle Hintergrundfarbe */
+	font: 12pt &quot;MS Shell Dlg 2&quot;;
+}
+
+QLineEdit:hover {
+    border-color: #78909C; /* Dunklerer Rand beim Darüberfahren */
+}
+</string>
             </property>
             <property name="inputMask">
              <string/>
@@ -80,8 +98,25 @@ color:black}</string>
           <item>
            <widget class="QPushButton" name="button_pnu_read">
             <property name="styleSheet">
-             <string notr="true">background-color: rgb(0, 153, 255);
-color: rgb(255, 255, 255);</string>
+             <string notr="true">QPushButton {
+    background-color: rgb(0, 170, 255);
+    color: white; /* Weiße Schrift */
+    border-style: solid;
+    border-width: 2px;
+    border-radius: 10px; /* Abgerundete Ecken */
+    border-color: #0056b3; /* Dunkleres Blau für den Rand */
+
+    min-width: 80px; /* Minimale Breite des Buttons */
+    min-height: 30px; /* Minimale Höhe des Buttons */
+}
+
+QPushButton:hover {
+    background-color: #0056b3; /* Dunkleres Blau beim Darüberfahren */
+}
+
+QPushButton:pressed {
+    background-color: #004099; /* Noch dunkleres Blau beim Klicken */
+}</string>
             </property>
             <property name="text">
              <string>read</string>
@@ -128,8 +163,18 @@ color: rgb(255, 255, 255);</string>
              </size>
             </property>
             <property name="styleSheet">
-             <string notr="true">QLineEdit{background-color:white;
-color:black}</string>
+             <string notr="true">QLineEdit {
+    border: 2px solid #B0BEC5; /* Hellgrauer Rand */
+    border-radius: 8px; /* Abgerundete Ecken */
+    padding: 4px; /* Innenabstand für Text */
+    background-color: white; /* Helle Hintergrundfarbe */
+	font: 12pt &quot;MS Shell Dlg 2&quot;;
+}
+
+QLineEdit:hover {
+    border-color: #78909C; /* Dunklerer Rand beim Darüberfahren */
+}
+</string>
             </property>
             <property name="inputMask">
              <string/>
@@ -145,8 +190,25 @@ color:black}</string>
           <item>
            <widget class="QPushButton" name="button_pnu_write">
             <property name="styleSheet">
-             <string notr="true">background-color: rgb(0, 153, 255);
-color: rgb(255, 255, 255);</string>
+             <string notr="true">QPushButton {
+    background-color: rgb(0, 170, 255);
+    color: white; /* Weiße Schrift */
+    border-style: solid;
+    border-width: 2px;
+    border-radius: 10px; /* Abgerundete Ecken */
+    border-color: #0056b3; /* Dunkleres Blau für den Rand */
+
+    min-width: 80px; /* Minimale Breite des Buttons */
+    min-height: 30px; /* Minimale Höhe des Buttons */
+}
+
+QPushButton:hover {
+    background-color: #0056b3; /* Dunkleres Blau beim Darüberfahren */
+}
+
+QPushButton:pressed {
+    background-color: #004099; /* Noch dunkleres Blau beim Klicken */
+}</string>
             </property>
             <property name="text">
              <string>write</string>
@@ -177,6 +239,14 @@ color: rgb(255, 255, 255);</string>
         </item>
         <item>
          <widget class="QLabel" name="label_pnu_list_title">
+          <property name="styleSheet">
+           <string notr="true">QLabel {
+    border-bottom: 2px solid grey; /* Dunkelgrauer unterer Rand als Linie */
+    padding: 3px; /* Ein wenig Abstand zum Text für Ästhetik */
+	color: rgb(72, 72, 72);
+}
+</string>
+          </property>
           <property name="text">
            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:16pt; font-weight:600;&quot;&gt;PNU list&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
@@ -200,8 +270,19 @@ color: rgb(255, 255, 255);</string>
              </size>
             </property>
             <property name="styleSheet">
-             <string notr="true">QLineEdit{background-color:white;
-color:black}</string>
+             <string notr="true">QLineEdit {
+    border: 2px solid #B0BEC5; /* Hellgrauer Rand */
+    border-radius: 8px; /* Abgerundete Ecken */
+    padding: 4px; /* Innenabstand für Text */
+    background-color: white; /* Helle Hintergrundfarbe */
+	font: 12pt &quot;MS Shell Dlg 2&quot;;
+}
+
+QLineEdit:hover {
+    border-color: #78909C; /* Dunklerer Rand beim Darüberfahren */
+}
+
+</string>
             </property>
             <property name="text">
              <string/>
@@ -228,6 +309,80 @@ color:black}</string>
         </item>
         <item>
          <widget class="QTableView" name="table_view_pnu_list">
+          <property name="styleSheet">
+           <string notr="true">QTableView {
+    border: 1px solid #B0BEC5; /* Grauer Rand für den gesamten View */
+    color: #37474F; /* Dunkelgraue Schriftfarbe */
+    gridline-color: #B0BEC5; /* Farbe der Gitterlinien */
+    background-color: #ECEFF1; /* Hintergrundfarbe */
+}
+
+QHeaderView::section {
+    background-color: #CFD8DC; /* Hintergrundfarbe der Header */
+    padding: 4px;
+    border-top: 1px solid #B0BEC5; /* Top-Border der Header */
+    border-bottom: 1px solid #B0BEC5; /* Bottom-Border der Header */
+    border-right: 1px solid #B0BEC5; /* Right-Border zwischen Headern */
+    color: #37474F; /* Schriftfarbe der Header */
+    font-weight: bold; /* Fettschrift für die Header-Titel */
+    font-size: 12px; /* Schriftgröße */
+}
+
+QHeaderView::section:horizontal {
+    border-top-width: 0px;
+    border-bottom-width: 2px;
+    border-right-width: 1px;
+}
+
+QHeaderView::section:vertical {
+    border-left-width: 0px;
+}
+
+QHeaderView::section:horizontal:first, QHeaderView::section:vertical:first {
+    border-top-width: 1px; /* Erster Header hat einen Top-Border */
+}
+
+QTableCornerButton::section {
+    background: #CFD8DC;
+    border: 1px solid #B0BEC5;
+}
+
+/* Anpassung der Scrollbars */
+QScrollBar:vertical {
+    background: #ECEFF1;
+    width: 10px;
+    margin: 15px 0 15px 0;
+    border: 1px solid #B0BEC5;
+}
+
+QScrollBar::handle:vertical {
+    background: #CFD8DC;
+    min-height: 20px;
+}
+
+QScrollBar::handle:vertical:hover {
+    background: #B0BEC5;
+}
+
+QScrollBar::sub-line:vertical {
+    margin: 3px 0 3px 0;
+    height: 10px;
+    subcontrol-position: top;
+    subcontrol-origin: margin;
+}
+
+QScrollBar::add-line:vertical {
+    margin: 3px 0 3px 0;
+    height: 10px;
+    subcontrol-position: bottom;
+    subcontrol-origin: margin;
+}
+
+QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
+    background: none;
+}
+</string>
+          </property>
           <attribute name="horizontalHeaderStretchLastSection">
            <bool>false</bool>
           </attribute>
@@ -251,8 +406,25 @@ color:black}</string>
           <item>
            <widget class="QPushButton" name="button_pnu_list_update">
             <property name="styleSheet">
-             <string notr="true">background-color: rgb(0, 153, 255);
-color: rgb(255, 255, 255);</string>
+             <string notr="true">QPushButton {
+    background-color: rgb(0, 170, 255);
+    color: white; /* Weiße Schrift */
+    border-style: solid;
+    border-width: 2px;
+    border-radius: 10px; /* Abgerundete Ecken */
+    border-color: #0056b3; /* Dunkleres Blau für den Rand */
+
+    min-width: 80px; /* Minimale Breite des Buttons */
+    min-height: 30px; /* Minimale Höhe des Buttons */
+}
+
+QPushButton:hover {
+    background-color: #0056b3; /* Dunkleres Blau beim Darüberfahren */
+}
+
+QPushButton:pressed {
+    background-color: #004099; /* Noch dunkleres Blau beim Klicken */
+}</string>
             </property>
             <property name="text">
              <string>update</string>

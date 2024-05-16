@@ -1,23 +1,26 @@
 """Helper functions used for PyQt interaction."""
 
 
-def style_string(string, color="black", weight=400):
+def style_string(string, color="black", weight=400, font_size=8):
     """Adds a style to the provided string.
 
     Parameters:
             color (str): color of the font
             weight (int): weight of the font
     """
-    return f'<span style=" font-size:8pt; font-weight:{weight}; color:{color};">{string}</span>'
+    return (
+        '<span style=" '
+        + f'font-size:{font_size}pt; font-weight:{weight}; color:{color};">{string}</span>'
+    )
 
 
-def bold_string(string, color="black"):
+def bold_string(string, color="black", font_size=8):
     """Adds a bold style to the provided string.
 
     Parameters:
             color (str): color of the font
     """
-    return style_string(string, color, weight=700)
+    return style_string(string, color, weight=700, font_size=font_size)
 
 
 def checkmark():

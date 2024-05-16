@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>615</width>
-    <height>79</height>
+    <height>82</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -31,6 +31,20 @@
           <verstretch>0</verstretch>
          </sizepolicy>
         </property>
+        <property name="styleSheet">
+         <string notr="true">QLineEdit {
+    border: 2px solid #B0BEC5; /* Hellgrauer Rand */
+    border-radius: 8px; /* Abgerundete Ecken */
+    padding: 2px; /* Innenabstand für Text */
+    background-color: white; /* Helle Hintergrundfarbe */
+    color: #37474F; /* Dunkelgraue Schriftfarbe */
+}
+
+QLineEdit:hover {
+    border-color: #78909C; /* Dunklerer Rand beim Darüberfahren */
+}
+</string>
+        </property>
         <property name="inputMask">
          <string>000.000.000.000</string>
         </property>
@@ -45,8 +59,25 @@
       <item>
        <widget class="QPushButton" name="button_connect">
         <property name="styleSheet">
-         <string notr="true">background-color: rgb(0, 153, 255);
-color: rgb(255, 255, 255);</string>
+         <string notr="true">QPushButton {
+    background-color: rgb(0, 170, 255);
+    color: white; /* Weiße Schrift */
+    border-style: solid;
+    border-width: 2px;
+    border-radius: 10px; /* Abgerundete Ecken */
+    border-color: #0056b3; /* Dunkleres Blau für den Rand */
+
+    min-width: 60px; /* Minimale Breite des Buttons */
+    min-height: 20px; /* Minimale Höhe des Buttons */
+}
+
+QPushButton:hover {
+    background-color: #0056b3; /* Dunkleres Blau beim Darüberfahren */
+}
+
+QPushButton:pressed {
+    background-color: #004099; /* Noch dunkleres Blau beim Klicken */
+}</string>
         </property>
         <property name="text">
          <string>connect</string>
