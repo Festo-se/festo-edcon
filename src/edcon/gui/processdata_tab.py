@@ -12,6 +12,7 @@ from edcon.edrive.telegram102_handler import Telegram102Handler
 from edcon.edrive.telegram111_handler import Telegram111Handler
 
 from edcon.gui.processdata_treeview_model import ProcessDataTreeViewModel
+from edcon.gui.processdata_graphicview_model import StateDiagram
 
 
 class ProcessDataTab(QWidget):
@@ -23,6 +24,7 @@ class ProcessDataTab(QWidget):
         self.get_com_function = get_com_function
 
         self.model = None
+        self.graphic_view_widget = None
 
         self.comboBox.currentIndexChanged.connect(self.select_telegramhandler)
 
@@ -42,6 +44,14 @@ class ProcessDataTab(QWidget):
         """Select a Telegram handler from the combobox."""
         selected_item_name = self.comboBox.currentText()
 
+        com = self.get_com_function()
+        self.graphic_view_widget = StateDiagram(
+            self.graphicsView,
+            self.button_show_graphicview,
+            selected_item_name,
+            com,
+        )
+
         if self.model is not None:
             self.model.clear()
 
@@ -49,8 +59,11 @@ class ProcessDataTab(QWidget):
             self.model = None
             return
 
-        com = self.get_com_function()
         self.model = ProcessDataTreeViewModel(
-            self.selection_dict[selected_item_name](com, config_mode="write")
+            self.selection_dict[selected_item_name](com, config_mode="write"),
+            self.label_fault_string,
+            self.expand_button,
+            self.treeView,
         )
+
         self.update_treeview()
