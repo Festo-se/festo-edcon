@@ -45,12 +45,6 @@ class ProcessDataTab(QWidget):
         selected_item_name = self.comboBox.currentText()
 
         com = self.get_com_function()
-        self.graphic_view_widget = StateDiagram(
-            self.graphicsView,
-            self.button_show_graphicview,
-            selected_item_name,
-            com,
-        )
 
         if self.model is not None:
             self.model.clear()
@@ -64,6 +58,12 @@ class ProcessDataTab(QWidget):
             self.label_fault_string,
             self.expand_button,
             self.treeView,
+        )
+        
+        self.graphic_view_widget = StateDiagram(
+            self.model.tgh,
+            self.graphicsView,
+            self.button_show_graphicview,
         )
 
         self.update_treeview()
