@@ -39,22 +39,22 @@ color:black}</string>
             <property name="styleSheet">
              <string notr="true">QToolButton {
     background-color: rgb(0, 170, 255);
-    color: white; /* Weiße Schrift */
+    color: white;
     border-style: solid;
     border-width: 2px;
-    border-radius: 10px; /* Abgerundete Ecken */
-    border-color: #0056b3; /* Dunkleres Blau für den Rand */
+    border-radius: 10px;
+    border-color: #0056b3;
 
-    min-width: 40px; /* Minimale Breite des Buttons */
-    min-height: 20px; /* Minimale Höhe des Buttons */
+    min-width: 40px;
+    min-height: 20px;
 }
 
 QToolButton:hover {
-    background-color: #0056b3; /* Dunkleres Blau beim Darüberfahren */
+    background-color: #0056b3;
 }
 
 QToolButton:pressed {
-    background-color: #004099; /* Noch dunkleres Blau beim Klicken */
+    background-color: #004099;
 }
 </string>
             </property>
@@ -67,31 +67,31 @@ QToolButton:pressed {
            <widget class="QComboBox" name="comboBox">
             <property name="styleSheet">
              <string notr="true">QComboBox {
-    border: 2px solid #B0BEC5; /* Grauer Rand */
-    border-radius: 8px; /* Abgerundete Ecken */
-    padding: 5px; /* Abstand innen */
-    background-color: white; /* Hellgrauer Hintergrund */
+    border: 2px solid #B0BEC5;
+    border-radius: 8px;
+    padding: 5px;
+    background-color: white;
 	font: 10pt &quot;MS Shell Dlg 2&quot;;
 }
 
 QComboBox:hover {
-    border-color: #78909C; /* Dunklerer Rand beim Hover */
+    border-color: #78909C;
 }
 
 QComboBox::drop-down {
     subcontrol-origin: padding;
-    subcontrol-position: top right; /* Position des Dropdown-Pfeils */
-    border-left-width: 1px; /* Linie zwischen Text und Dropdown-Pfeil */
-    border-left-color: #B0BEC5; /* Farbe der Linie zwischen Text und Dropdown-Pfeil */
-    border-left-style: solid; /* Stil der Linie zwischen Text und Dropdown-Pfeil */
+    subcontrol-position: top right;
+    border-left-width: 1px;
+    border-left-color: #B0BEC5;
+    border-left-style: solid;
 }
 
 QComboBox QAbstractItemView {
-    border: 2px solid #B0BEC5; /* Rand der Dropdown-Liste */
-    selection-background-color: #78909C; /* Hintergrundfarbe für ausgewähltes Item */
-    color: #37474F; /* Textfarbe */
-    background-color: #ECEFF1; /* Hintergrundfarbe */
-    padding: 10px; /* Abstand */
+    border: 2px solid #B0BEC5;
+    selection-background-color: #78909C;
+    color: #37474F;
+    background-color: #ECEFF1;
+    padding: 10px;
 }</string>
             </property>
             <item>
@@ -146,22 +146,22 @@ QComboBox QAbstractItemView {
             <property name="styleSheet">
              <string notr="true">QPushButton {
     background-color: rgb(0, 170, 255);
-    color: white; /* Weiße Schrift */
+    color: white;
     border-style: solid;
     border-width: 2px;
-    border-radius: 10px; /* Abgerundete Ecken */
-    border-color: #0056b3; /* Dunkleres Blau für den Rand */
+    border-radius: 10px;
+    border-color: #0056b3;
 
-    min-width: 80px; /* Minimale Breite des Buttons */
-    min-height: 30px; /* Minimale Höhe des Buttons */
+    min-width: 80px;
+    min-height: 30px;
 }
 
 QPushButton:hover {
-    background-color: #0056b3; /* Dunkleres Blau beim Darüberfahren */
+    background-color: #0056b3;
 }
 
 QPushButton:pressed {
-    background-color: #004099; /* Noch dunkleres Blau beim Klicken */
+    background-color: #004099;
 }</string>
             </property>
             <property name="text">
@@ -185,26 +185,26 @@ QPushButton:pressed {
           </property>
           <property name="styleSheet">
            <string notr="true">QTreeView {
-    border: 1px solid #B0BEC5; /* Grauer Rand für den gesamten View */
-    background-color: #ECEFF1; /* Helle Hintergrundfarbe */
-    color: #37474F; /* Dunkelgraue Schriftfarbe */
-    alternate-background-color: #CFD8DC; /* Alternierende Zeilenfarbe */
+    border: 1px solid #B0BEC5;
+    background-color: #ECEFF1;
+    color: #37474F;
+    alternate-background-color: #CFD8DC;
 }
 
 QTreeView::item {
-    border-bottom: 1px solid #B0BEC5; /* Feiner Linienstil zwischen den Elementen */
+    border-bottom: 1px solid #B0BEC5;
     padding: 4px;
     background-color: transparent;
     color: #37474F;
 }
 
 QTreeView::item:selected {
-    background-color: rgb(0, 170, 255); /* Hervorhebungs-Farbe bei Auswahl */
+    background-color: rgb(0, 170, 255);
     color: white;
 }
 
 QTreeView::item:selected:active {
-    background-color: rgb(0, 170, 255); /* Hervorhebungsfarbe bei aktiver Auswahl */
+    background-color: rgb(0, 170, 255);
     color: white;
 }
 
@@ -214,17 +214,16 @@ QTreeView::item:selected:!active {
 }
 
 QHeaderView::section {
-    background-color: #CFD8DC; /* Hintergrundfarbe der Header */
+    background-color: #CFD8DC;
     padding: 4px;
-    border-top: 1px solid #B0BEC5; /* Top-Border der Header */
-    border-bottom: 1px solid #B0BEC5; /* Bottom-Border der Header */
-    border-right: 1px solid #B0BEC5; /* Right-Border zwischen Headern */
-    color: #37474F; /* Schriftfarbe der Header */
-    font-weight: bold; /* Fettschrift für die Header-Titel */
-    font-size: 12px; /* Schriftgröße */
+    border-top: 1px solid #B0BEC5;
+    border-bottom: 1px solid #B0BEC5;
+    border-right: 1px solid #B0BEC5;
+    color: #37474F;
+    font-weight: bold;
+    font-size: 12px;
 }
 
-/* Anpassung der Scrollbars wie im TableView */
 QScrollBar:vertical {
     background: #ECEFF1;
     width: 10px;
@@ -243,7 +242,7 @@ QScrollBar::handle:vertical:hover {
 
 QScrollBar::sub-line:vertical {
     margin: 3px 0 3px 0;
-    border-image: url(:/icons/up_arrow.png); /* Pfeil nach oben */
+    border-image: url(:/icons/up_arrow.png);
     height: 10px;
     subcontrol-position: top;
     subcontrol-origin: margin;
@@ -251,7 +250,7 @@ QScrollBar::sub-line:vertical {
 
 QScrollBar::add-line:vertical {
     margin: 3px 0 3px 0;
-    border-image: url(:/icons/down_arrow.png); /* Pfeil nach unten */
+    border-image: url(:/icons/down_arrow.png);
     height: 10px;
     subcontrol-position: bottom;
     subcontrol-origin: margin;

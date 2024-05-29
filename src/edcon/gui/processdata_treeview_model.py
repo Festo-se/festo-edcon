@@ -6,22 +6,21 @@ from dataclasses import fields
 from PyQt5.QtGui import QStandardItem, QStandardItemModel
 from PyQt5.QtCore import Qt, QTimer
 
-from edcon.gui.pyqt_helpers import bold_string
 from edcon.utils.logging import Logging
 from edcon.profidrive.words import BitwiseWord
+
 
 class ProcessDataTreeViewModel(QStandardItemModel):
     """Defines the process data treeview model."""
 
-    def __init__(self, tgh, label_fault_string, expand_button, tree_view):
+    def __init__(self, tgh, set_fault_string_func):
         super().__init__()
         if tgh is None:
             raise ValueError("tgh cannot be None")
-        self.label_fault_string = label_fault_string
+        self.set_fault_string_func = set_fault_string_func
         self.tgh = tgh
         self.setColumnCount(3)
         self.dataChanged.connect(self.on_data_changed)
-        self.tree_view = tree_view
 
         self.timer = QTimer(self)
         self.timer.timeout.connect(self.update_input_tree)
@@ -29,8 +28,6 @@ class ProcessDataTreeViewModel(QStandardItemModel):
         self.timer.start(100)
 
         self.populate()
-
-        expand_button.clicked.connect(self.expand_all_button_clicked)
 
     def clear(self):
         """Clears the treeview."""
@@ -199,9 +196,9 @@ class ProcessDataTreeViewModel(QStandardItemModel):
         """
 
         if self.tgh.telegram.zsw1.fault_present:
-            self.show_fault_string_label()
+            self.set_fault_string_func(self.tgh.fault_string())
         else:
-            self.hide_fault_string_label()
+            self.set_fault_string_func("")
 
         item = self.itemFromIndex(index)
         item_text = item.text()
@@ -237,16 +234,3 @@ class ProcessDataTreeViewModel(QStandardItemModel):
             "Attribute '%s.%s' value changed to: '%s'", word_name, item_name, new_value
         )
         self.tgh.update_outputs()
-
-    def show_fault_string_label(self):
-        """Show fault string in label"""
-        fault_string = self.tgh.fault_string()
-        self.label_fault_string.setText(bold_string(f"{fault_string}", "red"))
-
-    def hide_fault_string_label(self):
-        """Hide fault string label"""
-        self.label_fault_string.setText("")
-
-    def expand_all_button_clicked(self):
-        """Expand the whole treeview"""
-        self.tree_view.expandAll()

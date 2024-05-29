@@ -13,6 +13,7 @@ from edcon.edrive.telegram111_handler import Telegram111Handler
 
 from edcon.gui.processdata_treeview_model import ProcessDataTreeViewModel
 from edcon.gui.processdata_graphicview_model import StateDiagram
+from edcon.gui.pyqt_helpers import bold_string
 
 
 class ProcessDataTab(QWidget):
@@ -27,6 +28,8 @@ class ProcessDataTab(QWidget):
         self.graphic_view_widget = None
 
         self.comboBox.currentIndexChanged.connect(self.select_telegramhandler)
+
+        self.expand_button.clicked.connect(self.expand_all_button_clicked)
 
         self.selection_dict = {
             "Telegram1": Telegram1Handler,
@@ -44,8 +47,6 @@ class ProcessDataTab(QWidget):
         """Select a Telegram handler from the combobox."""
         selected_item_name = self.comboBox.currentText()
 
-        com = self.get_com_function()
-
         if self.model is not None:
             self.model.clear()
 
@@ -53,13 +54,12 @@ class ProcessDataTab(QWidget):
             self.model = None
             return
 
+        com = self.get_com_function()
         self.model = ProcessDataTreeViewModel(
             self.selection_dict[selected_item_name](com, config_mode="write"),
-            self.label_fault_string,
-            self.expand_button,
-            self.treeView,
+            self.set_fault_label_string,
         )
-        
+
         self.graphic_view_widget = StateDiagram(
             self.model.tgh,
             self.graphicsView,
@@ -67,3 +67,10 @@ class ProcessDataTab(QWidget):
         )
 
         self.update_treeview()
+
+    def set_fault_label_string(self, string):
+        self.label_fault_string.setText(bold_string(f"{string}", "red"))
+
+    def expand_all_button_clicked(self):
+        """Expand the whole treeview"""
+        self.treeView.expandAll()
