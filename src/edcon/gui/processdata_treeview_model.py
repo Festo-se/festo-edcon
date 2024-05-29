@@ -13,18 +13,18 @@ from edcon.profidrive.words import BitwiseWord
 class ProcessDataTreeViewModel(QStandardItemModel):
     """Defines the process data treeview model."""
 
-    def __init__(self, tgh, set_fault_string_func):
+    def __init__(self, tgh,set_fault_string_func):
         super().__init__()
         if tgh is None:
             raise ValueError("tgh cannot be None")
+        
         self.set_fault_string_func = set_fault_string_func
-        self.tgh = tgh
         self.setColumnCount(3)
+        self.tgh = tgh
         self.dataChanged.connect(self.on_data_changed)
 
         self.timer = QTimer(self)
         self.timer.timeout.connect(self.update_input_tree)
-        self.timer.timeout.connect(self.update_output_tree)
         self.timer.start(100)
 
         self.populate()
@@ -78,6 +78,22 @@ class ProcessDataTreeViewModel(QStandardItemModel):
             item.setCheckable(False)
         root.appendRow(item)
 
+    def append_value_word_item(self, root, name, value, readonly=False):
+        """Append value word item to provided root.
+
+        Parameters:
+            root(Qstandarditem): root item to append to
+            name(string): name of bit item
+            value(bool): value of bit item
+            readonly(bool): read only
+        """
+        item = QStandardItem(f"{name}:")
+        item.setFlags(Qt.NoItemFlags)
+        value_item = QStandardItem(f"{str(value)}")
+        if readonly:
+            value_item.setFlags(Qt.NoItemFlags)
+        root.appendRow([item, value_item])
+
     def append_word_item(self, root, name, readonly=False):
         """Append word item to provided root.
 
@@ -87,26 +103,18 @@ class ProcessDataTreeViewModel(QStandardItemModel):
             value(bool): value of bit item
             readonly(bool): read only
         """
+        word = getattr(self.tgh.telegram, name)
         word_item = QStandardItem(name)
         word_item.setFlags(Qt.NoItemFlags)
-        word = getattr(self.tgh.telegram, name)
-        hex_string_item = QStandardItem(str(hex(int(word))))
-        bin_string_item = QStandardItem(str(bin(int(word))))
-        value_item_editable = QStandardItem("0")
-        value_item_no_flags = QStandardItem("0")
-        place_holder_item = QStandardItem()
+        hex_string_item = QStandardItem(hex(int(word)))
         hex_string_item.setFlags(Qt.NoItemFlags)
+        bin_string_item = QStandardItem(bin(int(word)))
         bin_string_item.setFlags(Qt.NoItemFlags)
-        value_item_no_flags.setFlags(Qt.NoItemFlags)
-        place_holder_item.setFlags(Qt.NoItemFlags)
 
         if self.is_bitwise_word(name):
             root.appendRow([word_item, hex_string_item, bin_string_item])
         else:
-            if root.text() != "Outputs":
-                root.appendRow([word_item, value_item_no_flags, place_holder_item])
-            else:
-                root.appendRow([word_item, value_item_editable, place_holder_item])
+            root.appendRow(word_item)
 
         item_name_list = [x.name for x in fields(word)]
 
@@ -116,6 +124,11 @@ class ProcessDataTreeViewModel(QStandardItemModel):
                 self.append_bitwise_word_item(
                     word_item, item_name, item_value, readonly
                 )
+            else:
+                # Skip byte_size field
+                if item_name == "byte_size":
+                    continue
+                self.append_value_word_item(word_item, item_name, item_value, readonly)
 
     def populate(self):
         """Populates a treeview model using the respective telegram handler"""
@@ -145,47 +158,22 @@ class ProcessDataTreeViewModel(QStandardItemModel):
 
         for word_item in input_word_items:
             input_items = [word_item.child(row) for row in range(word_item.rowCount())]
-            word_name = word_item.text()
-            word = getattr(self.tgh.telegram, word_name)
-            if self.is_bitwise_word(word_name):
-                bin_string_item = word_item.parent().child(word_item.row(), 2)
-                bin_string_item.setText(str(bin(int(word))))
-
-                hex_string_item = word_item.parent().child(word_item.row(), 1)
-                hex_string_item.setText(str(hex(int(word))))
-
-            else:
-                item_value = getattr(word, "value")
-                input_value = word_item.parent().child(word_item.row(), 1)
-                input_value.setText(f"{item_value}")
-
             for item in input_items:
+                word_name = word_item.text()
+                word = getattr(self.tgh.telegram, word_name)
                 if self.is_bitwise_word(word_name):
+                    row = word_item.row()
+                    word_item.parent().child(row,1).setText(hex(int(word)))
+                    word_item.parent().child(row,2).setText(bin(int(word)))
                     item_value = getattr(word, item.text())
                     if item_value:
                         item.setCheckState(Qt.PartiallyChecked)
                     else:
                         item.setCheckState(Qt.Unchecked)
-        self.layoutChanged.emit()
-
-    def update_output_tree(self):
-        """Updates the content of inputs tree"""
-        self.tgh.update_outputs()
-
-        output_word_items = [
-            self.output_root_item.child(idx)
-            for idx in range(self.output_root_item.rowCount())
-        ]
-
-        for word_item in output_word_items:
-            word_name = word_item.text()
-            word = getattr(self.tgh.telegram, word_name)
-            if self.is_bitwise_word(word_name):
-                bin_string_item = word_item.parent().child(word_item.row(), 2)
-                bin_string_item.setText(str(bin(int(word))))
-
-                hex_string_item = word_item.parent().child(word_item.row(), 1)
-                hex_string_item.setText(str(hex(int(word))))
+                else:
+                    item_value = getattr(word, "value")
+                    input_value = item.parent().child(item.row(), 1)
+                    input_value.setText(f"{item_value}")
         self.layoutChanged.emit()
 
     def on_data_changed(self, index):
@@ -199,18 +187,12 @@ class ProcessDataTreeViewModel(QStandardItemModel):
             self.set_fault_string_func(self.tgh.fault_string())
         else:
             self.set_fault_string_func("")
+        
+        # Ignore if item is not a child of Outputs
+        if index.parent().parent() != self.output_root_item.index():
+            return
 
         item = self.itemFromIndex(index)
-        item_text = item.text()
-        # Ignore if item is not a child of Outputs
-        if (
-            index.parent().parent() != self.output_root_item.index()
-            and index.parent() != self.output_root_item.index()
-            or item_text.startswith("0x")
-            and all(c in "0123456789ABCDEFabcdef" for c in item_text[2:])
-            or item.index().column() == 2
-        ):
-            return
 
         # True if PartiallyChecked, False otherwise
         if item.checkState() == Qt.Checked:
@@ -218,19 +200,22 @@ class ProcessDataTreeViewModel(QStandardItemModel):
             return
 
         word_name = item.parent().text()
-        if word_name != "Outputs":
-            if self.is_bitwise_word(word_name):
-                word = getattr(self.tgh.telegram, word_name)
-                item_name = item.text()
-                new_value = item.checkState() != Qt.Unchecked
+        word = getattr(self.tgh.telegram, word_name)
+        if self.is_bitwise_word(word_name):
+            item_name = item.text()
+            new_value = item.checkState() != Qt.Unchecked
         else:
-            word_name = item.parent().child(item.row(), 0).text()
-            word = getattr(self.tgh.telegram, word_name)
             item_name = "value"
             new_value = int(item.text())
 
         setattr(word, item_name, new_value)
         Logging.logger.info(
-            "Attribute '%s.%s' value changed to: '%s'", word_name, item_name, new_value
+            f"Attribute '{word_name}.{item_name}' value changed to: {new_value}"
         )
         self.tgh.update_outputs()
+
+        # updates binary and hex string
+        row = item.parent().row()
+        if self.is_bitwise_word(word_name):
+            item.parent().parent().child(row,1).setText(hex(int(word)))
+            item.parent().parent().child(row,2).setText(bin(int(word)))
