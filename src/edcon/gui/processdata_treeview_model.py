@@ -13,11 +13,11 @@ from edcon.profidrive.words import BitwiseWord
 class ProcessDataTreeViewModel(QStandardItemModel):
     """Defines the process data treeview model."""
 
-    def __init__(self, tgh,set_fault_string_func):
+    def __init__(self, tgh, set_fault_string_func):
         super().__init__()
         if tgh is None:
             raise ValueError("tgh cannot be None")
-        
+
         self.set_fault_string_func = set_fault_string_func
         self.setColumnCount(3)
         self.tgh = tgh
@@ -163,8 +163,8 @@ class ProcessDataTreeViewModel(QStandardItemModel):
                 word = getattr(self.tgh.telegram, word_name)
                 if self.is_bitwise_word(word_name):
                     row = word_item.row()
-                    word_item.parent().child(row,1).setText(hex(int(word)))
-                    word_item.parent().child(row,2).setText(bin(int(word)))
+                    word_item.parent().child(row, 1).setText(hex(int(word)))
+                    word_item.parent().child(row, 2).setText(bin(int(word)))
                     item_value = getattr(word, item.text())
                     if item_value:
                         item.setCheckState(Qt.PartiallyChecked)
@@ -187,7 +187,7 @@ class ProcessDataTreeViewModel(QStandardItemModel):
             self.set_fault_string_func(self.tgh.fault_string())
         else:
             self.set_fault_string_func("")
-        
+
         # Ignore if item is not a child of Outputs
         if index.parent().parent() != self.output_root_item.index():
             return
@@ -217,5 +217,5 @@ class ProcessDataTreeViewModel(QStandardItemModel):
         # updates binary and hex string
         row = item.parent().row()
         if self.is_bitwise_word(word_name):
-            item.parent().parent().child(row,1).setText(hex(int(word)))
-            item.parent().parent().child(row,2).setText(bin(int(word)))
+            item.parent().parent().child(row, 1).setText(hex(int(word)))
+            item.parent().parent().child(row, 2).setText(bin(int(word)))
