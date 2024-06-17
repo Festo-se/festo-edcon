@@ -151,20 +151,17 @@ class ProcessDataTreeViewModel(QStandardItemModel):
         """Updates the content of inputs tree"""
         self.tgh.update_inputs()
 
+        self.update_bitwise_words()
         input_word_items = [
             self.input_root_item.child(idx)
             for idx in range(self.input_root_item.rowCount())
         ]
-
         for word_item in input_word_items:
             input_items = [word_item.child(row) for row in range(word_item.rowCount())]
             for item in input_items:
                 word_name = word_item.text()
                 word = getattr(self.tgh.telegram, word_name)
                 if self.is_bitwise_word(word_name):
-                    row = word_item.row()
-                    word_item.parent().child(row, 1).setText(hex(int(word)))
-                    word_item.parent().child(row, 2).setText(bin(int(word)))
                     item_value = getattr(word, item.text())
                     if item_value:
                         item.setCheckState(Qt.PartiallyChecked)
@@ -209,13 +206,30 @@ class ProcessDataTreeViewModel(QStandardItemModel):
             new_value = int(item.text())
 
         setattr(word, item_name, new_value)
+        self.update_bitwise_words()
         Logging.logger.info(
             f"Attribute '{word_name}.{item_name}' value changed to: {new_value}"
         )
         self.tgh.update_outputs()
 
-        # updates binary and hex string
-        row = item.parent().row()
-        if self.is_bitwise_word(word_name):
-            item.parent().parent().child(row, 1).setText(hex(int(word)))
-            item.parent().parent().child(row, 2).setText(bin(int(word)))
+    def update_bitwise_words(self):
+        output_word_items = [
+            [
+                self.output_root_item.child(ridx, cidx)
+                for cidx in range(self.output_root_item.columnCount())
+            ]
+            for ridx in range(self.output_root_item.rowCount())
+        ]
+        input_word_items = [
+            [
+                self.input_root_item.child(ridx, cidx)
+                for cidx in range(self.input_root_item.columnCount())
+            ]
+            for ridx in range(self.input_root_item.rowCount())
+        ]
+        for word_item in output_word_items + input_word_items:
+            word_name = word_item[0].text()
+            word = getattr(self.tgh.telegram, word_name)
+            if self.is_bitwise_word(word_name):
+                word_item[1].setText(hex(int(word)))
+                word_item[2].setText(bin(int(word)))
