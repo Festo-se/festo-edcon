@@ -30,6 +30,7 @@ class ProcessDataTab(QWidget):
         self.comboBox.currentIndexChanged.connect(self.select_telegramhandler)
 
         self.expand_button.clicked.connect(self.expand_all_button_clicked)
+        self.button_show_graphicview.clicked.connect(self.show_or_hide_graphicview)
 
         self.selection_dict = {
             "Telegram1": Telegram1Handler,
@@ -60,13 +61,15 @@ class ProcessDataTab(QWidget):
             self.set_fault_label_string,
         )
 
-        self.graphic_view_widget = StateDiagram(
-            self.model.tgh,
+        self.state_diagram = StateDiagram(
+            self.get_telegram_handler,
             self.graphicsView,
-            self.button_show_graphicview,
         )
 
         self.update_treeview()
+
+    def get_telegram_handler(self):
+        return self.model.tgh
 
     def set_fault_label_string(self, string):
         self.label_fault_string.setText(bold_string(f"{string}", "red"))
@@ -74,3 +77,7 @@ class ProcessDataTab(QWidget):
     def expand_all_button_clicked(self):
         """Expand the whole treeview"""
         self.treeView.expandAll()
+
+    def show_or_hide_graphicview(self):
+        """Show graphicview button callback"""
+        self.graphicsView.setVisible(not self.graphicsView.isVisible())

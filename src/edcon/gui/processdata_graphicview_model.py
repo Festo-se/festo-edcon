@@ -25,18 +25,16 @@ class StateDiagram:
 
     def __init__(
         self,
-        tgh,
+        get_tgh_func,
         graphic_view_widget,
-        button_show_graphicview,
     ):
         super().__init__()
+        self.get_tgh_func = get_tgh_func
         self.graphic_view_widget = graphic_view_widget
         self.graphic_view_widget.setVisible(False)
-        self.tgh = tgh
         self.current_state = None
         self.scene = QGraphicsScene()
         self.graphic_view_widget.setScene(self.scene)
-        button_show_graphicview.clicked.connect(self.show_or_hide_graphicview)
         self.setup_scene()
         self.setup_states()
         self.setup_arrows()
@@ -44,10 +42,6 @@ class StateDiagram:
         self.timer = QTimer()
         self.timer.timeout.connect(self.update_active_state)
         self.timer.start(100)
-
-    def show_or_hide_graphicview(self):
-        """Show graphicview button callback"""
-        self.graphic_view_widget.setVisible(not self.graphic_view_widget.isVisible())
 
     def setup_scene(self):
         """Sets the scene dimensions and configures the scroll bar policies"""
@@ -187,8 +181,11 @@ class StateDiagram:
         Parameters:
             current_state(int): value for the state diagram
         """
-        bit_word_stw1 = self.tgh.telegram.stw1
-        bit_word_zsw1 = self.tgh.telegram.zsw1
+        tgh = self.get_tgh_func()
+        if not tgh:
+            return
+        bit_word_stw1 = tgh.telegram.stw1
+        bit_word_zsw1 = tgh.telegram.zsw1
         stw1_bit0 = getattr(bit_word_stw1, "on")
         stw1_bit1 = getattr(bit_word_stw1, "no_coast_stop")
         stw1_bit2 = getattr(bit_word_stw1, "no_quick_stop")
@@ -209,7 +206,7 @@ class StateDiagram:
             else:
                 self.current_state = 0
         else:
-            self.current_state = 7 #fault present
+            self.current_state = 7  # fault present
 
         for state in self.states:
             state.setBrush(QBrush(QColor(STATE_COLOR)))
