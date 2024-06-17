@@ -13,9 +13,6 @@ from edcon.utils.logging import Logging
 from edcon.gui.pyqt_helpers import bold_string
 from edcon.gui.toggle_button_model import ToggleButtonModel
 
-# Enable loglevel info
-Logging()
-
 
 class MotionTab(QWidget):
     """Defines the motion tab widget."""
