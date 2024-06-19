@@ -142,7 +142,7 @@ QComboBox QAbstractItemView {
            </spacer>
           </item>
           <item>
-           <widget class="QPushButton" name="button_show_graphicview">
+           <widget class="QPushButton" name="state_diagram_button">
             <property name="styleSheet">
              <string notr="true">QPushButton {
     background-color: rgb(0, 170, 255);

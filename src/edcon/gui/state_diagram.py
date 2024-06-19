@@ -1,4 +1,4 @@
-"""Model for the processdata graphicview."""
+"""Scene for the state diagram."""
 
 # pylint: disable=import-error, no-name-in-module
 from PyQt5.QtWidgets import (
@@ -20,35 +20,23 @@ ARROW_WIDTH = 2
 ARROW_HEAD_WIDTH, ARROW_HEAD_HEIGHT = 8, 5
 
 
-class StateDiagram:
-    """Defines the process data graphicview model."""
+class StateDiagram(QGraphicsScene):
+    """Defines the state diagram scene."""
 
     def __init__(
         self,
         get_tgh_func,
-        graphic_view_widget,
     ):
         super().__init__()
         self.get_tgh_func = get_tgh_func
-        self.graphic_view_widget = graphic_view_widget
-        self.graphic_view_widget.setVisible(False)
         self.current_state = None
-        self.scene = QGraphicsScene()
-        self.graphic_view_widget.setScene(self.scene)
-        self.setup_scene()
+        self.setSceneRect(0, 0, SCENE_WIDTH, SCENE_HEIGHT)
         self.setup_states()
         self.setup_arrows()
 
         self.timer = QTimer()
         self.timer.timeout.connect(self.update_active_state)
         self.timer.start(100)
-
-    def setup_scene(self):
-        """Sets the scene dimensions and configures the scroll bar policies"""
-        self.scene.setSceneRect(0, 0, SCENE_WIDTH, SCENE_HEIGHT)
-        self.graphic_view_widget.setSceneRect(self.scene.sceneRect())
-        self.graphic_view_widget.setHorizontalScrollBarPolicy(Qt.ScrollBarAsNeeded)
-        self.graphic_view_widget.setVerticalScrollBarPolicy(Qt.ScrollBarAsNeeded)
 
     def setup_states(self):
         """Sets up and adds labeled state rectangles to the scene at specified positions"""
@@ -69,7 +57,7 @@ class StateDiagram:
                 state.setBrush(QBrush(QColor(STATE_COLOR)))
                 state.setPen(QPen(QColor(ARROW_COLOR), ARROW_WIDTH))
                 self.states.append(state)
-                self.scene.addItem(state)
+                self.addItem(state)
                 text = QGraphicsTextItem(label)
                 text.setPos(
                     pos
@@ -78,7 +66,7 @@ class StateDiagram:
                         STATE_HEIGHT / 2 - text.boundingRect().height() / 2,
                     )
                 )
-                self.scene.addItem(text)
+                self.addItem(text)
 
     def add_arrow(self, start, end, condition_left, condition_right):
         """Adds arrows and their conditions on the correct place
@@ -103,7 +91,7 @@ class StateDiagram:
         path.lineTo(end)
         arrow = QGraphicsPathItem(path)
         arrow.setPen(QPen(QColor(ARROW_COLOR), ARROW_WIDTH))
-        self.scene.addItem(arrow)
+        self.addItem(arrow)
 
         # Create the arrow head at the end point
         arrow_head = QPainterPath()
@@ -120,17 +108,17 @@ class StateDiagram:
         arrow_head.closeSubpath()  # Close the path to make a solid triangle
         arrow_item = QGraphicsPathItem(arrow_head)
         arrow_item.setBrush(QColor(ARROW_COLOR))
-        self.scene.addItem(arrow_item)
+        self.addItem(arrow_item)
 
         text_left = QGraphicsTextItem(condition_left)
         mid_point_left = (start + end) / 2  # Calculate midpoint for text placement
         text_left.setPos(mid_point_left + QPointF(-120, -50))  # Adjust text position
-        self.scene.addItem(text_left)
+        self.addItem(text_left)
 
         text_right = QGraphicsTextItem(condition_right)
         mid_point_right = (start + end) / 2  # Calculate midpoint for text placement
         text_right.setPos(mid_point_right + QPointF(15, -50))  # Adjust text position
-        self.scene.addItem(text_right)
+        self.addItem(text_right)
 
     def setup_arrows(self):
         """ ""Setup the positions for the arrows"""
