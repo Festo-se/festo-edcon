@@ -4,7 +4,7 @@ from pathlib import PurePath
 from importlib.resources import files
 
 # pylint: disable=import-error, no-name-in-module
-from PyQt5.QtCore import Qt
+from PyQt5.QtCore import Qt, QTimer
 from PyQt5.QtWidgets import QWidget, QHeaderView
 from PyQt5.uic import loadUi
 from edcon.edrive.telegram1_handler import Telegram1Handler
@@ -40,6 +40,20 @@ class ProcessDataTab(QWidget):
             "Telegram111": Telegram111Handler,
         }
 
+        self.timer = QTimer(self)
+        self.timer.timeout.connect(self.update_functions)
+        self.timer.start(100)
+
+    def update_functions(self):
+        """Updates the content of process data tab"""
+        if self.model is not None:
+            self.model.update()
+            self.label_fault_string.setText(
+                bold_string(f"{self.model.fault_string()}", "red")
+            )
+        if self.scene is not None:
+            self.scene.update()
+
     def select_telegramhandler(self):
         """Select a Telegram handler from the combobox."""
         selected_item_name = self.comboBox.currentText()
@@ -54,7 +68,6 @@ class ProcessDataTab(QWidget):
         com = self.get_com_function()
         self.model = ProcessDataTreeViewModel(
             self.selection_dict[selected_item_name](com, config_mode="write"),
-            self.set_fault_label_string,
         )
         self.treeView.setModel(self.model)
         self.treeView.header().setSectionResizeMode(0, QHeaderView.ResizeToContents)
@@ -72,9 +85,6 @@ class ProcessDataTab(QWidget):
         if self.model is not None:
             return self.model.tgh
         return None
-
-    def set_fault_label_string(self, string):
-        self.label_fault_string.setText(bold_string(f"{string}", "red"))
 
     def expand_all_button_clicked(self):
         """Expand the whole treeview"""

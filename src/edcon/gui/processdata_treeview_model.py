@@ -4,7 +4,7 @@ from dataclasses import fields
 
 # pylint: disable=import-error, no-name-in-module
 from PyQt5.QtGui import QStandardItem, QStandardItemModel
-from PyQt5.QtCore import Qt, QTimer
+from PyQt5.QtCore import Qt
 
 from edcon.utils.logging import Logging
 from edcon.profidrive.words import BitwiseWord
@@ -13,28 +13,28 @@ from edcon.profidrive.words import BitwiseWord
 class ProcessDataTreeViewModel(QStandardItemModel):
     """Defines the process data treeview model."""
 
-    def __init__(self, tgh, set_fault_string_func):
+    def __init__(self, tgh):
         super().__init__()
         if tgh is None:
             raise ValueError("tgh cannot be None")
 
-        self.set_fault_string_func = set_fault_string_func
         self.setColumnCount(3)
         self.tgh = tgh
         self.dataChanged.connect(self.on_data_changed)
-
-        self.timer = QTimer(self)
-        self.timer.timeout.connect(self.update_input_tree)
-        self.timer.start(100)
 
         self.populate()
 
     def clear(self):
         """Clears the treeview."""
         super().clear()
-        self.timer.stop()
         self.tgh.shutdown()
         self.tgh = None
+
+    def fault_string(self):
+        """Returns the fault string."""
+        if self.tgh is not None and self.tgh.telegram.zsw1.fault_present:
+            return self.tgh.fault_string()
+        return ""
 
     def word_names(self, word_list):
         """Returns a list of names of words provided in word_list.
@@ -147,31 +147,27 @@ class ProcessDataTreeViewModel(QStandardItemModel):
 
         self.layoutChanged.emit()
 
-    def update_input_tree(self):
-        """Updates the content of inputs tree"""
-        self.tgh.update_inputs()
-
-        self.update_bitwise_words()
-        input_word_items = [
-            self.input_root_item.child(idx)
-            for idx in range(self.input_root_item.rowCount())
+    def update_bitwise_words(self):
+        output_word_items = [
+            [
+                self.output_root_item.child(ridx, cidx)
+                for cidx in range(self.output_root_item.columnCount())
+            ]
+            for ridx in range(self.output_root_item.rowCount())
         ]
-        for word_item in input_word_items:
-            input_items = [word_item.child(row) for row in range(word_item.rowCount())]
-            for item in input_items:
-                word_name = word_item.text()
-                word = getattr(self.tgh.telegram, word_name)
-                if self.is_bitwise_word(word_name):
-                    item_value = getattr(word, item.text())
-                    if item_value:
-                        item.setCheckState(Qt.PartiallyChecked)
-                    else:
-                        item.setCheckState(Qt.Unchecked)
-                else:
-                    item_value = getattr(word, "value")
-                    input_value = item.parent().child(item.row(), 1)
-                    input_value.setText(f"{item_value}")
-        self.layoutChanged.emit()
+        input_word_items = [
+            [
+                self.input_root_item.child(ridx, cidx)
+                for cidx in range(self.input_root_item.columnCount())
+            ]
+            for ridx in range(self.input_root_item.rowCount())
+        ]
+        for word_item in output_word_items + input_word_items:
+            word_name = word_item[0].text()
+            word = getattr(self.tgh.telegram, word_name)
+            if self.is_bitwise_word(word_name):
+                word_item[1].setText(hex(int(word)))
+                word_item[2].setText(bin(int(word)))
 
     def on_data_changed(self, index):
         """Item changed callback for handling item changed events
@@ -179,11 +175,6 @@ class ProcessDataTreeViewModel(QStandardItemModel):
         Parameters:
             index (QModelIndex): Index of the item that changed
         """
-
-        if self.tgh.telegram.zsw1.fault_present:
-            self.set_fault_string_func(self.tgh.fault_string())
-        else:
-            self.set_fault_string_func("")
 
         # Ignore if item is not a child of Outputs
         if index.parent().parent() != self.output_root_item.index():
@@ -212,24 +203,28 @@ class ProcessDataTreeViewModel(QStandardItemModel):
         )
         self.tgh.update_outputs()
 
-    def update_bitwise_words(self):
-        output_word_items = [
-            [
-                self.output_root_item.child(ridx, cidx)
-                for cidx in range(self.output_root_item.columnCount())
-            ]
-            for ridx in range(self.output_root_item.rowCount())
-        ]
+    def update(self):
+        """Updates the content of inputs tree"""
+        self.tgh.update_inputs()
+
+        self.update_bitwise_words()
         input_word_items = [
-            [
-                self.input_root_item.child(ridx, cidx)
-                for cidx in range(self.input_root_item.columnCount())
-            ]
-            for ridx in range(self.input_root_item.rowCount())
+            self.input_root_item.child(idx)
+            for idx in range(self.input_root_item.rowCount())
         ]
-        for word_item in output_word_items + input_word_items:
-            word_name = word_item[0].text()
-            word = getattr(self.tgh.telegram, word_name)
-            if self.is_bitwise_word(word_name):
-                word_item[1].setText(hex(int(word)))
-                word_item[2].setText(bin(int(word)))
+        for word_item in input_word_items:
+            input_items = [word_item.child(row) for row in range(word_item.rowCount())]
+            for item in input_items:
+                word_name = word_item.text()
+                word = getattr(self.tgh.telegram, word_name)
+                if self.is_bitwise_word(word_name):
+                    item_value = getattr(word, item.text())
+                    if item_value:
+                        item.setCheckState(Qt.PartiallyChecked)
+                    else:
+                        item.setCheckState(Qt.Unchecked)
+                else:
+                    item_value = getattr(word, "value")
+                    input_value = item.parent().child(item.row(), 1)
+                    input_value.setText(f"{item_value}")
+        self.layoutChanged.emit()

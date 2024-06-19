@@ -7,7 +7,7 @@ from PyQt5.QtWidgets import (
     QGraphicsTextItem,
     QGraphicsPathItem,
 )
-from PyQt5.QtCore import QRectF, QTimer, QPointF, Qt
+from PyQt5.QtCore import QRectF, QPointF
 from PyQt5.QtGui import QPen, QBrush, QColor, QPainterPath
 
 # Constants for dimensions and colors
@@ -33,10 +33,6 @@ class StateDiagram(QGraphicsScene):
         self.setSceneRect(0, 0, SCENE_WIDTH, SCENE_HEIGHT)
         self.setup_states()
         self.setup_arrows()
-
-        self.timer = QTimer()
-        self.timer.timeout.connect(self.update_active_state)
-        self.timer.start(100)
 
     def setup_states(self):
         """Sets up and adds labeled state rectangles to the scene at specified positions"""
@@ -163,7 +159,7 @@ class StateDiagram(QGraphicsScene):
             self.add_arrow(start, end, left, condition_right)
             self.add_arrow(end, start, condition_left, right)
 
-    def update_active_state(self):
+    def update(self):
         """Update the active state in state diagram
 
         Parameters:
