@@ -51,8 +51,10 @@ class ProcessDataTab(QWidget):
             self.label_fault_string.setText(
                 bold_string(f"{self.model.fault_string()}", "red")
             )
-        if self.scene is not None:
-            self.scene.update()
+            if self.scene is not None:
+                self.scene.update(
+                    self.model.tgh.telegram.stw1, self.model.tgh.telegram.zsw1
+                )
 
     def select_telegramhandler(self):
         """Select a Telegram handler from the combobox."""
@@ -72,19 +74,12 @@ class ProcessDataTab(QWidget):
         self.treeView.setModel(self.model)
         self.treeView.header().setSectionResizeMode(0, QHeaderView.ResizeToContents)
 
-        self.scene = StateDiagram(
-            self.get_telegram_handler,
-        )
+        self.scene = StateDiagram()
         self.graphicsView.setVisible(False)
         self.graphicsView.setScene(self.scene)
         self.graphicsView.setSceneRect(self.scene.sceneRect())
         self.graphicsView.setHorizontalScrollBarPolicy(Qt.ScrollBarAsNeeded)
         self.graphicsView.setVerticalScrollBarPolicy(Qt.ScrollBarAsNeeded)
-
-    def get_telegram_handler(self):
-        if self.model is not None:
-            return self.model.tgh
-        return None
 
     def expand_all_button_clicked(self):
         """Expand the whole treeview"""

@@ -25,10 +25,8 @@ class StateDiagram(QGraphicsScene):
 
     def __init__(
         self,
-        get_tgh_func,
     ):
         super().__init__()
-        self.get_tgh_func = get_tgh_func
         self.current_state = None
         self.setSceneRect(0, 0, SCENE_WIDTH, SCENE_HEIGHT)
         self.setup_states()
@@ -159,17 +157,13 @@ class StateDiagram(QGraphicsScene):
             self.add_arrow(start, end, left, condition_right)
             self.add_arrow(end, start, condition_left, right)
 
-    def update(self):
+    def update(self, bit_word_stw1, bit_word_zsw1):
         """Update the active state in state diagram
 
         Parameters:
-            current_state(int): value for the state diagram
+            bit_word_stw1(): bitwise word with attributes
+            bit_word_zsw1(): bitwise word with attributes
         """
-        tgh = self.get_tgh_func()
-        if not tgh:
-            return
-        bit_word_stw1 = tgh.telegram.stw1
-        bit_word_zsw1 = tgh.telegram.zsw1
         stw1_bit0 = getattr(bit_word_stw1, "on")
         stw1_bit1 = getattr(bit_word_stw1, "no_coast_stop")
         stw1_bit2 = getattr(bit_word_stw1, "no_quick_stop")
