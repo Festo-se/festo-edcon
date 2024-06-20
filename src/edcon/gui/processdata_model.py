@@ -109,7 +109,7 @@ class ProcessDataModel(QStandardItemModel):
             item.setCheckable(False)
         root.appendRow(item)
 
-    def append_value_word_item(self, root, name, value, readonly=False):
+    def append_value_word_item(self, root,word, value, readonly=False):
         """Append value word item to provided root.
 
         Parameters:
@@ -118,12 +118,10 @@ class ProcessDataModel(QStandardItemModel):
             value(bool): value of bit item
             readonly(bool): read only
         """
-        item = QStandardItem(f"{name}:")
-        item.setFlags(Qt.NoItemFlags)
         value_item = QStandardItem(f"{str(value)}")
         if readonly:
             value_item.setFlags(Qt.NoItemFlags)
-        root.appendRow([item, value_item])
+        root.appendRow([word, value_item])
 
     def append_word_item(self, root, name, readonly=False):
         """Append word item to provided root.
@@ -141,11 +139,12 @@ class ProcessDataModel(QStandardItemModel):
         hex_string_item.setFlags(Qt.NoItemFlags)
         bin_string_item = QStandardItem(bin(int(word)))
         bin_string_item.setFlags(Qt.NoItemFlags)
-
+        
         if self.is_bitwise_word(name):
             root.appendRow([word_item, hex_string_item, bin_string_item])
         else:
-            root.appendRow(word_item)
+           value = getattr(word, "value")
+           self.append_value_word_item(root, word_item, value, readonly)
 
         item_name_list = [x.name for x in fields(word)]
 
@@ -155,11 +154,6 @@ class ProcessDataModel(QStandardItemModel):
                 self.append_bitwise_word_item(
                     word_item, item_name, item_value, readonly
                 )
-            else:
-                # Skip byte_size field
-                if item_name == "byte_size":
-                    continue
-                self.append_value_word_item(word_item, item_name, item_value, readonly)
 
     def populate(self):
         """Populates a treeview model using the respective telegram handler"""
@@ -207,26 +201,29 @@ class ProcessDataModel(QStandardItemModel):
             index (QModelIndex): Index of the item that changed
         """
 
-        # Ignore if item is not a child of Outputs
-        if index.parent().parent() != self.output_root_item.index():
-            return
-
         item = self.itemFromIndex(index)
+
+        if item.text().isdigit():
+            # Ignore if item is not a child of Outputs
+            if index.parent() != self.output_root_item.index():
+                return
+            word_name = item.parent().child(item.row(), 0).text()
+            item_name = "value"
+            new_value = int(item.text())
+        else:
+            # Ignore if item is not a child of Outputs
+            if index.parent().parent() != self.output_root_item.index():
+                return
+            word_name = item.parent().text()
+            item_name = item.text()
+            new_value = item.checkState() != Qt.Unchecked
 
         # True if PartiallyChecked, False otherwise
         if item.checkState() == Qt.Checked:
             item.setCheckState(Qt.Unchecked)
             return
 
-        word_name = item.parent().text()
         word = getattr(self.tgh.telegram, word_name)
-        if self.is_bitwise_word(word_name):
-            item_name = item.text()
-            new_value = item.checkState() != Qt.Unchecked
-        else:
-            item_name = "value"
-            new_value = int(item.text())
-
         setattr(word, item_name, new_value)
         self.update_bitwise_words()
         Logging.logger.info(
@@ -245,17 +242,18 @@ class ProcessDataModel(QStandardItemModel):
         ]
         for word_item in input_word_items:
             input_items = [word_item.child(row) for row in range(word_item.rowCount())]
-            for item in input_items:
-                word_name = word_item.text()
-                word = getattr(self.tgh.telegram, word_name)
-                if self.is_bitwise_word(word_name):
-                    item_value = getattr(word, item.text())
-                    if item_value:
-                        item.setCheckState(Qt.PartiallyChecked)
-                    else:
-                        item.setCheckState(Qt.Unchecked)
-                else:
-                    item_value = getattr(word, "value")
-                    input_value = item.parent().child(item.row(), 1)
-                    input_value.setText(f"{item_value}")
+            word_name = word_item.text()
+            word = getattr(self.tgh.telegram, word_name)
+            if self.is_bitwise_word(word_name):
+                for item in input_items:
+                        item_value = getattr(word, item.text())
+                        if item_value:
+                            item.setCheckState(Qt.PartiallyChecked)
+                        else:
+                            item.setCheckState(Qt.Unchecked)
+            else:
+                item_value = getattr(word, "value")
+                input_value = word_item.parent().child(word_item.row(), 1)
+                input_value.setText(f"{item_value}")
+
         self.layoutChanged.emit()
