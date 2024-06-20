@@ -1,6 +1,7 @@
-"""Model for the processdata treeview."""
+"""Model for the processdata."""
 
 from dataclasses import fields
+from enum import Enum
 
 # pylint: disable=import-error, no-name-in-module
 from PyQt5.QtGui import QStandardItem, QStandardItemModel
@@ -10,8 +11,16 @@ from edcon.utils.logging import Logging
 from edcon.profidrive.words import BitwiseWord
 
 
-class ProcessDataTreeViewModel(QStandardItemModel):
-    """Defines the process data treeview model."""
+class BasicState(Enum):
+    SWITCHING_ON_INHIBITED = 0
+    READY_FOR_SWITCHING_ON = 1
+    SWITCHED_ON = 2
+    OPERATION = 3
+    UNDEFINED = 7
+
+
+class ProcessDataModel(QStandardItemModel):
+    """Defines the process data model."""
 
     def __init__(self, tgh):
         super().__init__()
@@ -35,6 +44,28 @@ class ProcessDataTreeViewModel(QStandardItemModel):
         if self.tgh is not None and self.tgh.telegram.zsw1.fault_present:
             return self.tgh.fault_string()
         return ""
+
+    def basic_state(self):
+        stw1 = [
+            self.tgh.telegram.stw1.on,
+            self.tgh.telegram.stw1.no_coast_stop,
+            self.tgh.telegram.stw1.no_quick_stop,
+            self.tgh.telegram.stw1.enable_operation,
+        ]
+
+        if (
+            self.tgh.telegram.zsw1.fault_present
+            or not self.tgh.telegram.zsw1.ready_to_switch_on
+        ):
+            return BasicState.SWITCHING_ON_INHIBITED
+        elif not stw1[0] and stw1[1] and stw1[2]:
+            return BasicState.READY_FOR_SWITCHING_ON
+        elif stw1[0] and stw1[1] and stw1[2] and not stw1[3]:
+            return BasicState.SWITCHED_ON
+        elif stw1[0] and stw1[1] and stw1[2] and stw1[3]:
+            return BasicState.OPERATION
+
+        return BasicState.SWITCHING_ON_INHIBITED
 
     def word_names(self, word_list):
         """Returns a list of names of words provided in word_list.

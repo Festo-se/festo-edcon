@@ -27,7 +27,6 @@ class StateDiagram(QGraphicsScene):
         self,
     ):
         super().__init__()
-        self.current_state = None
         self.setSceneRect(0, 0, SCENE_WIDTH, SCENE_HEIGHT)
         self.setup_states()
         self.setup_arrows()
@@ -157,37 +156,15 @@ class StateDiagram(QGraphicsScene):
             self.add_arrow(start, end, left, condition_right)
             self.add_arrow(end, start, condition_left, right)
 
-    def update(self, bit_word_stw1, bit_word_zsw1):
+    def update(self, current_state):
         """Update the active state in state diagram
 
         Parameters:
-            bit_word_stw1(): bitwise word with attributes
-            bit_word_zsw1(): bitwise word with attributes
+            current_state: State to be set as active
         """
-        stw1_bit0 = getattr(bit_word_stw1, "on")
-        stw1_bit1 = getattr(bit_word_stw1, "no_coast_stop")
-        stw1_bit2 = getattr(bit_word_stw1, "no_quick_stop")
-        stw1_bit3 = getattr(bit_word_stw1, "enable_operation")
-        zsw1_bit0 = getattr(bit_word_zsw1, "ready_to_switch_on")
-        zsw1_bit3 = getattr(bit_word_zsw1, "fault_present")
-
-        if not zsw1_bit3:
-            if zsw1_bit0:
-                if not stw1_bit0 and (not stw1_bit1 or not stw1_bit2):
-                    self.current_state = 0
-                elif not stw1_bit0 and stw1_bit1 and stw1_bit2:
-                    self.current_state = 1
-                elif stw1_bit0 and stw1_bit1 and stw1_bit2 and not stw1_bit3:
-                    self.current_state = 2
-                elif stw1_bit0 and stw1_bit1 and stw1_bit2 and stw1_bit3:
-                    self.current_state = 3
-            else:
-                self.current_state = 0
-        else:
-            self.current_state = 7  # fault present
 
         for state in self.states:
             state.setBrush(QBrush(QColor(STATE_COLOR)))
 
-        if 0 <= self.current_state < len(self.states):
-            self.states[self.current_state].setBrush(QBrush(QColor("light blue")))
+        if 0 <= current_state < len(self.states):
+            self.states[current_state].setBrush(QBrush(QColor("light blue")))

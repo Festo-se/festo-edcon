@@ -12,7 +12,7 @@ from edcon.edrive.telegram9_handler import Telegram9Handler
 from edcon.edrive.telegram102_handler import Telegram102Handler
 from edcon.edrive.telegram111_handler import Telegram111Handler
 
-from edcon.gui.processdata_treeview_model import ProcessDataTreeViewModel
+from edcon.gui.processdata_model import ProcessDataModel
 from edcon.gui.state_diagram import StateDiagram
 from edcon.gui.pyqt_helpers import bold_string
 
@@ -52,9 +52,7 @@ class ProcessDataTab(QWidget):
                 bold_string(f"{self.model.fault_string()}", "red")
             )
             if self.scene is not None:
-                self.scene.update(
-                    self.model.tgh.telegram.stw1, self.model.tgh.telegram.zsw1
-                )
+                self.scene.update(self.model.basic_state().value)
 
     def select_telegramhandler(self):
         """Select a Telegram handler from the combobox."""
@@ -68,7 +66,7 @@ class ProcessDataTab(QWidget):
             return
 
         com = self.get_com_function()
-        self.model = ProcessDataTreeViewModel(
+        self.model = ProcessDataModel(
             self.selection_dict[selected_item_name](com, config_mode="write"),
         )
         self.treeView.setModel(self.model)
