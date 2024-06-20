@@ -256,7 +256,7 @@ class ComModbus(ComBase):
             Logging.logger.error("Could not access PNU register")
             return False
 
-    def connected(self):
+    def io_active(self):
         """Provides information about connection status."""
         return self.io_thread.active
 

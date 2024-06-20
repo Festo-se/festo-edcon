@@ -133,7 +133,7 @@ class ComEthernetip(ComBase):
         )
         return True
 
-    def connected(self):
+    def io_active(self):
         """Provides information about connection status."""
         return self.eip.io_state and self.connection.prod_state
 
