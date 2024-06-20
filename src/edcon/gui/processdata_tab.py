@@ -16,6 +16,19 @@ from edcon.gui.processdata_model import ProcessDataModel
 from edcon.gui.state_diagram import StateDiagram
 from edcon.gui.pyqt_helpers import bold_string
 
+class ExtraWindow(QWidget):
+    def __init__(self):
+        super().__init__()
+        loadUi(PurePath(files("edcon") / "gui" / "ui" / "graphicsView_extra_window.ui"), self)
+        self.scene = None
+
+    def set_scene(self):
+        self.scene = StateDiagram()
+        self.graphicsView.setVisible(True)
+        self.graphicsView.setScene(self.scene)
+        self.graphicsView.setSceneRect(self.scene.sceneRect())
+        self.graphicsView.setHorizontalScrollBarPolicy(Qt.ScrollBarAsNeeded)
+        self.graphicsView.setVerticalScrollBarPolicy(Qt.ScrollBarAsNeeded)
 
 class ProcessDataTab(QWidget):
     """Defines the process data tab."""
@@ -23,11 +36,10 @@ class ProcessDataTab(QWidget):
     def __init__(self, get_com_function):
         super().__init__()
         loadUi(PurePath(files("edcon") / "gui" / "ui" / "processdata_tab.ui"), self)
+        self.extra_window = ExtraWindow()
         self.get_com_function = get_com_function
 
         self.model = None
-        self.scene = None
-
         self.comboBox.currentIndexChanged.connect(self.select_telegramhandler)
 
         self.expand_button.clicked.connect(self.expand_all_button_clicked)
@@ -51,8 +63,8 @@ class ProcessDataTab(QWidget):
             self.label_fault_string.setText(
                 bold_string(f"{self.model.fault_string()}", "red")
             )
-            if self.scene is not None:
-                self.scene.update(self.model.basic_state().value)
+            if self.extra_window.scene is not None:
+                self.extra_window.scene.update(self.model.basic_state().value)
 
     def select_telegramhandler(self):
         """Select a Telegram handler from the combobox."""
@@ -72,17 +84,11 @@ class ProcessDataTab(QWidget):
         self.treeView.setModel(self.model)
         self.treeView.header().setSectionResizeMode(0, QHeaderView.ResizeToContents)
 
-        self.scene = StateDiagram()
-        self.graphicsView.setVisible(False)
-        self.graphicsView.setScene(self.scene)
-        self.graphicsView.setSceneRect(self.scene.sceneRect())
-        self.graphicsView.setHorizontalScrollBarPolicy(Qt.ScrollBarAsNeeded)
-        self.graphicsView.setVerticalScrollBarPolicy(Qt.ScrollBarAsNeeded)
-
     def expand_all_button_clicked(self):
         """Expand the whole treeview"""
         self.treeView.expandAll()
 
     def toggle_graphicview(self):
         """Toggle graphicview button callback"""
-        self.graphicsView.setVisible(not self.graphicsView.isVisible())
+        self.extra_window.set_scene()
+        self.extra_window.show()
