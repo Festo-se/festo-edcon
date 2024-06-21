@@ -44,7 +44,7 @@ class TelegramHandler:
 
     def update_inputs(self):
         """Reads current input process data and updates telegram"""
-        if not self.com.connected():
+        if not self.com.io_active():
             raise ConnectionError("Connection of communication driver was interrupted")
 
         self.telegram.input_bytes(self.com.recv_io())

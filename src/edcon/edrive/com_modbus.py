@@ -87,17 +87,15 @@ class ComModbus(ComBase):
         """
         self.cycle_time = cycle_time
 
-        Logging.logger.info(f"Starting Modbus connection on {ip_address}")
-        self.modbus_client = ModbusClient(ip_address)
-        self.modbus_client.connect()
-
-        self.device_info = self.read_device_info()
-
         self.in_data = b"\x00" * IO_DATA_SIZE
         self.out_data = b"\x00" * IO_DATA_SIZE
-
-        self.set_timeout(timeout_ms)
         self.io_thread = None
+
+        Logging.logger.info(f"Starting Modbus connection on {ip_address}")
+        self.modbus_client = ModbusClient(ip_address)
+        if self.modbus_client.connect():
+            self.device_info = self.read_device_info()
+            self.set_timeout(timeout_ms)
 
     def __del__(self):
         self.shutdown()
@@ -110,6 +108,10 @@ class ComModbus(ComBase):
                 self.io_thread.join()
         if hasattr(self, "modbus_client"):
             self.modbus_client.close()
+
+    def connected(self):
+        """Provides information about connection status."""
+        return self.modbus_client.connected
 
     def read_device_info(self) -> dict:
         """Reads device info from the CMMT and returns dict with containing values
@@ -254,7 +256,7 @@ class ComModbus(ComBase):
             Logging.logger.error("Could not access PNU register")
             return False
 
-    def connected(self):
+    def io_active(self):
         """Provides information about connection status."""
         return self.io_thread.active
 

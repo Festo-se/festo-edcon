@@ -1,6 +1,7 @@
 """CLI Tool that distributes subcommands"""
 
 import logging
+import argparse
 from edcon.cli.position import add_position_parser
 from edcon.cli.pnu import add_pnu_parser
 from edcon.cli.parameter_set_load import add_parameter_set_load_parser
@@ -9,12 +10,25 @@ from edcon.cli.tg9 import add_tg9_parser
 from edcon.cli.tg102 import add_tg102_parser
 from edcon.cli.tg111 import add_tg111_parser
 from edcon.utils.logging import Logging
-from edcon.utils.parser import Parser
+
+# pylint: disable=duplicate-code
+# CLI and GUI have similar options
 
 
 def main():
     """Parses command line arguments and calls corresponding subcommand program."""
-    parser = Parser()
+    parser = argparse.ArgumentParser()
+
+    parser.add_argument(
+        "-i",
+        "--ip-address",
+        default="192.168.0.1",
+        help="IP address to connect to (default: %(default)s).",
+    )
+
+    parser.add_argument(
+        "-q", "--quiet", action="store_true", help="suppress output verbosity"
+    )
 
     # Bus specific options
     parser.add_argument(

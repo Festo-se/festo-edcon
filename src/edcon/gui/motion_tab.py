@@ -9,12 +9,8 @@ from PyQt5.QtWidgets import QWidget
 from PyQt5.QtCore import QTimer
 from PyQt5.uic import loadUi
 from edcon.edrive.motion_handler import MotionHandler
-from edcon.utils.logging import Logging
 from edcon.gui.pyqt_helpers import bold_string
 from edcon.gui.toggle_button_model import ToggleButtonModel
-
-# Enable loglevel info
-Logging()
 
 
 class MotionTab(QWidget):
@@ -30,13 +26,13 @@ class MotionTab(QWidget):
         self.position_scaling = None
         self.velocity_scaling = None
 
-        self.timer = QTimer(self)
-        self.timer.timeout.connect(self.update_functions)
-        self.timer.start(100)
-
         self.toggle_button = ToggleButtonModel()
         self.horizontalLayout_2.insertWidget(0, self.toggle_button)
         self.toggle_button.toggledState.connect(self.on_powerstage_toggled)
+
+        self.timer = QTimer(self)
+        self.timer.timeout.connect(self.update_functions)
+        self.timer.start(100)
 
     def update_functions(self):
         """Updates the content of display labels"""
