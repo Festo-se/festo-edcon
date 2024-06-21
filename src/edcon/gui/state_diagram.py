@@ -11,7 +11,7 @@ from PyQt5.QtCore import QRectF, QPointF
 from PyQt5.QtGui import QPen, QBrush, QColor, QPainterPath
 
 # Constants for dimensions and colors
-SCENE_WIDTH, SCENE_HEIGHT = 800, 775
+SCENE_WIDTH, SCENE_HEIGHT = 400, 775
 STATE_WIDTH, STATE_HEIGHT = 200, 80
 STATE_COLOR = "white"
 TEXT_OFFSET_X, TEXT_OFFSET_Y = 100, 40
@@ -44,7 +44,7 @@ class StateDiagram(QGraphicsScene):
             ][i]
 
             if label not in ("S52: Quick Stop", "S51: Ramp Stop"):
-                pos = QPointF(300, i * (STATE_HEIGHT + vertical_spacing))
+                pos = QPointF(100, i * (STATE_HEIGHT + vertical_spacing))
                 state = QGraphicsRectItem(QRectF(0, 0, STATE_WIDTH, STATE_HEIGHT))
                 state.setPos(pos)
                 state.setBrush(QBrush(QColor(STATE_COLOR)))
@@ -117,16 +117,16 @@ class StateDiagram(QGraphicsScene):
         """ ""Setup the positions for the arrows"""
         arrow_positions = [
             (
-                (300 + STATE_WIDTH / 2, STATE_HEIGHT + 150 - ARROW_HEAD_HEIGHT),
-                (300 + STATE_WIDTH / 2, STATE_HEIGHT),
+                (100 + STATE_WIDTH / 2, STATE_HEIGHT + 150 - ARROW_HEAD_HEIGHT),
+                (100 + STATE_WIDTH / 2, STATE_HEIGHT),
             ),
             (
-                (300 + STATE_WIDTH / 2, STATE_HEIGHT * 2 + 300 - ARROW_HEAD_HEIGHT),
-                (300 + STATE_WIDTH / 2, STATE_HEIGHT * 2 + 150),
+                (100 + STATE_WIDTH / 2, STATE_HEIGHT * 2 + 300 - ARROW_HEAD_HEIGHT),
+                (100 + STATE_WIDTH / 2, STATE_HEIGHT * 2 + 150),
             ),
             (
-                (300 + STATE_WIDTH / 2, STATE_HEIGHT * 3 + 450 - ARROW_HEAD_HEIGHT),
-                (300 + STATE_WIDTH / 2, STATE_HEIGHT * 3 + 300),
+                (100 + STATE_WIDTH / 2, STATE_HEIGHT * 3 + 450 - ARROW_HEAD_HEIGHT),
+                (100 + STATE_WIDTH / 2, STATE_HEIGHT * 3 + 300),
             ),
         ]
         conditions_left = [

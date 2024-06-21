@@ -165,7 +165,7 @@ QPushButton:pressed {
 }</string>
             </property>
             <property name="text">
-             <string>show graphic</string>
+             <string>state diagram</string>
             </property>
            </widget>
           </item>
