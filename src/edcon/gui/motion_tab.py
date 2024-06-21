@@ -9,7 +9,6 @@ from PyQt5.QtWidgets import QWidget
 from PyQt5.QtCore import QTimer
 from PyQt5.uic import loadUi
 from edcon.edrive.motion_handler import MotionHandler
-from edcon.utils.logging import Logging
 from edcon.gui.pyqt_helpers import bold_string
 from edcon.gui.toggle_button_model import ToggleButtonModel
 

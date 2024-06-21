@@ -1,14 +1,28 @@
 """CLI tool starts the gui"""
 
 import logging
+import argparse
 from edcon.gui.gui import start_gui
 from edcon.utils.logging import Logging
-from edcon.utils.parser import Parser
+
+# pylint: disable=duplicate-code
+# CLI and GUI have similar options
 
 
 def main():
     """Parses command line arguments and calls corresponding subcommand program."""
-    parser = Parser()
+    parser = argparse.ArgumentParser()
+
+    parser.add_argument(
+        "-i",
+        "--ip-address",
+        default="192.168.0.1",
+        help="IP address to connect to (default: %(default)s).",
+    )
+
+    parser.add_argument(
+        "-q", "--quiet", action="store_true", help="suppress output verbosity"
+    )
 
     args = parser.parse_args()
 

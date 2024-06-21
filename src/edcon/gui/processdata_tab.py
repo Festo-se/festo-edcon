@@ -16,10 +16,14 @@ from edcon.gui.processdata_model import ProcessDataModel
 from edcon.gui.state_diagram import StateDiagram
 from edcon.gui.pyqt_helpers import bold_string
 
+
 class ExtraWindow(QWidget):
     def __init__(self):
         super().__init__()
-        loadUi(PurePath(files("edcon") / "gui" / "ui" / "graphicsView_extra_window.ui"), self)
+        loadUi(
+            PurePath(files("edcon") / "gui" / "ui" / "graphicsView_extra_window.ui"),
+            self,
+        )
         self.scene = None
 
     def set_scene(self):
@@ -29,6 +33,7 @@ class ExtraWindow(QWidget):
         self.graphicsView.setSceneRect(self.scene.sceneRect())
         self.graphicsView.setHorizontalScrollBarPolicy(Qt.ScrollBarAsNeeded)
         self.graphicsView.setVerticalScrollBarPolicy(Qt.ScrollBarAsNeeded)
+
 
 class ProcessDataTab(QWidget):
     """Defines the process data tab."""
