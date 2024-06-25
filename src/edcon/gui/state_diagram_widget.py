@@ -23,6 +23,7 @@ class StateDiagramWidget(QWidget):
         self.view_box = StateDiagram()
         graphic_widget = pg.GraphicsLayoutWidget()
         graphic_widget.addItem(self.view_box)
+        graphic_widget.setBackground("w")
         self.verticalLayout.addWidget(graphic_widget)
 
     def update(self, current_state):
