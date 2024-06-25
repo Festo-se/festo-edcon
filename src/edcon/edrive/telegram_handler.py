@@ -51,7 +51,7 @@ class TelegramHandler:
 
     def update_outputs(self):
         """Writes current telegram value to output process data"""
-        if not self.com.connected():
+        if not self.com.io_active():
             raise ConnectionError("Connection of communication driver was interrupted")
 
         self.com.send_io(self.telegram.output_bytes())
