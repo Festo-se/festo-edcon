@@ -163,6 +163,7 @@ class StateDiagram(GraphicsLayoutWidget):
             scale_factor = min(self.width(), self.height()) / 900
             for state, text in self.texts.items():
                 text.setHtml(
-                    f'<div style="font-size: {14 * scale_factor}pt; color: white;">{self.states[state]["label"]}</div>'
+                    f'<div style="font-size: {14 * scale_factor}pt; \
+                            color: white;">{self.states[state]["label"]}</div>'
                 )
         super().resizeEvent(ev)
