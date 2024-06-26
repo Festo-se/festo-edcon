@@ -24,7 +24,7 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-gui = ['pyqt5']
+gui = ['pyqt5','pyqtgraph']
 
 [project.urls]
 Documentation = "https://festo-research.gitlab.io/electric-automation/festo-edcon"
