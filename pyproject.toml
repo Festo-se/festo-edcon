@@ -25,26 +25,7 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-gui = [
-    "pyqt5"
-]
-
-[dependency-groups]
-dev = [
-    "black",
-    "myst-parser",
-    "pylint",
-    "pytest",
-    "pytest-cov",
-    "pytest-mock",
-    "setuptools",
-    "sphinx",
-    "sphinx-rtd-theme"
-]
-
-[project.scripts]
-festo-edcon = "edcon.cli.cli:main"
-festo-edcon-gui = "edcon.cli.gui:main" 
+gui = ['pyqt5','pyqtgraph']
 
 [project.urls]
 Documentation = "https://festo-research.gitlab.io/electric-automation/festo-edcon"
