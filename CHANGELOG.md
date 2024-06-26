@@ -5,67 +5,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## Unreleased
-## v1.0.0 - 27.03.26
 ### Changed
-- Move pipeline to github actions
-- Added example for travel-to-fix-stop
-
-### Added
-- Added icp and pnu maps for v36.12.0
-
-## v0.15.0 - 07.11.25
-### Changed
-- Upgrade to python 3.10
-- bump setuptools version
-- bump rich version
-- bump pymodbus version
-- catch newly created ConnectionExceptions from the pymodbus library to allow retries
-- Added thread lock to enable simultaneous I/O operation and PNU access
-- Added record table example
-
-## v0.14.12 - 25.06.25
-### Changed
-- Updated ICP and PNU lists for firmware version 36.10.4
-
-## v0.14.11 - 24.04.25
-### Fixed
-- Fixed in/output size mixup in ComEthernetip
-- Fixed bug where motion tasks would block forever when drive loses operational state
-
-### Changed
-- Use pipeline template
-
-## v0.14.10 - 30.10.24
-### Fixed
-- Fixed issue due to breaking changes by pymodbus 3.7.4
-
-### Changed
-- Increased timeout for enabling powerstage to 10.0 seconds (needed in case of commutation angle search)
-
-## v0.14.9 - 29.08.24
-### Fixed
-- ComModbus: Remove io_thread.join() since apparently not needed and may cause problems.
-
-## v0.14.8 - 29.08.24
-### Fixed
-- Update pymodbus version to 3.7.0
-
-## v0.14.7 - 25.07.24
-### Changed
-- GUI: Realigned buttons and optimized button logic.
-- GUI: Tab change resets tab contents.
-
-## v0.14.6 - 19.07.24
-### Removed
-- Removed Festo logo.
-
-## v0.14.5 - 11.07.24
-### Fixed
-- Telegram111Handler: Fixed bug where bit is not correctly reconfigured after previous motion task (i.e. pos_stw1:mdi_active)
-
-## v0.14.4 - 08.07.24
-### Added
-- Added example for loading parameter set
+- GUI: Use pyqtgraph for state diagram
 
 ## v0.14.3 - 25.06.24
 ### Fixed
