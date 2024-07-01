@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>processdataTab</class>
+ <widget class="QWidget" name="processdataTab">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>512</width>
+    <height>506</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout_2">
+   <item>
+    <widget class="QWidget" name="centralwidget_3" native="true">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="autoFillBackground">
+      <bool>false</bool>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QWidget{background-color:rgb(235, 235, 235);
+color:black}</string>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_3">
+      <item>
+       <layout class="QVBoxLayout" name="verticalLayout">
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_3">
+          <item>
+           <widget class="QLabel" name="label">
+            <property name="text">
+             <string>Plot Parameter with pnu</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="plot_parameter_lineEdit">
+            <property name="styleSheet">
+             <string notr="true">QLineEdit {
+    border: 2px solid #B0BEC5; /* Hellgrauer Rand */
+    border-radius: 8px; /* Abgerundete Ecken */
+    padding: 2px; /* Innenabstand für Text */
+    background-color: white; /* Helle Hintergrundfarbe */
+    color: #37474F; /* Dunkelgraue Schriftfarbe */
+}
+
+QLineEdit:hover {
+    border-color: #78909C; /* Dunklerer Rand beim Darüberfahren */
+}</string>
+            </property>
+            <property name="inputMask">
+             <string>00000000</string>
+            </property>
+            <property name="text">
+             <string>3490</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="plot_button">
+            <property name="styleSheet">
+             <string notr="true">QPushButton {
+    background-color: rgb(0, 170, 255);
+    color: white; /* Weiße Schrift */
+    border-style: solid;
+    border-width: 2px;
+    border-radius: 10px; /* Abgerundete Ecken */
+    border-color: #0056b3; /* Dunkleres Blau für den Rand */
+
+    min-width: 80px; /* Minimale Breite des Buttons */
+    min-height: 30px; /* Minimale Höhe des Buttons */
+}
+
+QPushButton:hover {
+    background-color: #0056b3; /* Dunkleres Blau beim Darüberfahren */
+}
+
+QPushButton:pressed {
+    background-color: #004099; /* Noch dunkleres Blau beim Klicken */
+}</string>
+            </property>
+            <property name="text">
+             <string>Plot</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QPushButton" name="save_plot_button">
+            <property name="styleSheet">
+             <string notr="true">QPushButton {
+    background-color: rgb(0, 170, 255);
+    color: white; /* Weiße Schrift */
+    border-style: solid;
+    border-width: 2px;
+    border-radius: 10px; /* Abgerundete Ecken */
+    border-color: #0056b3; /* Dunkleres Blau für den Rand */
+
+    min-width: 80px; /* Minimale Breite des Buttons */
+    min-height: 30px; /* Minimale Höhe des Buttons */
+}
+
+QPushButton:hover {
+    background-color: #0056b3; /* Dunkleres Blau beim Darüberfahren */
+}
+
+QPushButton:pressed {
+    background-color: #004099; /* Noch dunkleres Blau beim Klicken */
+}</string>
+            </property>
+            <property name="text">
+             <string>Save Plot as Image</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout"/>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_2">
+          <item>
+           <spacer name="horizontalSpacer_2">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QPushButton" name="stop_plotting_button">
+            <property name="styleSheet">
+             <string notr="true">QPushButton {
+    background-color: rgb(0, 170, 255);
+    color: white; /* Weiße Schrift */
+    border-style: solid;
+    border-width: 2px;
+    border-radius: 10px; /* Abgerundete Ecken */
+    border-color: #0056b3; /* Dunkleres Blau für den Rand */
+
+    min-width: 80px; /* Minimale Breite des Buttons */
+    min-height: 30px; /* Minimale Höhe des Buttons */
+}
+
+QPushButton:hover {
+    background-color: #0056b3; /* Dunkleres Blau beim Darüberfahren */
+}
+
+QPushButton:pressed {
+    background-color: #004099; /* Noch dunkleres Blau beim Klicken */
+}</string>
+            </property>
+            <property name="text">
+             <string>Stop plotting</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
