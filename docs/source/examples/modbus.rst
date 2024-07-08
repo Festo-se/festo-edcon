@@ -43,3 +43,8 @@ PNU Access
 --------------
 .. literalinclude:: ../../../examples/modbus/pnu_access.py
 :download:`Download Example <../../../examples/modbus/pnu_access.py>`
+
+Parameterset load
+--------------
+.. literalinclude:: ../../../examples/modbus/parameter_set_load.py
+:download:`Download Example <../../../examples/modbus/parameter_set_load.py>`
