@@ -10,6 +10,7 @@ from edcon.gui.connection_widget import ConnectionWidget
 from edcon.gui.parameter_tab import ParameterTab
 from edcon.gui.processdata_tab import ProcessDataTab
 from edcon.gui.motion_tab import MotionTab
+from edcon.gui.record_tab import RecordTab
 from edcon.edrive.com_modbus import ComModbus
 
 
@@ -34,6 +35,7 @@ class MainWindow(QMainWindow):
         self.tabWidget.addTab(
             ParameterTab(self.pnu_read_function, self.pnu_write_function), "Parameter"
         )
+        self.tabWidget.addTab(RecordTab(), "Record")
 
     @property
     def com(self):
