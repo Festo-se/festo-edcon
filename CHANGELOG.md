@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Unreleased
 ### Changed
 - GUI: Use pyqtgraph for state diagram
+### Removed
+- Removed Festo logo.
+
+## v0.14.5 - 11.07.24
+### Fixed
+- Telegram111Handler: Fixed bug where bit is not correctly reconfigured after previous motion task (i.e. pos_stw1:mdi_active)
+
+## v0.14.4 - 08.07.24
+### Added
+- Added example for loading parameter set
 
 ## v0.14.3 - 25.06.24
 ### Fixed

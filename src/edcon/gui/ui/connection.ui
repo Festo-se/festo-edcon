@@ -127,9 +127,6 @@ QPushButton:pressed {
      <property name="text">
       <string/>
      </property>
-     <property name="pixmap">
-      <pixmap>../images/festo_logo.png</pixmap>
-     </property>
      <property name="scaledContents">
       <bool>true</bool>
      </property>

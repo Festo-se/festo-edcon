@@ -265,6 +265,7 @@ class Telegram111Handler(PositionTelegramHandler):
             return False
         Logging.logger.info("Start record task")
 
+        self.telegram.pos_stw1.activate_mdi = False
         self.telegram.pos_stw1.record_table_selection0 = record_number & 1 > 0
         self.telegram.pos_stw1.record_table_selection1 = record_number & 2 > 0
         self.telegram.pos_stw1.record_table_selection2 = record_number & 4 > 0
