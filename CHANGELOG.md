@@ -5,6 +5,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## Unreleased
+## v0.14.6 - 19.07.24
+### Removed
+- Removed Festo logo.
+
 ## v0.14.5 - 11.07.24
 ### Fixed
 - Telegram111Handler: Fixed bug where bit is not correctly reconfigured after previous motion task (i.e. pos_stw1:mdi_active)
