@@ -8,6 +8,12 @@ Install via pip:
 ```
 pip install festo-edcon
 ```
+
+To install with GUI support:
+```
+pip install 'festo-edcon[gui]'
+```
+
 ### From git repo
 You can also install directly from the git repo.
 
@@ -44,19 +50,46 @@ Contains telegram definitions that are currently supported by EDrives running PR
    4. Telegram 111
 
 ### [CLI](https://festo-research.gitlab.io/electric-automation/festo-edcon/features/cli.html) - [`cli`](https://festo-research.gitlab.io/electric-automation/festo-edcon/edcon.cli.html#module-edcon.cli)
-`festo-edcon` is the main entry point to the CLI.
-It supports various subcommands which execute some basic functions.
 
-For more information use the help flag  (`festo-edcon -h`).
+#### `festo-edcon`
+Main entry point to the CLI.
+```
+usage: festo-edcon [-h] [-i IP_ADDRESS] [-q] [--ethernetip] {position,pnu,parameter-set-load,tg1,tg9,tg102,tg111} ...
 
-#### Subcommands
-- `position` is a subcommand to execute very basic positioning tasks.
-- `pnu` is a subcommnad to read or write PNUs.
-- `parameter-set-load` is a subcommand to load a complete parameter set to a drive.
-- `tg1` is a subcommnad to run a test sequence using telegram 1.
-- `tg9` is a subcommnad to run a test sequence using telegram 9.
-- `tg102` is a subcommnad to run a test sequence using telegram 102.
-- `tg111` is a subcommnad to run a test sequence using telegram 111.
+options:
+  -h, --help            show this help message and exit
+  -i IP_ADDRESS, --ip-address IP_ADDRESS
+                        IP address to connect to (default: 192.168.0.1).
+  -q, --quiet           suppress output verbosity
+  --ethernetip          use EtherNet/IP (instead of ModbusTCP) as underlying communication.
 
+subcommands:
+  {position,pnu,parameter-set-load,tg1,tg9,tg102,tg111}
+                        Subcommand that should be called
+```
 
+| Subcommand | Description |
+| -------- | ------- |
+| `position`  | execute very basic positioning tasks.    |
+| `pnu` | read or write PNUs.     |
+| `parameter-set-load`  | load a complete parameter set to a drive.    |
+| `tg1`  | run a test sequence using telegram 1.    |
+| `tg9`  | run a test sequence using telegram 9.    |
+| `tg102`  | run a test sequence using telegram 102.    |
+| `tg111`  | run a test sequence using telegram 111.    |
 
+For more information use the help flag  (`festo-edcon [subcommand] -h`).
+
+#### `festo-edcon-gui`
+Entry point to the GUI.
+```
+usage: festo-edcon-gui [-h] [-i IP_ADDRESS] [-q]
+
+options:
+  -h, --help            show this help message and exit
+  -i IP_ADDRESS, --ip-address IP_ADDRESS
+                        IP address to connect to (default: 192.168.0.1).
+  -q, --quiet           suppress output verbosity
+```
+
+For more information use the help flag  (`festo-edcon-gui -h`).
