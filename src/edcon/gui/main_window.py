@@ -36,8 +36,10 @@ class MainWindow(QMainWindow):
         )
         self.tabWidget.currentChanged.connect(self.on_tab_change)
 
-    def on_tab_change(self, index):  # changed!
-        print("Tab Index Changed!", f"Current Tab Index: {index}")
+    # pylint: disable=unused-argument
+    # PyQt API signature
+    def on_tab_change(self, index):
+        """Callback for tab change events."""
         for i in range(self.tabWidget.count()):
             self.tabWidget.widget(i).reset()
 

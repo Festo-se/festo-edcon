@@ -43,6 +43,7 @@ class ProcessDataTab(QWidget):
         self.timer.start(100)
 
     def reset(self):
+        """Reset the tab to its initial state."""
         self.comboBox.setCurrentIndex(0)
 
     def update_functions(self):

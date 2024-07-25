@@ -36,7 +36,7 @@ class ParameterTab(QWidget):
         )
 
     def reset(self):
-        pass
+        """Reset the tab to its initial state."""
 
     def on_pnu_list_filter_text_changed(self, text):
         """Updates the table view content with name filter.

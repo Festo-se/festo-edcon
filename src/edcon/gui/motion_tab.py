@@ -39,6 +39,7 @@ class MotionTab(QWidget):
         self.timer.start(100)
 
     def reset(self):
+        """Reset the tab to its initial state."""
         self.mot = None
         self.tgh = None
         self.position_scaling = None
