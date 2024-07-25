@@ -34,6 +34,14 @@ class MainWindow(QMainWindow):
         self.tabWidget.addTab(
             ParameterTab(self.pnu_read_function, self.pnu_write_function), "Parameter"
         )
+        self.tabWidget.currentChanged.connect(self.on_tab_change)
+
+    # pylint: disable=unused-argument
+    # PyQt API signature
+    def on_tab_change(self, index):
+        """Callback for tab change events."""
+        for i in range(self.tabWidget.count()):
+            self.tabWidget.widget(i).reset()
 
     @property
     def com(self):
