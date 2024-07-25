@@ -42,6 +42,9 @@ class ProcessDataTab(QWidget):
         self.timer.timeout.connect(self.update_functions)
         self.timer.start(100)
 
+    def reset(self):
+        self.comboBox.setCurrentIndex(0)
+
     def update_functions(self):
         """Updates the content of process data tab"""
         if self.model is not None:

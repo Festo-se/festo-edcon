@@ -34,6 +34,12 @@ class MainWindow(QMainWindow):
         self.tabWidget.addTab(
             ParameterTab(self.pnu_read_function, self.pnu_write_function), "Parameter"
         )
+        self.tabWidget.currentChanged.connect(self.on_tab_change)
+
+    def on_tab_change(self, index):  # changed!
+        print("Tab Index Changed!", f"Current Tab Index: {index}")
+        for i in range(self.tabWidget.count()):
+            self.tabWidget.widget(i).reset()
 
     @property
     def com(self):

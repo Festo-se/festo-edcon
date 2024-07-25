@@ -26,13 +26,25 @@ class MotionTab(QWidget):
         self.position_scaling = None
         self.velocity_scaling = None
 
-        self.toggle_button = ToggleButtonModel()
-        self.horizontalLayout_2.insertWidget(0, self.toggle_button)
-        self.toggle_button.toggledState.connect(self.on_powerstage_toggled)
+        self.control_button = ToggleButtonModel()
+        self.power_button = ToggleButtonModel()
+        self.power_button.setDisabled(True)
+        self.gridLayout_2.addWidget(self.control_button, 0, 1)
+        self.gridLayout_2.addWidget(self.power_button, 2, 1)
+        self.control_button.toggledState.connect(self.on_control_toggled)
+        self.power_button.toggledState.connect(self.on_powerstage_toggled)
 
         self.timer = QTimer(self)
         self.timer.timeout.connect(self.update_functions)
         self.timer.start(100)
+
+    def reset(self):
+        self.mot = None
+        self.tgh = None
+        self.position_scaling = None
+        self.velocity_scaling = None
+        self.control_button.setChecked(False)
+        self.power_button.setChecked(False)
 
     def update_functions(self):
         """Updates the content of display labels"""
@@ -51,6 +63,8 @@ class MotionTab(QWidget):
                 self.label_homing_feedback.setText(
                     bold_string("invalid", "red", font_size=16)
                 )
+        else:
+            self.label_homing_feedback.setText(bold_string("-", "black", font_size=16))
 
     def update_current_position(self):
         """Updates the position display labels"""
@@ -59,6 +73,9 @@ class MotionTab(QWidget):
             target_position = self.line_edit_pos_rev.text()
             self.label_current_position.setText(f"{current_position:.2f}")
             self.label_target_position.setText(f"{target_position}")
+        else:
+            self.label_current_position.setText("-")
+            self.label_target_position.setText("-")
 
     def update_current_velocity(self):
         """Updates the content display labels"""
@@ -67,8 +84,11 @@ class MotionTab(QWidget):
             target_velocity = self.line_edit_velocity.text()
             self.label_current_velocity.setText(f"{target_velocity}")
             self.label_target_velocity.setText(f"{current_velocity:.2f}")
+        else:
+            self.label_current_velocity.setText("-")
+            self.label_target_velocity.setText("-")
 
-    def on_powerstage_toggled(self, enable):
+    def on_control_toggled(self, enable):
         """Powerstage toggle callback
 
         Parameters:
@@ -80,13 +100,26 @@ class MotionTab(QWidget):
             self.mot.base_velocity = com.read_pnu(12345, 0)
             self.position_scaling = 1 / 10 ** com.read_pnu(11724, 0)
             self.velocity_scaling = 1 / 10 ** com.read_pnu(11725, 0)
-            self.mot.acknowledge_faults()
-            self.mot.enable_powerstage()
+            self.power_button.setDisabled(False)
         else:
-            self.mot.acknowledge_faults()
-            self.mot.disable_powerstage()
+            self.power_button.setChecked(False)
+            self.power_button.setDisabled(True)
             self.mot = None
         self.manage_button_connections(enable)
+
+    def on_powerstage_toggled(self, enable):
+        """Powerstage toggle callback
+
+        Parameters:
+            enable (bool): Value determining whether the powerstage should be enabled
+        """
+        if self.mot is not None:
+            if enable:
+                self.mot.acknowledge_faults()
+                self.mot.enable_powerstage()
+            else:
+                self.mot.acknowledge_faults()
+                self.mot.disable_powerstage()
 
     def button_acknowledge_all_clicked(self):
         """Acknowledge button callback"""
