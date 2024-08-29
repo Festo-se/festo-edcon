@@ -9,7 +9,7 @@ import threading
 import time
 import traceback
 from pymodbus.client.tcp import ModbusTcpClient as ModbusClient
-from pymodbus.mei_message import ReadDeviceInformationRequest
+from pymodbus.pdu.mei_message import ReadDeviceInformationRequest
 from edcon.utils.logging import Logging
 from edcon.edrive.com_base import ComBase
 
