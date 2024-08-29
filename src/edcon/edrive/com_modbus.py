@@ -105,7 +105,6 @@ class ComModbus(ComBase):
         if hasattr(self, "io_thread"):
             if self.io_thread is not None:
                 self.io_thread.stop()
-                self.io_thread.join()
         if hasattr(self, "modbus_client"):
             self.modbus_client.close()
 
@@ -269,7 +268,6 @@ class ComModbus(ComBase):
         """Stops i/o data process"""
         self.send_io(b"\x00" * IO_DATA_SIZE)
         self.io_thread.stop()
-        self.io_thread.join()
 
     def send_io(self, data: bytes, nonblocking: bool = False):
         """Sends data to the output
