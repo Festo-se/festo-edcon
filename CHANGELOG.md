@@ -5,6 +5,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## Unreleased
+## v0.14.10 - 30.10.24
+### Fixed
+- Fixed issue due to breaking changes by pymodbus 3.7.4
+
+### Changed
+- Increased timeout for enabling powerstage to 10.0 seconds (needed in case of commutation angle search)
+
 ## v0.14.9 - 29.08.24
 ### Fixed
 - ComModbus: Remove io_thread.join() since apparently not needed and may cause problems.

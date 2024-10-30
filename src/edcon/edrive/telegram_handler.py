@@ -178,7 +178,7 @@ class TelegramHandler:
         Logging.logger.info("=> No fault present")
         return True
 
-    def enable_powerstage(self, timeout: float = 5.0) -> bool:
+    def enable_powerstage(self, timeout: float = 10.0) -> bool:
         """Send telegram to enable the power stage
 
         Parameter:
