@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## Unreleased
+### Fixed
+- Fixed in/output size mixup in ComEthernetip
+
 ## v0.14.10 - 30.10.24
 ### Fixed
 - Fixed issue due to breaking changes by pymodbus 3.7.4
