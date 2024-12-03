@@ -63,36 +63,36 @@ class ComEthernetip(ComBase):
         # (obj 0x4, inst 100, attr 4)
         status, attribute = self.connection.getAttrSingle(0x4, O_T_STD_PROCESS_DATA, 4)
         if status == 0:
-            self.insize = int.from_bytes(attribute, "little")
+            self.outsize = int.from_bytes(attribute, "little")
             Logging.logger.info(
-                f"Process data input size (data: {attribute}): {self.insize}"
+                f"Process data input size (data: {attribute}): {self.outsize}"
             )
 
         # read process data output size of EDrive from global system object
         # (obj 0x4, inst 101, attr 4)
         status, attribute = self.connection.getAttrSingle(0x4, T_O_STD_PROCESS_DATA, 4)
         if status == 0:
-            self.outsize = int.from_bytes(attribute, "little")
+            self.insize = int.from_bytes(attribute, "little")
             Logging.logger.info(
-                f"Process data output size (data: {attribute}): {self.outsize}"
+                f"Process data output size (data: {attribute}): {self.insize}"
             )
 
         # read extended process data input size of EDrive from global system object
         # (obj 0x4, inst 110, attr 4)
         status, attribute = self.connection.getAttrSingle(0x4, O_T_EXT_PROCESS_DATA, 4)
         if status == 0:
-            epd_insize = int.from_bytes(attribute, "little")
+            self.epd_outsize = int.from_bytes(attribute, "little")
             Logging.logger.info(
-                f"Extended process data input size (data: {attribute}): {epd_insize}"
+                f"Extended process data input size (data: {attribute}): {self.epd_outsize}"
             )
 
         # read extended process data output size of EDrive from global system object
         # (obj 0x4, inst 111, attr 4)
         status, attribute = self.connection.getAttrSingle(0x4, T_O_EXT_PROCESS_DATA, 4)
         if status == 0:
-            epd_outsize = int.from_bytes(attribute, "little")
+            self.epd_insize = int.from_bytes(attribute, "little")
             Logging.logger.info(
-                f"Extended process data output size (data: {attribute}): {epd_outsize}"
+                f"Extended process data output size (data: {attribute}): {self.epd_insize}"
             )
 
     def __del__(self):
