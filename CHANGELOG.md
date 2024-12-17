@@ -8,6 +8,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - Fixed in/output size mixup in ComEthernetip
 
+### Changed
+- Use pipeline template
+
 ## v0.14.10 - 30.10.24
 ### Fixed
 - Fixed issue due to breaking changes by pymodbus 3.7.4
