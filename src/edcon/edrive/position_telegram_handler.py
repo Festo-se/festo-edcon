@@ -96,7 +96,9 @@ class PositionTelegramHandler(TelegramHandler):
             self.update_inputs()
             return self.telegram.zsw1.home_position_set
 
-        if not self.wait_until_or_fault(cond, info_string=self.position_info_string):
+        if not self.wait_until_or_not_operational(
+            cond, info_string=self.position_info_string
+        ):
             return False
         Logging.logger.info("=> Reference position set")
         return True
@@ -113,7 +115,9 @@ class PositionTelegramHandler(TelegramHandler):
             self.update_inputs()
             return self.telegram.zsw1.traversing_task_ack
 
-        if not self.wait_until_or_fault(cond, info_string=self.position_info_string):
+        if not self.wait_until_or_not_operational(
+            cond, info_string=self.position_info_string
+        ):
             return False
         Logging.logger.info("=> Traversing task acknowledged")
         return True
@@ -130,7 +134,9 @@ class PositionTelegramHandler(TelegramHandler):
             self.update_inputs()
             return self.telegram.zsw1.target_position_reached
 
-        if not self.wait_until_or_fault(cond, info_string=self.position_info_string):
+        if not self.wait_until_or_not_operational(
+            cond, info_string=self.position_info_string
+        ):
             return False
         Logging.logger.info("=> Target position reached")
         return True
@@ -147,7 +153,9 @@ class PositionTelegramHandler(TelegramHandler):
             self.update_inputs()
             return self.telegram.zsw1.drive_stopped
 
-        if not self.wait_until_or_fault(cond, info_string=self.velocity_info_string):
+        if not self.wait_until_or_not_operational(
+            cond, info_string=self.velocity_info_string
+        ):
             return False
         Logging.logger.info("=> Drive stopped")
         return True
@@ -357,7 +365,7 @@ class PositionTelegramHandler(TelegramHandler):
 
         # Wait for predefined amount of time
         if not wait_for(
-            duration, self.fault_present, self.position_info_string, self.fault_string
+            duration, self.not_operational, self.position_info_string, self.fault_string
         ):
             return False
 

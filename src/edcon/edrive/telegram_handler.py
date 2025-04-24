@@ -76,6 +76,21 @@ class TelegramHandler:
             error_string=self.fault_string,
         )
 
+    def wait_until_or_not_operational(
+        self,
+        cond,
+        timeout: float = 0.0,
+        info_string: Callable[[], str] = None,
+    ):
+        """Waits for condition to be met until not_operational is present."""
+        return wait_until(
+            cond,
+            self.not_operational,
+            timeout=timeout,
+            info_string=info_string,
+            error_string=self.fault_string,
+        )
+
     def fault_string(self) -> str:
         """Returns string containing fault reason
 
@@ -93,6 +108,21 @@ class TelegramHandler:
         self.update_inputs()
         if self.telegram.zsw1.fault_present:
             Logging.logger.error("Fault bit is present")
+            return True
+        return False
+
+    def not_operational(self) -> bool:
+        """Gives information whether a fault is present
+
+        Returns:
+            bool: True if fault present, False otherwise
+        """
+        self.update_inputs()
+        if self.telegram.zsw1.fault_present:
+            Logging.logger.error("Fault bit is present")
+            return True
+        if not self.telegram.zsw1.operation_enabled:
+            Logging.logger.error("Drive is not operational")
             return True
         return False
 

@@ -181,7 +181,9 @@ class Telegram111Handler(PositionTelegramHandler):
             self.update_inputs()
             return self.telegram.pos_zsw1.homing_active
 
-        if not self.wait_until_or_fault(cond, info_string=self.position_info_string):
+        if not self.wait_until_or_not_operational(
+            cond, info_string=self.position_info_string
+        ):
             return False
 
         Logging.logger.info("=> Referencing task acknowledged")
@@ -240,7 +242,7 @@ class Telegram111Handler(PositionTelegramHandler):
 
         # Wait for predefined amount of time
         if not wait_for(
-            duration, self.fault_present, self.velocity_info_string, self.fault_string
+            duration, self.not_operational, self.velocity_info_string, self.fault_string
         ):
             return False
 
