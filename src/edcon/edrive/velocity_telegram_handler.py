@@ -60,7 +60,7 @@ class VelocityTelegramHandler(TelegramHandler):
 
         # Wait for predefined amount of time
         if not wait_for(
-            duration, self.fault_present, self.velocity_info_string, self.fault_string
+            duration, self.not_operational, self.velocity_info_string, self.fault_string
         ):
             return False
 

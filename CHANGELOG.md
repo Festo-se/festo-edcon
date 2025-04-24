@@ -5,8 +5,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## Unreleased
+## v0.14.11 - 24.04.25
 ### Fixed
 - Fixed in/output size mixup in ComEthernetip
+- Fixed bug where motion tasks would block forever when drive loses operational state
 
 ### Changed
 - Use pipeline template
