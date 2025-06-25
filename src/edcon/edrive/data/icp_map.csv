@@ -1,5 +1,10 @@
 icp_number;name;remedy
 1;The requested telegram is not supported;- Request Only the telegrams supported by the device (see documentation)
+2;Safety diagnosis test Channel A;"- Restart device
+- Service case"
+3;Safety diagnosis test Channel B;"- Restart device
+- Service case"
+9;Safety com issue;- Contact Festo service
 10;Short circuit motor phases/braking resistor;- Check wiring and rectify short circuit
 11;Over-current monitoring;"- Check wiring of motor phases (short circuit?)
 - Check wiring of braking resistor (short circuit?)
@@ -31,7 +36,7 @@ icp_number;name;remedy
 - Use braking resistor with higher pulse energy"
 20;Error: pulse energy monitoring, braking resistor;"- Reduce deceleration dynamics
 - Use braking resistor with higher pulse energy"
-21;Parameterisation braking resistor;- Check parameterization of external braking resistor (P0.6510, P0.6511, P0.6512)
+21;Parameterisation braking resistor;- Check parameterization of external braking resistor P0.6512
 22;Undervoltage in logic supply 24V;- Check power supply.
 23;Overvoltage in logic supply 24V;- Check power supply.
 24;Undervoltage in logic supply 5V;- Check power supply.
@@ -135,7 +140,8 @@ icp_number;name;remedy
 64;Task ignored as DC link coupling not ready;"- Check mains voltage for present
 - Check the DC voltage when the DC Power supply Is activated
 - Check braking resistor for presence, if required"
-65;Task ignored due to motion task error;"- Cancel current movement order with a stop
+65;Task ignored due to motion task error;"- Control enable missing
+- Cancel current movement order with a stop
 - Wait for MC for the current movement order "
 66;Task ignored as encoder not ready;"- Check encoder cable
 - Check voltage supply for the encoder"
@@ -386,7 +392,7 @@ icp_number;name;remedy
 223;SPI communication too slow;- Service case
 224;Login completed;- None (info only)
 225;Logout completed;- None (info only)
-226;Login error;- Check password
+226;Login error;- Reset to factory settings (hard-reset, including user files)
 227;Encoder identification reports incorrect encoder type;- Check configuration
 228;Common error EnDat 2.1;"- Check encoder type configuration
 - Wiring error (short-circuit in encoder power supply)
@@ -681,33 +687,47 @@ icp_number;name;remedy
 - Open Engineering Tool and download a valid paramter set"
 557;Safety Error Reinitialisation Channel A;- Open Engineering Tool, solve the issue and run reinit again
 558;Safety Error Reinitialisation Channel B;- Open Engineering Tool, solve the issue and run reinit again
-559;Frequent A/B signals too high;- reduce motor velocity, Number of increments should be even, execute Reinit
+559;Frequent A/B signals too high;- Reduce motor velocity, Number of increments should be even, execute Reinit
 592;Safety Hard Fault Channel A;"- Device has already restarted automatically.
 - Acknowledge the error to allow the system to continue running (Error reaction is application specific).
 - If the hard fault occurs again, the device must be restarted with power. "
 593;Safety Hard Fault Channel B;"- Device has already restarted automatically.
 - Acknowledge the error to allow the system to continue running (Error reaction is application specific).
 - If the hard fault occurs again, the device must be restarted with power. "
-594;Safety Error Self Test channel A;
-595;Safety Error Self Test channel B;
-596;Safety Error Communication channel B and FSU;
-597;Safety Error communication channel A and FSU;
-598;Safety Incompatible software/hardware versions channel A and FSU;
-599;Safety Incompatible software/hardware versions channel B and FSU;
-600;Safety Reached error memory threshold value Channel A;
-601;Safety Reached error memory threshold value Channel B;
-602;Safety Channel A self-test failed;
-603;Safety Channel B self-test failed;
-606;Safety position discrepancy channel A;
-607;Safety position discrepancy channel B;
-608;Safety velocity discrepancy channel A;
-609;Safety Velocity discrepancy channel B;
-610;Safety Invalid encoder selection channel A;
-611;Safety Invalid encoder selection channel B;
-612;Safety Error encoder voltage monitoring X2 channel A;
-613;Safety Error encoder voltage monitoring X2 channel B;
-614;Safety Error encoder voltage monitoring X3 channel A;
-615;Safety Error encoder voltage monitoring X3 channel B;
+594;Safety Error Self Test channel A;- Restart device, Service case
+595;Safety Error Self Test channel B;- Restart device, Service case
+596;Safety Error Communication channel B and FSU;- Restart device, Service case
+597;Safety Error communication channel A and FSU;- Restart device, Service case
+598;Safety Incompatible software/hardware versions channel A and FSU;- Update firmware
+599;Safety Incompatible software/hardware versions channel B and FSU;- Update firmware
+600;Safety Reached error memory threshold value Channel A;'- Reduce the frequency of diagnostic messages
+601;Safety Reached error memory threshold value Channel B;'- Reduce the frequency of diagnostic messages
+602;Safety Channel A self-test failed;"- Check wiring
+- Service case"
+603;Safety Channel B self-test failed;"- Check wiring
+- Service case"
+606;Safety position discrepancy channel A;"- Check parameterisation of position difference and tolerance time
+- Check encoder configuration (same counting direction?)"
+607;Safety position discrepancy channel B;"- Check parameterisation of position difference and tolerance time
+- Check encoder configuration (same counting direction?)"
+608;Safety velocity discrepancy channel A;"- Check parameterisation of speed difference and tolerance time
+- Check encoder configuration (same counting direction?)"
+609;Safety Velocity discrepancy channel B;"- Check parameterisation of speed difference and tolerance time
+- Check encoder configuration (same counting direction?)"
+610;Safety Invalid encoder selection channel A;- Check encoder configuration (Safe combination?)
+611;Safety Invalid encoder selection channel B;- Check encoder configuration (Safe combination?)
+612;Safety Error encoder voltage monitoring X2 channel A;"- Check wiring
+- Check encoder supply voltage
+- Service case"
+613;Safety Error encoder voltage monitoring X2 channel B;"- Check wiring
+- Check encoder supply voltage
+- Service case"
+614;Safety Error encoder voltage monitoring X3 channel A;"- Check wiring
+- Check encoder supply voltage
+- Service case"
+615;Safety Error encoder voltage monitoring X3 channel B;"- Check wiring
+- Check encoder supply voltage
+- Service case"
 617;Incompatible device configuration PROFINET IRT;- Select MP device in GSDML (CMMT-...-...-MP instead of CMMT-... V1)
 619;Unsupported homing method;- Use different homing method (xxx)
 620;Parameter set stored CRC1 0..63;- None (info only)
@@ -748,25 +768,41 @@ icp_number;name;remedy
 651;Safety EnDat Error Bit channel B;- None
 658;Acceleration following error ;"- Investigate causes of contouring errors (Trace)
 - Reduce dynamic values
-- Check error window (Px.y)"
-659;Safety STO Safe Torque Off error self-test channel A;
-660;Safety STO Safe Torque Off error self-test channel B;
-661;Safety STO error monitoring Time monitoring STO channel A;
-662;Safety STO error monitoring Time monitoring STO channel B;
-663;Safety STO setpoint Off but voltage detected at output channel A;
-664;Safety STO setpoint status Off but voltage detected at output channel B;
-665;Safety STO setpoint state On but no voltage detected at the output channel A;
-666;Safety STO setpoint On but no voltage detected at output channel B;
-667;Safety STO voltage limit exceeded channel A;
-668;Safety STO voltage limit exceeded channel B;
-669;Safety Internal error STO channel A;
-670;Safety Internal error STO channel B;
-671;Safety SOS parameter invalid channel A;
-672;Safety SOS parameter invalid channel B;
-673;Safety SOS velocity limit violated channel A;
-674;Safety SOS velocity limit violated channel B;
-675;Safety SOS position limit violated channel A;
-676;Safety SOS position limit violated channel B;
+- Check error window (Px.101735)"
+659;Safety STO Safe Torque Off error self-test channel A;"- Check wiring
+- Service case"
+660;Safety STO Safe Torque Off error self-test channel B;"- Check wiring
+- Service case"
+661;Safety STO error monitoring Time monitoring STO channel A;"- Check wiring
+- Service case"
+662;Safety STO error monitoring Time monitoring STO channel B;"- Check wiring
+- Service case"
+663;Safety STO setpoint Off but voltage detected at output channel A;"- Check wiring
+- Service case"
+664;Safety STO setpoint status Off but voltage detected at output channel B;"- Check wiring
+- Service case"
+665;Safety STO setpoint state On but no voltage detected at the output channel A;"- Check wiring
+- Service case"
+666;Safety STO setpoint On but no voltage detected at output channel B;"- Check wiring
+- Service case"
+667;Safety STO voltage limit exceeded channel A;"- Check wiring
+- Service case"
+668;Safety STO voltage limit exceeded channel B;"- Check wiring
+- Service case"
+669;Safety Internal error STO channel A;- Service case
+670;Safety Internal error STO channel B;- Service case
+671;Safety SOS parameter invalid channel A;"- Safe encoder combination configured?
+- Check encoder configuration"
+672;Safety SOS parameter invalid channel B;"- Safe encoder combination configured?
+- Check encoder configuration"
+673;Safety SOS velocity limit violated channel A;"- Check tolerance window Px.466
+- Check delay time t_delay Px.100554"
+674;Safety SOS velocity limit violated channel B;"- Check tolerance window Px.466
+- Check delay time t_delay Px.100554"
+675;Safety SOS position limit violated channel A;"- Check tolerance window Px.100558
+- Check delay time t_Delay Px.100554"
+676;Safety SOS position limit violated channel B;"- Check tolerance window Px.100558
+- Check delay time t_Delay Px.100554"
 677;Safety EnDat step monitoring error channel A;- None
 678;Safety EnDat step monitoring error channel B;- None
 679;Safety EnDat no safe encoder detected channel A;- None
@@ -797,16 +833,18 @@ icp_number;name;remedy
 734;SLS_BrakeRampViolated_LB;- Check maximum velocity
 735;SLS_SpeedLimitViolated_LA;- Check maximum velocity
 736;SLS_SpeedLimitViolated_LB;- Check maximum velocity
-737;SS1_InputValuesNotValid_La;'- Check encoder
-738;SS1_InputValuesNotValid_Lb;'- Check encoder
+737;SS1_InputValuesNotValid_La;- Check encoder
+738;SS1_InputValuesNotValid_Lb;"-  Check encoder
+- Check encoder parameterisation
+- No safe encoder configuration"
 739;SS1_BrakeRampViolated_La;- Check controller setting
 740;SS1_BrakeRampViolated_Lb;- Check controller setting
 741;SS1_SpeedLimitViolated_La;"- Check controller setting
 - Check standstill monitoring"
 742;SS1_SpeedLimitViolated_Lb;"- Check controller setting
 - Check standstill monitoring"
-743;SS2_InputValuesNotValid_La;'- Check encoder
-744;SS2_InputValuesNotValid_Lb;'- Check encoder
+743;SS2_InputValuesNotValid_La;- Check encoder
+744;SS2_InputValuesNotValid_Lb;- Check encoder
 745;SS2_BrakeRampViolated_La;- Check controller setting
 746;SS2_BrakeRampViolated_Lb;- Check controller setting
 747;NetXInternDriverError;- Contact Festo service
@@ -833,3 +871,38 @@ icp_number;name;remedy
 763;Acknowledge required to enable the channel(s);- Acknowledge channel(s)
 764;BaseID not valid or mismatch of the BaseID;- Check BaseID configuration
 765;NoEstimationDoneLevel;- Increase pause time between movements
+766;SBC_SafetyConditionViolated_LA;- Check brake connection
+767;SBC_SafetyConditionViolated_LB;- Check brake connection
+768;TelegramNumberMismatch_La;- Check parameterization
+769;TelegramNumberMismatch_Lb;- Check parameterization
+770;HciComHardwareStatusHost;- Contact Festo service
+771;driveChangedS;- Match NOC code (Px.32410) with connected motor
+772;feVoltageError;- Shorten Wires, use less power or less devices
+773;Parameterisation braking resistor value resistor;- Parameterization of external braking resistor Check resistance value P0.6510
+774;Parameterisation braking resistor value rated power;- Parameterization of external braking resistor Check rated power P0.6511
+779;Brake control frequency too high;"- Check movement cycle
+- Reduce the number of times the drive is switched on/off"
+806;Safety ParameterSetVersion is more recent for channel A;Save and validate the parameter set again
+807;Safety ParameterSetVersion is more recent for channel B;Save and validate the parameter set again
+808;Safety ParameterSetVersion is older for channel A;"Save and validate the parameter set again -> Possible functionality restrictions
+OR
+update plugin"
+809;Safety ParameterSetVersion is older for channel B;"Save and validate the parameter set again -> Possible functionality restrictions
+OR
+update plugin"
+810;Name of the user who saved the parameter set;- None (info only)
+811;Uncertified device detected;"- Service case
+- May only happen with pilot customer devices or with developer devices"
+812;Error in Encoder active;"- Check surounding conditions of motor/encoder
+- unplug and plug the encoder
+- sevice case"
+813;Warning in Encoder active;"- Check surounding conditions of motor/encoder
+- unplug and plug the encoder"
+814;SLS_ScalingNotValid_La;- Transfer scaling factor in the valid range
+815;SLS_ScalingNotValid_Lb;- Transfer scaling factor in the valid range
+816;factorySettingsRestored;- None (info only)
+817;Failed login attempt;- None (info only)
+818;EncoderOutputLimitExceeded_La;- Reduce velocity/acceleration at output (e.g. check gear ratio)
+819;EncoderOutputLimitExceeded_Lb;- Reduce velocity/acceleration at output (e.g. check gear ratio)
+820;EncoderVelocityLimitExceeded_La;- Reduce velocity
+821;EncoderVelocityLimitExceeded_Lb;- Reduce velocity
