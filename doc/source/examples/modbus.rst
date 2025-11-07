@@ -29,6 +29,11 @@ Velocity (nonblock)
 .. literalinclude:: ../../../examples/modbus/velocity_nonblock.py
 :download:`Download Example <../../../examples/modbus/velocity_nonblock.py>`
 
+Record
+^^^^^^^^^^^^^^^^^^^
+.. literalinclude:: ../../../examples/modbus/record.py
+:download:`Download Example <../../../examples/modbus/record.py>`
+
 Jog
 ^^^
 .. literalinclude:: ../../../examples/modbus/jog.py
