@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - bump rich version
 - bump pymodbus version
 - catch newly created ConnectionExceptions from the pymodbus library to allow retries
+- Added thread lock to enable simultaneous I/O operation and PNU access
 
 ## v0.14.12 - 25.06.25
 ### Changed
