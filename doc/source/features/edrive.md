@@ -47,7 +47,7 @@ with MotionHandler(edrive) as mot:
 The instance is then able of handling basic setup sequences.
 
 ```python
-    mot.acknkwoledge_faults()
+    mot.acknowledge_faults()
     mot.enable_powerstage()
 ```
 
