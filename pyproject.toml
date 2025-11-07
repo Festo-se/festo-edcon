@@ -15,16 +15,8 @@ classifiers = [
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
 ]
-dynamic = ["version"]
-requires-python = ">=3.9"
-dependencies = [
-    'pymodbus==3.7.4',
-    'ethernetip>=1.1.1,<2.0.0',
-    'rich',
-]
-
-[project.optional-dependencies]
-gui = ['pyqt5']
+dynamic = ["version","dependencies", "optional-dependencies"]
+requires-python = ">=3.10"
 
 [project.urls]
 Documentation = "https://festo-research.gitlab.io/electric-automation/festo-edcon"
@@ -46,3 +38,9 @@ where = ["src"]
 exclude = ["tests"]
 
 [tool.setuptools_scm]
+
+[tool.setuptools.dynamic]
+dependencies = {file = ["requirements.txt"]}
+
+[tool.setuptools.dynamic.optional-dependencies]
+gui = {file = ['gui-requirements.txt']}
