@@ -8,8 +8,8 @@ https://pymodbus.readthedocs.io/en/latest/index.html
 import threading
 import time
 import traceback
+from pymodbus.exceptions import ConnectionException
 from pymodbus.client.tcp import ModbusTcpClient as ModbusClient
-from pymodbus.pdu.mei_message import ReadDeviceInformationRequest
 from edcon.utils.logging import Logging
 from edcon.edrive.com_base import ComBase
 
@@ -121,14 +121,18 @@ class ComModbus(ComBase):
         dev_info = {}
 
         # Read device information
-        rreq = ReadDeviceInformationRequest(0x1, 0)
-        rres = self.modbus_client.execute(False, rreq)
+        try:
+            rres = self.modbus_client.read_device_information(read_code=0x1)
+        except ConnectionException as e:
+            raise ConnectionAbortedError(str(e)) from e
         dev_info["vendor_name"] = rres.information[0].decode("ascii")
         dev_info["product_code"] = rres.information[1].decode("ascii")
         dev_info["revision"] = rres.information[2].decode("ascii")
 
-        rreq = ReadDeviceInformationRequest(0x2, 0)
-        rres = self.modbus_client.execute(False, rreq)
+        try:
+            rres = self.modbus_client.read_device_information(read_code=0x2)
+        except ConnectionException as e:
+            raise ConnectionAbortedError(str(e)) from e
         dev_info["vendor_url"] = rres.information[3].decode("ascii")
         dev_info["product_name"] = rres.information[4].decode("ascii")
         dev_info["model_name"] = rres.information[5].decode("ascii")
@@ -141,9 +145,17 @@ class ComModbus(ComBase):
     def set_timeout(self, timeout_ms) -> bool:
         """Sets the modbus timeout to the provided value"""
         Logging.logger.info(f"Setting modbus timeout to {timeout_ms} ms")
-        self.modbus_client.write_registers(REG_TIMEOUT, [timeout_ms, 0])
+        try:
+            self.modbus_client.write_registers(REG_TIMEOUT, [timeout_ms, 0])
+        except ConnectionException:
+            pass
         # Check if it actually succeeded
-        indata = self.modbus_client.read_holding_registers(REG_TIMEOUT, 1)
+        try:
+            indata = self.modbus_client.read_holding_registers(
+                address=REG_TIMEOUT, count=1
+            )
+        except ConnectionException:
+            pass
         if indata.registers[0] != timeout_ms:
             Logging.logger.error("Setting of modbus timeout was not successful")
             return False
@@ -154,23 +166,21 @@ class ComModbus(ComBase):
         # Inputs, convert to bytes
         try:
             indata = self.modbus_client.read_holding_registers(
-                REG_INPUT_DATA, int(IO_DATA_SIZE / 2)
+                address=REG_INPUT_DATA, count=int(IO_DATA_SIZE / 2)
             )
-            self.in_data = b"".join(
-                reg.to_bytes(2, "little") for reg in indata.registers
-            )
+        except ConnectionException:
+            pass
+        self.in_data = b"".join(reg.to_bytes(2, "little") for reg in indata.registers)
 
-            # Outputs, convert to list of modbus words
-            word_list = [
-                int.from_bytes(self.out_data[i : i + 2], "little")
-                for i in range(0, len(self.out_data), 2)
-            ]
+        # Outputs, convert to list of modbus words
+        word_list = [
+            int.from_bytes(self.out_data[i : i + 2], "little")
+            for i in range(0, len(self.out_data), 2)
+        ]
+        try:
             self.modbus_client.write_registers(REG_OUTPUT_DATA, word_list)
-
-        # pylint: disable=bare-except
-        except:
-            Logging.logger.error("Modbus client is not reachable")
-            self.shutdown()
+        except ConnectionException:
+            pass
 
     def read_pnu_raw(self, pnu: int, subindex: int = 0, num_elements: int = 1) -> bytes:
         """Reads a PNU from the EDrive without interpreting the data"""
@@ -186,7 +196,7 @@ class ComModbus(ComBase):
                 REG_PNU_MAILBOX_EXEC, PNU_MAILBOX_EXEC_READ
             )
             status = self.modbus_client.read_holding_registers(
-                REG_PNU_MAILBOX_EXEC, 1
+                address=REG_PNU_MAILBOX_EXEC, count=1
             ).registers[0]
 
             if status != PNU_MAILBOX_EXEC_DONE:
@@ -195,12 +205,12 @@ class ComModbus(ComBase):
 
             # Read available data length
             length = self.modbus_client.read_holding_registers(
-                REG_PNU_MAILBOX_DATA_LEN, 1
+                address=REG_PNU_MAILBOX_DATA_LEN, count=1
             ).registers[0]
 
             # Divide length by 2 because each register is 2 bytes
             indata = self.modbus_client.read_holding_registers(
-                510, int((length + 1) / 2)
+                address=REG_PNU_MAILBOX_DATA, count=int((length + 1) / 2)
             )
 
             # Convert to integer
@@ -210,8 +220,7 @@ class ComModbus(ComBase):
             )
             return data
 
-        except (AttributeError, IndexError):
-            Logging.logger.error("Could not access PNU register")
+        except ConnectionException:
             return None
 
     def write_pnu_raw(
@@ -232,14 +241,17 @@ class ComModbus(ComBase):
                 for i in range(0, len(value), 2)
             ]
             # Write data
-            self.modbus_client.write_registers(510, word_list)
+            try:
+                self.modbus_client.write_registers(REG_PNU_MAILBOX_DATA, word_list)
+            except ConnectionException:
+                pass
 
             # Execute
             self.modbus_client.write_register(
                 REG_PNU_MAILBOX_EXEC, PNU_MAILBOX_EXEC_WRITE
             )
             status = self.modbus_client.read_holding_registers(
-                REG_PNU_MAILBOX_EXEC, 1
+                address=REG_PNU_MAILBOX_EXEC, count=1
             ).registers[0]
             if status != PNU_MAILBOX_EXEC_DONE:
                 Logging.logger.error(f"Error writing PNU {pnu}, status: {status}")

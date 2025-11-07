@@ -5,6 +5,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## Unreleased
+### Changed
+- Upgrade to python 3.10
+- bump setuptools version
+- bump rich version
+- bump pymodbus version
+- catch newly created ConnectionExceptions from the pymodbus library to allow retries
+
 ## v0.14.12 - 25.06.25
 ### Changed
 - Updated ICP and PNU lists for firmware version 36.10.4
