@@ -19,6 +19,11 @@ Multi Position (nonblock)
 .. literalinclude:: ../../../examples/modbus/multi_position_nonblock.py
 :download:`Download Example <../../../examples/modbus/multi_position_nonblock.py>`
 
+Travel to fix stop (nonblock)
+^^^^^^^^^^^^^^^^^^^^^^^^^
+.. literalinclude:: ../../../examples/modbus/fix_stop.py
+:download:`Download Example <../../../examples/modbus/fix_stop.py>`
+
 Velocity
 ^^^^^^^^
 .. literalinclude:: ../../../examples/modbus/velocity.py
