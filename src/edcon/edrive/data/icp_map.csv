@@ -807,8 +807,8 @@ icp_number;name;remedy
 678;Safety EnDat step monitoring error channel B;- None
 679;Safety EnDat no safe encoder detected channel A;- None
 680;Safety EnDat no safe encoder detected channel B;- None
-681;Safety EnDat validated and read serial number are different channel A;- None
-682;Safety EnDat validated and read serial number are different channel B;- None
+681;Safety EnDat validated and read serial number are different channel A;- Check SiL EnData parameter
+682;Safety EnDat validated and read serial number are different channel B;- Check SiL EnDat parameter
 683;Safety EnDat validated and read zero offset are different channel A;- None
 684;Safety EnDat validated and read zero offset are different channel B;- None
 686;Linearisation table invalid;- None
@@ -843,8 +843,10 @@ icp_number;name;remedy
 - Check standstill monitoring"
 742;SS1_SpeedLimitViolated_Lb;"- Check controller setting
 - Check standstill monitoring"
-743;SS2_InputValuesNotValid_La;- Check encoder
-744;SS2_InputValuesNotValid_Lb;- Check encoder
+743;SS2_InputValuesNotValid_La;"- Check encoder
+- Activate SOS"
+744;SS2_InputValuesNotValid_Lb;"- Check encoder
+- Activate SOS"
 745;SS2_BrakeRampViolated_La;- Check controller setting
 746;SS2_BrakeRampViolated_Lb;- Check controller setting
 747;NetXInternDriverError;- Contact Festo service
@@ -906,3 +908,9 @@ update plugin"
 819;EncoderOutputLimitExceeded_Lb;- Reduce velocity/acceleration at output (e.g. check gear ratio)
 820;EncoderVelocityLimitExceeded_La;- Reduce velocity
 821;EncoderVelocityLimitExceeded_Lb;- Reduce velocity
+826;Invalid gearbox configuration;"- Geriebe factor numerator or denominator large 14 bits?
+- Feed constant numerator or denominator large 17 bits?
+- Gear factor greater than 1:1000?
+"
+827;EEProm Value out of range;"- Service case
+"
