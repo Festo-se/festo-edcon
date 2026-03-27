@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Unreleased
 ### Changed
 - Move pipeline to github actions
+- Added example for travel-to-fix-stop
 
 ## v0.15.0 - 07.11.25
 ### Changed
