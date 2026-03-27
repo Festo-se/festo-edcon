@@ -21,7 +21,7 @@ requires-python = ">=3.10"
 dependencies = [
     "pymodbus==3.11.3",
     "ethernetip==1.1.2",
-    "rich==14.2.0",
+    "rich==14.3.3",
 ]
 
 [project.optional-dependencies]
