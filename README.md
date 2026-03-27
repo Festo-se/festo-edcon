@@ -1,6 +1,8 @@
 # festo-edcon
 `festo-edcon` is a python package which bundles modules to facilitate operation of Festo electric drives (currently via EtherNet/IP and Modbus) using PROFIDRIVE. Documentation can be found [here](https://festo-se.github.io/festo-edcon) and in the [examples](./examples) directory
 
+[![PyPI Downloads](https://static.pepy.tech/personalized-badge/festo-edcon?period=total&units=INTERNATIONAL_SYSTEM&left_color=BLACK&right_color=GREEN&left_text=downloads)](https://pepy.tech/projects/festo-edcon)
+
 ## Installation
 ### Release
 The latest release is available in the public PyPi repo. 
