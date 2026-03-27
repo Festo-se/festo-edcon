@@ -43,12 +43,12 @@ jobs:
     - name: Run pytest
       run: uv run pytest tests -v --cov=edcon --junitxml=reports/unittest.xml --cov-report=xml:reports/coverage.xml
     - name: Archive test results
-      uses: actions/upload-artifact@v5
+      uses: actions/upload-artifact@v7
       with:
         name: test-report
         path: reports/unittest.xml
     - name: Archive code coverage results
-      uses: actions/upload-artifact@v5
+      uses: actions/upload-artifact@v7
       with:
         name: code-coverage-report
         path: reports/coverage.xml
@@ -80,7 +80,7 @@ jobs:
     - name: Generate SBOM
       run: uv export --all-extras --format cyclonedx1.5 --output-file festo-edcon-sbom.json
     - name: Archive SBOM
-      uses: actions/upload-artifact@v5
+      uses: actions/upload-artifact@v7
       with:
         name: sbom
         path: festo-edcon-sbom.json
