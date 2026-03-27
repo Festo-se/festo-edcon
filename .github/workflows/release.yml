@@ -1,0 +1,93 @@
+name: release
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+      - 'test*.*.*'
+
+permissions:
+  contents: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.10'
+      - name: Install dependencies for development
+        run: pip install twine kac-tools
+      - name: Setup repository url for release
+        if: startsWith(github.ref_name, 'v')
+        run : |
+          echo "TWINE_REPO=${{ vars.TWINE_REPOSITORY_URL }}" >> $GITHUB_ENV
+          echo "TWINE_PW=${{ secrets.TWINE_PASSWORD }}" >> $GITHUB_ENV
+      - name: Setup repository url for test
+        if: startsWith(github.ref_name, 'test')
+        run : |
+          echo "TWINE_REPO=${{ vars.TWINE_TEST_REPOSITORY_URL }}" >> $GITHUB_ENV
+          echo "TWINE_PW=${{ secrets.TWINE_PASSWORD_TEST }}" >> $GITHUB_ENV
+      - name: Build package
+        run: |
+          mkdir -p public
+          kac-tools >> public/RELEASENOTES.md
+          python -m pip wheel --no-deps .
+          twine check *.whl
+          twine upload *.whl
+        env:
+          TWINE_USERNAME: ${{ vars.TWINE_USERNAME }}
+          TWINE_REPOSITORY_URL: ${{ env.TWINE_REPO }}
+          TWINE_PASSWORD: ${{ env.TWINE_PW }}
+      - name: Archive release notes
+        uses: actions/upload-artifact@v5
+        with:
+          name: release-notes
+          path: public/RELEASENOTES.md
+      - name: Create GitHub Release
+        if: startsWith(github.ref_name, 'v')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: public/RELEASENOTES.md
+
+  depoly-pages:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.10'
+      - name: Install uv
+        uses: astral-sh/setup-uv@61cb8a9741eeb8a550a1b8544337180c0fc8476b # v7.2.0
+      - name: Install dependencies for development
+        run: uv sync --all-extras
+      - name: Build documentation
+        run: |
+            mkdir -p public
+            uv run sphinx-apidoc -f -o doc/source src
+            uv run make -C doc html || exit_code=$?
+            if [[ $exit_code -ne 0 ]]; then
+              echo "Sphinx-build failure"
+              exit 1
+            else
+              echo "Sphinx-build success"
+              mv doc/build/html/* public
+            fi
+      - name: Deploy to GitHub Pages
+        if: startsWith(github.ref_name, 'v')
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          publish_branch: gh-pages
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: public/
+          force_orphan: true
+      - name: Deploy to GitHub Pages Test Repo
+        if: startsWith(github.ref_name, 'test')
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          publish_branch: gh-pages-test
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: public/
+          force_orphan: true

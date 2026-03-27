@@ -12,7 +12,6 @@ from edcon.utils.logging import Logging
 from edcon.utils.boollist import bytes_to_boollist, boollist_to_bytes
 from edcon.edrive.com_base import ComBase
 
-
 O_T_STD_PROCESS_DATA = 100  # Originator to Target
 T_O_STD_PROCESS_DATA = 101  # Target to Originator
 O_T_EXT_PROCESS_DATA = 110  # Originator to Target

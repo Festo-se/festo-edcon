@@ -1,0 +1,48 @@
+name: pull-request
+
+on:
+  pull_request:
+    branches: [ "main" ]
+
+
+jobs:
+  changelog_test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+      - name: Run changelog-checker
+        run: |
+          echo "Test whether CHANGELOG.md has changed..."
+          if [ 0 -eq $(git diff --name-only origin/$GITHUB_BASE_REF...origin/${GITHUB_HEAD_REF} CHANGELOG.md | wc -l) ]; then exit 1; fi
+
+  docs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.10'
+      - name: Install uv
+        uses: astral-sh/setup-uv@61cb8a9741eeb8a550a1b8544337180c0fc8476b # v7.2.0
+      - name: Install dependencies for development
+        run: uv sync --all-extras
+      - name: Build docs
+        run: |
+          mkdir -p public
+          uv run sphinx-apidoc -f -o doc/source src
+          uv run make -C doc html || exit_code=$?
+          if [[ $exit_code -ne 0 ]]; then
+            echo "Sphinx-build failure"
+            exit 1
+          else
+            echo "Sphinx-build success"
+            mv doc/build/html/* public
+          fi
+      - name: Upload docs
+        uses: actions/upload-artifact@v4
+        with:
+          name: docs
+          path: public

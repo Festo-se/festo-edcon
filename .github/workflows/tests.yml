@@ -1,0 +1,86 @@
+# This workflow will install Python dependencies, run tests and lint with a single version of Python
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python
+
+name: tests
+
+on: push
+
+permissions:
+  contents: read
+
+jobs:
+  static_analysis:
+      runs-on: ubuntu-latest
+      steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.10'
+      - name: Install uv
+        uses: astral-sh/setup-uv@61cb8a9741eeb8a550a1b8544337180c0fc8476b # v7.2.0
+      - name: Install dependencies for development
+        run: uv sync --all-extras
+      - name: Run black
+        run: uv run black src --check
+      - name: Run pylint
+        run: uv run pylint src
+
+  pytest:
+    runs-on: ubuntu-latest
+    needs: static_analysis
+    permissions:
+      pull-requests: write
+
+    steps:
+    - uses: actions/checkout@v5
+    - uses: actions/setup-python@v6
+      with:
+        python-version: '3.10'
+    - name: Install uv
+      uses: astral-sh/setup-uv@61cb8a9741eeb8a550a1b8544337180c0fc8476b # v7.2.0
+    - name: Install package
+      run: uv sync --all-extras
+    - name: Run pytest
+      run: uv run pytest tests -v --cov=edcon --junitxml=reports/unittest.xml --cov-report=xml:reports/coverage.xml
+    - name: Archive test results
+      uses: actions/upload-artifact@v5
+      with:
+        name: test-report
+        path: reports/unittest.xml
+    - name: Archive code coverage results
+      uses: actions/upload-artifact@v5
+      with:
+        name: code-coverage-report
+        path: reports/coverage.xml
+        include-hidden-files: true
+        if-no-files-found: ignore
+    - name: Coverage commit
+      if: ${{ success() && GITHUB.EVENT_NAME == 'pull_request' && !github.event.pull_request.head.repo.fork }}
+      uses: MishaKav/pytest-coverage-comment@ae0e8a539a3f310aefb3bfb6a2209778a21fa42b # v1.2.0
+      with:
+        junitxml-path: reports/unittest.xml
+        pytest-xml-coverage-path: reports/coverage.xml
+        report-only-changed-files: true
+    - name: Test Summary
+      uses: test-summary/action@v2
+      with:
+        paths: reports/unittest.xml
+
+  sbom:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v5
+    - uses: actions/setup-python@v6
+      with:
+        python-version: '3.10'
+    - name: Install uv
+      uses: astral-sh/setup-uv@61cb8a9741eeb8a550a1b8544337180c0fc8476b # v7.2.0
+    - name: Install package
+      run: uv sync --all-extras
+    - name: Generate SBOM
+      run: uv export --all-extras --format cyclonedx1.5 --output-file festo-edcon-sbom.json
+    - name: Archive SBOM
+      uses: actions/upload-artifact@v5
+      with:
+        name: sbom
+        path: festo-edcon-sbom.json
