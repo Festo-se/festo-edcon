@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Move pipeline to github actions
 - Added example for travel-to-fix-stop
 
+### Added
+- Added icp and pnu maps for v36.12.0
+
 ## v0.15.0 - 07.11.25
 ### Changed
 - Upgrade to python 3.10
