@@ -47,9 +47,9 @@ festo-edcon = "edcon.cli.cli:main"
 festo-edcon-gui = "edcon.cli.gui:main" 
 
 [project.urls]
-Documentation = "https://festo-research.gitlab.io/electric-automation/festo-edcon"
-Repository = "https://gitlab.com/festo-research/electric-automation/festo-edcon"
-Changelog = "https://gitlab.com/festo-research/electric-automation/festo-edcon/-/blob/main/CHANGELOG.md"
+Documentation = "https://festo-se.github.io/festo-edcon/"
+Repository = "https://github.com/Festo-se/festo-edcon"
+Changelog = "https://github.com/Festo-se/festo-edcon/blob/main/CHANGELOG.md"
 
 
 [tool.setuptools.package-data]
