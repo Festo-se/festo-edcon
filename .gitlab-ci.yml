@@ -1,8 +1,0 @@
-variables:
-  COVERAGE_DIRECTORY: "edcon"
-  EXTRA_REQUIREMENTS: "pyqt5"
-
-include:
-  - project: 'festo-research/electric-automation/festo-templates'
-    ref: 'v1.1.0'
-    file: '/gitlab-ci-python.yml'
