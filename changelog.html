@@ -1,0 +1,1099 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Changelog &mdash; festo-edcon  documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="edcon.utils package" href="edcon.utils.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            festo-edcon
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Features:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="features/edrive.html">EDrive - Communication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="features/edrive.html#edrive-motionhandler">EDrive - MotionHandler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="features/profidrive.html">Profidrive</a></li>
+<li class="toctree-l1"><a class="reference internal" href="features/cli.html">CLI</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Examples:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="examples/modbus.html">Modbus Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/ethernetip.html">EtherNet/IP Examples</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Indices and tables:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">Module Sources</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#unreleased">Unreleased</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#v1-0-0-27-03-26">v1.0.0 - 27.03.26</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#changed">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#added">Added</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#v0-15-0-07-11-25">v0.15.0 - 07.11.25</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">Changed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#v0-14-12-25-06-25">v0.14.12 - 25.06.25</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id2">Changed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#v0-14-11-24-04-25">v0.14.11 - 24.04.25</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#fixed">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">Changed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#v0-14-10-30-10-24">v0.14.10 - 30.10.24</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id4">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id5">Changed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#v0-14-9-29-08-24">v0.14.9 - 29.08.24</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id6">Fixed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#v0-14-8-29-08-24">v0.14.8 - 29.08.24</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id7">Fixed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#v0-14-7-25-07-24">v0.14.7 - 25.07.24</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id8">Changed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#v0-14-6-19-07-24">v0.14.6 - 19.07.24</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#removed">Removed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#v0-14-5-11-07-24">v0.14.5 - 11.07.24</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id9">Fixed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#v0-14-4-08-07-24">v0.14.4 - 08.07.24</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id10">Added</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#v0-14-3-25-06-24">v0.14.3 - 25.06.24</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id11">Fixed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#v0-14-2-21-06-24">v0.14.2 - 21.06.24</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id12">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fixes">Fixes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#v0-14-1-16-05-24">v0.14.1 - 16.05.24</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id13">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id14">Changed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#v0-14-0-30-04-24">v0.14.0 - 30.04.24</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id15">Changed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#v0-13-3-19-04-24">v0.13.3 - 19.04.24</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id16">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id17">Changed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#v0-13-2-17-04-24">v0.13.2 - 17.04.24</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id18">Fixed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#v0-13-1-15-04-24">v0.13.1 - 15.04.24</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id19">Fixed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#v0-13-0-15-04-24">v0.13.0 - 15.04.24</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id20">Changed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#v0-12-2-07-03-24">v0.12.2 - 07.03.24</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id21">Fixed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#v0-12-1-23-02-24">v0.12.1 - 23.02.24</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id22">Fixed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#v0-12-0-23-02-24">v0.12.0 - 23.02.24</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id23">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id24">Changed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#v0-11-0-11-12-23">v0.11.0 - 11.12.23</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id25">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id26">Changed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#v0-10-11-05-12-23">v0.10.11 - 05.12.23</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id27">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id28">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id29">Fixed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#v0-10-10-26-10-23">v0.10.10 - 26.10.23</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id30">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id31">Added</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#v0-10-9-17-10-23">v0.10.9 - 17.10.23</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id32">Changed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#v0-10-8-13-10-23">v0.10.8 - 13.10.23</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id33">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id34">Changed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#v0-10-7-21-07-23">v0.10.7 - 21.07.23</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id35">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id36">Fixed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#v0-10-6-19-07-23">v0.10.6 - 19.07.23</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id37">Fixed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#v0-10-5-18-07-23">v0.10.5 - 18.07.23</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id38">Fixed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#v0-10-4-18-07-23">v0.10.4 - 18.07.23</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id39">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id40">Changed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#v0-10-3-21-06-23">v0.10.3 - 21.06.23</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id41">Fixed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#v0-10-2-10-05-23">v0.10.2 - 10.05.23</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id42">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id43">Changed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#v0-10-1-02-05-23">v0.10.1 - 02.05.23</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id44">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id45">Changed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#v0-10-0-28-04-23">v0.10.0 - 28.04.23</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id46">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id47">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id48">Fixed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#v0-9-0-05-04-23">v0.9.0 - 05.04.23</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id49">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id50">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id51">Removed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#v0-8-0-31-03-23">v0.8.0 - 31.03.23</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id52">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id53">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id54">Fixed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#v0-7-6-03-11-22">v0.7.6 - 03.11.22</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id55">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id56">Fixed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#v0-7-5-20-10-22">v0.7.5 - 20.10.22</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id57">Fixed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#v0-7-4-18-10-22">v0.7.4 - 18.10.22</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id58">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id59">Fixed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#v0-7-3-17-10-22">v0.7.3 - 17.10.22</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id60">Added</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#v0-7-2-11-10-22">v0.7.2 - 11.10.22</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id61">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id62">Changed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#v0-7-1-13-09-22">v0.7.1 - 13.09.22</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id63">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id64">Fixed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#v0-7-0-08-09-22">v0.7.0 - 08.09.22</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id65">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id66">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id67">Fixed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#v0-6-1-01-09-22">v0.6.1 - 01.09.22</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id68">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id69">Fixed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#v0-6-0-26-08-22">v0.6.0 - 26.08.22</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id70">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id71">Changed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#v0-5-1-10-08-22">v0.5.1 - 10.08.22</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id72">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id73">Fixed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#v0-5-0-02-08-22">v0.5.0 - 02.08.22</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id74">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id75">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id76">Fixed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#v0-4-0-24-06-22">v0.4.0 - 24.06.22</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id77">Added</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#v0-3-1-21-06-22">v0.3.1 - 21.06.22</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id78">Changed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#v0-3-0-15-06-22">v0.3.0 - 15.06.22</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id79">Changed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#v0-2-0-14-06-22">v0.2.0 - 14.06.22</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id80">Added</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#v0-1-0-13-06-22">v0.1.0 - 13.06.22</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">festo-edcon</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Changelog</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/changelog.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="changelog">
+<h1>Changelog<a class="headerlink" href="#changelog" title="Link to this heading"></a></h1>
+<p>All notable changes to this project will be documented in this file.</p>
+<p>The format is based on <a class="reference external" href="https://keepachangelog.com/en/1.0.0/">Keep a Changelog</a>,
+and this project adheres to <a class="reference external" href="https://semver.org/spec/v2.0.0.html">Semantic Versioning</a>.</p>
+<section id="unreleased">
+<h2>Unreleased<a class="headerlink" href="#unreleased" title="Link to this heading"></a></h2>
+</section>
+<section id="v1-0-0-27-03-26">
+<h2>v1.0.0 - 27.03.26<a class="headerlink" href="#v1-0-0-27-03-26" title="Link to this heading"></a></h2>
+<section id="changed">
+<h3>Changed<a class="headerlink" href="#changed" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Move pipeline to github actions</p></li>
+<li><p>Added example for travel-to-fix-stop</p></li>
+</ul>
+</section>
+<section id="added">
+<h3>Added<a class="headerlink" href="#added" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Added icp and pnu maps for v36.12.0</p></li>
+</ul>
+</section>
+</section>
+<section id="v0-15-0-07-11-25">
+<h2>v0.15.0 - 07.11.25<a class="headerlink" href="#v0-15-0-07-11-25" title="Link to this heading"></a></h2>
+<section id="id1">
+<h3>Changed<a class="headerlink" href="#id1" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Upgrade to python 3.10</p></li>
+<li><p>bump setuptools version</p></li>
+<li><p>bump rich version</p></li>
+<li><p>bump pymodbus version</p></li>
+<li><p>catch newly created ConnectionExceptions from the pymodbus library to allow retries</p></li>
+<li><p>Added thread lock to enable simultaneous I/O operation and PNU access</p></li>
+<li><p>Added record table example</p></li>
+</ul>
+</section>
+</section>
+<section id="v0-14-12-25-06-25">
+<h2>v0.14.12 - 25.06.25<a class="headerlink" href="#v0-14-12-25-06-25" title="Link to this heading"></a></h2>
+<section id="id2">
+<h3>Changed<a class="headerlink" href="#id2" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Updated ICP and PNU lists for firmware version 36.10.4</p></li>
+</ul>
+</section>
+</section>
+<section id="v0-14-11-24-04-25">
+<h2>v0.14.11 - 24.04.25<a class="headerlink" href="#v0-14-11-24-04-25" title="Link to this heading"></a></h2>
+<section id="fixed">
+<h3>Fixed<a class="headerlink" href="#fixed" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Fixed in/output size mixup in ComEthernetip</p></li>
+<li><p>Fixed bug where motion tasks would block forever when drive loses operational state</p></li>
+</ul>
+</section>
+<section id="id3">
+<h3>Changed<a class="headerlink" href="#id3" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Use pipeline template</p></li>
+</ul>
+</section>
+</section>
+<section id="v0-14-10-30-10-24">
+<h2>v0.14.10 - 30.10.24<a class="headerlink" href="#v0-14-10-30-10-24" title="Link to this heading"></a></h2>
+<section id="id4">
+<h3>Fixed<a class="headerlink" href="#id4" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Fixed issue due to breaking changes by pymodbus 3.7.4</p></li>
+</ul>
+</section>
+<section id="id5">
+<h3>Changed<a class="headerlink" href="#id5" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Increased timeout for enabling powerstage to 10.0 seconds (needed in case of commutation angle search)</p></li>
+</ul>
+</section>
+</section>
+<section id="v0-14-9-29-08-24">
+<h2>v0.14.9 - 29.08.24<a class="headerlink" href="#v0-14-9-29-08-24" title="Link to this heading"></a></h2>
+<section id="id6">
+<h3>Fixed<a class="headerlink" href="#id6" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>ComModbus: Remove io_thread.join() since apparently not needed and may cause problems.</p></li>
+</ul>
+</section>
+</section>
+<section id="v0-14-8-29-08-24">
+<h2>v0.14.8 - 29.08.24<a class="headerlink" href="#v0-14-8-29-08-24" title="Link to this heading"></a></h2>
+<section id="id7">
+<h3>Fixed<a class="headerlink" href="#id7" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Update pymodbus version to 3.7.0</p></li>
+</ul>
+</section>
+</section>
+<section id="v0-14-7-25-07-24">
+<h2>v0.14.7 - 25.07.24<a class="headerlink" href="#v0-14-7-25-07-24" title="Link to this heading"></a></h2>
+<section id="id8">
+<h3>Changed<a class="headerlink" href="#id8" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>GUI: Realigned buttons and optimized button logic.</p></li>
+<li><p>GUI: Tab change resets tab contents.</p></li>
+</ul>
+</section>
+</section>
+<section id="v0-14-6-19-07-24">
+<h2>v0.14.6 - 19.07.24<a class="headerlink" href="#v0-14-6-19-07-24" title="Link to this heading"></a></h2>
+<section id="removed">
+<h3>Removed<a class="headerlink" href="#removed" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Removed Festo logo.</p></li>
+</ul>
+</section>
+</section>
+<section id="v0-14-5-11-07-24">
+<h2>v0.14.5 - 11.07.24<a class="headerlink" href="#v0-14-5-11-07-24" title="Link to this heading"></a></h2>
+<section id="id9">
+<h3>Fixed<a class="headerlink" href="#id9" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Telegram111Handler: Fixed bug where bit is not correctly reconfigured after previous motion task (i.e. pos_stw1:mdi_active)</p></li>
+</ul>
+</section>
+</section>
+<section id="v0-14-4-08-07-24">
+<h2>v0.14.4 - 08.07.24<a class="headerlink" href="#v0-14-4-08-07-24" title="Link to this heading"></a></h2>
+<section id="id10">
+<h3>Added<a class="headerlink" href="#id10" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Added example for loading parameter set</p></li>
+</ul>
+</section>
+</section>
+<section id="v0-14-3-25-06-24">
+<h2>v0.14.3 - 25.06.24<a class="headerlink" href="#v0-14-3-25-06-24" title="Link to this heading"></a></h2>
+<section id="id11">
+<h3>Fixed<a class="headerlink" href="#id11" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Fixed bug causing crash when updating outputs</p></li>
+</ul>
+</section>
+</section>
+<section id="v0-14-2-21-06-24">
+<h2>v0.14.2 - 21.06.24<a class="headerlink" href="#v0-14-2-21-06-24" title="Link to this heading"></a></h2>
+<section id="id12">
+<h3>Added<a class="headerlink" href="#id12" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>GUI: Basic PROFIdrive state diagram</p></li>
+<li><p>GUI: Show hex/bin values of bitwise words</p></li>
+</ul>
+</section>
+<section id="fixes">
+<h3>Fixes<a class="headerlink" href="#fixes" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Several bugfixes</p></li>
+</ul>
+</section>
+</section>
+<section id="v0-14-1-16-05-24">
+<h2>v0.14.1 - 16.05.24<a class="headerlink" href="#v0-14-1-16-05-24" title="Link to this heading"></a></h2>
+<section id="id13">
+<h3>Added<a class="headerlink" href="#id13" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>GUI: Added motion tab</p></li>
+</ul>
+</section>
+<section id="id14">
+<h3>Changed<a class="headerlink" href="#id14" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>GUI: Updated stylesheet</p></li>
+</ul>
+</section>
+</section>
+<section id="v0-14-0-30-04-24">
+<h2>v0.14.0 - 30.04.24<a class="headerlink" href="#v0-14-0-30-04-24" title="Link to this heading"></a></h2>
+<section id="id15">
+<h3>Changed<a class="headerlink" href="#id15" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Made pyqt5 an optional dependency, move GUI to own entry point <code class="docutils literal notranslate"><span class="pre">festo-edcon-gui</span></code>.</p></li>
+</ul>
+</section>
+</section>
+<section id="v0-13-3-19-04-24">
+<h2>v0.13.3 - 19.04.24<a class="headerlink" href="#v0-13-3-19-04-24" title="Link to this heading"></a></h2>
+<section id="id16">
+<h3>Fixed<a class="headerlink" href="#id16" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Fix reset() method of telegram</p></li>
+</ul>
+</section>
+<section id="id17">
+<h3>Changed<a class="headerlink" href="#id17" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Apply black formatting</p></li>
+<li><p>Update gitlab-ci (added black format check)</p></li>
+<li><p>TelegramHandler does update_io() after construction</p></li>
+<li><p>Telegram*Handler: Rename <code class="docutils literal notranslate"><span class="pre">validation</span></code> parameter to <code class="docutils literal notranslate"><span class="pre">config_mode</span></code></p></li>
+<li><p>CLI: Replaced <code class="docutils literal notranslate"><span class="pre">verbose</span></code> option with <code class="docutils literal notranslate"><span class="pre">quiet</span></code></p></li>
+</ul>
+</section>
+</section>
+<section id="v0-13-2-17-04-24">
+<h2>v0.13.2 - 17.04.24<a class="headerlink" href="#v0-13-2-17-04-24" title="Link to this heading"></a></h2>
+<section id="id18">
+<h3>Fixed<a class="headerlink" href="#id18" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Validation mode not used by MotionHandler.</p></li>
+</ul>
+</section>
+</section>
+<section id="v0-13-1-15-04-24">
+<h2>v0.13.1 - 15.04.24<a class="headerlink" href="#v0-13-1-15-04-24" title="Link to this heading"></a></h2>
+<section id="id19">
+<h3>Fixed<a class="headerlink" href="#id19" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Fix occasional exception when closing IOThread which is not active anymore.</p></li>
+</ul>
+</section>
+</section>
+<section id="v0-13-0-15-04-24">
+<h2>v0.13.0 - 15.04.24<a class="headerlink" href="#v0-13-0-15-04-24" title="Link to this heading"></a></h2>
+<section id="id20">
+<h3>Changed<a class="headerlink" href="#id20" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Added inputs()/outputs() method to retrieve input/output words from Telegram.</p></li>
+</ul>
+</section>
+</section>
+<section id="v0-12-2-07-03-24">
+<h2>v0.12.2 - 07.03.24<a class="headerlink" href="#v0-12-2-07-03-24" title="Link to this heading"></a></h2>
+<section id="id21">
+<h3>Fixed<a class="headerlink" href="#id21" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Fixed pos_stw1.activate_setup bit not being resetted on position task preparation.</p></li>
+</ul>
+</section>
+</section>
+<section id="v0-12-1-23-02-24">
+<h2>v0.12.1 - 23.02.24<a class="headerlink" href="#v0-12-1-23-02-24" title="Link to this heading"></a></h2>
+<section id="id22">
+<h3>Fixed<a class="headerlink" href="#id22" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Fixed Festo logo.</p></li>
+</ul>
+</section>
+</section>
+<section id="v0-12-0-23-02-24">
+<h2>v0.12.0 - 23.02.24<a class="headerlink" href="#v0-12-0-23-02-24" title="Link to this heading"></a></h2>
+<section id="id23">
+<h3>Added<a class="headerlink" href="#id23" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Added first version of GUI.</p></li>
+</ul>
+</section>
+<section id="id24">
+<h3>Changed<a class="headerlink" href="#id24" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Added .pylintrc containing pylint config.</p></li>
+</ul>
+</section>
+</section>
+<section id="v0-11-0-11-12-23">
+<h2>v0.11.0 - 11.12.23<a class="headerlink" href="#v0-11-0-11-12-23" title="Link to this heading"></a></h2>
+<section id="id25">
+<h3>Added<a class="headerlink" href="#id25" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Parameter: Added new class Parameter as representation of a EDrive parameter.</p></li>
+<li><p>ParameterHandler: Added write and read methods for Parameter objects.</p></li>
+</ul>
+</section>
+<section id="id26">
+<h3>Changed<a class="headerlink" href="#id26" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Ported setup.py to pyproject.toml.</p></li>
+</ul>
+</section>
+</section>
+<section id="v0-10-11-05-12-23">
+<h2>v0.10.11 - 05.12.23<a class="headerlink" href="#v0-10-11-05-12-23" title="Link to this heading"></a></h2>
+<section id="id27">
+<h3>Added<a class="headerlink" href="#id27" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Added connected() method to ComBase.</p></li>
+</ul>
+</section>
+<section id="id28">
+<h3>Changed<a class="headerlink" href="#id28" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Updated pnu_map.csv and icp_map.csv.</p></li>
+<li><p>Enforce ethernetip package version 1.1.1.</p></li>
+</ul>
+</section>
+<section id="id29">
+<h3>Fixed<a class="headerlink" href="#id29" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Added conditional toggle for activate_traversing_task bit when continuous_update is not active.</p></li>
+</ul>
+</section>
+</section>
+<section id="v0-10-10-26-10-23">
+<h2>v0.10.10 - 26.10.23<a class="headerlink" href="#v0-10-10-26-10-23" title="Link to this heading"></a></h2>
+<section id="id30">
+<h3>Fixed<a class="headerlink" href="#id30" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Fixed bug where setup of ComModbus would crash for CMMT-xx-EP devices.</p></li>
+</ul>
+</section>
+<section id="id31">
+<h3>Added<a class="headerlink" href="#id31" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Added job to create gitlab release entry.</p></li>
+</ul>
+</section>
+</section>
+<section id="v0-10-9-17-10-23">
+<h2>v0.10.9 - 17.10.23<a class="headerlink" href="#v0-10-9-17-10-23" title="Link to this heading"></a></h2>
+<section id="id32">
+<h3>Changed<a class="headerlink" href="#id32" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Changes to enable backport to python3.9.</p></li>
+</ul>
+</section>
+</section>
+<section id="v0-10-8-13-10-23">
+<h2>v0.10.8 - 13.10.23<a class="headerlink" href="#v0-10-8-13-10-23" title="Link to this heading"></a></h2>
+<section id="id33">
+<h3>Added<a class="headerlink" href="#id33" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Added error handling to parameter-set-load for missing parameter mappings.</p></li>
+</ul>
+</section>
+<section id="id34">
+<h3>Changed<a class="headerlink" href="#id34" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Upgraded package dependencies to pymodbus3.</p></li>
+<li><p>Run branch pipeline only if no MR pipeline exists.</p></li>
+<li><p>Upgraded pnu_map.csv.</p></li>
+<li><p>ComEthernetip: increased waiting time for send_io to ensure that data is sent reliably.</p></li>
+<li><p>Using dedicated logger instead of generic root logger for edcon logs.</p></li>
+</ul>
+</section>
+</section>
+<section id="v0-10-7-21-07-23">
+<h2>v0.10.7 - 21.07.23<a class="headerlink" href="#v0-10-7-21-07-23" title="Link to this heading"></a></h2>
+<section id="id35">
+<h3>Added<a class="headerlink" href="#id35" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Enabled possibility to create multiple ComEthernetip instances.</p></li>
+</ul>
+</section>
+<section id="id36">
+<h3>Fixed<a class="headerlink" href="#id36" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Fixed shutdown behavior of ComEthernetip.</p></li>
+<li><p>Fixed log output of error string when timeout occurs (e.g. acknowlege_faults).</p></li>
+</ul>
+</section>
+</section>
+<section id="v0-10-6-19-07-23">
+<h2>v0.10.6 - 19.07.23<a class="headerlink" href="#v0-10-6-19-07-23" title="Link to this heading"></a></h2>
+<section id="id37">
+<h3>Fixed<a class="headerlink" href="#id37" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Improved shutdown behavior of TelegramHandler.</p></li>
+</ul>
+</section>
+</section>
+<section id="v0-10-5-18-07-23">
+<h2>v0.10.5 - 18.07.23<a class="headerlink" href="#v0-10-5-18-07-23" title="Link to this heading"></a></h2>
+<section id="id38">
+<h3>Fixed<a class="headerlink" href="#id38" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Fixed exception on exit when using python-3.11.</p></li>
+</ul>
+</section>
+</section>
+<section id="v0-10-4-18-07-23">
+<h2>v0.10.4 - 18.07.23<a class="headerlink" href="#v0-10-4-18-07-23" title="Link to this heading"></a></h2>
+<section id="id39">
+<h3>Fixed<a class="headerlink" href="#id39" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Increased timeout for enabling the powerstage from 1 to 5 seconds.</p></li>
+<li><p>Fixed return value of TelegramHandler: disable_powerstage().</p></li>
+</ul>
+</section>
+<section id="id40">
+<h3>Changed<a class="headerlink" href="#id40" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Updated logging info output strings.</p></li>
+</ul>
+</section>
+</section>
+<section id="v0-10-3-21-06-23">
+<h2>v0.10.3 - 21.06.23<a class="headerlink" href="#v0-10-3-21-06-23" title="Link to this heading"></a></h2>
+<section id="id41">
+<h3>Fixed<a class="headerlink" href="#id41" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Fixed issue causing an error when reading 8-bit wide PNUs.</p></li>
+</ul>
+</section>
+</section>
+<section id="v0-10-2-10-05-23">
+<h2>v0.10.2 - 10.05.23<a class="headerlink" href="#v0-10-2-10-05-23" title="Link to this heading"></a></h2>
+<section id="id42">
+<h3>Added<a class="headerlink" href="#id42" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Added CLI tool to load complete parameter set files.</p></li>
+</ul>
+</section>
+<section id="id43">
+<h3>Changed<a class="headerlink" href="#id43" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>MotionHandler: Changed semantics of current_velocity.</p></li>
+</ul>
+</section>
+</section>
+<section id="v0-10-1-02-05-23">
+<h2>v0.10.1 - 02.05.23<a class="headerlink" href="#v0-10-1-02-05-23" title="Link to this heading"></a></h2>
+<section id="id44">
+<h3>Fixed<a class="headerlink" href="#id44" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Fixed typo in help message causing CLI to crash.</p></li>
+</ul>
+</section>
+<section id="id45">
+<h3>Changed<a class="headerlink" href="#id45" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Changed default IP adress from <code class="docutils literal notranslate"><span class="pre">192.168.0.51</span></code> to <code class="docutils literal notranslate"><span class="pre">192.168.0.1</span></code></p></li>
+</ul>
+</section>
+</section>
+<section id="v0-10-0-28-04-23">
+<h2>v0.10.0 - 28.04.23<a class="headerlink" href="#v0-10-0-28-04-23" title="Link to this heading"></a></h2>
+<section id="id46">
+<h3>Added<a class="headerlink" href="#id46" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Added LUT for ICP names to skip manual search for fault names and remedies in manual.</p></li>
+</ul>
+</section>
+<section id="id47">
+<h3>Changed<a class="headerlink" href="#id47" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Overhauled complete project structure to recommended pattern.</p></li>
+<li><p>Separated EDriveMotion into subclasses also used for other telegam modes.</p></li>
+<li><p>Updated examples/multi_position_nonblock.py.</p></li>
+<li><p>Changed CLI tools to use a central entry point with subcommands.</p></li>
+</ul>
+</section>
+<section id="id48">
+<h3>Fixed<a class="headerlink" href="#id48" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Fixed not updating telegram bits during condition monitoring.</p></li>
+</ul>
+</section>
+</section>
+<section id="v0-9-0-05-04-23">
+<h2>v0.9.0 - 05.04.23<a class="headerlink" href="#v0-9-0-05-04-23" title="Link to this heading"></a></h2>
+<section id="id49">
+<h3>Added<a class="headerlink" href="#id49" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>EDriveMotion: Added function to disable powerstage.</p></li>
+<li><p>Added LUT for PNU types to skip manual search for data types in manual.</p></li>
+<li><p>Added example for PNU access.</p></li>
+<li><p>Added missing data types to  <code class="docutils literal notranslate"><span class="pre">festo-edcon-pnu</span></code> tool.</p></li>
+</ul>
+</section>
+<section id="id50">
+<h3>Changed<a class="headerlink" href="#id50" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Restructured README.md and sphinx docs.</p></li>
+</ul>
+</section>
+<section id="id51">
+<h3>Removed<a class="headerlink" href="#id51" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Removed modbus flavour feature due to simplification reasons.</p></li>
+</ul>
+</section>
+</section>
+<section id="v0-8-0-31-03-23">
+<h2>v0.8.0 - 31.03.23<a class="headerlink" href="#v0-8-0-31-03-23" title="Link to this heading"></a></h2>
+<section id="id52">
+<h3>Added<a class="headerlink" href="#id52" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>EDriveMotion: Added wait_for_traversing_task_ack method.</p></li>
+</ul>
+</section>
+<section id="id53">
+<h3>Changed<a class="headerlink" href="#id53" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Moved to python version 3.10</p></li>
+<li><p>EDriveModbus/EDriveEthernetip: added nonblocking/blocking behavior to I/O methods.</p></li>
+<li><p>EDriveMotion: enhanced wait_for_condition and adapted motion tasks to new behavior.</p></li>
+<li><p>EDriveMotion: referencing task now uses homing method as per default.</p></li>
+<li><p>Updated unit tests.</p></li>
+<li><p>Updated examples.</p></li>
+</ul>
+</section>
+<section id="id54">
+<h3>Fixed<a class="headerlink" href="#id54" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Raise error when no EIP connection is possible.</p></li>
+</ul>
+</section>
+</section>
+<section id="v0-7-6-03-11-22">
+<h2>v0.7.6 - 03.11.22<a class="headerlink" href="#v0-7-6-03-11-22" title="Link to this heading"></a></h2>
+<section id="id55">
+<h3>Added<a class="headerlink" href="#id55" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>EDriveMotion: Added methods to check if fix stop and/or clamping torque has been reached.</p></li>
+</ul>
+</section>
+<section id="id56">
+<h3>Fixed<a class="headerlink" href="#id56" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Fixed setup.py.</p></li>
+</ul>
+</section>
+</section>
+<section id="v0-7-5-20-10-22">
+<h2>v0.7.5 - 20.10.22<a class="headerlink" href="#v0-7-5-20-10-22" title="Link to this heading"></a></h2>
+<section id="id57">
+<h3>Fixed<a class="headerlink" href="#id57" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Fixed LICENSE.</p></li>
+</ul>
+</section>
+</section>
+<section id="v0-7-4-18-10-22">
+<h2>v0.7.4 - 18.10.22<a class="headerlink" href="#v0-7-4-18-10-22" title="Link to this heading"></a></h2>
+<section id="id58">
+<h3>Added<a class="headerlink" href="#id58" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Updated URLs to new project location.</p></li>
+</ul>
+</section>
+<section id="id59">
+<h3>Fixed<a class="headerlink" href="#id59" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Fixed issue where position tool would continue operation after error instead of exiting.</p></li>
+</ul>
+</section>
+</section>
+<section id="v0-7-3-17-10-22">
+<h2>v0.7.3 - 17.10.22<a class="headerlink" href="#v0-7-3-17-10-22" title="Link to this heading"></a></h2>
+<section id="id60">
+<h3>Added<a class="headerlink" href="#id60" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Added LICENSE file.</p></li>
+</ul>
+</section>
+</section>
+<section id="v0-7-2-11-10-22">
+<h2>v0.7.2 - 11.10.22<a class="headerlink" href="#v0-7-2-11-10-22" title="Link to this heading"></a></h2>
+<section id="id61">
+<h3>Added<a class="headerlink" href="#id61" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Added a EDriveLogging class to enable easy logging.</p></li>
+</ul>
+</section>
+<section id="id62">
+<h3>Changed<a class="headerlink" href="#id62" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Moved correct telegram assertion from constructor to separate method.</p></li>
+</ul>
+</section>
+</section>
+<section id="v0-7-1-13-09-22">
+<h2>v0.7.1 - 13.09.22<a class="headerlink" href="#v0-7-1-13-09-22" title="Link to this heading"></a></h2>
+<section id="id63">
+<h3>Added<a class="headerlink" href="#id63" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Added a few status checking functions.</p></li>
+<li><p>Added example for multiple axes.</p></li>
+<li><p>Added examples to docu page.</p></li>
+</ul>
+</section>
+<section id="id64">
+<h3>Fixed<a class="headerlink" href="#id64" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Fixed return type of pnu_write/read_raw methods.</p></li>
+</ul>
+</section>
+</section>
+<section id="v0-7-0-08-09-22">
+<h2>v0.7.0 - 08.09.22<a class="headerlink" href="#v0-7-0-08-09-22" title="Link to this heading"></a></h2>
+<section id="id65">
+<h3>Added<a class="headerlink" href="#id65" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>EDriveMotion: Added methods for pausing and resuming motion tasks.</p></li>
+<li><p>EDriveMotion: Added methods for waiting on specific conditions.</p></li>
+<li><p>EDriveMotion: Added <code class="docutils literal notranslate"><span class="pre">timeout</span></code> parameter to <code class="docutils literal notranslate"><span class="pre">acknowledge_faults</span></code>.</p></li>
+</ul>
+</section>
+<section id="id66">
+<h3>Changed<a class="headerlink" href="#id66" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>EDriveMotion: Removed <code class="docutils literal notranslate"><span class="pre">request_plc_control()</span></code> which is now done implicit.</p></li>
+<li><p>Replaced standard logging format handler with <code class="docutils literal notranslate"><span class="pre">Rich</span></code> logging handler.</p></li>
+</ul>
+</section>
+<section id="id67">
+<h3>Fixed<a class="headerlink" href="#id67" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>EDriveMotion: Fixed incorrect scaling of velocity.</p></li>
+<li><p>EDriveMotion: Checking correct bit after enabling of powerstage.</p></li>
+</ul>
+</section>
+</section>
+<section id="v0-6-1-01-09-22">
+<h2>v0.6.1 - 01.09.22<a class="headerlink" href="#v0-6-1-01-09-22" title="Link to this heading"></a></h2>
+<section id="id68">
+<h3>Added<a class="headerlink" href="#id68" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Added CHANGELOG to sphinx page.</p></li>
+</ul>
+</section>
+<section id="id69">
+<h3>Fixed<a class="headerlink" href="#id69" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Fixed bug that caused a crash if <code class="docutils literal notranslate"><span class="pre">homing</span></code> option of position tool was used. Option is now called <code class="docutils literal notranslate"><span class="pre">reference</span></code>.</p></li>
+</ul>
+</section>
+</section>
+<section id="v0-6-0-26-08-22">
+<h2>v0.6.0 - 26.08.22<a class="headerlink" href="#v0-6-0-26-08-22" title="Link to this heading"></a></h2>
+<section id="id70">
+<h3>Added<a class="headerlink" href="#id70" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Added modbus flavour feature e.g. to specify device specific options.</p></li>
+<li><p>Added public API methods to EDriveMotion for configuring various options (SINAPOS functionality).</p></li>
+<li><p>Added non-blocking semantics to motion tasks in EDriveMotion.</p></li>
+</ul>
+</section>
+<section id="id71">
+<h3>Changed<a class="headerlink" href="#id71" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Renamed EDrivePositioning to EDriveMotion.</p></li>
+<li><p>EDriveModbus performs I/O data transfer in a separate thread (EDriveEthernetip did this already).</p></li>
+</ul>
+</section>
+</section>
+<section id="v0-5-1-10-08-22">
+<h2>v0.5.1 - 10.08.22<a class="headerlink" href="#v0-5-1-10-08-22" title="Link to this heading"></a></h2>
+<section id="id72">
+<h3>Added<a class="headerlink" href="#id72" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Added proper README, docu and examples.</p></li>
+</ul>
+</section>
+<section id="id73">
+<h3>Fixed<a class="headerlink" href="#id73" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Fixed bug leading to infinite loop when an fault appears during motion task.</p></li>
+</ul>
+</section>
+</section>
+<section id="v0-5-0-02-08-22">
+<h2>v0.5.0 - 02.08.22<a class="headerlink" href="#v0-5-0-02-08-22" title="Link to this heading"></a></h2>
+<section id="id74">
+<h3>Added<a class="headerlink" href="#id74" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Added sphinx docs.</p></li>
+<li><p>Added <code class="docutils literal notranslate"><span class="pre">with</span></code> statement support to EDrivePositioning.</p></li>
+<li><p>Added method to <code class="docutils literal notranslate"><span class="pre">EDriveModbus</span></code> to configure the modbus timeout.</p></li>
+<li><p>Added method to update I/O data.</p></li>
+<li><p>Added methods for reading current position and velocity.</p></li>
+<li><p>Added ready_for_motion method to check if motion tasks are allowed.</p></li>
+<li><p>Added graceful closing of ethernetip/modbus session when driver is destructed.</p></li>
+</ul>
+</section>
+<section id="id75">
+<h3>Changed<a class="headerlink" href="#id75" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Renamed <code class="docutils literal notranslate"><span class="pre">CMMT</span></code> occurences to <code class="docutils literal notranslate"><span class="pre">EDrive</span></code></p></li>
+</ul>
+</section>
+<section id="id76">
+<h3>Fixed<a class="headerlink" href="#id76" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Corrected exception upon failing telegram assertion.</p></li>
+<li><p>Fixed exception caused by reading non-existing DeviceInformationRequest for older EDrive devices.</p></li>
+<li><p>Fixed bug causing some drives to not start traversing task because of missing delay.</p></li>
+<li><p>Fixed exception caused when PNU was accessed via Modbus on legacy devices.</p></li>
+<li><p>Fixed bug that sometimes caused infinite waiting for (homing, position, record) tasks to be finished.</p></li>
+<li><p>Fixed bug causing a failing powerstage enable in case it has already been enabled once.</p></li>
+</ul>
+</section>
+</section>
+<section id="v0-4-0-24-06-22">
+<h2>v0.4.0 - 24.06.22<a class="headerlink" href="#v0-4-0-24-06-22" title="Link to this heading"></a></h2>
+<section id="id77">
+<h3>Added<a class="headerlink" href="#id77" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Added CLI options for edcon-position tool.</p></li>
+</ul>
+</section>
+</section>
+<section id="v0-3-1-21-06-22">
+<h2>v0.3.1 - 21.06.22<a class="headerlink" href="#v0-3-1-21-06-22" title="Link to this heading"></a></h2>
+<section id="id78">
+<h3>Changed<a class="headerlink" href="#id78" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Fixed gitlab-ci job dependencies.</p></li>
+</ul>
+</section>
+</section>
+<section id="v0-3-0-15-06-22">
+<h2>v0.3.0 - 15.06.22<a class="headerlink" href="#v0-3-0-15-06-22" title="Link to this heading"></a></h2>
+<section id="id79">
+<h3>Changed<a class="headerlink" href="#id79" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Changed deploy job to release job CI/CD. Also creates release.</p></li>
+</ul>
+</section>
+</section>
+<section id="v0-2-0-14-06-22">
+<h2>v0.2.0 - 14.06.22<a class="headerlink" href="#v0-2-0-14-06-22" title="Link to this heading"></a></h2>
+<section id="id80">
+<h3>Added<a class="headerlink" href="#id80" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Added deploy job to CI/CD</p></li>
+</ul>
+</section>
+</section>
+<section id="v0-1-0-13-06-22">
+<h2>v0.1.0 - 13.06.22<a class="headerlink" href="#v0-1-0-13-06-22" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Initial release</p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="edcon.utils.html" class="btn btn-neutral float-left" title="edcon.utils package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Festo SE &amp; Co. KG.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,85 @@
+edcon.cli package
+=================
+
+Submodules
+----------
+
+edcon.cli.cli module
+--------------------
+
+.. automodule:: edcon.cli.cli
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+edcon.cli.gui module
+--------------------
+
+.. automodule:: edcon.cli.gui
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+edcon.cli.parameter\_set\_load module
+-------------------------------------
+
+.. automodule:: edcon.cli.parameter_set_load
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+edcon.cli.pnu module
+--------------------
+
+.. automodule:: edcon.cli.pnu
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+edcon.cli.position module
+-------------------------
+
+.. automodule:: edcon.cli.position
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+edcon.cli.tg1 module
+--------------------
+
+.. automodule:: edcon.cli.tg1
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+edcon.cli.tg102 module
+----------------------
+
+.. automodule:: edcon.cli.tg102
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+edcon.cli.tg111 module
+----------------------
+
+.. automodule:: edcon.cli.tg111
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+edcon.cli.tg9 module
+--------------------
+
+.. automodule:: edcon.cli.tg9
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: edcon.cli
+   :members:
+   :undoc-members:
+   :show-inheritance:

@@ -1,0 +1,1735 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>edcon.edrive package &mdash; festo-edcon  documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="edcon.gui package" href="edcon.gui.html" />
+    <link rel="prev" title="edcon.cli package" href="edcon.cli.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            festo-edcon
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Features:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="features/edrive.html">EDrive - Communication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="features/edrive.html#edrive-motionhandler">EDrive - MotionHandler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="features/profidrive.html">Profidrive</a></li>
+<li class="toctree-l1"><a class="reference internal" href="features/cli.html">CLI</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Examples:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="examples/modbus.html">Modbus Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/ethernetip.html">EtherNet/IP Examples</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Indices and tables:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">Module Sources</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="edcon.html">edcon package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="edcon.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="edcon.cli.html">edcon.cli package</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">edcon.edrive package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="edcon.gui.html">edcon.gui package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="edcon.profidrive.html">edcon.profidrive package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="edcon.utils.html">edcon.utils package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="edcon.html#module-edcon">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">festo-edcon</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">src</a></li>
+          <li class="breadcrumb-item"><a href="edcon.html">edcon package</a></li>
+      <li class="breadcrumb-item active">edcon.edrive package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/edcon.edrive.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="edcon-edrive-package">
+<h1>edcon.edrive package<a class="headerlink" href="#edcon-edrive-package" title="Link to this heading"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
+</section>
+<section id="module-edcon.edrive.com_base">
+<span id="edcon-edrive-com-base-module"></span><h2>edcon.edrive.com_base module<a class="headerlink" href="#module-edcon.edrive.com_base" title="Link to this heading"></a></h2>
+<p>Contains ComBase class which contains common code for EDrive communication drivers.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="edcon.edrive.com_base.ComBase">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">edcon.edrive.com_base.</span></span><span class="sig-name descname"><span class="pre">ComBase</span></span><a class="headerlink" href="#edcon.edrive.com_base.ComBase" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Class that contains common functions for EDrive communication drivers.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.edrive.com_base.ComBase.read_pnu_raw">
+<span class="sig-name descname"><span class="pre">read_pnu_raw</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pnu</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subindex</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_elements</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bytes</span></span></span><a class="headerlink" href="#edcon.edrive.com_base.ComBase.read_pnu_raw" title="Link to this definition"></a></dt>
+<dd><p>Reads a PNU from the EDrive without interpreting the data</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.edrive.com_base.ComBase.read_pnu">
+<span class="sig-name descname"><span class="pre">read_pnu</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pnu</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subindex</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">forced_format</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Any</span></span></span><a class="headerlink" href="#edcon.edrive.com_base.ComBase.read_pnu" title="Link to this definition"></a></dt>
+<dd><p>Reads a PNU from the EDrive</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.edrive.com_base.ComBase.write_pnu_raw">
+<span class="sig-name descname"><span class="pre">write_pnu_raw</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pnu</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subindex</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_elements</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytes</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">b'\x00'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#edcon.edrive.com_base.ComBase.write_pnu_raw" title="Link to this definition"></a></dt>
+<dd><p>Writes raw bytes to a PNU on the EDrive</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.edrive.com_base.ComBase.write_pnu">
+<span class="sig-name descname"><span class="pre">write_pnu</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pnu</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subindex</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">forced_format</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#edcon.edrive.com_base.ComBase.write_pnu" title="Link to this definition"></a></dt>
+<dd><p>Writes a value to a PNU to the EDrive</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.edrive.com_base.ComBase.io_active">
+<span class="sig-name descname"><span class="pre">io_active</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#edcon.edrive.com_base.ComBase.io_active" title="Link to this definition"></a></dt>
+<dd><p>Provides information about connection status.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.edrive.com_base.ComBase.start_io">
+<span class="sig-name descname"><span class="pre">start_io</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#edcon.edrive.com_base.ComBase.start_io" title="Link to this definition"></a></dt>
+<dd><p>Configures and starts i/o data process</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.edrive.com_base.ComBase.stop_io">
+<span class="sig-name descname"><span class="pre">stop_io</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#edcon.edrive.com_base.ComBase.stop_io" title="Link to this definition"></a></dt>
+<dd><p>Stops i/o data process</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.edrive.com_base.ComBase.send_io">
+<span class="sig-name descname"><span class="pre">send_io</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nonblocking</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#edcon.edrive.com_base.ComBase.send_io" title="Link to this definition"></a></dt>
+<dd><p>Sends data to the output</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>nonblocking</strong> (<em>bool</em>) – If True, tasks returns immediately after starting the task.
+Otherwise function awaits for finish (or fault).</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.edrive.com_base.ComBase.recv_io">
+<span class="sig-name descname"><span class="pre">recv_io</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nonblocking</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bytes</span></span></span><a class="headerlink" href="#edcon.edrive.com_base.ComBase.recv_io" title="Link to this definition"></a></dt>
+<dd><p>Receives data from the input</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>nonblocking</strong> (<em>bool</em>) – If True, tasks returns immediately after starting the task.
+Otherwise function awaits for finish (or fault).</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-edcon.edrive.com_ethernetip">
+<span id="edcon-edrive-com-ethernetip-module"></span><h2>edcon.edrive.com_ethernetip module<a class="headerlink" href="#module-edcon.edrive.com_ethernetip" title="Link to this heading"></a></h2>
+<p>Contains ComEthernetip class to configure and communicate with EDrive devices.</p>
+<p>This implementation uses the python-ethernetip library by
+Sebastian Block (<a class="reference external" href="https://codeberg.org/paperwork/python-ethernetip">https://codeberg.org/paperwork/python-ethernetip</a>)</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="edcon.edrive.com_ethernetip.EtherNetIPSingleton">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">edcon.edrive.com_ethernetip.</span></span><span class="sig-name descname"><span class="pre">EtherNetIPSingleton</span></span><a class="headerlink" href="#edcon.edrive.com_ethernetip.EtherNetIPSingleton" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Class to lazyly create an EtherNet/IP singleton object.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.edrive.com_ethernetip.EtherNetIPSingleton.get_instance">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_instance</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#edcon.edrive.com_ethernetip.EtherNetIPSingleton.get_instance" title="Link to this definition"></a></dt>
+<dd><p>If no instace exists yet, create one. Returns instance.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="edcon.edrive.com_ethernetip.ComEthernetip">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">edcon.edrive.com_ethernetip.</span></span><span class="sig-name descname"><span class="pre">ComEthernetip</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ip_address</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cycle_time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">10</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#edcon.edrive.com_ethernetip.ComEthernetip" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#edcon.edrive.com_base.ComBase" title="edcon.edrive.com_base.ComBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">ComBase</span></code></a></p>
+<p>Class to configure and communicate with EDrive devices via EtherNet/IP.</p>
+<p>Constructor of the ComEthernetip class.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ip_address</strong> (<em>str</em>) – Required IP address as string e.g. (‘192.168.0.1’)</p></li>
+<li><p><strong>cycle_time</strong> (<em>int</em>) – Cycle time (in ms) that should be used for I/O transfers</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.edrive.com_ethernetip.ComEthernetip.shutdown">
+<span class="sig-name descname"><span class="pre">shutdown</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#edcon.edrive.com_ethernetip.ComEthernetip.shutdown" title="Link to this definition"></a></dt>
+<dd><p>Tries stop the communication thread and closes the modbus connection</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.edrive.com_ethernetip.ComEthernetip.read_pnu_raw">
+<span class="sig-name descname"><span class="pre">read_pnu_raw</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pnu</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subindex</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_elements</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bytes</span></span></span><a class="headerlink" href="#edcon.edrive.com_ethernetip.ComEthernetip.read_pnu_raw" title="Link to this definition"></a></dt>
+<dd><p>Reads a PNU from the EDrive without interpreting the data</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.edrive.com_ethernetip.ComEthernetip.write_pnu_raw">
+<span class="sig-name descname"><span class="pre">write_pnu_raw</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pnu</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subindex</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_elements</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytes</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">b'\x00'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#edcon.edrive.com_ethernetip.ComEthernetip.write_pnu_raw" title="Link to this definition"></a></dt>
+<dd><p>Writes raw bytes to a PNU on the EDrive</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.edrive.com_ethernetip.ComEthernetip.io_active">
+<span class="sig-name descname"><span class="pre">io_active</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#edcon.edrive.com_ethernetip.ComEthernetip.io_active" title="Link to this definition"></a></dt>
+<dd><p>Provides information about connection status.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.edrive.com_ethernetip.ComEthernetip.start_io">
+<span class="sig-name descname"><span class="pre">start_io</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#edcon.edrive.com_ethernetip.ComEthernetip.start_io" title="Link to this definition"></a></dt>
+<dd><p>Configures and starts i/o data process</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.edrive.com_ethernetip.ComEthernetip.stop_io">
+<span class="sig-name descname"><span class="pre">stop_io</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#edcon.edrive.com_ethernetip.ComEthernetip.stop_io" title="Link to this definition"></a></dt>
+<dd><p>Stops i/o data process</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.edrive.com_ethernetip.ComEthernetip.send_io">
+<span class="sig-name descname"><span class="pre">send_io</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nonblocking</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#edcon.edrive.com_ethernetip.ComEthernetip.send_io" title="Link to this definition"></a></dt>
+<dd><p>Sends data to the output</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>nonblocking</strong> (<em>bool</em>) – If True, function returns immediately.
+Otherwise function awaits I/O thread to be executed.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.edrive.com_ethernetip.ComEthernetip.recv_io">
+<span class="sig-name descname"><span class="pre">recv_io</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nonblocking</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bytes</span></span></span><a class="headerlink" href="#edcon.edrive.com_ethernetip.ComEthernetip.recv_io" title="Link to this definition"></a></dt>
+<dd><p>Receives data from the input</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>nonblocking</strong> (<em>bool</em>) – If True, function returns immediately.
+Otherwise function awaits I/O thread to be executed.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-edcon.edrive.com_modbus">
+<span id="edcon-edrive-com-modbus-module"></span><h2>edcon.edrive.com_modbus module<a class="headerlink" href="#module-edcon.edrive.com_modbus" title="Link to this heading"></a></h2>
+<p>Contains ComModbus class to configure and communicate with EDrive devices.</p>
+<p>This implementation uses the pymodbus library
+<a class="reference external" href="https://pymodbus.readthedocs.io/en/latest/index.html">https://pymodbus.readthedocs.io/en/latest/index.html</a></p>
+<dl class="py class">
+<dt class="sig sig-object py" id="edcon.edrive.com_modbus.IOThread">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">edcon.edrive.com_modbus.</span></span><span class="sig-name descname"><span class="pre">IOThread</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">perform_io</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cycle_time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">10</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#edcon.edrive.com_modbus.IOThread" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Thread</span></code></p>
+<p>Class to handle I/O transfers in a separate thread.</p>
+<p>Constructor of the IOThread class.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>perform_io</strong> (<em>function</em>) – function that is called periodically (with interval cycle_time)
+and performs the I/O data transfer</p></li>
+<li><p><strong>cycle_time</strong> (<em>int</em>) – Cycle time (in ms) that should be used for I/O transfers</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.edrive.com_modbus.IOThread.run">
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#edcon.edrive.com_modbus.IOThread.run" title="Link to this definition"></a></dt>
+<dd><p>Method that needs to be implemented by child.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.edrive.com_modbus.IOThread.start">
+<span class="sig-name descname"><span class="pre">start</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#edcon.edrive.com_modbus.IOThread.start" title="Link to this definition"></a></dt>
+<dd><p>Starts the thread.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.edrive.com_modbus.IOThread.stop">
+<span class="sig-name descname"><span class="pre">stop</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#edcon.edrive.com_modbus.IOThread.stop" title="Link to this definition"></a></dt>
+<dd><p>Stops the thread.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="edcon.edrive.com_modbus.ComModbus">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">edcon.edrive.com_modbus.</span></span><span class="sig-name descname"><span class="pre">ComModbus</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ip_address</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cycle_time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout_ms</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1000</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#edcon.edrive.com_modbus.ComModbus" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#edcon.edrive.com_base.ComBase" title="edcon.edrive.com_base.ComBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">ComBase</span></code></a></p>
+<p>Class to configure and communicate with EDrive devices via Modbus.</p>
+<p>Constructor of the ComModbus class.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ip_address</strong> (<em>str</em>) – Required IP address as string e.g. (‘192.168.0.1’)</p></li>
+<li><p><strong>cycle_time</strong> (<em>int</em>) – Cycle time (in ms) that should be used for I/O transfers</p></li>
+<li><p><strong>timeout_ms</strong> (<em>int</em>) – Modbus timeout (in ms) that should be configured on the slave</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.edrive.com_modbus.ComModbus.shutdown">
+<span class="sig-name descname"><span class="pre">shutdown</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#edcon.edrive.com_modbus.ComModbus.shutdown" title="Link to this definition"></a></dt>
+<dd><p>Tries stop the communication thread and closes the modbus connection</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.edrive.com_modbus.ComModbus.connected">
+<span class="sig-name descname"><span class="pre">connected</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#edcon.edrive.com_modbus.ComModbus.connected" title="Link to this definition"></a></dt>
+<dd><p>Provides information about connection status.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.edrive.com_modbus.ComModbus.read_device_info">
+<span class="sig-name descname"><span class="pre">read_device_info</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#edcon.edrive.com_modbus.ComModbus.read_device_info" title="Link to this definition"></a></dt>
+<dd><p>Reads device info from the CMMT and returns dict with containing values</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Contains device information values</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.edrive.com_modbus.ComModbus.set_timeout">
+<span class="sig-name descname"><span class="pre">set_timeout</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timeout_ms</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#edcon.edrive.com_modbus.ComModbus.set_timeout" title="Link to this definition"></a></dt>
+<dd><p>Sets the modbus timeout to the provided value</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.edrive.com_modbus.ComModbus.perform_io">
+<span class="sig-name descname"><span class="pre">perform_io</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#edcon.edrive.com_modbus.ComModbus.perform_io" title="Link to this definition"></a></dt>
+<dd><p>Reads input data from and writes output data to according modbus registers.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.edrive.com_modbus.ComModbus.read_pnu_raw">
+<span class="sig-name descname"><span class="pre">read_pnu_raw</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pnu</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subindex</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_elements</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bytes</span></span></span><a class="headerlink" href="#edcon.edrive.com_modbus.ComModbus.read_pnu_raw" title="Link to this definition"></a></dt>
+<dd><p>Reads a PNU from the EDrive without interpreting the data</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.edrive.com_modbus.ComModbus.write_pnu_raw">
+<span class="sig-name descname"><span class="pre">write_pnu_raw</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pnu</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subindex</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_elements</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytes</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">b'\x00'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#edcon.edrive.com_modbus.ComModbus.write_pnu_raw" title="Link to this definition"></a></dt>
+<dd><p>Writes raw bytes to a PNU on the EDrive</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.edrive.com_modbus.ComModbus.io_active">
+<span class="sig-name descname"><span class="pre">io_active</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#edcon.edrive.com_modbus.ComModbus.io_active" title="Link to this definition"></a></dt>
+<dd><p>Provides information about connection status.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.edrive.com_modbus.ComModbus.start_io">
+<span class="sig-name descname"><span class="pre">start_io</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#edcon.edrive.com_modbus.ComModbus.start_io" title="Link to this definition"></a></dt>
+<dd><p>Starts i/o data process</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.edrive.com_modbus.ComModbus.stop_io">
+<span class="sig-name descname"><span class="pre">stop_io</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#edcon.edrive.com_modbus.ComModbus.stop_io" title="Link to this definition"></a></dt>
+<dd><p>Stops i/o data process</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.edrive.com_modbus.ComModbus.send_io">
+<span class="sig-name descname"><span class="pre">send_io</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nonblocking</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#edcon.edrive.com_modbus.ComModbus.send_io" title="Link to this definition"></a></dt>
+<dd><p>Sends data to the output</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>nonblocking</strong> (<em>bool</em>) – If True, function returns immediately.
+Otherwise function awaits I/O thread to be executed.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.edrive.com_modbus.ComModbus.recv_io">
+<span class="sig-name descname"><span class="pre">recv_io</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nonblocking</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bytes</span></span></span><a class="headerlink" href="#edcon.edrive.com_modbus.ComModbus.recv_io" title="Link to this definition"></a></dt>
+<dd><p>Receives data from the input</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>nonblocking</strong> (<em>bool</em>) – If True, function returns immediately.
+Otherwise function awaits I/O thread to be executed.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-edcon.edrive.diagnosis">
+<span id="edcon-edrive-diagnosis-module"></span><h2>edcon.edrive.diagnosis module<a class="headerlink" href="#module-edcon.edrive.diagnosis" title="Link to this heading"></a></h2>
+<p>Contains functions which provide corresponding name and remedy of ICP numbers.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="edcon.edrive.diagnosis.read_icp_map_file">
+<span class="sig-prename descclassname"><span class="pre">edcon.edrive.diagnosis.</span></span><span class="sig-name descname"><span class="pre">read_icp_map_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">icp_map_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#edcon.edrive.diagnosis.read_icp_map_file" title="Link to this definition"></a></dt>
+<dd><p>Creates a dict based on a provided ICP name map file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>icp_map_file</strong> (<em>str</em>) – Optional file to use for mapping.
+If nothing provided try to load mapping shipped with package.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>With the first column values as keys and namedtuple values</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="edcon.edrive.diagnosis.diagnosis_name">
+<span class="sig-prename descclassname"><span class="pre">edcon.edrive.diagnosis.</span></span><span class="sig-name descname"><span class="pre">diagnosis_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">icp_number</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">icp_map_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#edcon.edrive.diagnosis.diagnosis_name" title="Link to this definition"></a></dt>
+<dd><dl class="simple">
+<dt>Determines the corresponding name to a provided icp_number, can be</dt><dd><p>determined either via a provided icp_map_file or
+by the icp_map_file shipped with the package.</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>icp_number</strong> (<em>int</em>) – ICP number whose name should be determined.</p></li>
+<li><p><strong>icp_map_file</strong> (<em>str</em>) – Optional file name for icp_map.
+By default installed icp_map file is used.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Name of corresponding ICP</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>value</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="edcon.edrive.diagnosis.diagnosis_remedy">
+<span class="sig-prename descclassname"><span class="pre">edcon.edrive.diagnosis.</span></span><span class="sig-name descname"><span class="pre">diagnosis_remedy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">icp_number</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">icp_map_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="headerlink" href="#edcon.edrive.diagnosis.diagnosis_remedy" title="Link to this definition"></a></dt>
+<dd><dl class="simple">
+<dt>Determines the corresponding remedies to a provided icp_number, can be</dt><dd><p>determined either via a provided icp_map_file or
+by the icp_map_file shipped with the package.</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>icp_number</strong> (<em>int</em>) – ICP number whose remedy should be determined.</p></li>
+<li><p><strong>icp_map_file</strong> (<em>str</em>) – Optional file name for icp_map.
+By default installed icp_map file is used.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>List of str containing potential remedies for the corresponding ICP</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>value</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-edcon.edrive.motion_handler">
+<span id="edcon-edrive-motion-handler-module"></span><h2>edcon.edrive.motion_handler module<a class="headerlink" href="#module-edcon.edrive.motion_handler" title="Link to this heading"></a></h2>
+<p>Contains MotionHandler class to configure and control
+EDrive devices in position mode.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="edcon.edrive.motion_handler.MotionHandler">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">edcon.edrive.motion_handler.</span></span><span class="sig-name descname"><span class="pre">MotionHandler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">com</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#edcon.edrive.com_base.ComBase" title="edcon.edrive.com_base.ComBase"><span class="pre">ComBase</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config_mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#edcon.edrive.motion_handler.MotionHandler" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#edcon.edrive.telegram111_handler.Telegram111Handler" title="edcon.edrive.telegram111_handler.Telegram111Handler"><code class="xref py py-class docutils literal notranslate"><span class="pre">Telegram111Handler</span></code></a></p>
+<p>This class is used to control the EDrive devices in position mode (telegram 111).
+It provides a set of functions to control the position of the EDrive using different modes.</p>
+<dl class="py property">
+<dt class="sig sig-object py" id="edcon.edrive.motion_handler.MotionHandler.over_v">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">over_v</span></span><a class="headerlink" href="#edcon.edrive.motion_handler.MotionHandler.over_v" title="Link to this definition"></a></dt>
+<dd><p>Override velocity in percent</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="edcon.edrive.motion_handler.MotionHandler.over_acc">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">over_acc</span></span><a class="headerlink" href="#edcon.edrive.motion_handler.MotionHandler.over_acc" title="Link to this definition"></a></dt>
+<dd><p>Override acceleration in percent</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="edcon.edrive.motion_handler.MotionHandler.over_dec">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">over_dec</span></span><a class="headerlink" href="#edcon.edrive.motion_handler.MotionHandler.over_dec" title="Link to this definition"></a></dt>
+<dd><p>Override deceleration in percent</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.edrive.motion_handler.MotionHandler.current_velocity">
+<span class="sig-name descname"><span class="pre">current_velocity</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#edcon.edrive.motion_handler.MotionHandler.current_velocity" title="Link to this definition"></a></dt>
+<dd><p>Velocity scaled according to base velocity</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><dl>
+<dt>In order to get the correct velocity,</dt><dd><p>base_velocity (default: 3000.0) needs to be provided.</p>
+<p>Output is calculated as follows:</p>
+<p>base_velocity = Base Value Velocity (parameterized on device)
+raw_value = telegram.nist_b</p>
+<p>current_velocity = raw_value * base_velocity / 0x40000000.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>int/float</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-edcon.edrive.parameter">
+<span id="edcon-edrive-parameter-module"></span><h2>edcon.edrive.parameter module<a class="headerlink" href="#module-edcon.edrive.parameter" title="Link to this heading"></a></h2>
+<p>Contains Parameter class which is used to represent a parameter of EDrives.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="edcon.edrive.parameter.Parameter">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">edcon.edrive.parameter.</span></span><span class="sig-name descname"><span class="pre">Parameter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">axis</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">instance</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subindex</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value_raw</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytes</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#edcon.edrive.parameter.Parameter" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Class representing a parameter.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="edcon.edrive.parameter.Parameter.axis">
+<span class="sig-name descname"><span class="pre">axis</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#edcon.edrive.parameter.Parameter.axis" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="edcon.edrive.parameter.Parameter.data_id">
+<span class="sig-name descname"><span class="pre">data_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#edcon.edrive.parameter.Parameter.data_id" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="edcon.edrive.parameter.Parameter.instance">
+<span class="sig-name descname"><span class="pre">instance</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#edcon.edrive.parameter.Parameter.instance" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="edcon.edrive.parameter.Parameter.subindex">
+<span class="sig-name descname"><span class="pre">subindex</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#edcon.edrive.parameter.Parameter.subindex" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="edcon.edrive.parameter.Parameter.value_raw">
+<span class="sig-name descname"><span class="pre">value_raw</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bytes</span></em><a class="headerlink" href="#edcon.edrive.parameter.Parameter.value_raw" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.edrive.parameter.Parameter.from_uid">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_uid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uid</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#edcon.edrive.parameter.Parameter.from_uid" title="Link to this definition"></a></dt>
+<dd><p>Function to create a Parameter by providing a uid and value.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>uid</strong> (<em>str</em>) – uid of the parameter</p></li>
+<li><p><strong>value</strong> (<em>Any</em>) – value of the parameter</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Parameter object</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.edrive.parameter.Parameter.from_uid_raw">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_uid_raw</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uid</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value_raw</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytes</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#edcon.edrive.parameter.Parameter.from_uid_raw" title="Link to this definition"></a></dt>
+<dd><p>Function to create a Parameter by providing a uid and value.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>uid</strong> (<em>str</em>) – uid of the parameter</p></li>
+<li><p><strong>value_raw</strong> (<em>bytes</em>) – value of the parameter</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Parameter object</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="edcon.edrive.parameter.Parameter.value">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">value</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Any</span></em><a class="headerlink" href="#edcon.edrive.parameter.Parameter.value" title="Link to this definition"></a></dt>
+<dd><p>Returns the value of the parameter.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Value in correct data type</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Any</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.edrive.parameter.Parameter.uid">
+<span class="sig-name descname"><span class="pre">uid</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#edcon.edrive.parameter.Parameter.uid" title="Link to this definition"></a></dt>
+<dd><p>Returns the uid of the parameter.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>uid</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-edcon.edrive.parameter_handler">
+<span id="edcon-edrive-parameter-handler-module"></span><h2>edcon.edrive.parameter_handler module<a class="headerlink" href="#module-edcon.edrive.parameter_handler" title="Link to this heading"></a></h2>
+<p>Contains ParameterSet class which is used to represent parameter sets of EDrives.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="edcon.edrive.parameter_handler.ParameterHandler">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">edcon.edrive.parameter_handler.</span></span><span class="sig-name descname"><span class="pre">ParameterHandler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">com</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#edcon.edrive.com_base.ComBase" title="edcon.edrive.com_base.ComBase"><span class="pre">ComBase</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#edcon.edrive.parameter_handler.ParameterHandler" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Class for parameter handling activities.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.edrive.parameter_handler.ParameterHandler.validate">
+<span class="sig-name descname"><span class="pre">validate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parameter_uid</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#edcon.edrive.parameter_handler.ParameterHandler.validate" title="Link to this definition"></a></dt>
+<dd><p>Asserts that the provided pnu is actually configured</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.edrive.parameter_handler.ParameterHandler.read">
+<span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parameter_uid</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subindex</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#edcon.edrive.parameter_handler.ParameterHandler.read" title="Link to this definition"></a></dt>
+<dd><p>Read value from parameter_uid</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.edrive.parameter_handler.ParameterHandler.write">
+<span class="sig-name descname"><span class="pre">write</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parameter</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#edcon.edrive.parameter.Parameter" title="edcon.edrive.parameter.Parameter"><span class="pre">Parameter</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#edcon.edrive.parameter_handler.ParameterHandler.write" title="Link to this definition"></a></dt>
+<dd><p>Write value to parameter_uid</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-edcon.edrive.parameter_mapping">
+<span id="edcon-edrive-parameter-mapping-module"></span><h2>edcon.edrive.parameter_mapping module<a class="headerlink" href="#module-edcon.edrive.parameter_mapping" title="Link to this heading"></a></h2>
+<p>Contains functions which provide mapping of PNU types.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="edcon.edrive.parameter_mapping.read_pnu_map_file">
+<span class="sig-prename descclassname"><span class="pre">edcon.edrive.parameter_mapping.</span></span><span class="sig-name descname"><span class="pre">read_pnu_map_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pnu_map_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="headerlink" href="#edcon.edrive.parameter_mapping.read_pnu_map_file" title="Link to this definition"></a></dt>
+<dd><p>Creates a list of PNU map items based on a provided PNU type map file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>pnu_map_file</strong> (<em>str</em>) – Optional file to use for mapping.
+If nothing provided try to load mapping shipped with package.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Containing PNU map items with fieldnames created from the header pnu_map_file.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="edcon.edrive.parameter_mapping.create_pnu_map">
+<span class="sig-prename descclassname"><span class="pre">edcon.edrive.parameter_mapping.</span></span><span class="sig-name descname"><span class="pre">create_pnu_map</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#edcon.edrive.parameter_mapping.create_pnu_map" title="Link to this definition"></a></dt>
+<dd><dl class="simple">
+<dt>Creates a dict based on a provided PNU map item list.</dt><dd><p>It maps PNU ids to provided PNU map items</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>PNU ids (key) and PNU items (value)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="edcon.edrive.parameter_mapping.create_parameter_map">
+<span class="sig-prename descclassname"><span class="pre">edcon.edrive.parameter_mapping.</span></span><span class="sig-name descname"><span class="pre">create_parameter_map</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#edcon.edrive.parameter_mapping.create_parameter_map" title="Link to this definition"></a></dt>
+<dd><dl class="simple">
+<dt>Creates a dict based on a provided PNU map item list.</dt><dd><p>It maps parameter ids to provided PNU map items</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>parameter ids (key) and PNU items (value)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="edcon.edrive.parameter_mapping.PnuMap">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">edcon.edrive.parameter_mapping.</span></span><span class="sig-name descname"><span class="pre">PnuMap</span></span><a class="headerlink" href="#edcon.edrive.parameter_mapping.PnuMap" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Class that provides a mapping from PNU to pnu_map_item.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="edcon.edrive.parameter_mapping.ParameterMap">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">edcon.edrive.parameter_mapping.</span></span><span class="sig-name descname"><span class="pre">ParameterMap</span></span><a class="headerlink" href="#edcon.edrive.parameter_mapping.ParameterMap" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Class that provides a mapping from parameter id to pnu_map_item.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.edrive.parameter_mapping.ParameterMap.sanitize_parameter_id">
+<span class="sig-name descname"><span class="pre">sanitize_parameter_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parameter_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#edcon.edrive.parameter_mapping.ParameterMap.sanitize_parameter_id" title="Link to this definition"></a></dt>
+<dd><p>Sanitizes the provided parameter_id by removing unwanted characters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>parameter_id</strong> (<em>str</em>) – Parameter id of the PNU type to be sanitized.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>sanitized parameter_id</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>value</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-edcon.edrive.parameter_set">
+<span id="edcon-edrive-parameter-set-module"></span><h2>edcon.edrive.parameter_set module<a class="headerlink" href="#module-edcon.edrive.parameter_set" title="Link to this heading"></a></h2>
+<p>Contains ParameterSet class which is used to represent parameter sets of EDrives.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="edcon.edrive.parameter_set.ParameterSet">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">edcon.edrive.parameter_set.</span></span><span class="sig-name descname"><span class="pre">ParameterSet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parameterset_file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">strip_null_terminators</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#edcon.edrive.parameter_set.ParameterSet" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Class representing a parameter set.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.edrive.parameter_set.ParameterSet.strip_null_terminators">
+<span class="sig-name descname"><span class="pre">strip_null_terminators</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#edcon.edrive.parameter_set.ParameterSet.strip_null_terminators" title="Link to this definition"></a></dt>
+<dd><p>Removes all parameters from the parameter set that represent null terminators.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-edcon.edrive.pnu_packing">
+<span id="edcon-edrive-pnu-packing-module"></span><h2>edcon.edrive.pnu_packing module<a class="headerlink" href="#module-edcon.edrive.pnu_packing" title="Link to this heading"></a></h2>
+<p>Contains functions which provide mapping of PNU types.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="edcon.edrive.pnu_packing.pnu_unpack">
+<span class="sig-prename descclassname"><span class="pre">edcon.edrive.pnu_packing.</span></span><span class="sig-name descname"><span class="pre">pnu_unpack</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pnu</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">raw</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">forced_format</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Any</span></span></span><a class="headerlink" href="#edcon.edrive.pnu_packing.pnu_unpack" title="Link to this definition"></a></dt>
+<dd><dl class="simple">
+<dt>Unpacks a raw byte value to specific type.</dt><dd><p>The type is determined by the pnu_map_file shipped with the package.</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pnu</strong> (<em>int</em>) – PNU number of value that should be unpacked.</p></li>
+<li><p><strong>raw</strong> (<em>bytes</em>) – Raw bytes value that should be unpacked.</p></li>
+<li><p><strong>forced_format</strong> (<em>str</em>) – Optional format char (see struct) to force the unpacking strategy.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Unpacked value with determined type</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>value</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="edcon.edrive.pnu_packing.pnu_pack">
+<span class="sig-prename descclassname"><span class="pre">edcon.edrive.pnu_packing.</span></span><span class="sig-name descname"><span class="pre">pnu_pack</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pnu</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">forced_format</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bytes</span></span></span><a class="headerlink" href="#edcon.edrive.pnu_packing.pnu_pack" title="Link to this definition"></a></dt>
+<dd><dl class="simple">
+<dt>Packs a provided value to raw bytes object.</dt><dd><p>The type is determined by the pnu_map_file shipped with the package.</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pnu</strong> (<em>int</em>) – PNU number of value that should be unpacked.</p></li>
+<li><p><strong>value</strong> – Value that should be packed.</p></li>
+<li><p><strong>forced_format</strong> (<em>str</em>) – Optional format char (see struct) to force the packing strategy.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Packed value</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bytes</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-edcon.edrive.position_telegram_handler">
+<span id="edcon-edrive-position-telegram-handler-module"></span><h2>edcon.edrive.position_telegram_handler module<a class="headerlink" href="#module-edcon.edrive.position_telegram_handler" title="Link to this heading"></a></h2>
+<p>Class definition containing position telegram execution functions.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="edcon.edrive.position_telegram_handler.PositionTelegramHandler">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">edcon.edrive.position_telegram_handler.</span></span><span class="sig-name descname"><span class="pre">PositionTelegramHandler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">telegram</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">com</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#edcon.edrive.position_telegram_handler.PositionTelegramHandler" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#edcon.edrive.telegram_handler.TelegramHandler" title="edcon.edrive.telegram_handler.TelegramHandler"><code class="xref py py-class docutils literal notranslate"><span class="pre">TelegramHandler</span></code></a></p>
+<p>Basic class for executing position telegrams.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.edrive.position_telegram_handler.PositionTelegramHandler.position_info_string">
+<span class="sig-name descname"><span class="pre">position_info_string</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#edcon.edrive.position_telegram_handler.PositionTelegramHandler.position_info_string" title="Link to this definition"></a></dt>
+<dd><p>Returns string containing position information</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>String containing position information</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.edrive.position_telegram_handler.PositionTelegramHandler.velocity_info_string">
+<span class="sig-name descname"><span class="pre">velocity_info_string</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#edcon.edrive.position_telegram_handler.PositionTelegramHandler.velocity_info_string" title="Link to this definition"></a></dt>
+<dd><p>Returns string containing velocity information</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>String containing velocity information</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.edrive.position_telegram_handler.PositionTelegramHandler.configure_traversing_to_fixed_stop">
+<span class="sig-name descname"><span class="pre">configure_traversing_to_fixed_stop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">active</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#edcon.edrive.position_telegram_handler.PositionTelegramHandler.configure_traversing_to_fixed_stop" title="Link to this definition"></a></dt>
+<dd><p>Configures the traversing to fixed stop option (drive maintains parametrized torque)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>active</strong> (<em>bool</em>) – True =&gt; activate fixed stop traveling, False =&gt; deactivate</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.edrive.position_telegram_handler.PositionTelegramHandler.referenced">
+<span class="sig-name descname"><span class="pre">referenced</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#edcon.edrive.position_telegram_handler.PositionTelegramHandler.referenced" title="Link to this definition"></a></dt>
+<dd><p>Gives information if drive is referenced</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True if drive home position is set, False otherwise</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.edrive.position_telegram_handler.PositionTelegramHandler.target_position_reached">
+<span class="sig-name descname"><span class="pre">target_position_reached</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#edcon.edrive.position_telegram_handler.PositionTelegramHandler.target_position_reached" title="Link to this definition"></a></dt>
+<dd><p>Gives information if drive has reached target position</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True if drive target position is reached, False otherwise</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.edrive.position_telegram_handler.PositionTelegramHandler.stopped">
+<span class="sig-name descname"><span class="pre">stopped</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#edcon.edrive.position_telegram_handler.PositionTelegramHandler.stopped" title="Link to this definition"></a></dt>
+<dd><p>Gives information if drive is stopped</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True if drive is stopped, False otherwise</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.edrive.position_telegram_handler.PositionTelegramHandler.wait_for_referencing_task_ack">
+<span class="sig-name descname"><span class="pre">wait_for_referencing_task_ack</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#edcon.edrive.position_telegram_handler.PositionTelegramHandler.wait_for_referencing_task_ack" title="Link to this definition"></a></dt>
+<dd><p>Waits for drive to be referenced</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True if succesful, False otherwise</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.edrive.position_telegram_handler.PositionTelegramHandler.wait_for_home_position_set">
+<span class="sig-name descname"><span class="pre">wait_for_home_position_set</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#edcon.edrive.position_telegram_handler.PositionTelegramHandler.wait_for_home_position_set" title="Link to this definition"></a></dt>
+<dd><p>Waits for drive to be referenced</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True if succesful, False otherwise</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.edrive.position_telegram_handler.PositionTelegramHandler.wait_for_traversing_task_ack">
+<span class="sig-name descname"><span class="pre">wait_for_traversing_task_ack</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#edcon.edrive.position_telegram_handler.PositionTelegramHandler.wait_for_traversing_task_ack" title="Link to this definition"></a></dt>
+<dd><p>Waits for drive to be referenced</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True if succesful, False otherwise</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.edrive.position_telegram_handler.PositionTelegramHandler.wait_for_target_position">
+<span class="sig-name descname"><span class="pre">wait_for_target_position</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#edcon.edrive.position_telegram_handler.PositionTelegramHandler.wait_for_target_position" title="Link to this definition"></a></dt>
+<dd><p>Waits for target position to be reached</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True if succesful, False otherwise</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.edrive.position_telegram_handler.PositionTelegramHandler.wait_for_stop">
+<span class="sig-name descname"><span class="pre">wait_for_stop</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#edcon.edrive.position_telegram_handler.PositionTelegramHandler.wait_for_stop" title="Link to this definition"></a></dt>
+<dd><p>Waits for target position to be reached</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True if succesful, False otherwise</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.edrive.position_telegram_handler.PositionTelegramHandler.wait_for_referencing_execution">
+<span class="sig-name descname"><span class="pre">wait_for_referencing_execution</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#edcon.edrive.position_telegram_handler.PositionTelegramHandler.wait_for_referencing_execution" title="Link to this definition"></a></dt>
+<dd><p>Waits for referencing to be finished</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True if succesful, False otherwise</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.edrive.position_telegram_handler.PositionTelegramHandler.wait_for_position_motion_execution">
+<span class="sig-name descname"><span class="pre">wait_for_position_motion_execution</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#edcon.edrive.position_telegram_handler.PositionTelegramHandler.wait_for_position_motion_execution" title="Link to this definition"></a></dt>
+<dd><p>Waits for position motion to be finished</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True if succesful, False otherwise</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.edrive.position_telegram_handler.PositionTelegramHandler.trigger_record_change">
+<span class="sig-name descname"><span class="pre">trigger_record_change</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#edcon.edrive.position_telegram_handler.PositionTelegramHandler.trigger_record_change" title="Link to this definition"></a></dt>
+<dd><p>Triggers the change to the next record of the record sequence</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.edrive.position_telegram_handler.PositionTelegramHandler.stop_motion_task">
+<span class="sig-name descname"><span class="pre">stop_motion_task</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#edcon.edrive.position_telegram_handler.PositionTelegramHandler.stop_motion_task" title="Link to this definition"></a></dt>
+<dd><p>Stops any currently active motion task</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.edrive.position_telegram_handler.PositionTelegramHandler.pause_motion_task">
+<span class="sig-name descname"><span class="pre">pause_motion_task</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#edcon.edrive.position_telegram_handler.PositionTelegramHandler.pause_motion_task" title="Link to this definition"></a></dt>
+<dd><p>Pauses any currently active motion task</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.edrive.position_telegram_handler.PositionTelegramHandler.resume_motion_task">
+<span class="sig-name descname"><span class="pre">resume_motion_task</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#edcon.edrive.position_telegram_handler.PositionTelegramHandler.resume_motion_task" title="Link to this definition"></a></dt>
+<dd><p>Resumes any currently active motion task</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.edrive.position_telegram_handler.PositionTelegramHandler.referencing_task">
+<span class="sig-name descname"><span class="pre">referencing_task</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nonblocking</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#edcon.edrive.position_telegram_handler.PositionTelegramHandler.referencing_task" title="Link to this definition"></a></dt>
+<dd><p>Perform the referencing sequence. If successful, the drive is referenced afterwards.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>nonblocking</strong> (<em>bool</em>) – If True, tasks returns immediately after starting the task.
+Otherwise function awaits for finish (or fault).</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if succesful, False otherwise</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.edrive.position_telegram_handler.PositionTelegramHandler.position_task">
+<span class="sig-name descname"><span class="pre">position_task</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">position</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">velocity</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">absolute</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nonblocking</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#edcon.edrive.position_telegram_handler.PositionTelegramHandler.position_task" title="Link to this definition"></a></dt>
+<dd><p>Perform a position task with the given parameters</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>position</strong> (<em>int</em>) – position setpoint in user units (depends on parametrization)</p></li>
+<li><p><strong>velocity</strong> (<em>int</em>) – velocity setpoint in user units (depends on parametrization)</p></li>
+<li><p><strong>absolute</strong> (<em>bool</em>) – If true, position is considered absolute,
+otherwise relative to starting position</p></li>
+<li><p><strong>nonblocking</strong> (<em>bool</em>) – If True, tasks returns immediately after starting the task.
+Otherwise function awaits for finish (or fault).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if succesful, False otherwise</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.edrive.position_telegram_handler.PositionTelegramHandler.jog_task">
+<span class="sig-name descname"><span class="pre">jog_task</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">jog_positive</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">jog_negative</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">incremental</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">duration</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#edcon.edrive.position_telegram_handler.PositionTelegramHandler.jog_task" title="Link to this definition"></a></dt>
+<dd><dl class="simple">
+<dt>Perform a jogging task with a given duration.</dt><dd><p>Please note that the jogging motion stops if jog_positive and jog_negative are equal.</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>jog_positive</strong> (<em>bool</em>) – If true, jog in positive direction.</p></li>
+<li><p><strong>jog_negative</strong> (<em>bool</em>) – If true, jog in negative direction.</p></li>
+<li><p><strong>duration</strong> (<em>float</em>) – Optional duration in seconds.
+A duration of 0 starts the task and returns immediately.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if succesful, False otherwise</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-edcon.edrive.telegram102_handler">
+<span id="edcon-edrive-telegram102-handler-module"></span><h2>edcon.edrive.telegram102_handler module<a class="headerlink" href="#module-edcon.edrive.telegram102_handler" title="Link to this heading"></a></h2>
+<p>Class definition containing telegram 102 execution functions.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="edcon.edrive.telegram102_handler.Telegram102Handler">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">edcon.edrive.telegram102_handler.</span></span><span class="sig-name descname"><span class="pre">Telegram102Handler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">com</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config_mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#edcon.edrive.telegram102_handler.Telegram102Handler" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#edcon.edrive.velocity_telegram_handler.VelocityTelegramHandler" title="edcon.edrive.velocity_telegram_handler.VelocityTelegramHandler"><code class="xref py py-class docutils literal notranslate"><span class="pre">VelocityTelegramHandler</span></code></a></p>
+<p>Basic class for executing telegram 102.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>com</strong> (<a class="reference internal" href="#edcon.edrive.com_base.ComBase" title="edcon.edrive.com_base.ComBase"><em>ComBase</em></a>) – communication driver</p></li>
+<li><p><strong>config_mode</strong> (<em>str</em>) – configuration mode (None, “write”, “validate”)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.edrive.telegram102_handler.Telegram102Handler.velocity_info_string">
+<span class="sig-name descname"><span class="pre">velocity_info_string</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#edcon.edrive.telegram102_handler.Telegram102Handler.velocity_info_string" title="Link to this definition"></a></dt>
+<dd><p>Returns string containing velocity information</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>String containing velocity information</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-edcon.edrive.telegram111_handler">
+<span id="edcon-edrive-telegram111-handler-module"></span><h2>edcon.edrive.telegram111_handler module<a class="headerlink" href="#module-edcon.edrive.telegram111_handler" title="Link to this heading"></a></h2>
+<p>Class definition containing telegram 111 execution functions.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="edcon.edrive.telegram111_handler.Telegram111Handler">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">edcon.edrive.telegram111_handler.</span></span><span class="sig-name descname"><span class="pre">Telegram111Handler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">com</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config_mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#edcon.edrive.telegram111_handler.Telegram111Handler" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#edcon.edrive.position_telegram_handler.PositionTelegramHandler" title="edcon.edrive.position_telegram_handler.PositionTelegramHandler"><code class="xref py py-class docutils literal notranslate"><span class="pre">PositionTelegramHandler</span></code></a></p>
+<p>Basic class for executing telegram 111.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>com</strong> (<a class="reference internal" href="#edcon.edrive.com_base.ComBase" title="edcon.edrive.com_base.ComBase"><em>ComBase</em></a>) – communication driver</p></li>
+<li><p><strong>config_mode</strong> (<em>str</em>) – configuration mode (None, “write”, “validate”)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.edrive.telegram111_handler.Telegram111Handler.fault_string">
+<span class="sig-name descname"><span class="pre">fault_string</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#edcon.edrive.telegram111_handler.Telegram111Handler.fault_string" title="Link to this definition"></a></dt>
+<dd><p>Returns string containing fault reason</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>String containing the fault reason</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.edrive.telegram111_handler.Telegram111Handler.configure_hardware_limit_switch">
+<span class="sig-name descname"><span class="pre">configure_hardware_limit_switch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">active</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#edcon.edrive.telegram111_handler.Telegram111Handler.configure_hardware_limit_switch" title="Link to this definition"></a></dt>
+<dd><p>Configures the hardware limit switch</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>active</strong> (<em>bool</em>) – True =&gt; activate limit, False =&gt; deactivate limit</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.edrive.telegram111_handler.Telegram111Handler.configure_software_limit_switch">
+<span class="sig-name descname"><span class="pre">configure_software_limit_switch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">active</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#edcon.edrive.telegram111_handler.Telegram111Handler.configure_software_limit_switch" title="Link to this definition"></a></dt>
+<dd><p>Configures the software limit switch</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>active</strong> (<em>bool</em>) – True =&gt; activate limit, False =&gt; deactivate limit</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.edrive.telegram111_handler.Telegram111Handler.configure_measuring_probe">
+<span class="sig-name descname"><span class="pre">configure_measuring_probe</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">falling_edge</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">measuring_probe</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'first'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#edcon.edrive.telegram111_handler.Telegram111Handler.configure_measuring_probe" title="Link to this definition"></a></dt>
+<dd><p>Configures the measuring probes.
+Be aware that only one probe is configurable simultaneously.
+In order to configure both probes:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Configure probe ‘first’</p></li>
+<li><p>Send using update_outputs()</p></li>
+<li><p>Configure probe ‘second’</p></li>
+</ol>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>falling_edge</strong> (<em>bool</em>) – Determines whether to trigger on rising or falling edge</p></li>
+<li><p><strong>measuring_probe</strong> (<em>str</em>) – One of [‘first’, ‘second’], determines the probe to configure</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.edrive.telegram111_handler.Telegram111Handler.configure_continuous_update">
+<span class="sig-name descname"><span class="pre">configure_continuous_update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">active</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#edcon.edrive.telegram111_handler.Telegram111Handler.configure_continuous_update" title="Link to this definition"></a></dt>
+<dd><p>Configures the continuous update option i.e. setpoints are immediately updated without need
+of starting a new traversing task</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>active</strong> (<em>bool</em>) – True =&gt; activate continuous update, False =&gt; deactivate continuous update</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.edrive.telegram111_handler.Telegram111Handler.configure_tracking_mode">
+<span class="sig-name descname"><span class="pre">configure_tracking_mode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">active</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#edcon.edrive.telegram111_handler.Telegram111Handler.configure_tracking_mode" title="Link to this definition"></a></dt>
+<dd><p>Configures the tracking mode i.e. setpoint continuously tracks the current value</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>active</strong> (<em>bool</em>) – True =&gt; activate tracking mode, False =&gt; deactivate tracking mode</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.edrive.telegram111_handler.Telegram111Handler.fix_stop_reached">
+<span class="sig-name descname"><span class="pre">fix_stop_reached</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#edcon.edrive.telegram111_handler.Telegram111Handler.fix_stop_reached" title="Link to this definition"></a></dt>
+<dd><p>Gives information if drive has reached fix stop</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True if drive is at fix stop, False otherwise</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.edrive.telegram111_handler.Telegram111Handler.clamping_torque_reached">
+<span class="sig-name descname"><span class="pre">clamping_torque_reached</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#edcon.edrive.telegram111_handler.Telegram111Handler.clamping_torque_reached" title="Link to this definition"></a></dt>
+<dd><p>Gives information if drive has reached clamping torque</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True if drive torque reached the clamping torque, False otherwise</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.edrive.telegram111_handler.Telegram111Handler.current_position">
+<span class="sig-name descname"><span class="pre">current_position</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#edcon.edrive.telegram111_handler.Telegram111Handler.current_position" title="Link to this definition"></a></dt>
+<dd><p>Read the current position</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Current position in user units</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.edrive.telegram111_handler.Telegram111Handler.current_fault_code">
+<span class="sig-name descname"><span class="pre">current_fault_code</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#edcon.edrive.telegram111_handler.Telegram111Handler.current_fault_code" title="Link to this definition"></a></dt>
+<dd><p>Read the current fault code position</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Current fault code</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.edrive.telegram111_handler.Telegram111Handler.await_fault_code">
+<span class="sig-name descname"><span class="pre">await_fault_code</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#edcon.edrive.telegram111_handler.Telegram111Handler.await_fault_code" title="Link to this definition"></a></dt>
+<dd><p>Waits for fault code to be available and produces log afterwards.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True if succesful, False otherwise</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.edrive.telegram111_handler.Telegram111Handler.wait_for_referencing_task_ack">
+<span class="sig-name descname"><span class="pre">wait_for_referencing_task_ack</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#edcon.edrive.telegram111_handler.Telegram111Handler.wait_for_referencing_task_ack" title="Link to this definition"></a></dt>
+<dd><p>Waits for drive to be referenced</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True if succesful, False otherwise</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.edrive.telegram111_handler.Telegram111Handler.set_current_position_task">
+<span class="sig-name descname"><span class="pre">set_current_position_task</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nonblocking</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#edcon.edrive.telegram111_handler.Telegram111Handler.set_current_position_task" title="Link to this definition"></a></dt>
+<dd><p>Perform the referencing sequence. If successful, the drive is referenced afterwards.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>nonblocking</strong> (<em>bool</em>) – If True, tasks returns immediately after starting the task.
+Otherwise function awaits for finish (or fault).</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if succesful, False otherwise</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.edrive.telegram111_handler.Telegram111Handler.velocity_task">
+<span class="sig-name descname"><span class="pre">velocity_task</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">velocity</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">duration</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#edcon.edrive.telegram111_handler.Telegram111Handler.velocity_task" title="Link to this definition"></a></dt>
+<dd><p>Perform a velocity task with the given parameters using setup mode.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>velocity</strong> (<em>int</em>) – velocity setpoint in user units (depends on parametrization).
+The sign determines the direction of the motion.</p></li>
+<li><p><strong>duration</strong> (<em>float</em>) – Optional duration in seconds.
+A duration of 0 starts the task and returns immediately.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if succesful, False otherwise</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.edrive.telegram111_handler.Telegram111Handler.record_task">
+<span class="sig-name descname"><span class="pre">record_task</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">record_number</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nonblocking</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#edcon.edrive.telegram111_handler.Telegram111Handler.record_task" title="Link to this definition"></a></dt>
+<dd><p>Perform a preconfigured record task by providing the corresponding record number</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>record_number</strong> (<em>int</em>) – The record number determining the record table entry that should be
+executed.</p></li>
+<li><p><strong>nonblocking</strong> (<em>bool</em>) – If True, tasks returns immediately after starting the task.
+Otherwise function awaits for finish (or fault).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if succesful, False otherwise</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-edcon.edrive.telegram1_handler">
+<span id="edcon-edrive-telegram1-handler-module"></span><h2>edcon.edrive.telegram1_handler module<a class="headerlink" href="#module-edcon.edrive.telegram1_handler" title="Link to this heading"></a></h2>
+<p>Class definition containing telegram 1 execution functions.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="edcon.edrive.telegram1_handler.Telegram1Handler">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">edcon.edrive.telegram1_handler.</span></span><span class="sig-name descname"><span class="pre">Telegram1Handler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">com</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config_mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#edcon.edrive.telegram1_handler.Telegram1Handler" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#edcon.edrive.velocity_telegram_handler.VelocityTelegramHandler" title="edcon.edrive.velocity_telegram_handler.VelocityTelegramHandler"><code class="xref py py-class docutils literal notranslate"><span class="pre">VelocityTelegramHandler</span></code></a></p>
+<p>Basic class for executing telegram 1.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>com</strong> (<a class="reference internal" href="#edcon.edrive.com_base.ComBase" title="edcon.edrive.com_base.ComBase"><em>ComBase</em></a>) – communication driver</p></li>
+<li><p><strong>config_mode</strong> (<em>str</em>) – configuration mode (None, “write”, “validate”)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.edrive.telegram1_handler.Telegram1Handler.velocity_info_string">
+<span class="sig-name descname"><span class="pre">velocity_info_string</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#edcon.edrive.telegram1_handler.Telegram1Handler.velocity_info_string" title="Link to this definition"></a></dt>
+<dd><p>Returns string containing velocity information</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>String containing velocity information</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-edcon.edrive.telegram9_handler">
+<span id="edcon-edrive-telegram9-handler-module"></span><h2>edcon.edrive.telegram9_handler module<a class="headerlink" href="#module-edcon.edrive.telegram9_handler" title="Link to this heading"></a></h2>
+<p>Class definition containing telegram 9 execution functions.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="edcon.edrive.telegram9_handler.Telegram9Handler">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">edcon.edrive.telegram9_handler.</span></span><span class="sig-name descname"><span class="pre">Telegram9Handler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">com</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config_mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#edcon.edrive.telegram9_handler.Telegram9Handler" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#edcon.edrive.position_telegram_handler.PositionTelegramHandler" title="edcon.edrive.position_telegram_handler.PositionTelegramHandler"><code class="xref py py-class docutils literal notranslate"><span class="pre">PositionTelegramHandler</span></code></a></p>
+<p>Basic class for executing telegram 9.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>com</strong> (<a class="reference internal" href="#edcon.edrive.com_base.ComBase" title="edcon.edrive.com_base.ComBase"><em>ComBase</em></a>) – communication driver</p></li>
+<li><p><strong>config_mode</strong> (<em>str</em>) – configuration mode (None, “write”, “validate”)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-edcon.edrive.telegram_handler">
+<span id="edcon-edrive-telegram-handler-module"></span><h2>edcon.edrive.telegram_handler module<a class="headerlink" href="#module-edcon.edrive.telegram_handler" title="Link to this heading"></a></h2>
+<p>Class definition containing generic telegram execution functions.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="edcon.edrive.telegram_handler.TelegramHandler">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">edcon.edrive.telegram_handler.</span></span><span class="sig-name descname"><span class="pre">TelegramHandler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">telegram</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">com</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#edcon.edrive.telegram_handler.TelegramHandler" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Basic class for executing telegrams.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.edrive.telegram_handler.TelegramHandler.shutdown">
+<span class="sig-name descname"><span class="pre">shutdown</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#edcon.edrive.telegram_handler.TelegramHandler.shutdown" title="Link to this definition"></a></dt>
+<dd><p>Tries to disable the powerstage and stops the communication thread</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.edrive.telegram_handler.TelegramHandler.update_inputs">
+<span class="sig-name descname"><span class="pre">update_inputs</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#edcon.edrive.telegram_handler.TelegramHandler.update_inputs" title="Link to this definition"></a></dt>
+<dd><p>Reads current input process data and updates telegram</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.edrive.telegram_handler.TelegramHandler.update_outputs">
+<span class="sig-name descname"><span class="pre">update_outputs</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#edcon.edrive.telegram_handler.TelegramHandler.update_outputs" title="Link to this definition"></a></dt>
+<dd><p>Writes current telegram value to output process data</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.edrive.telegram_handler.TelegramHandler.update_io">
+<span class="sig-name descname"><span class="pre">update_io</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#edcon.edrive.telegram_handler.TelegramHandler.update_io" title="Link to this definition"></a></dt>
+<dd><p>Updates process data in both directions (I/O)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.edrive.telegram_handler.TelegramHandler.wait_until_or_fault">
+<span class="sig-name descname"><span class="pre">wait_until_or_fault</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cond</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">info_string</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#edcon.edrive.telegram_handler.TelegramHandler.wait_until_or_fault" title="Link to this definition"></a></dt>
+<dd><p>Waits for condition to be met until fault is present.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.edrive.telegram_handler.TelegramHandler.wait_until_or_not_operational">
+<span class="sig-name descname"><span class="pre">wait_until_or_not_operational</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cond</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">info_string</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#edcon.edrive.telegram_handler.TelegramHandler.wait_until_or_not_operational" title="Link to this definition"></a></dt>
+<dd><p>Waits for condition to be met until not_operational is present.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.edrive.telegram_handler.TelegramHandler.fault_string">
+<span class="sig-name descname"><span class="pre">fault_string</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#edcon.edrive.telegram_handler.TelegramHandler.fault_string" title="Link to this definition"></a></dt>
+<dd><p>Returns string containing fault reason</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>String containing the fault reason</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.edrive.telegram_handler.TelegramHandler.fault_present">
+<span class="sig-name descname"><span class="pre">fault_present</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#edcon.edrive.telegram_handler.TelegramHandler.fault_present" title="Link to this definition"></a></dt>
+<dd><p>Gives information whether a fault is present</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True if fault presens, False otherwise</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.edrive.telegram_handler.TelegramHandler.not_operational">
+<span class="sig-name descname"><span class="pre">not_operational</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#edcon.edrive.telegram_handler.TelegramHandler.not_operational" title="Link to this definition"></a></dt>
+<dd><p>Gives information whether a fault is present</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True if fault present, False otherwise</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.edrive.telegram_handler.TelegramHandler.plc_control_granted">
+<span class="sig-name descname"><span class="pre">plc_control_granted</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#edcon.edrive.telegram_handler.TelegramHandler.plc_control_granted" title="Link to this definition"></a></dt>
+<dd><p>Gives information if PLC control is granted</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True if succesful, False otherwise</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.edrive.telegram_handler.TelegramHandler.ready_for_motion">
+<span class="sig-name descname"><span class="pre">ready_for_motion</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#edcon.edrive.telegram_handler.TelegramHandler.ready_for_motion" title="Link to this definition"></a></dt>
+<dd><p>Gives information if motion tasks can be started</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True if drive is ready for motion tasks, False otherwise</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.edrive.telegram_handler.TelegramHandler.configure_coast_stop">
+<span class="sig-name descname"><span class="pre">configure_coast_stop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">active</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#edcon.edrive.telegram_handler.TelegramHandler.configure_coast_stop" title="Link to this definition"></a></dt>
+<dd><p>Configures the coast stop option</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>active</strong> (<em>bool</em>) – True =&gt; activate coasting, False =&gt; deactivate coasting</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.edrive.telegram_handler.TelegramHandler.configure_quick_stop">
+<span class="sig-name descname"><span class="pre">configure_quick_stop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">active</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#edcon.edrive.telegram_handler.TelegramHandler.configure_quick_stop" title="Link to this definition"></a></dt>
+<dd><p>Configures the quick stop option</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>active</strong> (<em>bool</em>) – True =&gt; activate quick stop, False =&gt; deactivate quick stop</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.edrive.telegram_handler.TelegramHandler.configure_brake">
+<span class="sig-name descname"><span class="pre">configure_brake</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">active</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#edcon.edrive.telegram_handler.TelegramHandler.configure_brake" title="Link to this definition"></a></dt>
+<dd><p>Configures the holding brake</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>active</strong> (<em>bool</em>) – True =&gt; activate brake, False =&gt; release brake</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.edrive.telegram_handler.TelegramHandler.acknowledge_faults">
+<span class="sig-name descname"><span class="pre">acknowledge_faults</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">5.0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#edcon.edrive.telegram_handler.TelegramHandler.acknowledge_faults" title="Link to this definition"></a></dt>
+<dd><p>Send telegram to acknowledge present faults of the EDrive</p>
+<dl class="simple">
+<dt>Parameter:</dt><dd><p>timeout (float): time that should be waited for acknowledgement</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True if succesful, False otherwise</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.edrive.telegram_handler.TelegramHandler.enable_powerstage">
+<span class="sig-name descname"><span class="pre">enable_powerstage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">10.0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#edcon.edrive.telegram_handler.TelegramHandler.enable_powerstage" title="Link to this definition"></a></dt>
+<dd><p>Send telegram to enable the power stage</p>
+<dl class="simple">
+<dt>Parameter:</dt><dd><p>timeout (float): time that should be waited for enabling</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True if succesful, False otherwise</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.edrive.telegram_handler.TelegramHandler.disable_powerstage">
+<span class="sig-name descname"><span class="pre">disable_powerstage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">5.0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#edcon.edrive.telegram_handler.TelegramHandler.disable_powerstage" title="Link to this definition"></a></dt>
+<dd><p>Send telegram to disable the power stage</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-edcon.edrive.velocity_telegram_handler">
+<span id="edcon-edrive-velocity-telegram-handler-module"></span><h2>edcon.edrive.velocity_telegram_handler module<a class="headerlink" href="#module-edcon.edrive.velocity_telegram_handler" title="Link to this heading"></a></h2>
+<p>Class definition containing velocity telegram execution functions.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="edcon.edrive.velocity_telegram_handler.VelocityTelegramHandler">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">edcon.edrive.velocity_telegram_handler.</span></span><span class="sig-name descname"><span class="pre">VelocityTelegramHandler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">telegram</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">com</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#edcon.edrive.velocity_telegram_handler.VelocityTelegramHandler" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#edcon.edrive.telegram_handler.TelegramHandler" title="edcon.edrive.telegram_handler.TelegramHandler"><code class="xref py py-class docutils literal notranslate"><span class="pre">TelegramHandler</span></code></a></p>
+<p>Basic class for executing velocity telegrams.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.edrive.velocity_telegram_handler.VelocityTelegramHandler.velocity_info_string">
+<span class="sig-name descname"><span class="pre">velocity_info_string</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#edcon.edrive.velocity_telegram_handler.VelocityTelegramHandler.velocity_info_string" title="Link to this definition"></a></dt>
+<dd><p>Returns string containing velocity information</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>String containing velocity information</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.edrive.velocity_telegram_handler.VelocityTelegramHandler.stop_motion_task">
+<span class="sig-name descname"><span class="pre">stop_motion_task</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#edcon.edrive.velocity_telegram_handler.VelocityTelegramHandler.stop_motion_task" title="Link to this definition"></a></dt>
+<dd><p>Stops any currently active motion task</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.edrive.velocity_telegram_handler.VelocityTelegramHandler.velocity_task">
+<span class="sig-name descname"><span class="pre">velocity_task</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">velocity</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">duration</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#edcon.edrive.velocity_telegram_handler.VelocityTelegramHandler.velocity_task" title="Link to this definition"></a></dt>
+<dd><p>Perform a velocity task with the given parameters using setup mode.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>velocity</strong> (<em>int</em>) – velocity setpoint in user units (depends on parametrization).
+The sign determines the direction of the motion.</p></li>
+<li><p><strong>duration</strong> (<em>float</em>) – Optional duration in seconds.
+A duration of 0 starts the task and returns immediately.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if succesful, False otherwise</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-edcon.edrive">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-edcon.edrive" title="Link to this heading"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="edcon.cli.html" class="btn btn-neutral float-left" title="edcon.cli package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="edcon.gui.html" class="btn btn-neutral float-right" title="edcon.gui package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Festo SE &amp; Co. KG.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

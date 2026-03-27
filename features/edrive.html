@@ -1,0 +1,179 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EDrive - Communication &mdash; festo-edcon  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Profidrive" href="profidrive.html" />
+    <link rel="prev" title="festo-edcon" href="../index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            festo-edcon
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Features:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">EDrive - Communication</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#combase">ComBase</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#comethernetip">ComEthernetip</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#commodbus">ComModbus</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#edrive-motionhandler">EDrive - MotionHandler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="profidrive.html">Profidrive</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cli.html">CLI</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Examples:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../examples/modbus.html">Modbus Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/ethernetip.html">EtherNet/IP Examples</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Indices and tables:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../modules.html">Module Sources</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">festo-edcon</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">EDrive - Communication</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/features/edrive.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="edrive-communication">
+<h1>EDrive - Communication<a class="headerlink" href="#edrive-communication" title="Link to this heading"></a></h1>
+<p>There are different communication protocols which transfer telegrams between devices.
+The <a class="reference internal" href="../edcon.edrive.html#edcon.edrive.com_base.ComBase" title="edcon.edrive.com_base.ComBase"><span class="xref myst py py-class"><code class="docutils literal notranslate"><span class="pre">ComBase</span></code></span></a> class aims to bundle common parts of the protocol classes.</p>
+<section id="combase">
+<h2>ComBase<a class="headerlink" href="#combase" title="Link to this heading"></a></h2>
+<p>The <a class="reference internal" href="../edcon.edrive.html#edcon.edrive.com_base.ComBase" title="edcon.edrive.com_base.ComBase"><span class="xref myst py py-class"><code class="docutils literal notranslate"><span class="pre">ComBase</span></code></span></a> class defines interface functions used to handle I/O data and for capable device also PNU accesses.</p>
+<p><strong><code class="docutils literal notranslate"><span class="pre">start_io</span></code></strong>: Starts the I/O data operation
+<strong><code class="docutils literal notranslate"><span class="pre">stop_io</span></code></strong>: Stops the I/O data operation
+<strong><code class="docutils literal notranslate"><span class="pre">send_io</span></code></strong>: Writes provided <code class="docutils literal notranslate"><span class="pre">bytes</span></code> data to the process data outputs
+<strong><code class="docutils literal notranslate"><span class="pre">recv_io</span></code></strong>: Reads from process data inputs and returns <code class="docutils literal notranslate"><span class="pre">bytes</span></code> data</p>
+<p>For cases where PNU access is available there are also methods</p>
+<p><strong><code class="docutils literal notranslate"><span class="pre">read_pnu</span></code></strong>: Reads a PNU of provided index and subindex and interprets with provided datatype
+<strong><code class="docutils literal notranslate"><span class="pre">write_pnu</span></code></strong>: Writes a provided PNU value to provided index and subindex as provided datatype</p>
+</section>
+<section id="comethernetip">
+<h2>ComEthernetip<a class="headerlink" href="#comethernetip" title="Link to this heading"></a></h2>
+<p>Instantiating a <a class="reference internal" href="../edcon.edrive.html#edcon.edrive.com_ethernetip.ComEthernetip" title="edcon.edrive.com_ethernetip.ComEthernetip"><span class="xref myst py py-class"><code class="docutils literal notranslate"><span class="pre">ComEthernetip</span></code></span></a> requires an IP address.
+Optionally the cycle time can be provided (default is 10 ms).
+Be aware that most likely your OS will be a limiting factor here.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">edrive</span> <span class="o">=</span> <span class="n">ComEthernetip</span><span class="p">(</span><span class="s1">&#39;192.168.0.1&#39;</span><span class="p">,</span> <span class="n">cycle_time</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="commodbus">
+<h2>ComModbus<a class="headerlink" href="#commodbus" title="Link to this heading"></a></h2>
+<p>Instantiating a <a class="reference internal" href="../edcon.edrive.html#edcon.edrive.com_modbus.ComModbus" title="edcon.edrive.com_modbus.ComModbus"><span class="xref myst py py-class"><code class="docutils literal notranslate"><span class="pre">ComModbus</span></code></span></a> requires an IP address.
+Optionally the modbus timeout which should be configured on the endpoint can be provided (default is 1000 ms).</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">edrive</span> <span class="o">=</span> <span class="n">ComModbus</span><span class="p">(</span><span class="s1">&#39;192.168.0.1&#39;</span><span class="p">,</span> <span class="n">timeout_ms</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="edrive-motionhandler">
+<h1>EDrive - MotionHandler<a class="headerlink" href="#edrive-motionhandler" title="Link to this heading"></a></h1>
+<p>The <a class="reference internal" href="../edcon.edrive.html#edcon.edrive.motion_handler.MotionHandler" title="edcon.edrive.motion_handler.MotionHandler"><span class="xref myst py py-class"><code class="docutils literal notranslate"><span class="pre">MotionHandler</span></code></span></a> class can be used to start different motion tasks.
+Under the hood it uses PROFIDRIVE telegram 111.
+The intention of the class is to provide an abstraction from telegram 111 to the user, thus providing a simpler interface.</p>
+<p>The motion class is instantiated by providing a edrive communication instance that is used to transfer the telegram (e.g. <a class="reference internal" href="../edcon.edrive.html#edcon.edrive.com_ethernetip.ComEthernetip" title="edcon.edrive.com_ethernetip.ComEthernetip"><span class="xref myst py py-class"><code class="docutils literal notranslate"><span class="pre">ComEthernetip</span></code></span></a> or <a class="reference internal" href="../edcon.edrive.html#edcon.edrive.com_modbus.ComModbus" title="edcon.edrive.com_modbus.ComModbus"><span class="xref myst py py-class"><code class="docutils literal notranslate"><span class="pre">ComModbus</span></code></span></a>).</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">MotionHandler</span><span class="p">(</span><span class="n">edrive</span><span class="p">)</span> <span class="k">as</span> <span class="n">mot</span><span class="p">:</span>
+</pre></div>
+</div>
+<p>The instance is then able of handling basic setup sequences.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>    <span class="n">mot</span><span class="o">.</span><span class="n">acknowledge_faults</span><span class="p">()</span>
+    <span class="n">mot</span><span class="o">.</span><span class="n">enable_powerstage</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>And start motion tasks:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>    <span class="n">mot</span><span class="o">.</span><span class="n">position_task</span><span class="p">(</span><span class="n">position</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">velocity</span><span class="o">=</span><span class="mi">5000</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../index.html" class="btn btn-neutral float-left" title="festo-edcon" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="profidrive.html" class="btn btn-neutral float-right" title="Profidrive" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Festo SE &amp; Co. KG.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

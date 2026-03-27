@@ -1,0 +1,61 @@
+edcon.profidrive package
+========================
+
+Submodules
+----------
+
+edcon.profidrive.telegram1 module
+---------------------------------
+
+.. automodule:: edcon.profidrive.telegram1
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+edcon.profidrive.telegram102 module
+-----------------------------------
+
+.. automodule:: edcon.profidrive.telegram102
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+edcon.profidrive.telegram111 module
+-----------------------------------
+
+.. automodule:: edcon.profidrive.telegram111
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+edcon.profidrive.telegram9 module
+---------------------------------
+
+.. automodule:: edcon.profidrive.telegram9
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+edcon.profidrive.telegram\_base module
+--------------------------------------
+
+.. automodule:: edcon.profidrive.telegram_base
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+edcon.profidrive.words module
+-----------------------------
+
+.. automodule:: edcon.profidrive.words
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: edcon.profidrive
+   :members:
+   :undoc-members:
+   :show-inheritance:
