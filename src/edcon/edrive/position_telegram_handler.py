@@ -151,7 +151,7 @@ class PositionTelegramHandler(TelegramHandler):
 
         def cond():
             self.update_inputs()
-            return self.telegram.zsw1.drive_stopped
+            return self.telegram.zsw1.target_position_reached
 
         if not self.wait_until_or_not_operational(
             cond, info_string=self.velocity_info_string
