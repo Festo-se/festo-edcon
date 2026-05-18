@@ -6,7 +6,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## v1.0.1 - 18.05.26
 ### Fixed
+- Fix `stop_motion_task()` returning to early if executed from standstill.
 - Fix old links
 
 ## v1.0.0 - 27.03.26
