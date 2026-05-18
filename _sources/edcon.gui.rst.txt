@@ -1,0 +1,109 @@
+edcon.gui package
+=================
+
+Submodules
+----------
+
+edcon.gui.connection\_widget module
+-----------------------------------
+
+.. automodule:: edcon.gui.connection_widget
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+edcon.gui.gui module
+--------------------
+
+.. automodule:: edcon.gui.gui
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+edcon.gui.main\_window module
+-----------------------------
+
+.. automodule:: edcon.gui.main_window
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+edcon.gui.motion\_tab module
+----------------------------
+
+.. automodule:: edcon.gui.motion_tab
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+edcon.gui.parameter\_tab module
+-------------------------------
+
+.. automodule:: edcon.gui.parameter_tab
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+edcon.gui.parameter\_table\_model module
+----------------------------------------
+
+.. automodule:: edcon.gui.parameter_table_model
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+edcon.gui.processdata\_model module
+-----------------------------------
+
+.. automodule:: edcon.gui.processdata_model
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+edcon.gui.processdata\_tab module
+---------------------------------
+
+.. automodule:: edcon.gui.processdata_tab
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+edcon.gui.pyqt\_helpers module
+------------------------------
+
+.. automodule:: edcon.gui.pyqt_helpers
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+edcon.gui.state\_diagram module
+-------------------------------
+
+.. automodule:: edcon.gui.state_diagram
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+edcon.gui.state\_diagram\_widget module
+---------------------------------------
+
+.. automodule:: edcon.gui.state_diagram_widget
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+edcon.gui.toggle\_button\_model module
+--------------------------------------
+
+.. automodule:: edcon.gui.toggle_button_model
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: edcon.gui
+   :members:
+   :undoc-members:
+   :show-inheritance:
