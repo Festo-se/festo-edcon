@@ -41,7 +41,7 @@ jobs:
           TWINE_REPOSITORY_URL: ${{ env.TWINE_REPO }}
           TWINE_PASSWORD: ${{ env.TWINE_PW }}
       - name: Archive release notes
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v7
         with:
           name: release-notes
           path: public/RELEASENOTES.md
