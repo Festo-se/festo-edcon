@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## v1.0.2 - 30.09.26
+### Added
+- Added icp and pnu maps for v37.1.4
+
 ## v1.0.1 - 18.05.26
 ### Fixed
 - Fix `stop_motion_task()` returning to early if executed from standstill.
