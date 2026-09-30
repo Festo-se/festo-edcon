@@ -57,8 +57,7 @@ class IOThread(Thread):
                 self.exe_event.set()
                 self.exe_event.clear()
 
-            # pylint: disable=bare-except
-            except:
+            except Exception:  # pylint: disable=broad-exception-caught
                 Logging.logger.error(traceback.format_exc())
                 self.stop()
 
