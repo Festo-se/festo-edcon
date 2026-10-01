@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## v1.0.3 - 01.10.26
+### Fixed
+- Fixed encoding for pnu map parsing.
+
 ## v1.0.2 - 30.09.26
 ### Added
 - Added icp and pnu maps for v37.1.4

@@ -20,7 +20,7 @@ def read_pnu_map_file(pnu_map_file: str = None) -> list:
     """
     if not pnu_map_file:
         pnu_map_file = PurePath(files("edcon") / "edrive" / "data" / "pnu_map.csv")
-    with open(pnu_map_file, encoding="ascii") as csvfile:
+    with open(pnu_map_file, encoding="utf-8") as csvfile:
         reader = csv.reader(csvfile, delimiter=";")
         # Define a namedtuple where the header row determines the field names
         pnu_map_item = namedtuple("pnu_map_item", next(reader, None))
