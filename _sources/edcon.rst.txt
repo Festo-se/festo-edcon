@@ -1,0 +1,22 @@
+edcon package
+=============
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   edcon.cli
+   edcon.edrive
+   edcon.gui
+   edcon.profidrive
+   edcon.utils
+
+Module contents
+---------------
+
+.. automodule:: edcon
+   :members:
+   :undoc-members:
+   :show-inheritance:

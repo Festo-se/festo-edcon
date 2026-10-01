@@ -1,0 +1,945 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>edcon.gui package &mdash; festo-edcon  documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="edcon.profidrive package" href="edcon.profidrive.html" />
+    <link rel="prev" title="edcon.edrive package" href="edcon.edrive.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            festo-edcon
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Features:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="features/edrive.html">EDrive - Communication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="features/edrive.html#edrive-motionhandler">EDrive - MotionHandler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="features/profidrive.html">Profidrive</a></li>
+<li class="toctree-l1"><a class="reference internal" href="features/cli.html">CLI</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Examples:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="examples/modbus.html">Modbus Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/ethernetip.html">EtherNet/IP Examples</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Indices and tables:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">Module Sources</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="edcon.html">edcon package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="edcon.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="edcon.cli.html">edcon.cli package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="edcon.edrive.html">edcon.edrive package</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">edcon.gui package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="edcon.profidrive.html">edcon.profidrive package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="edcon.utils.html">edcon.utils package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="edcon.html#module-edcon">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">festo-edcon</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">src</a></li>
+          <li class="breadcrumb-item"><a href="edcon.html">edcon package</a></li>
+      <li class="breadcrumb-item active">edcon.gui package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/edcon.gui.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="edcon-gui-package">
+<h1>edcon.gui package<a class="headerlink" href="#edcon-gui-package" title="Link to this heading"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
+</section>
+<section id="module-edcon.gui.connection_widget">
+<span id="edcon-gui-connection-widget-module"></span><h2>edcon.gui.connection_widget module<a class="headerlink" href="#module-edcon.gui.connection_widget" title="Link to this heading"></a></h2>
+<p>Functionality related to the connection widget.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="edcon.gui.connection_widget.ConnectionWidget">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">edcon.gui.connection_widget.</span></span><span class="sig-name descname"><span class="pre">ConnectionWidget</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ip_address</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">connect_function</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#edcon.gui.connection_widget.ConnectionWidget" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QWidget</span></code></p>
+<p>Defines the connection widget.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.gui.connection_widget.ConnectionWidget.connect">
+<span class="sig-name descname"><span class="pre">connect</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#edcon.gui.connection_widget.ConnectionWidget.connect" title="Link to this definition"></a></dt>
+<dd><p>Method that is called when the push_button_connect is clicked.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-edcon.gui.gui">
+<span id="edcon-gui-gui-module"></span><h2>edcon.gui.gui module<a class="headerlink" href="#module-edcon.gui.gui" title="Link to this heading"></a></h2>
+<p>GUI entry point.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="edcon.gui.gui.start_gui">
+<span class="sig-prename descclassname"><span class="pre">edcon.gui.gui.</span></span><span class="sig-name descname"><span class="pre">start_gui</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ip_address</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#edcon.gui.gui.start_gui" title="Link to this definition"></a></dt>
+<dd><p>Entry point for the GUI.</p>
+</dd></dl>
+
+</section>
+<section id="module-edcon.gui.main_window">
+<span id="edcon-gui-main-window-module"></span><h2>edcon.gui.main_window module<a class="headerlink" href="#module-edcon.gui.main_window" title="Link to this heading"></a></h2>
+<p>Setup code of the main window.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="edcon.gui.main_window.MainWindow">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">edcon.gui.main_window.</span></span><span class="sig-name descname"><span class="pre">MainWindow</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ip_address</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#edcon.gui.main_window.MainWindow" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QMainWindow</span></code></p>
+<p>Defines the main window.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.gui.main_window.MainWindow.on_tab_change">
+<span class="sig-name descname"><span class="pre">on_tab_change</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#edcon.gui.main_window.MainWindow.on_tab_change" title="Link to this definition"></a></dt>
+<dd><p>Callback for tab change events.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="edcon.gui.main_window.MainWindow.com">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">com</span></span><a class="headerlink" href="#edcon.gui.main_window.MainWindow.com" title="Link to this definition"></a></dt>
+<dd><p>Returns the communication driver.
+Trys to establish the connection if not yet established.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.gui.main_window.MainWindow.connect_function">
+<span class="sig-name descname"><span class="pre">connect_function</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ip_address</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#edcon.gui.main_window.MainWindow.connect_function" title="Link to this definition"></a></dt>
+<dd><p>Establishes the connection using the communication driver.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.gui.main_window.MainWindow.get_com_function">
+<span class="sig-name descname"><span class="pre">get_com_function</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#edcon.gui.main_window.MainWindow.get_com_function" title="Link to this definition"></a></dt>
+<dd><p>Returns the communication driver.
+Trys to establish the connection if not yet established.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.gui.main_window.MainWindow.pnu_read_function">
+<span class="sig-name descname"><span class="pre">pnu_read_function</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pnu</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#edcon.gui.main_window.MainWindow.pnu_read_function" title="Link to this definition"></a></dt>
+<dd><p>Reads a PNU using the communication driver.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.gui.main_window.MainWindow.pnu_write_function">
+<span class="sig-name descname"><span class="pre">pnu_write_function</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pnu</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#edcon.gui.main_window.MainWindow.pnu_write_function" title="Link to this definition"></a></dt>
+<dd><p>Writes a PNU using the communication driver.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-edcon.gui.motion_tab">
+<span id="edcon-gui-motion-tab-module"></span><h2>edcon.gui.motion_tab module<a class="headerlink" href="#module-edcon.gui.motion_tab" title="Link to this heading"></a></h2>
+<p>Setup code of the main window.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="edcon.gui.motion_tab.MotionTab">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">edcon.gui.motion_tab.</span></span><span class="sig-name descname"><span class="pre">MotionTab</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">get_com_function</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#edcon.gui.motion_tab.MotionTab" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QWidget</span></code></p>
+<p>Defines the motion tab widget.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.gui.motion_tab.MotionTab.reset">
+<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#edcon.gui.motion_tab.MotionTab.reset" title="Link to this definition"></a></dt>
+<dd><p>Reset the tab to its initial state.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.gui.motion_tab.MotionTab.update_functions">
+<span class="sig-name descname"><span class="pre">update_functions</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#edcon.gui.motion_tab.MotionTab.update_functions" title="Link to this definition"></a></dt>
+<dd><p>Updates the content of display labels</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.gui.motion_tab.MotionTab.update_homing_status">
+<span class="sig-name descname"><span class="pre">update_homing_status</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#edcon.gui.motion_tab.MotionTab.update_homing_status" title="Link to this definition"></a></dt>
+<dd><p>Updates the homing feedback label</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.gui.motion_tab.MotionTab.update_current_position">
+<span class="sig-name descname"><span class="pre">update_current_position</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#edcon.gui.motion_tab.MotionTab.update_current_position" title="Link to this definition"></a></dt>
+<dd><p>Updates the position display labels</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.gui.motion_tab.MotionTab.update_current_velocity">
+<span class="sig-name descname"><span class="pre">update_current_velocity</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#edcon.gui.motion_tab.MotionTab.update_current_velocity" title="Link to this definition"></a></dt>
+<dd><p>Updates the content display labels</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.gui.motion_tab.MotionTab.on_control_toggled">
+<span class="sig-name descname"><span class="pre">on_control_toggled</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enable</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#edcon.gui.motion_tab.MotionTab.on_control_toggled" title="Link to this definition"></a></dt>
+<dd><p>Powerstage toggle callback</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>enable</strong> (<em>bool</em>) – Value determining whether the powerstage should be enabled</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.gui.motion_tab.MotionTab.on_powerstage_toggled">
+<span class="sig-name descname"><span class="pre">on_powerstage_toggled</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enable</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#edcon.gui.motion_tab.MotionTab.on_powerstage_toggled" title="Link to this definition"></a></dt>
+<dd><p>Powerstage toggle callback</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>enable</strong> (<em>bool</em>) – Value determining whether the powerstage should be enabled</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.gui.motion_tab.MotionTab.button_acknowledge_all_clicked">
+<span class="sig-name descname"><span class="pre">button_acknowledge_all_clicked</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#edcon.gui.motion_tab.MotionTab.button_acknowledge_all_clicked" title="Link to this definition"></a></dt>
+<dd><p>Acknowledge button callback</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.gui.motion_tab.MotionTab.button_start_homing_clicked">
+<span class="sig-name descname"><span class="pre">button_start_homing_clicked</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#edcon.gui.motion_tab.MotionTab.button_start_homing_clicked" title="Link to this definition"></a></dt>
+<dd><p>Start homing button callback</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.gui.motion_tab.MotionTab.button_jog_negative_pressed">
+<span class="sig-name descname"><span class="pre">button_jog_negative_pressed</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#edcon.gui.motion_tab.MotionTab.button_jog_negative_pressed" title="Link to this definition"></a></dt>
+<dd><p>Jog negative button pressed callback</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.gui.motion_tab.MotionTab.button_jog_positive_pressed">
+<span class="sig-name descname"><span class="pre">button_jog_positive_pressed</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#edcon.gui.motion_tab.MotionTab.button_jog_positive_pressed" title="Link to this definition"></a></dt>
+<dd><p>Jog positive button pressed callback</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.gui.motion_tab.MotionTab.button_jog_released">
+<span class="sig-name descname"><span class="pre">button_jog_released</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#edcon.gui.motion_tab.MotionTab.button_jog_released" title="Link to this definition"></a></dt>
+<dd><p>Jog button released callback</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.gui.motion_tab.MotionTab.get_single_step_parameters">
+<span class="sig-name descname"><span class="pre">get_single_step_parameters</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#edcon.gui.motion_tab.MotionTab.get_single_step_parameters" title="Link to this definition"></a></dt>
+<dd><p>Function returning the single step parameters position and velocity</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Single step position
+velocity (int): Single step velocity</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>position (int)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.gui.motion_tab.MotionTab.button_single_step_negative_clicked">
+<span class="sig-name descname"><span class="pre">button_single_step_negative_clicked</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#edcon.gui.motion_tab.MotionTab.button_single_step_negative_clicked" title="Link to this definition"></a></dt>
+<dd><p>Single step negative button callback</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.gui.motion_tab.MotionTab.button_single_step_positive_clicked">
+<span class="sig-name descname"><span class="pre">button_single_step_positive_clicked</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#edcon.gui.motion_tab.MotionTab.button_single_step_positive_clicked" title="Link to this definition"></a></dt>
+<dd><p>Single step positive button callback</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.gui.motion_tab.MotionTab.button_execute_clicked">
+<span class="sig-name descname"><span class="pre">button_execute_clicked</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#edcon.gui.motion_tab.MotionTab.button_execute_clicked" title="Link to this definition"></a></dt>
+<dd><p>Execute button callback</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.gui.motion_tab.MotionTab.button_pause_motion_clicked">
+<span class="sig-name descname"><span class="pre">button_pause_motion_clicked</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#edcon.gui.motion_tab.MotionTab.button_pause_motion_clicked" title="Link to this definition"></a></dt>
+<dd><p>Pause button callback</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.gui.motion_tab.MotionTab.button_continue_motion_clicked">
+<span class="sig-name descname"><span class="pre">button_continue_motion_clicked</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#edcon.gui.motion_tab.MotionTab.button_continue_motion_clicked" title="Link to this definition"></a></dt>
+<dd><p>Continue button callback</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.gui.motion_tab.MotionTab.button_stop_movement_clicked">
+<span class="sig-name descname"><span class="pre">button_stop_movement_clicked</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#edcon.gui.motion_tab.MotionTab.button_stop_movement_clicked" title="Link to this definition"></a></dt>
+<dd><p>Stop movement button callback</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.gui.motion_tab.MotionTab.manage_button_connections">
+<span class="sig-name descname"><span class="pre">manage_button_connections</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enable</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#edcon.gui.motion_tab.MotionTab.manage_button_connections" title="Link to this definition"></a></dt>
+<dd><p>Manage button connections</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>enable</strong> (<em>bool</em>) – Value determining whether the buttons should be enabled</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-edcon.gui.parameter_tab">
+<span id="edcon-gui-parameter-tab-module"></span><h2>edcon.gui.parameter_tab module<a class="headerlink" href="#module-edcon.gui.parameter_tab" title="Link to this heading"></a></h2>
+<p>Setup code of the main window.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="edcon.gui.parameter_tab.ParameterTab">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">edcon.gui.parameter_tab.</span></span><span class="sig-name descname"><span class="pre">ParameterTab</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pnu_read_func</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pnu_write_func</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#edcon.gui.parameter_tab.ParameterTab" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QWidget</span></code></p>
+<p>Defines the parameter tab widget.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.gui.parameter_tab.ParameterTab.reset">
+<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#edcon.gui.parameter_tab.ParameterTab.reset" title="Link to this definition"></a></dt>
+<dd><p>Reset the tab to its initial state.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.gui.parameter_tab.ParameterTab.on_pnu_list_filter_text_changed">
+<span class="sig-name descname"><span class="pre">on_pnu_list_filter_text_changed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#edcon.gui.parameter_tab.ParameterTab.on_pnu_list_filter_text_changed" title="Link to this definition"></a></dt>
+<dd><p>Updates the table view content with name filter.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>text</strong> (<em>str</em>) – name filter text</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.gui.parameter_tab.ParameterTab.button_pnu_read_clicked">
+<span class="sig-name descname"><span class="pre">button_pnu_read_clicked</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#edcon.gui.parameter_tab.ParameterTab.button_pnu_read_clicked" title="Link to this definition"></a></dt>
+<dd><p>Button click callback for PNU read.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.gui.parameter_tab.ParameterTab.button_pnu_write_clicked">
+<span class="sig-name descname"><span class="pre">button_pnu_write_clicked</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#edcon.gui.parameter_tab.ParameterTab.button_pnu_write_clicked" title="Link to this definition"></a></dt>
+<dd><p>Button click callback for PNU write.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.gui.parameter_tab.ParameterTab.button_pnu_list_update_clicked">
+<span class="sig-name descname"><span class="pre">button_pnu_list_update_clicked</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#edcon.gui.parameter_tab.ParameterTab.button_pnu_list_update_clicked" title="Link to this definition"></a></dt>
+<dd><p>Button click callback for PNU list update.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-edcon.gui.parameter_table_model">
+<span id="edcon-gui-parameter-table-model-module"></span><h2>edcon.gui.parameter_table_model module<a class="headerlink" href="#module-edcon.gui.parameter_table_model" title="Link to this heading"></a></h2>
+<p>Model for the parameter table widget.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="edcon.gui.parameter_table_model.PnuDataItem">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">edcon.gui.parameter_table_model.</span></span><span class="sig-name descname"><span class="pre">PnuDataItem</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pnu</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameter_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#edcon.gui.parameter_table_model.PnuDataItem" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Class representing a PNU data item.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="edcon.gui.parameter_table_model.PnuDataItem.pnu">
+<span class="sig-name descname"><span class="pre">pnu</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#edcon.gui.parameter_table_model.PnuDataItem.pnu" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="edcon.gui.parameter_table_model.PnuDataItem.name">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#edcon.gui.parameter_table_model.PnuDataItem.name" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="edcon.gui.parameter_table_model.PnuDataItem.data_type">
+<span class="sig-name descname"><span class="pre">data_type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#edcon.gui.parameter_table_model.PnuDataItem.data_type" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="edcon.gui.parameter_table_model.PnuDataItem.parameter_id">
+<span class="sig-name descname"><span class="pre">parameter_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#edcon.gui.parameter_table_model.PnuDataItem.parameter_id" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="edcon.gui.parameter_table_model.PnuDataItem.value">
+<span class="sig-name descname"><span class="pre">value</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Any</span></em><a class="headerlink" href="#edcon.gui.parameter_table_model.PnuDataItem.value" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="edcon.gui.parameter_table_model.ParameterTableModel">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">edcon.gui.parameter_table_model.</span></span><span class="sig-name descname"><span class="pre">ParameterTableModel</span></span><a class="headerlink" href="#edcon.gui.parameter_table_model.ParameterTableModel" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QAbstractTableModel</span></code></p>
+<p>Defines the model for the parameter table.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.gui.parameter_table_model.ParameterTableModel.set_name_filter">
+<span class="sig-name descname"><span class="pre">set_name_filter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name_filter</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#edcon.gui.parameter_table_model.ParameterTableModel.set_name_filter" title="Link to this definition"></a></dt>
+<dd><p>uses name filter to filter the data</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>name_filter</strong> (<em>str</em>) – string sequence used to filter the pnu names</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.gui.parameter_table_model.ParameterTableModel.update_all_values">
+<span class="sig-name descname"><span class="pre">update_all_values</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pnu_read_func</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#edcon.gui.parameter_table_model.ParameterTableModel.update_all_values" title="Link to this definition"></a></dt>
+<dd><p>Fill the column “value” for all rows.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>pnu_read_func</strong> (<em>function</em>) – function to read a PNU</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.gui.parameter_table_model.ParameterTableModel.update_value">
+<span class="sig-name descname"><span class="pre">update_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pnu</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pnu_read_func</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#edcon.gui.parameter_table_model.ParameterTableModel.update_value" title="Link to this definition"></a></dt>
+<dd><p>Fill the column “value” for one row.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pnu</strong> (<em>int</em>) – PNU id</p></li>
+<li><p><strong>pnu_read_func</strong> (<em>function</em>) – function to read a PNU</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>updated data value or None</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.gui.parameter_table_model.ParameterTableModel.data">
+<span class="sig-name descname"><span class="pre">data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">role</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#edcon.gui.parameter_table_model.ParameterTableModel.data" title="Link to this definition"></a></dt>
+<dd><p>returns the cell value if the role is Qt.DisplayRole</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>index</strong> (<em>QModelIndex</em>) – index of the cell</p></li>
+<li><p><strong>role</strong> (<em>Qt.DisplayRole</em>) – role of the cell</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>cell value</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Any</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.gui.parameter_table_model.ParameterTableModel.rowCount">
+<span class="sig-name descname"><span class="pre">rowCount</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#edcon.gui.parameter_table_model.ParameterTableModel.rowCount" title="Link to this definition"></a></dt>
+<dd><p>returns the number of rows.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>index</strong> (<em>QModelIndex</em>) – index of the cell</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>number of rows</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.gui.parameter_table_model.ParameterTableModel.columnCount">
+<span class="sig-name descname"><span class="pre">columnCount</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#edcon.gui.parameter_table_model.ParameterTableModel.columnCount" title="Link to this definition"></a></dt>
+<dd><p>returns the number of columns.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>index</strong> (<em>QModelIndex</em>) – index of the cell</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>number of columns</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.gui.parameter_table_model.ParameterTableModel.headerData">
+<span class="sig-name descname"><span class="pre">headerData</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">section</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">orientation</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">role</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#edcon.gui.parameter_table_model.ParameterTableModel.headerData" title="Link to this definition"></a></dt>
+<dd><p>Used to provide data for the header rows</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>section</strong> (<em>int</em>) – section</p></li>
+<li><p><strong>orientation</strong> (<em>Qt.Orientation</em>) – orientation</p></li>
+<li><p><strong>role</strong> (<em>Qt.DisplayRole</em>) – role</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>header value</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Any</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-edcon.gui.processdata_model">
+<span id="edcon-gui-processdata-model-module"></span><h2>edcon.gui.processdata_model module<a class="headerlink" href="#module-edcon.gui.processdata_model" title="Link to this heading"></a></h2>
+<p>Model for the processdata.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="edcon.gui.processdata_model.BasicState">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">edcon.gui.processdata_model.</span></span><span class="sig-name descname"><span class="pre">BasicState</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#edcon.gui.processdata_model.BasicState" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<p>Defines the states of the basic profidrive state machine.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="edcon.gui.processdata_model.BasicState.SWITCHING_ON_INHIBITED">
+<span class="sig-name descname"><span class="pre">SWITCHING_ON_INHIBITED</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#edcon.gui.processdata_model.BasicState.SWITCHING_ON_INHIBITED" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="edcon.gui.processdata_model.BasicState.READY_FOR_SWITCHING_ON">
+<span class="sig-name descname"><span class="pre">READY_FOR_SWITCHING_ON</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#edcon.gui.processdata_model.BasicState.READY_FOR_SWITCHING_ON" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="edcon.gui.processdata_model.BasicState.SWITCHED_ON">
+<span class="sig-name descname"><span class="pre">SWITCHED_ON</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></em><a class="headerlink" href="#edcon.gui.processdata_model.BasicState.SWITCHED_ON" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="edcon.gui.processdata_model.BasicState.OPERATION">
+<span class="sig-name descname"><span class="pre">OPERATION</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">3</span></em><a class="headerlink" href="#edcon.gui.processdata_model.BasicState.OPERATION" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="edcon.gui.processdata_model.BasicState.UNDEFINED">
+<span class="sig-name descname"><span class="pre">UNDEFINED</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">7</span></em><a class="headerlink" href="#edcon.gui.processdata_model.BasicState.UNDEFINED" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="edcon.gui.processdata_model.ProcessDataModel">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">edcon.gui.processdata_model.</span></span><span class="sig-name descname"><span class="pre">ProcessDataModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tgh</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#edcon.gui.processdata_model.ProcessDataModel" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QStandardItemModel</span></code></p>
+<p>Defines the process data model.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.gui.processdata_model.ProcessDataModel.clear">
+<span class="sig-name descname"><span class="pre">clear</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#edcon.gui.processdata_model.ProcessDataModel.clear" title="Link to this definition"></a></dt>
+<dd><p>Clears the treeview.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.gui.processdata_model.ProcessDataModel.fault_string">
+<span class="sig-name descname"><span class="pre">fault_string</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#edcon.gui.processdata_model.ProcessDataModel.fault_string" title="Link to this definition"></a></dt>
+<dd><p>Returns the fault string.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.gui.processdata_model.ProcessDataModel.basic_state">
+<span class="sig-name descname"><span class="pre">basic_state</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#edcon.gui.processdata_model.ProcessDataModel.basic_state" title="Link to this definition"></a></dt>
+<dd><p>Returns the basic state according to current process data words.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.gui.processdata_model.ProcessDataModel.word_names">
+<span class="sig-name descname"><span class="pre">word_names</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">word_list</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#edcon.gui.processdata_model.ProcessDataModel.word_names" title="Link to this definition"></a></dt>
+<dd><p>Returns a list of names of words provided in word_list.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>word_list</strong> (<em>list</em>) – list of word objects to get names from</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>iterator of word names</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>iter</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.gui.processdata_model.ProcessDataModel.is_bitwise_word">
+<span class="sig-name descname"><span class="pre">is_bitwise_word</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">word_name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#edcon.gui.processdata_model.ProcessDataModel.is_bitwise_word" title="Link to this definition"></a></dt>
+<dd><p>Returns True if telegram attribute word_name is an BitwiseWord.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>word_name</strong> (<em>string</em>) – word name</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if word is Bitwiseword</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.gui.processdata_model.ProcessDataModel.append_bitwise_word_item">
+<span class="sig-name descname"><span class="pre">append_bitwise_word_item</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">readonly</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#edcon.gui.processdata_model.ProcessDataModel.append_bitwise_word_item" title="Link to this definition"></a></dt>
+<dd><p>Append a bitwise word item to provided root.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>root</strong> (<em>Qstandarditem</em>) – root item to append to</p></li>
+<li><p><strong>name</strong> (<em>string</em>) – name of bit item</p></li>
+<li><p><strong>value</strong> (<em>bool</em>) – value of bit item</p></li>
+<li><p><strong>readonly</strong> (<em>bool</em>) – read only</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.gui.processdata_model.ProcessDataModel.append_word_item">
+<span class="sig-name descname"><span class="pre">append_word_item</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">readonly</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#edcon.gui.processdata_model.ProcessDataModel.append_word_item" title="Link to this definition"></a></dt>
+<dd><p>Append word item to provided root.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>root</strong> (<em>Qstandarditem</em>) – root item to append to</p></li>
+<li><p><strong>name</strong> (<em>string</em>) – name of bit item</p></li>
+<li><p><strong>value</strong> (<em>bool</em>) – value of bit item</p></li>
+<li><p><strong>readonly</strong> (<em>bool</em>) – read only</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.gui.processdata_model.ProcessDataModel.populate">
+<span class="sig-name descname"><span class="pre">populate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#edcon.gui.processdata_model.ProcessDataModel.populate" title="Link to this definition"></a></dt>
+<dd><p>Populates a treeview model using the respective telegram handler</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.gui.processdata_model.ProcessDataModel.update_bitwise_words">
+<span class="sig-name descname"><span class="pre">update_bitwise_words</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#edcon.gui.processdata_model.ProcessDataModel.update_bitwise_words" title="Link to this definition"></a></dt>
+<dd><p>Updates all bitwise word item labels</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.gui.processdata_model.ProcessDataModel.on_data_changed">
+<span class="sig-name descname"><span class="pre">on_data_changed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#edcon.gui.processdata_model.ProcessDataModel.on_data_changed" title="Link to this definition"></a></dt>
+<dd><p>Item changed callback for handling item changed events</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>index</strong> (<em>QModelIndex</em>) – Index of the item that changed</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.gui.processdata_model.ProcessDataModel.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#edcon.gui.processdata_model.ProcessDataModel.update" title="Link to this definition"></a></dt>
+<dd><p>Updates the content of inputs tree</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-edcon.gui.processdata_tab">
+<span id="edcon-gui-processdata-tab-module"></span><h2>edcon.gui.processdata_tab module<a class="headerlink" href="#module-edcon.gui.processdata_tab" title="Link to this heading"></a></h2>
+<p>Setup code of the process data tab.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="edcon.gui.processdata_tab.ProcessDataTab">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">edcon.gui.processdata_tab.</span></span><span class="sig-name descname"><span class="pre">ProcessDataTab</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">get_com_function</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#edcon.gui.processdata_tab.ProcessDataTab" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QWidget</span></code></p>
+<p>Defines the process data tab.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.gui.processdata_tab.ProcessDataTab.reset">
+<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#edcon.gui.processdata_tab.ProcessDataTab.reset" title="Link to this definition"></a></dt>
+<dd><p>Reset the tab to its initial state.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.gui.processdata_tab.ProcessDataTab.update_functions">
+<span class="sig-name descname"><span class="pre">update_functions</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#edcon.gui.processdata_tab.ProcessDataTab.update_functions" title="Link to this definition"></a></dt>
+<dd><p>Updates the content of process data tab</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.gui.processdata_tab.ProcessDataTab.select_telegramhandler">
+<span class="sig-name descname"><span class="pre">select_telegramhandler</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#edcon.gui.processdata_tab.ProcessDataTab.select_telegramhandler" title="Link to this definition"></a></dt>
+<dd><p>Select a Telegram handler from the combobox.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.gui.processdata_tab.ProcessDataTab.expand_all_button_clicked">
+<span class="sig-name descname"><span class="pre">expand_all_button_clicked</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#edcon.gui.processdata_tab.ProcessDataTab.expand_all_button_clicked" title="Link to this definition"></a></dt>
+<dd><p>Expand the whole treeview</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.gui.processdata_tab.ProcessDataTab.toggle_graphicview">
+<span class="sig-name descname"><span class="pre">toggle_graphicview</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#edcon.gui.processdata_tab.ProcessDataTab.toggle_graphicview" title="Link to this definition"></a></dt>
+<dd><p>Toggle graphicview button callback</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-edcon.gui.pyqt_helpers">
+<span id="edcon-gui-pyqt-helpers-module"></span><h2>edcon.gui.pyqt_helpers module<a class="headerlink" href="#module-edcon.gui.pyqt_helpers" title="Link to this heading"></a></h2>
+<p>Helper functions used for PyQt interaction.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="edcon.gui.pyqt_helpers.style_string">
+<span class="sig-prename descclassname"><span class="pre">edcon.gui.pyqt_helpers.</span></span><span class="sig-name descname"><span class="pre">style_string</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">string</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'black'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weight</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">400</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">font_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">8</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#edcon.gui.pyqt_helpers.style_string" title="Link to this definition"></a></dt>
+<dd><p>Adds a style to the provided string.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>color</strong> (<em>str</em>) – color of the font</p></li>
+<li><p><strong>weight</strong> (<em>int</em>) – weight of the font</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="edcon.gui.pyqt_helpers.bold_string">
+<span class="sig-prename descclassname"><span class="pre">edcon.gui.pyqt_helpers.</span></span><span class="sig-name descname"><span class="pre">bold_string</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">string</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'black'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">font_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">8</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#edcon.gui.pyqt_helpers.bold_string" title="Link to this definition"></a></dt>
+<dd><p>Adds a bold style to the provided string.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>color</strong> (<em>str</em>) – color of the font</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="edcon.gui.pyqt_helpers.checkmark">
+<span class="sig-prename descclassname"><span class="pre">edcon.gui.pyqt_helpers.</span></span><span class="sig-name descname"><span class="pre">checkmark</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#edcon.gui.pyqt_helpers.checkmark" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A bold green checkmark symbol.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>string</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="edcon.gui.pyqt_helpers.ballot">
+<span class="sig-prename descclassname"><span class="pre">edcon.gui.pyqt_helpers.</span></span><span class="sig-name descname"><span class="pre">ballot</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#edcon.gui.pyqt_helpers.ballot" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A bold red ballot symbol.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>string</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-edcon.gui.state_diagram">
+<span id="edcon-gui-state-diagram-module"></span><h2>edcon.gui.state_diagram module<a class="headerlink" href="#module-edcon.gui.state_diagram" title="Link to this heading"></a></h2>
+<p>Scene for the state diagram.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="edcon.gui.state_diagram.StateDiagram">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">edcon.gui.state_diagram.</span></span><span class="sig-name descname"><span class="pre">StateDiagram</span></span><a class="headerlink" href="#edcon.gui.state_diagram.StateDiagram" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QGraphicsScene</span></code></p>
+<p>Defines the state diagram scene.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.gui.state_diagram.StateDiagram.setup_states">
+<span class="sig-name descname"><span class="pre">setup_states</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#edcon.gui.state_diagram.StateDiagram.setup_states" title="Link to this definition"></a></dt>
+<dd><p>Sets up and adds labeled state rectangles to the scene at specified positions</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.gui.state_diagram.StateDiagram.add_arrow">
+<span class="sig-name descname"><span class="pre">add_arrow</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">start</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">condition_left</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">condition_right</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#edcon.gui.state_diagram.StateDiagram.add_arrow" title="Link to this definition"></a></dt>
+<dd><p>Adds arrows and their conditions on the correct place</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>start</strong> (<em>int</em>) – starting point</p></li>
+<li><p><strong>end</strong> (<em>int</em>) – ending point</p></li>
+<li><p><strong>condition_left</strong> (<em>str</em>) – condition on the left side</p></li>
+<li><p><strong>condition_right</strong> (<em>str</em>) – condition on the right side</p></li>
+<li><p><strong>offset</strong> (<em>int</em>)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.gui.state_diagram.StateDiagram.setup_arrows">
+<span class="sig-name descname"><span class="pre">setup_arrows</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#edcon.gui.state_diagram.StateDiagram.setup_arrows" title="Link to this definition"></a></dt>
+<dd><p>“”Setup the positions for the arrows</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.gui.state_diagram.StateDiagram.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">current_state</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#edcon.gui.state_diagram.StateDiagram.update" title="Link to this definition"></a></dt>
+<dd><p>Update the active state in state diagram</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>current_state</strong> – State to be set as active</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-edcon.gui.state_diagram_widget">
+<span id="edcon-gui-state-diagram-widget-module"></span><h2>edcon.gui.state_diagram_widget module<a class="headerlink" href="#module-edcon.gui.state_diagram_widget" title="Link to this heading"></a></h2>
+<p>Functionality related to the connection widget.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="edcon.gui.state_diagram_widget.StateDiagramWidget">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">edcon.gui.state_diagram_widget.</span></span><span class="sig-name descname"><span class="pre">StateDiagramWidget</span></span><a class="headerlink" href="#edcon.gui.state_diagram_widget.StateDiagramWidget" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QWidget</span></code></p>
+<p>Defines the state diagram widget.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.gui.state_diagram_widget.StateDiagramWidget.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">current_state</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#edcon.gui.state_diagram_widget.StateDiagramWidget.update" title="Link to this definition"></a></dt>
+<dd><p>Updates the state diagram view</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-edcon.gui.toggle_button_model">
+<span id="edcon-gui-toggle-button-model-module"></span><h2>edcon.gui.toggle_button_model module<a class="headerlink" href="#module-edcon.gui.toggle_button_model" title="Link to this heading"></a></h2>
+<p>Model for the toggle button.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="edcon.gui.toggle_button_model.ToggleButtonModel">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">edcon.gui.toggle_button_model.</span></span><span class="sig-name descname"><span class="pre">ToggleButtonModel</span></span><a class="headerlink" href="#edcon.gui.toggle_button_model.ToggleButtonModel" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QPushButton</span></code></p>
+<p>Defines the toggle button model.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="edcon.gui.toggle_button_model.ToggleButtonModel.toggledState">
+<span class="sig-name descname"><span class="pre">toggledState</span></span><a class="headerlink" href="#edcon.gui.toggle_button_model.ToggleButtonModel.toggledState" title="Link to this definition"></a></dt>
+<dd><p>int = …, arguments: Sequence = …) -&gt; PYQT_SIGNAL</p>
+<p>types is normally a sequence of individual types.  Each type is either a
+type object or a string that is the name of a C++ type.  Alternatively
+each type could itself be a sequence of types each describing a different
+overloaded signal.
+name is the optional C++ name of the signal.  If it is not specified then
+the name of the class attribute that is bound to the signal is used.
+revision is the optional revision of the signal that is exported to QML.
+If it is not specified then 0 is used.
+arguments is the optional sequence of the names of the signal’s arguments.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pyqtSignal(<a href="#id1"><span class="problematic" id="id2">*</span></a>types, name</p>
+</dd>
+<dt class="field-even">Type<span class="colon">:</span></dt>
+<dd class="field-even"><p>str = …, revision</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="edcon.gui.toggle_button_model.ToggleButtonModel.on_toggle">
+<span class="sig-name descname"><span class="pre">on_toggle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">checked</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#edcon.gui.toggle_button_model.ToggleButtonModel.on_toggle" title="Link to this definition"></a></dt>
+<dd><p>Callback for toggle signal of the button.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-edcon.gui">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-edcon.gui" title="Link to this heading"></a></h2>
+<p>Test import of pyqt5.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="edcon.edrive.html" class="btn btn-neutral float-left" title="edcon.edrive package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="edcon.profidrive.html" class="btn btn-neutral float-right" title="edcon.profidrive package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Festo SE &amp; Co. KG.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
